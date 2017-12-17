@@ -53,7 +53,7 @@
         return (this.owner === 'mother') ? '#f2dede' : '#d9edf7'
       },
       breedingProgress() {
-        return this.$store.getters.critters(this.location, this.owner).progress
+        return this.critter.progress
       },
       progressBar() {
         return {

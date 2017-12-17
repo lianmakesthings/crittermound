@@ -60,7 +60,14 @@ export const store = new Vuex.Store({
     setCritterHealth(state, {critter, value}) {
       critter.currentHealth = value;
     },
-
+    replaceParent(state, {location, gender}) {
+      const hatcherySlot = state[location][gender].critters;
+      const critter = hatcherySlot.shift();
+      if (critter) {
+        const parent = (gender === Critter.GENDER_FEMALE) ? 'mother' : 'father';
+        state[location][parent].critters = critter;
+      }
+    }
   },
   actions: {
     healCritter: (context, critterId) => {
@@ -80,6 +87,9 @@ export const store = new Vuex.Store({
 
       context.commit('addNewCritter', {location, critter: child});
 
+    },
+    replaceParent: (context, payload) => {
+      context.commit('replaceParent', payload);
     }
   }
 });

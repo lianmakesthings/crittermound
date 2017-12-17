@@ -1,6 +1,11 @@
 <template>
   <div class="hatchery-slot">
-    <h3>{{ owner }}</h3>
+    <div>
+      <h3>{{ owner }}</h3>
+      <div>
+        <button v-on:click="replaceParent">{{ parent }}</button>
+      </div>
+    </div>
     <table class="table">
       <thead>
         <tr v-bind:style="headerBackground">
@@ -42,6 +47,14 @@
         type: String,
       }
     },
+    methods: {
+      replaceParent: function () {
+        this.$store.dispatch('replaceParent', {
+          location: this.location,
+          gender: this.owner
+        })
+      }
+    },
     computed: {
       critters() {
         return this.$store.getters.critters(this.location, this.owner)
@@ -53,6 +66,9 @@
         return {
           'background-color': this.bgColor
         }
+      },
+      parent() {
+        return (this.owner === 'female') ? 'Queen' : 'King'
       }
     }
   }
