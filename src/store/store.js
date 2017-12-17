@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { Critter, CritterFactory } from '../lib/Critter';
-import { CoinFlip } from '../lib/Helpers';
+import { CoinFlip, StatVariance, RandomInRange } from '../lib/Helpers';
 
 Vue.use(Vuex);
 
@@ -76,11 +76,9 @@ export const store = new Vuex.Store({
       context.commit('setCritterHealth', {critter: father, value: 0});
 
       const id = context.state.totalCritters +1;
-      const generation = Math.max(mother.generation, father.generation) + 1;
-      const gender = CoinFlip() ? Critter.GENDER_FEMALE : Critter.GENDER_MALE;
+      const child = CritterFactory.breed(id, mother, father);
 
-      const critter = CritterFactory.default(id, generation, gender);
-      context.commit('addNewCritter', {location, critter});
+      context.commit('addNewCritter', {location, critter: child});
 
     }
   }

@@ -5,9 +5,17 @@ const SmartRound = (value) => {
 const CoinFlip = () => {
   return Math.random() < .5 ? true : false;
 };
+const StatVariance = (value) => {
+  return value<1e3 ? Math.floor(value/50)+1 : 20
+};
+const RandomInRange = (min , max) => {
+  return Math.floor(Math.random()*(max-min+1))+min
+};
 
 export {
   ticksPerSecond,
   SmartRound,
-  CoinFlip
+  CoinFlip,
+  StatVariance,
+  RandomInRange
 }

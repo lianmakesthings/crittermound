@@ -1,4 +1,5 @@
-import { ticksPerSecond, SmartRound } from './Helpers';
+import { ticksPerSecond, SmartRound, CoinFlip, StatVariance, RandomInRange } from './Helpers';
+import Trait from './Trait';
 
 class Critter {
   static GENDER_FEMALE = 'female';
@@ -12,28 +13,12 @@ class Critter {
     this.generation = generation;
     this.gender = gender;
     this.rank = this.RANK_RECRUIT;
-    this.traits = [
-      {
-        name: 'vitality',
-        value: 5
-      },
-      {
-        name: 'strength',
-        value: 5
-      },
-      {
-        name: 'agility',
-        value: 5
-      },
-      {
-        name: 'bite',
-        value: 5
-      },
-      {
-        name: 'sting',
-        value: 5
-      }
-    ];
+    this.traits = [];
+    this.traits.push(new Trait('vitality', 5));
+    this.traits.push(new Trait('strength', 5));
+    this.traits.push(new Trait('agility', 5));
+    this.traits.push(new Trait('bite', 5));
+    this.traits.push(new Trait('sting', 5));
     this.currentHealth = 0;
   }
 
@@ -64,6 +49,25 @@ class Critter {
 class CritterFactory {
   static default(id, generation, gender) {
     return new Critter(id, generation, gender)
+  }
+
+  static breed(id, mother, father) {
+    const generation = Math.max(mother.generation, father.generation) + 1;
+    const gender = CoinFlip() ? Critter.GENDER_FEMALE : Critter.GENDER_MALE;
+    const child = new Critter(id, generation, gender);
+
+    for (let i = 0; i < mother.traits.length; i++) {
+      const motherVal = mother.traits[i].base;
+      const fatherVal = father.traits[i].base;
+
+      var min = motherVal < fatherVal ? motherVal - StatVariance(motherVal) : fatherVal - StatVariance(fatherVal);
+      var max = motherVal > fatherVal ? motherVal + StatVariance(motherVal) : fatherVal + StatVariance(fatherVal);
+      var traitValue = RandomInRange(min,max);
+      traitValue = Math.max(traitValue, min);
+      traitValue = Math.min(traitValue, Trait.MAX_VALUE);
+      child.traits[i].base = traitValue;
+    }
+    return child
   }
 }
 export {
