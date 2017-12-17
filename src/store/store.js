@@ -15,14 +15,16 @@ export const store = new Vuex.Store({
     royalHatchery: {
       queen: queen,
       king: king,
+      female: [],
+      male: []
     }
   },
   getters: {
-    queen: state => {
-      return state.royalHatchery.queen
-    },
-    king: state => {
-      return state.royalHatchery.king
+    critters: (state) => {
+      return (context, owner) => {
+        return state[context][owner];
+      }
+
     }
   }
 });

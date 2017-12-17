@@ -1,5 +1,5 @@
 <template>
-  <div class="breeding-slot">
+  <div class="hatchery-slot">
     <h3>{{ owner }}</h3>
     <div>
       <div>
@@ -10,7 +10,7 @@
         <span>Bite</span>
         <span>Sting</span>
       </div>
-      <div>
+      <div v-for="critter in critters">
         <span>{{ critter.score }}</span>
         <span>{{ critter.traits[0].value }}</span>
         <span>{{ critter.traits[1].value }}</span>
@@ -26,8 +26,8 @@
   export default {
     props: {
       context: {
-        require: true,
-        type: String
+        required: true,
+        type: String,
       },
       owner: {
         required: true,
@@ -39,7 +39,7 @@
       }
     },
     computed: {
-      critter() {
+      critters() {
         return this.$store.getters.critters(this.context, this.owner)
       }
     }
