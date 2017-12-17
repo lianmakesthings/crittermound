@@ -13,27 +13,45 @@ export const store = new Vuex.Store({
   state: {
     totalCritters: 2,
     royalHatchery: {
-      mother: queen,
-      father: king,
-      female: [],
-      male: []
+      mother: {
+        critters: queen
+      },
+      father: {
+        critters: king
+      },
+      female: {
+        size: 1,
+        critters: []
+      },
+      male: {
+        size: 1,
+        critters: []
+      }
     }
   },
   getters: {
     critters: state =>
       (location, owner) => {
-        return state[location][owner];
+        return state[location][owner].critters;
       },
     findCritter: state =>
       critterId => {
-        const allCritters = [state.royalHatchery.mother].concat([state.royalHatchery.father]).concat(state.royalHatchery.female).concat(state.royalHatchery.male);
+        const allCritters = [state.royalHatchery.mother.critters]
+          .concat([state.royalHatchery.father.critters])
+          .concat(state.royalHatchery.female.critters)
+          .concat(state.royalHatchery.male.critters);
         return allCritters.find(critter => critterId === critter.id)
       },
   },
   mutations: {
     addNewCritter(state, {location, critter}) {
       state.totalCritters++;
-      state[location][critter.gender].push(critter);
+      const slot = state[location][critter.gender];
+      slot.critters.push(critter);
+      slot.critters.sort((a, b) => b.score - a.score);
+      if (slot.critters.length > slot.size) {
+        slot.critters.pop()
+      }
     },
     setCritterHealth(state, {critter, value}) {
       critter.currentHealth = value;
@@ -48,8 +66,8 @@ export const store = new Vuex.Store({
 
     },
     breedCritter: (context, location) => {
-      const mother = context.state[location].mother;
-      const father = context.state[location].father;
+      const mother = context.state[location].mother.critters;
+      const father = context.state[location].father.critters;
 
       const id = context.state.totalCritters +1;
       const generation = Math.max(mother.generation, father.generation) + 1;
