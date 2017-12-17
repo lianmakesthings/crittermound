@@ -29,6 +29,24 @@ export const store = new Vuex.Store({
         size: 1,
         critters: []
       }
+    },
+    worker: {
+      mine: {
+        size: 1,
+        critters: []
+      },
+      farm: {
+        size: 1,
+        critters: []
+      },
+      carry: {
+        size: 1,
+        critters: []
+      },
+      factory: {
+        size: 1,
+        critters: []
+      }
     }
   },
   getters: {

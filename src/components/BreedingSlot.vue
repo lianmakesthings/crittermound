@@ -39,10 +39,6 @@
       owner: {
         required: true,
         type: String,
-      },
-      id: {
-        required: true,
-        type: String,
       }
     },
     computed: {

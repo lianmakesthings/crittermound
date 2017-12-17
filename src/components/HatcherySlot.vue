@@ -9,12 +9,12 @@
     <table class="table">
       <thead>
         <tr v-bind:style="headerBackground">
-          <td>Score</td>
-          <td>Vitality</td>
-          <td>Strength</td>
-          <td>Agility</td>
-          <td>Bite</td>
-          <td>Sting</td>
+          <th>Score</th>
+          <th>Vitality</th>
+          <th>Strength</th>
+          <th>Agility</th>
+          <th>Bite</th>
+          <th>Sting</th>
         </tr>
       </thead>
       <tbody>
@@ -42,10 +42,6 @@
         required: true,
         type: String,
       },
-      id: {
-        required: true,
-        type: String,
-      }
     },
     methods: {
       replaceParent: function () {
