@@ -4,6 +4,7 @@ import Vue from 'vue';
 import App from './App';
 import { store } from './store/store';
 import GameController from './lib/GameController';
+require('../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss');
 
 Vue.config.productionTip = false;
 

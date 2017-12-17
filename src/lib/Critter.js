@@ -57,16 +57,19 @@ class CritterFactory {
     const child = new Critter(id, generation, gender);
 
     for (let i = 0; i < mother.traits.length; i++) {
-      const motherVal = mother.traits[i].base;
-      const fatherVal = father.traits[i].base;
+      const motherTrait = mother.traits[i];
+      const fatherTrait = father.traits[i];
 
-      var min = motherVal < fatherVal ? motherVal - StatVariance(motherVal) : fatherVal - StatVariance(fatherVal);
-      var max = motherVal > fatherVal ? motherVal + StatVariance(motherVal) : fatherVal + StatVariance(fatherVal);
-      var traitValue = RandomInRange(min,max);
-      traitValue = Math.max(traitValue, min);
-      traitValue = Math.min(traitValue, Trait.MAX_VALUE);
-      child.traits[i].base = traitValue;
+      // calc base value for trait
+      let minTraitVal = Math.min(motherTrait.base, fatherTrait.base);
+      minTraitVal = minTraitVal - StatVariance(minTraitVal);
+      let maxTraitVal = Math.max(motherTrait.base, fatherTrait.base);
+      maxTraitVal = maxTraitVal + StatVariance(maxTraitVal);
+      child.traits[i].base = RandomInRange(minTraitVal, Math.min(maxTraitVal, Trait.MAX_VALUE));
+
+
     }
+
     return child
   }
 }
