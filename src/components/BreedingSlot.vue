@@ -1,6 +1,6 @@
 <template>
   <div class="breeding-slot">
-    <h3>{{ owner }}</h3>
+    <h3>{{ name }}</h3>
     <div class="progress">
       <div class="progress-bar progress-bar-striped" v-bind:style="progressBar"></div>
     </div>
@@ -61,6 +61,9 @@
         return {
           'background-color': this.bgColor
         }
+      },
+      name() {
+        return (this.owner === 'mother') ? 'Queen' : 'King';
       }
     }
   }

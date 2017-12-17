@@ -1,7 +1,6 @@
 <template>
   <div class="hatchery-slot">
     <div>
-      <h3>{{ owner }}</h3>
       <div>
         <button v-on:click="replaceParent">{{ parent }}</button>
       </div>
