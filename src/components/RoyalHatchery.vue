@@ -1,11 +1,11 @@
 <template>
   <div id="royal-hatchery">
     <h2>Royal Hatchery</h2>
-    <breeding-slot id="queen-breeding-slot" context="royalHatchery" owner="queen"></breeding-slot>
-    <breeding-slot id="king-breeding-slot" context="royalHatchery" owner="king"></breeding-slot>
+    <breeding-slot id="queen-breeding-slot" location="royalHatchery" owner="mother"></breeding-slot>
+    <breeding-slot id="king-breeding-slot" location="royalHatchery" owner="father"></breeding-slot>
 
-    <hatchery-slot id="female-hatchery-slot" context="royalHatchery" owner="female"></hatchery-slot>
-    <hatchery-slot id="male-hatchery-slot" context="royalHatchery" owner="male"></hatchery-slot>
+    <hatchery-slot id="female-hatchery-slot" location="royalHatchery" owner="female"></hatchery-slot>
+    <hatchery-slot id="male-hatchery-slot" location="royalHatchery" owner="male"></hatchery-slot>
   </div>
 </template>
 

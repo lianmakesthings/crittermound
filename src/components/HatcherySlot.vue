@@ -25,7 +25,7 @@
 <script>
   export default {
     props: {
-      context: {
+      location: {
         required: true,
         type: String,
       },
@@ -40,7 +40,7 @@
     },
     computed: {
       critters() {
-        return this.$store.getters.critters(this.context, this.owner)
+        return this.$store.getters.critters(this.location, this.owner)
       }
     }
   }

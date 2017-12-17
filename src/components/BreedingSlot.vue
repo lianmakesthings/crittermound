@@ -1,6 +1,7 @@
 <template>
   <div class="breeding-slot">
     <h3>{{ owner }}</h3>
+    <div>{{ critter.progress }}</div>
     <div>
       <div>
         <span>Score</span>
@@ -25,8 +26,8 @@
 <script>
   export default {
     props: {
-      context: {
-        require: true,
+      location: {
+        required: true,
         type: String
       },
       owner: {
@@ -40,7 +41,7 @@
     },
     computed: {
       critter() {
-        return this.$store.getters.critters(this.context, this.owner)
+        return this.$store.getters.critters(this.location, this.owner)
       }
     }
   }
