@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { CoinFlip, StatVariance, RandomInRange } from '../lib/Helpers';
+import { SmartRound } from '../lib/Helpers';
 import { Critter, CritterFactory } from '../lib/Critter';
 
 Vue.use(Vuex);
@@ -40,32 +40,41 @@ export const store = new Vuex.Store({
       }
     },
     worker: {
+      dirtStored: 0,
+      grassStored: 0,
+      factoryDirtStored: 0,
+      factoryGrassStored: 0,
+      dirtPerSecond: 0,
+      grassPerSecond: 0,
+      dirtCarriedPerSecond: 0,
+      grassCarriedPerSecond: 0,
+      sodPerSecond: 0,
       mine: {
         sortBy: 'dirtPerSecond',
-        productionPerSecond: 0,
+        productionPerSecondRaw: 0,
         bonusPercent: 0,
         size: 1,
         critters: []
       },
       farm: {
         sortBy: 'grassPerSecond',
-        productionPerSecond: 0,
+        productionPerSecondRaw: 0,
         bonusPercent: 0,
         size: 1,
         critters: []
       },
       carry: {
         sortBy: 'carryPerSecond',
-        productionPerSecond: 0,
+        productionPerSecondRaw: 0,
         bonusPercent: 0,
         size: 1,
         critters: []
       },
       factory: {
         sortBy: 'sodPerSecond',
-        productionPerSecond: 0,
-        bonusPercent: 0,
+        productionPerSecondRaw: 0,
         size: 1,
+        bonusPercent: 0,
         critters: []
       }
     }
@@ -75,6 +84,8 @@ export const store = new Vuex.Store({
       (location, type) => {
         return state[location][type].critters;
       },
+    sodProduction: state => state.worker,
+    totalSod: state => state.totalSod,
     mound: state =>
       (location, type) => {
         return state[location][type]
@@ -97,18 +108,6 @@ export const store = new Vuex.Store({
         return result;
       }
     },
-    productionPerSecond: state => {
-      const production = [];
-      for (let type in state.worker) {
-        if (state.worker.hasOwnProperty(type)) {
-          production.push({
-            type: state.worker[type].sortBy,
-            productionPerSecond: state.worker[type].productionPerSecond
-          })
-        }
-      }
-      return production;
-    },
     boosts: state =>
       location => {
         return state[location].boosts;
@@ -116,7 +115,7 @@ export const store = new Vuex.Store({
     maxBoosts: state =>
       location => {
         return state[location].maxBoosts;
-      }
+      },
   },
   mutations: {
     breed(state, {mother, father, location}) {
@@ -149,19 +148,32 @@ export const store = new Vuex.Store({
         }
       }
     },
-    updateProduction(state) {
+    setStored(state, {type, value}) {
+      state.worker[type].productionPerSecondRaw = value
+    },
+    updateProductionRaw(state) {
       for (let type in state.worker) {
-        if (state.worker.hasOwnProperty(type)) {
+        if (state.worker.hasOwnProperty(type) && isNaN(state.worker[type])) {
           let value = state.worker[type].critters.reduce((acc, critter) => {
             return acc + critter[state.worker[type].sortBy];
           }, 0);
           value = value * (1 + state.worker[type].bonusPercent/100);
-          state.worker[type].productionPerSecond = value;
+          state.worker[type].productionPerSecondRaw = value;
+        }
+      }
+    },
+    updateProductionMounds(state, payload) {
+      for (let type in payload) {
+        if(payload.hasOwnProperty(type)) {
+          state.worker[type] = payload[type]
         }
       }
     },
     setBoost(state, {location, value}) {
       state[location].boosts = value;
+    },
+    setSodAmount(state, value) {
+      state.totalSod = value;
     }
   },
   actions: {
@@ -194,22 +206,22 @@ export const store = new Vuex.Store({
           {
             type: 'mine',
             canAdd: critter.dirtPerSecond>context.getters.lowestWorker('mine') || context.state.worker.mine.critters.length<context.state.worker.mine.size,
-            production: context.state.worker.mine.productionPerSecond
+            production: context.state.worker.mine.productionPerSecondRaw
           },{
             type: 'farm',
             canAdd: critter.grassPerSecond>context.getters.lowestWorker('farm') || context.state.worker.farm.critters.length<context.state.worker.farm.size,
-            production: context.state.worker.farm.productionPerSecond
+            production: context.state.worker.farm.productionPerSecondRaw
           }, {
             type: 'carry',
             canAdd: critter.carryPerSecond>context.getters.lowestWorker('carry') || context.state.worker.carry.critters.length<context.state.worker.carry.size,
-            production: context.state.worker.carry.productionPerSecond
+            production: context.state.worker.carry.productionPerSecondRaw
           }, {
             type: 'factory',
             canAdd: critter.sodPerSecond>context.getters.lowestWorker('factory') || context.state.worker.factory.critters.length<context.state.worker.factory.size,
-            production: context.state.worker.factory.productionPerSecond
+            production: context.state.worker.factory.productionPerSecondRaw
           }
         ];
-        productions.sort((a,b) => a.productionPerSecond - b.productionPerSecond);
+        productions.sort((a,b) => a.productionPerSecondRaw - b.productionPerSecondRaw);
 
         const production = productions.find(prod => prod.canAdd);
         if (production) {
@@ -218,7 +230,7 @@ export const store = new Vuex.Store({
             to: {location: 'worker', type: production.type}
           });
 
-          context.commit('updateProduction')
+          context.commit('updateProductionRaw')
         } else {
           context.commit('moveCritter', {
             from: {location, type},
@@ -238,6 +250,11 @@ export const store = new Vuex.Store({
     },
     setBoost: (context, payload) => {
       context.commit('setBoost', payload)
+    },
+    produce: (context, {payload, addSod}) => {
+      context.commit('updateProductionMounds', payload);
+      const value = context.getters.totalSod + addSod;
+      context.commit('setSodAmount', value);
     }
   }
 });
