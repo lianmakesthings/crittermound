@@ -31,11 +31,13 @@ export const store = new Vuex.Store({
       female: {
         size: 1,
         sortBy: 'score',
+        upgradeCost: 10,
         critters: []
       },
       male: {
         size: 1,
         sortBy: 'score',
+        upgradeCost: 10,
         critters: []
       }
     },
@@ -54,6 +56,7 @@ export const store = new Vuex.Store({
         productionPerSecondRaw: 0,
         bonusPercent: 0,
         size: 1,
+        upgradeCost: 500,
         critters: []
       },
       farm: {
@@ -61,6 +64,7 @@ export const store = new Vuex.Store({
         productionPerSecondRaw: 0,
         bonusPercent: 0,
         size: 1,
+        upgradeCost: 500,
         critters: []
       },
       carry: {
@@ -68,6 +72,7 @@ export const store = new Vuex.Store({
         productionPerSecondRaw: 0,
         bonusPercent: 0,
         size: 1,
+        upgradeCost: 500,
         critters: []
       },
       factory: {
@@ -75,6 +80,7 @@ export const store = new Vuex.Store({
         productionPerSecondRaw: 0,
         size: 1,
         bonusPercent: 0,
+        upgradeCost: 500,
         critters: []
       }
     }
@@ -174,6 +180,9 @@ export const store = new Vuex.Store({
     },
     setSodAmount(state, value) {
       state.totalSod = value;
+    },
+    increaseMoundSize(state, {location, type}) {
+      state[location][type].size += 1
     }
   },
   actions: {
@@ -266,6 +275,15 @@ export const store = new Vuex.Store({
       context.commit('updateProductionMounds', payload);
       const value = context.getters.totalSod + addSod;
       context.commit('setSodAmount', value);
+    },
+    upgradeMound: (context, {location, type}) => {
+      const sod = context.getters.totalSod;
+      const mound = context.getters.mound(location, type);
+      const upgradeCost = mound.upgradeCost;
+      if (upgradeCost <= sod) {
+        context.commit('increaseMoundSize', {location, type});
+        context.commit('setSodAmount', sod - upgradeCost);
+      }
     }
   }
 });

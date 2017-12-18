@@ -2,6 +2,7 @@
   <div class="breeding-mound">
     <h3>{{ name }}</h3>
     <button v-on:click="boost(location)">Boost: {{ boosts }}/{{ maxBoosts }}</button>
+    <button v-on:click="upgrade(location, critter)">Upgrade {{ upgradeCost }} Sod</button>
     <div class="progress">
       <div class="progress-bar progress-bar-striped" v-bind:style="progressBar"></div>
     </div>
@@ -43,8 +44,11 @@
       }
     },
     computed: {
+      mound() {
+        return this.$store.getters.mound(this.location, this.type)
+      },
       critter() {
-        return this.$store.getters.critters(this.location, this.type)[0]
+        return this.mound.critters[0]
       },
       bgColor() {
         return (this.type === 'mother') ? '#f2dede' : '#d9edf7'
@@ -71,11 +75,17 @@
       },
       maxBoosts() {
         return this.$store.getters.maxBoosts(this.location)
+      },
+      upgradeCost() {
+        return this.$store.getters.mound(this.location, this.critter.gender).upgradeCost
       }
     },
     methods: {
       boost: function(location) {
         this.$store.dispatch('useBoost', location);
+      },
+      upgrade: function(location, critter) {
+        this.$store.dispatch('upgradeMound', {location, type: critter.gender})
       }
     }
   }
