@@ -3,6 +3,7 @@
     <div>
       <div>
         <button v-on:click="replaceParent">{{ parent }}</button>
+        <button v-on:click="addWorker">Worker</button>
       </div>
     </div>
     <table class="table">
@@ -46,7 +47,13 @@
       replaceParent: function () {
         this.$store.dispatch('replaceParent', {
           location: this.location,
-          gender: this.owner
+          owner: this.owner
+        })
+      },
+      addWorker: function() {
+        this.$store.dispatch('addWorker', {
+          location: this.location,
+          owner: this.owner
         })
       }
     },

@@ -44,6 +44,22 @@ class Critter {
     let actionTime = 30 * Math.pow(.9, Math.log(this.traits[2].value) / Math.LN2) * ticksPerSecond;
     return Math.max(actionTime, ticksPerSecond*3);
   }
+
+  get dirtPerSecond() {
+    return SmartRound(60/(this.actionTime/ticksPerSecond)*this.traits[4].value/60);
+  }
+
+  get grassPerSecond() {
+    return SmartRound(60/(this.actionTime/ticksPerSecond)*this.traits[3].value/60);
+  }
+
+  get carryPerSecond() {
+    return SmartRound(60/(this.actionTime/ticksPerSecond)*this.traits[1].value/60);
+  }
+
+  get sodPerSecond() {
+    return SmartRound(60/(this.actionTime/ticksPerSecond)*this.traits[0].value/60);
+  }
 }
 
 class CritterFactory {
