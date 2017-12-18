@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import createPersistedState from 'vuex-persistedstate'
 import { SmartRound } from '../lib/Helpers';
 import { Critter, CritterFactory } from '../lib/Critter';
 
@@ -9,82 +10,84 @@ const queen = CritterFactory.default(1, 0, Critter.GENDER_FEMALE);
 queen.rank = Critter.RANK_ROYAL;
 const king = CritterFactory.default(2, 0, Critter.GENDER_MALE);
 king.rank = Critter.RANK_ROYAL;
-
-export const store = new Vuex.Store({
-  state: {
-    totalCritters: 2,
-    totalGenerations: 0,
-    totalSod: 0,
-    royalHatchery: {
-      boosts: 10,
-      maxBoosts: 10,
-      mother: {
-        size: 1,
-        sortBy: 'score',
-        critters: [queen]
-      },
-      father: {
-        size: 1,
-        sortBy: 'score',
-        critters: [king]
-      },
-      female: {
-        size: 1,
-        sortBy: 'score',
-        upgradeCost: 10,
-        critters: []
-      },
-      male: {
-        size: 1,
-        sortBy: 'score',
-        upgradeCost: 10,
-        critters: []
-      }
+const initialState = {
+  totalCritters: 2,
+  totalGenerations: 0,
+  totalSod: 0,
+  royalHatchery: {
+    boosts: 10,
+    maxBoosts: 10,
+    mother: {
+      size: 1,
+      sortBy: 'score',
+      critters: [queen]
     },
-    worker: {
-      dirtStored: 0,
-      grassStored: 0,
-      factoryDirtStored: 0,
-      factoryGrassStored: 0,
-      dirtPerSecond: 0,
-      grassPerSecond: 0,
-      dirtCarriedPerSecond: 0,
-      grassCarriedPerSecond: 0,
-      sodPerSecond: 0,
-      mine: {
-        sortBy: 'dirtPerSecond',
-        productionPerSecondRaw: 0,
-        bonusPercent: 0,
-        size: 1,
-        upgradeCost: 500,
-        critters: []
-      },
-      farm: {
-        sortBy: 'grassPerSecond',
-        productionPerSecondRaw: 0,
-        bonusPercent: 0,
-        size: 1,
-        upgradeCost: 500,
-        critters: []
-      },
-      carry: {
-        sortBy: 'carryPerSecond',
-        productionPerSecondRaw: 0,
-        bonusPercent: 0,
-        size: 1,
-        upgradeCost: 500,
-        critters: []
-      },
-      factory: {
-        sortBy: 'sodPerSecond',
-        productionPerSecondRaw: 0,
-        size: 1,
-        bonusPercent: 0,
-        upgradeCost: 500,
-        critters: []
-      }
+    father: {
+      size: 1,
+      sortBy: 'score',
+      critters: [king]
+    },
+    female: {
+      size: 1,
+      sortBy: 'score',
+      upgradeCost: 10,
+      critters: []
+    },
+    male: {
+      size: 1,
+      sortBy: 'score',
+      upgradeCost: 10,
+      critters: []
     }
   },
+  worker: {
+    dirtStored: 0,
+    grassStored: 0,
+    factoryDirtStored: 0,
+    factoryGrassStored: 0,
+    dirtPerSecond: 0,
+    grassPerSecond: 0,
+    dirtCarriedPerSecond: 0,
+    grassCarriedPerSecond: 0,
+    sodPerSecond: 0,
+    mine: {
+      sortBy: 'dirtPerSecond',
+      productionPerSecondRaw: 0,
+      bonusPercent: 0,
+      size: 1,
+      upgradeCost: 500,
+      critters: []
+    },
+    farm: {
+      sortBy: 'grassPerSecond',
+      productionPerSecondRaw: 0,
+      bonusPercent: 0,
+      size: 1,
+      upgradeCost: 500,
+      critters: []
+    },
+    carry: {
+      sortBy: 'carryPerSecond',
+      productionPerSecondRaw: 0,
+      bonusPercent: 0,
+      size: 1,
+      upgradeCost: 500,
+      critters: []
+    },
+    factory: {
+      sortBy: 'sodPerSecond',
+      productionPerSecondRaw: 0,
+      size: 1,
+      bonusPercent: 0,
+      upgradeCost: 500,
+      critters: []
+    }
+  }
+};
+
+
+export const store = new Vuex.Store({
+  state: initialState,
   getters: {
     critters: state =>
       (location, type) => {
@@ -183,7 +186,8 @@ export const store = new Vuex.Store({
     },
     increaseMoundSize(state, {location, type}) {
       state[location][type].size += 1
-    }
+    },
+    saveState(state) {}
   },
   actions: {
     healCritter: (context, critterId) => {
@@ -284,6 +288,50 @@ export const store = new Vuex.Store({
         context.commit('increaseMoundSize', {location, type});
         context.commit('setSodAmount', sod - upgradeCost);
       }
+    },
+    saveState: (context) => {
+      context.commit('saveState');
     }
-  }
+  },
+  plugins: [createPersistedState({
+    key: 'crittermound',
+    filter: (mutation) => mutation.type === 'saveState',
+    getState: (key, storage) => {
+      let state = initialState;
+      if (storage[key]) {
+        state = JSON.parse(storage[key]);
+        const mounds = [{
+          location: 'royalHatchery',
+          type: 'mother'
+        }, {
+          location: 'royalHatchery',
+          type: 'father'
+        }, {
+          location: 'royalHatchery',
+          type: 'female'
+        }, {
+          location: 'royalHatchery',
+          type: 'male'
+        }, {
+          location: 'worker',
+          type: 'mine'
+        }, {
+          location: 'worker',
+          type: 'farm'
+        }, {
+          location: 'worker',
+          type: 'carry'
+        }, {
+          location: 'worker',
+          type: 'factory'
+        }];
+        mounds.forEach(address => {
+          const critters = state[address.location][address.type].critters;
+          state[address.location][address.type].critters = critters.map(critter => CritterFactory.fromState(critter))
+        });
+      }
+
+      return state
+    }
+  })]
 });

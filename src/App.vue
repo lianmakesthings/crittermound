@@ -1,6 +1,9 @@
 <template>
   <div id="app" class="container">
-    <div class="totalSod">Sod {{ totalSod }}</div>
+    <div class="appHeader">
+      <div class="totalSod">Sod {{ totalSod }}</div>
+      <button v-on:click="save">Save</button>
+    </div>
     <royal-hatchery></royal-hatchery>
     <worker></worker>
   </div>
@@ -21,14 +24,21 @@
       totalSod() {
         return SmartRound(this.$store.getters.totalSod)
       }
+    },
+    methods: {
+      save: function() {
+        this.$store.dispatch('saveState')
+      }
     }
   }
 </script>
 
 <style scoped>
-.totalSod {
-  float: right;
-  font-size: 20px;
-  font-weight: bold;
+  .appHeader {
+    float: right;
+  }
+  .totalSod {
+    font-size: 20px;
+    font-weight: bold;
 }
 </style>

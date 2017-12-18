@@ -1,6 +1,6 @@
 import { ticksPerSecond, SmartRound } from './Helpers';
 
-class GameController {
+class Controller {
   constructor(store) {
     this.store = store;
     this.timeBetweenTicks = 1000 / ticksPerSecond;
@@ -63,8 +63,8 @@ class GameController {
 
   tick() {
     const location = 'royalHatchery';
-    const queen = this.store.getters.critters(location, 'mother')[0];
-    const king = this.store.getters.critters(location, 'father')[0];
+    const queen = this.store.getters.mound(location, 'mother').critters[0];
+    const king = this.store.getters.mound(location, 'father').critters[0];
 
     if (queen.progress >= 100 && king.progress >= 100) {
       this.breed(location)
@@ -86,9 +86,9 @@ class GameController {
     window.requestAnimationFrame(this.checkTick.bind(this));
   }
 
-  run() {
+  start() {
     window.requestAnimationFrame(this.checkTick.bind(this));
   }
 }
 
-export default GameController;
+export default Controller;

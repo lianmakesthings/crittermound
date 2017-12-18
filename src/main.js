@@ -3,7 +3,7 @@
 import Vue from 'vue';
 import App from './App';
 import { store } from './store/store';
-import GameController from './lib/GameController';
+import Controller from './lib/controller';
 require('../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss');
 
 Vue.config.productionTip = false;
@@ -41,6 +41,6 @@ const vueApp = new Vue({
   components: { App }
 });
 
-const game = new GameController(store);
-game.run();
+const controller = new Controller(store);
+controller.start();
 

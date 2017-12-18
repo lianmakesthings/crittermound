@@ -82,11 +82,16 @@ class CritterFactory {
       let maxTraitVal = Math.max(motherTrait.base, fatherTrait.base);
       maxTraitVal = maxTraitVal + StatVariance(maxTraitVal);
       child.traits[i].base = RandomInRange(minTraitVal, Math.min(maxTraitVal, Trait.MAX_VALUE));
-
-
     }
-
     return child
+  }
+
+  static fromState(state) {
+    const critter = new Critter(state.id, state.generation, state.gender);
+    critter.rank = state.rank;
+    critter.traits = state.traits.map(trait => new Trait(trait.name, trait.base));
+    critter.currentHealth = state.currentHealth || 0 ;
+    return critter;
   }
 }
 export {

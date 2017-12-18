@@ -3,6 +3,7 @@ class Trait {
   constructor(name, value) {
     this.name = name;
     this.base = value;
+    this.genes = [];
   }
 
   get value() {
