@@ -1,5 +1,5 @@
 <template>
-  <div class="breeding-slot">
+  <div class="breeding-mound">
     <h3>{{ name }}</h3>
     <button v-on:click="boost(location)">Boost: {{ boosts }}/{{ maxBoosts }}</button>
     <div class="progress">
@@ -37,17 +37,17 @@
         required: true,
         type: String
       },
-      owner: {
+      type: {
         required: true,
         type: String,
       }
     },
     computed: {
       critter() {
-        return this.$store.getters.critters(this.location, this.owner)[0]
+        return this.$store.getters.critters(this.location, this.type)[0]
       },
       bgColor() {
-        return (this.owner === 'mother') ? '#f2dede' : '#d9edf7'
+        return (this.type === 'mother') ? '#f2dede' : '#d9edf7'
       },
       breedingProgress() {
         return this.critter.progress
@@ -64,7 +64,7 @@
         }
       },
       name() {
-        return (this.owner === 'mother') ? 'Queen' : 'King';
+        return (this.type === 'mother') ? 'Queen' : 'King';
       },
       boosts() {
           return this.$store.getters.boosts(this.location)

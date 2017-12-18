@@ -3,25 +3,25 @@
     <h2>Royal Hatchery</h2>
     <div>
       <div class="breeding-unit">
-        <breeding-slot id="queen-breeding-slot" location="royalHatchery" owner="mother"></breeding-slot>
-        <hatchery-slot id="female-hatchery-slot" location="royalHatchery" owner="female"></hatchery-slot>
+        <breeding-mound id="queen-breeding-mound" location="royalHatchery" type="mother"></breeding-mound>
+        <hatchery-mound id="female-hatchery-mound" location="royalHatchery" type="female"></hatchery-mound>
       </div>
       <div class="breeding-unit">
-        <breeding-slot id="king-breeding-slot" location="royalHatchery" owner="father"></breeding-slot>
-        <hatchery-slot id="male-hatchery-slot" location="royalHatchery" owner="male"></hatchery-slot>
+        <breeding-mound id="king-breeding-mound" location="royalHatchery" type="father"></breeding-mound>
+        <hatchery-mound id="male-hatchery-mound" location="royalHatchery" type="male"></hatchery-mound>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import BreedingSlot from './BreedingSlot.vue';
-  import HatcherySlot from './HatcherySlot.vue';
+  import BreedingMound from './BreedingMound.vue';
+  import HatcheryMound from './HatcheryMound.vue';
 
   export default {
     components: {
-      'breeding-slot': BreedingSlot,
-      'hatchery-slot': HatcherySlot
+      'breeding-mound': BreedingMound,
+      'hatchery-mound': HatcheryMound
     }
   }
 </script>

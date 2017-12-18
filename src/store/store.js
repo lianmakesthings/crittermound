@@ -72,8 +72,8 @@ export const store = new Vuex.Store({
   },
   getters: {
     critters: state =>
-      (location, owner) => {
-        return state[location][owner].critters;
+      (location, type) => {
+        return state[location][type].critters;
       },
     findCritter: state =>
       critterId => {
@@ -84,44 +84,44 @@ export const store = new Vuex.Store({
         return allCritters.find(critter => critterId === critter.id)
       },
     lowestMiner: state => {
-      const slot = state.worker.mine;
+      const mound = state.worker.mine;
       let result = 0;
-      if (slot.critters.length > 0) {
-        result = slot.critters[slot.critters.length-1].dirtPerSecond
+      if (mound.critters.length > 0) {
+        result = mound.critters[mound.critters.length-1].dirtPerSecond
       }
       return result;
     },
     lowestFarmer: state => {
-      const slot = state.worker.farm;
+      const mound = state.worker.farm;
       let result = 0;
-      if (slot.critters.length > 0) {
-        result = slot.critters[slot.critters.length-1].grassPerSecond
+      if (mound.critters.length > 0) {
+        result = mound.critters[mound.critters.length-1].grassPerSecond
       }
       return result;
     },
     lowestCarrier: state => {
-      const slot = state.worker.carry;
+      const mound = state.worker.carry;
       let result = 0;
-      if (slot.critters.length > 0) {
-        result = slot.critters[slot.critters.length-1].carryPerSecond
+      if (mound.critters.length > 0) {
+        result = mound.critters[mound.critters.length-1].carryPerSecond
       }
       return result;
     },
     lowestFactory: state => {
-      const slot = state.worker.factory;
+      const mound = state.worker.factory;
       let result = 0;
-      if (slot.critters.length > 0) {
-        result = slot.critters[slot.critters.length-1].sodPerSecond
+      if (mound.critters.length > 0) {
+        result = mound.critters[mound.critters.length-1].sodPerSecond
       }
       return result;
     },
     productionPerSecond: state => {
       const production = [];
-      for (let owner in state.worker) {
-        if (state.worker.hasOwnProperty(owner)) {
+      for (let type in state.worker) {
+        if (state.worker.hasOwnProperty(type)) {
           production.push({
-            name: state.worker[owner].sortBy,
-            productionPerSecond: state.worker[owner].productionPerSecond
+            type: state.worker[type].sortBy,
+            productionPerSecond: state.worker[type].productionPerSecond
           })
         }
       }
@@ -143,36 +143,36 @@ export const store = new Vuex.Store({
       const generation = Math.max(mother.generation, father.generation) + 1;
       state.totalGenerations = Math.max(state.totalGenerations, generation);
       const child = CritterFactory.breed(id, mother, father);
-      const slot = state[location][child.gender];
-      slot.critters.push(child);
-      slot.critters.sort((a, b) => b[slot.sortBy] - a[slot.sortBy]);
-      if (slot.critters.length > slot.size) {
-        slot.critters.pop()
+      const mound = state[location][child.gender];
+      mound.critters.push(child);
+      mound.critters.sort((a, b) => b[mound.sortBy] - a[mound.sortBy]);
+      if (mound.critters.length > mound.size) {
+        mound.critters.pop()
       }
     },
     setCritterHealth(state, {critter, value}) {
       critter.currentHealth = value;
     },
     moveCritter(state, {from, to}) {
-      const fromSlot = state[from.location][from.owner];
-      const toSlot = state[to.location][to.owner];
-      if (fromSlot.critters.length > 0) {
-        if (toSlot.critters.length >= toSlot.size) {
-          toSlot.critters.pop();
+      const originMound = state[from.location][from.type];
+      const targetMound = state[to.location][to.type];
+      if (originMound.critters.length > 0) {
+        if (targetMound.critters.length >= targetMound.size) {
+          targetMound.critters.pop();
         }
-        const critter = fromSlot.critters.shift();
-        toSlot.critters.push(critter);
-        toSlot.critters.sort((a,b) => b[toSlot.sortBy] - a[toSlot.sortBy])
+        const critter = originMound.critters.shift();
+        targetMound.critters.push(critter);
+        targetMound.critters.sort((a,b) => b[targetMound.sortBy] - a[targetMound.sortBy])
       }
     },
     updateProduction(state) {
-      for (let owner in state.worker) {
-        if (state.worker.hasOwnProperty(owner)) {
-          let value = state.worker[owner].critters.reduce((acc, critter) => {
-            return acc + critter[state.worker[owner].sortBy];
+      for (let type in state.worker) {
+        if (state.worker.hasOwnProperty(type)) {
+          let value = state.worker[type].critters.reduce((acc, critter) => {
+            return acc + critter[state.worker[type].sortBy];
           }, 0);
-          value = value * (1 + state.worker[owner].bonusPercent/100);
-          state.worker[owner].productionPerSecond = value;
+          value = value * (1 + state.worker[type].bonusPercent/100);
+          state.worker[type].productionPerSecond = value;
         }
       }
     },
@@ -195,32 +195,32 @@ export const store = new Vuex.Store({
       context.commit('breed', {mother, father, location});
 
     },
-    replaceParent: (context, {location, owner}) => {
-      const parent = (owner === Critter.GENDER_FEMALE) ? 'mother' : 'father';
+    replaceParent: (context, {location, type}) => {
+      const parent = (type === Critter.GENDER_FEMALE) ? 'mother' : 'father';
       context.commit('moveCritter', {
-        from: {location, owner},
-        to: {location, owner: parent}
+        from: {location, type},
+        to: {location, type: parent}
       });
     },
-    addWorker: (context, {location, owner}) => {
-      const slot = context.state[location][owner];
-      const critter = slot.critters[0];
+    addWorker: (context, {location, type}) => {
+      const mound = context.state[location][type];
+      const critter = mound.critters[0];
       if (critter) {
         const productions = [
           {
-            owner: 'mine',
+            type: 'mine',
             canAdd: critter.dirtPerSecond>context.getters.lowestMiner || context.state.worker.mine.critters.length<context.state.worker.mine.size,
             production: context.state.worker.mine.productionPerSecond
           },{
-            owner: 'farm',
+            type: 'farm',
             canAdd: critter.grassPerSecond>context.getters.lowestFarmer || context.state.worker.farm.critters.length<context.state.worker.farm.size,
             production: context.state.worker.farm.productionPerSecond
           }, {
-            owner: 'carry',
+            type: 'carry',
             canAdd: critter.carryPerSecond>context.getters.lowestCarrier || context.state.worker.carry.critters.length<context.state.worker.carry.size,
             production: context.state.worker.carry.productionPerSecond
           }, {
-            owner: 'factory',
+            type: 'factory',
             canAdd: critter.sodPerSecond>context.getters.lowestFactory || context.state.worker.factory.critters.length<context.state.worker.factory.size,
             production: context.state.worker.factory.productionPerSecond
           }
@@ -230,8 +230,8 @@ export const store = new Vuex.Store({
         const production = productions.find(prod => prod.canAdd);
         if (production) {
           context.commit('moveCritter', {
-            from: {location, owner},
-            to: {location: 'worker', owner: production.owner}
+            from: {location, type},
+            to: {location: 'worker', type: production.type}
           });
 
           context.commit('updateProduction')

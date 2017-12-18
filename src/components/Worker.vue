@@ -3,27 +3,27 @@
     <h2>Worker</h2>
     <div id="visualisation">
       <div v-for="production in productions">
-        <div>{{ production.name }}</div>
+        <div>{{ production.type }}</div>
         <div>{{ production.productionPerSecond }}</div>
       </div>
     </div>
     <div class="worker-column">
-      <worker-slot id="mine-worker-slot" location="worker" owner="mine"></worker-slot>
-      <worker-slot id="farm-worker-slot" location="worker" owner="farm"></worker-slot>
+      <worker-mound id="mine-worker-mound" location="worker" type="mine"></worker-mound>
+      <worker-mound id="farm-worker-mound" location="worker" type="farm"></worker-mound>
     </div>
     <div class="worker-column">
-      <worker-slot id="carry-worker-slot" location="worker" owner="carry"></worker-slot>
-      <worker-slot id="factory-worker-slot" location="worker" owner="factory"></worker-slot>
+      <worker-mound id="carry-worker-mound" location="worker" type="carry"></worker-mound>
+      <worker-mound id="factory-worker-mound" location="worker" type="factory"></worker-mound>
     </div>
   </div>
 </template>
 
 <script>
-  import WorkerSlot from './WorkerSlot.vue';
+  import WorkerMound from './WorkerMound.vue';
 
   export default {
     components: {
-      'worker-slot': WorkerSlot
+      'worker-mound': WorkerMound
     },
     computed: {
       productions() {

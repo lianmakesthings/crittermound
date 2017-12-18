@@ -1,5 +1,5 @@
 <template>
-  <div class="hatchery-slot">
+  <div class="hatchery-mound">
     <div>
       <div>
         <button v-on:click="replaceParent">{{ parent }}</button>
@@ -38,7 +38,7 @@
         required: true,
         type: String,
       },
-      owner: {
+      type: {
         required: true,
         type: String,
       },
@@ -47,22 +47,22 @@
       replaceParent: function () {
         this.$store.dispatch('replaceParent', {
           location: this.location,
-          owner: this.owner
+          type: this.type
         })
       },
       addWorker: function() {
         this.$store.dispatch('addWorker', {
           location: this.location,
-          owner: this.owner
+          type: this.type
         })
       }
     },
     computed: {
       critters() {
-        return this.$store.getters.critters(this.location, this.owner)
+        return this.$store.getters.critters(this.location, this.type)
       },
       bgColor() {
-        return (this.owner === 'female') ? '#f2dede' : '#d9edf7'
+        return (this.type === 'female') ? '#f2dede' : '#d9edf7'
       },
       headerBackground() {
         return {
@@ -70,7 +70,7 @@
         }
       },
       parent() {
-        return (this.owner === 'female') ? 'Queen' : 'King'
+        return (this.type === 'female') ? 'Queen' : 'King'
       }
     }
   }

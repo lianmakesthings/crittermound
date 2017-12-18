@@ -1,6 +1,6 @@
 <template>
-  <div class="worker-slot">
-    <h3>{{ owner }}</h3>
+  <div class="worker-mound">
+    <h3>{{ type }}</h3>
       <table class="table">
         <thead>
         <tr v-bind:style="headerBackground">
@@ -33,17 +33,17 @@
         required: true,
         type: String,
       },
-      owner: {
+      type: {
         required: true,
         type: String,
       }
     },
     computed: {
       critters() {
-        return this.$store.getters.critters(this.location, this.owner)
+        return this.$store.getters.critters(this.location, this.type)
       },
       bgColor() {
-        switch(this.owner) {
+        switch(this.type) {
           case 'mine':
             return '#ffd143';
           case 'farm':

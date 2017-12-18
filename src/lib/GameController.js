@@ -14,7 +14,7 @@ class GameController {
       const newBoost = Math.round((currentBoosts+.1)*10)/10;
       this.store.dispatch('setBoost', {location: location, value: newBoost})
     }
-    
+
     this.store.dispatch('breedCritter', location);
   }
 
