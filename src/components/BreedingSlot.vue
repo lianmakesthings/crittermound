@@ -43,7 +43,7 @@
     },
     computed: {
       critter() {
-        return this.$store.getters.critters(this.location, this.owner)
+        return this.$store.getters.critters(this.location, this.owner)[0]
       },
       bgColor() {
         return (this.owner === 'mother') ? '#f2dede' : '#d9edf7'

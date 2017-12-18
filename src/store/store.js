@@ -17,10 +17,12 @@ export const store = new Vuex.Store({
     totalSod: 0,
     royalHatchery: {
       mother: {
-        critters: queen
+        size: 1,
+        critters: [queen]
       },
       father: {
-        critters: king
+        size: 1,
+        critters: [king]
       },
       female: {
         size: 1,
@@ -69,8 +71,8 @@ export const store = new Vuex.Store({
       },
     findCritter: state =>
       critterId => {
-        const allCritters = [state.royalHatchery.mother.critters]
-          .concat([state.royalHatchery.father.critters])
+        const allCritters = state.royalHatchery.mother.critters
+          .concat(state.royalHatchery.father.critters)
           .concat(state.royalHatchery.female.critters)
           .concat(state.royalHatchery.male.critters);
         return allCritters.find(critter => critterId === critter.id)
@@ -135,19 +137,11 @@ export const store = new Vuex.Store({
     setCritterHealth(state, {critter, value}) {
       critter.currentHealth = value;
     },
-    replaceParent(state, {location, owner}) {
-      const hatcherySlot = state[location][owner].critters;
-      const critter = hatcherySlot.shift();
-      if (critter) {
-        const parent = (owner === Critter.GENDER_FEMALE) ? 'mother' : 'father';
-        state[location][parent].critters = critter;
-      }
-    },
     moveCritter(state, {from, to}) {
       const fromSlot = state[from.location][from.owner];
       const toSlot = state[to.location][to.owner];
       if (fromSlot.critters.length > 0) {
-        if (toSlot.critters.length >= toSlot.critters.size) {
+        if (toSlot.critters.length >= toSlot.size) {
           toSlot.critters.pop();
         }
         const critter = fromSlot.critters.shift();
@@ -175,8 +169,8 @@ export const store = new Vuex.Store({
 
     },
     breedCritter: (context, location) => {
-      const mother = context.state[location].mother.critters;
-      const father = context.state[location].father.critters;
+      const mother = context.getters.critters(location, 'mother')[0];
+      const father = context.getters.critters(location, 'father')[0];
       context.commit('setCritterHealth', {critter: mother, value: 0});
       context.commit('setCritterHealth', {critter: father, value: 0});
 
@@ -186,8 +180,12 @@ export const store = new Vuex.Store({
       context.commit('addNewCritter', {location, critter: child});
 
     },
-    replaceParent: (context, payload) => {
-      context.commit('replaceParent', payload);
+    replaceParent: (context, {location, owner}) => {
+      const parent = (owner === Critter.GENDER_FEMALE) ? 'mother' : 'father';
+      context.commit('moveCritter', {
+        from: {location, owner},
+        to: {location, owner: parent}
+      });
     },
     addWorker: (context, {location, owner}) => {
       const slot = context.state[location][owner];

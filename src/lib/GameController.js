@@ -12,8 +12,8 @@ class GameController {
   }
 
   tick() {
-    const queen = this.store.getters.critters('royalHatchery', 'mother');
-    const king = this.store.getters.critters('royalHatchery', 'father');
+    const queen = this.store.getters.critters('royalHatchery', 'mother')[0];
+    const king = this.store.getters.critters('royalHatchery', 'father')[0];
 
     if (queen.progress >= 100 && king.progress >= 100) {
       this.breed('royalHatchery')
