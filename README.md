@@ -1,6 +1,6 @@
 # crittermound
 
-> a complete rework of crittermound with vuejs
+> a complete rework of http://yoyz.com/critter/ with vuejs
 
 ## Build Setup
 
@@ -18,4 +18,11 @@ npm run build
 npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Not implemented yet
+ * Sod used for breeding
+ * Worker assignment logic: preference order mine -> farm -> carry -> factory
+ * Animate workers
+ * Mutations/Genes
+ * Buying stuff
+ * War
+ * Achievements
