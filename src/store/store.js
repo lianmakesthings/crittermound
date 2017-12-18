@@ -75,6 +75,10 @@ export const store = new Vuex.Store({
       (location, type) => {
         return state[location][type].critters;
       },
+    mound: state =>
+      (location, type) => {
+        return state[location][type]
+      },
     findCritter: state =>
       critterId => {
         const allCritters = state.royalHatchery.mother.critters
@@ -133,14 +137,16 @@ export const store = new Vuex.Store({
     },
     moveCritter(state, {from, to}) {
       const originMound = state[from.location][from.type];
-      const targetMound = state[to.location][to.type];
       if (originMound.critters.length > 0) {
-        if (targetMound.critters.length >= targetMound.size) {
-          targetMound.critters.pop();
-        }
         const critter = originMound.critters.shift();
-        targetMound.critters.push(critter);
-        targetMound.critters.sort((a,b) => b[targetMound.sortBy] - a[targetMound.sortBy])
+        if (to) {
+          const targetMound = state[to.location][to.type];
+          if (targetMound.critters.length >= targetMound.size) {
+            targetMound.critters.pop();
+          }
+          targetMound.critters.push(critter);
+          targetMound.critters.sort((a,b) => b[targetMound.sortBy] - a[targetMound.sortBy])
+        }
       }
     },
     updateProduction(state) {
@@ -213,6 +219,11 @@ export const store = new Vuex.Store({
           });
 
           context.commit('updateProduction')
+        } else {
+          context.commit('moveCritter', {
+            from: {location, type},
+            to: null
+          });
         }
       }
     },
