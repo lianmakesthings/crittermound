@@ -20,7 +20,6 @@ npm run build --report
 
 ## Not implemented yet
  * Sod used for breeding
- * Worker assignment logic: preference order mine -> farm -> carry -> factory
  * Animate workers
  * Mutations/Genes
  * Buying stuff

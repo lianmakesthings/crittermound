@@ -2,23 +2,27 @@
   <div id="worker">
     <h2>Worker</h2>
     <div id="visualisation">
-      <div class="worker-column" id="mine-dirt">
+      <div id="mine-dirt" class="worker-column">
         <div>Mined Dirt</div>
         <div>{{ sodProductionData.dirtStored }} {{ sodProductionData.dirtPerSecond }}</div>
       </div>
-      <div class="worker-column" id="factory-dirt">
+      <div id="carry-dirt" class="worker-column glyphicon glyphicon-arrow-right"></div>
+      <div id="factory-dirt" class="worker-column">
         <div>Factory Dirt</div>
         <div>{{ sodProductionData.factoryDirtStored }} {{ sodProductionData.dirtCarriedPerSecond }}</div>
       </div>
-      <div class="worker-column" id="produce-sod">
+      <div id="use-dirt" class="worker-column glyphicon glyphicon-arrow-right"></div>
+      <div id="produce-sod" class="worker-column">
         <div>Produce Sod</div>
         <div>{{ sodProductionData.totalSod }} {{ sodProductionData.sodPerSecond }}</div>
       </div>
-      <div class="worker-column" id="factory-grass">
+      <div id="use-grass" class="worker-column glyphicon glyphicon-arrow-left"></div>
+      <div id="factory-grass" class="worker-column">
         <div>Factory Grass</div>
         <div>{{ sodProductionData.factoryGrassStored }} {{ sodProductionData.grassCarriedPerSecond }}</div>
       </div>
-      <div class="worker-column" id="farm-grass">
+      <div id="carry-grass" class="worker-column glyphicon glyphicon-arrow-left"></div>
+      <div id="farm-grass" class="worker-column">
         <div>Farmed Grass</div>
         <div>{{ sodProductionData.grassStored }} {{ sodProductionData.grassPerSecond }}</div>
       </div>

@@ -202,34 +202,45 @@ export const store = new Vuex.Store({
       const mound = context.state[location][type];
       const critter = mound.critters[0];
       if (critter) {
+        const worstMiner = context.getters.lowestWorker('mine');
+        const worstFarmer = context.getters.lowestWorker('farm');
+        const worstCarrier = context.getters.lowestWorker('carry');
+        const worstFactoryWorker = context.getters.lowestWorker('factory');
+        const lowestProduction = Math.min(worstMiner, worstFarmer, worstCarrier, worstFactoryWorker);
         const productions = [
           {
             type: 'mine',
-            canAdd: critter.dirtPerSecond>context.getters.lowestWorker('mine') || context.state.worker.mine.critters.length<context.state.worker.mine.size,
+            canAdd: critter.dirtPerSecond>worstMiner || context.state.worker.mine.critters.length<context.state.worker.mine.size,
+            lowestProduction: lowestProduction === worstMiner,
             production: context.state.worker.mine.productionPerSecondRaw
           },{
             type: 'farm',
-            canAdd: critter.grassPerSecond>context.getters.lowestWorker('farm') || context.state.worker.farm.critters.length<context.state.worker.farm.size,
+            canAdd: critter.grassPerSecond>worstFarmer || context.state.worker.farm.critters.length<context.state.worker.farm.size,
+            lowestProduction: lowestProduction === worstFarmer,
             production: context.state.worker.farm.productionPerSecondRaw
           }, {
             type: 'carry',
-            canAdd: critter.carryPerSecond>context.getters.lowestWorker('carry') || context.state.worker.carry.critters.length<context.state.worker.carry.size,
+            canAdd: critter.carryPerSecond>worstCarrier || context.state.worker.carry.critters.length<context.state.worker.carry.size,
+            lowestProduction: lowestProduction === worstCarrier,
             production: context.state.worker.carry.productionPerSecondRaw
           }, {
             type: 'factory',
-            canAdd: critter.sodPerSecond>context.getters.lowestWorker('factory') || context.state.worker.factory.critters.length<context.state.worker.factory.size,
+            canAdd: critter.sodPerSecond>worstFactoryWorker || context.state.worker.factory.critters.length<context.state.worker.factory.size,
+            lowestProduction: lowestProduction === worstFactoryWorker,
             production: context.state.worker.factory.productionPerSecondRaw
           }
         ];
-        productions.sort((a,b) => a.productionPerSecondRaw - b.productionPerSecondRaw);
 
-        const production = productions.find(prod => prod.canAdd);
-        if (production) {
+        const productionsToAdd = productions.filter(prod => prod.canAdd);
+        if (productionsToAdd.length > 0) {
+          let production = productionsToAdd.find(prod => prod.lowestProduction);
+          if (!production) {
+            production = productionsToAdd[0]
+          }
           context.commit('moveCritter', {
             from: {location, type},
             to: {location: 'worker', type: production.type}
           });
-
           context.commit('updateProductionRaw')
         } else {
           context.commit('moveCritter', {
