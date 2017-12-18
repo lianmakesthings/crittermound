@@ -8,15 +8,23 @@ class GameController {
   }
 
   breed(location) {
+    const currentBoosts = this.store.getters.boosts(location);
+    const totalBoosts = this.store.getters.maxBoosts(location);
+    if (currentBoosts < totalBoosts) {
+      const newBoost = Math.round((currentBoosts+.1)*10)/10;
+      this.store.dispatch('setBoost', {location: location, value: newBoost})
+    }
+    
     this.store.dispatch('breedCritter', location);
   }
 
   tick() {
-    const queen = this.store.getters.critters('royalHatchery', 'mother')[0];
-    const king = this.store.getters.critters('royalHatchery', 'father')[0];
+    const location = 'royalHatchery';
+    const queen = this.store.getters.critters(location, 'mother')[0];
+    const king = this.store.getters.critters(location, 'father')[0];
 
     if (queen.progress >= 100 && king.progress >= 100) {
-      this.breed('royalHatchery')
+      this.breed(location)
     } else {
       this.store.dispatch('healCritter', queen.id);
       this.store.dispatch('healCritter', king.id);

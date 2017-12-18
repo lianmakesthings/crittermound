@@ -1,6 +1,7 @@
 <template>
   <div class="breeding-slot">
     <h3>{{ name }}</h3>
+    <button v-on:click="boost(location)">Boost: {{ boosts }}/{{ maxBoosts }}</button>
     <div class="progress">
       <div class="progress-bar progress-bar-striped" v-bind:style="progressBar"></div>
     </div>
@@ -64,6 +65,17 @@
       },
       name() {
         return (this.owner === 'mother') ? 'Queen' : 'King';
+      },
+      boosts() {
+          return this.$store.getters.boosts(this.location)
+      },
+      maxBoosts() {
+        return this.$store.getters.maxBoosts(this.location)
+      }
+    },
+    methods: {
+      boost: function(location) {
+        this.$store.dispatch('useBoost', location);
       }
     }
   }

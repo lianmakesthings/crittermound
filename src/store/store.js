@@ -16,20 +16,26 @@ export const store = new Vuex.Store({
     totalGenerations: 0,
     totalSod: 0,
     royalHatchery: {
+      boosts: 10,
+      maxBoosts: 10,
       mother: {
         size: 1,
+        sortBy: 'score',
         critters: [queen]
       },
       father: {
         size: 1,
+        sortBy: 'score',
         critters: [king]
       },
       female: {
         size: 1,
+        sortBy: 'score',
         critters: []
       },
       male: {
         size: 1,
+        sortBy: 'score',
         critters: []
       }
     },
@@ -120,16 +126,26 @@ export const store = new Vuex.Store({
         }
       }
       return production;
-    }
+    },
+    boosts: state =>
+      location => {
+        return state[location].boosts;
+      },
+    maxBoosts: state =>
+      location => {
+        return state[location].maxBoosts;
+      }
   },
   mutations: {
-    addNewCritter(state, {location, critter}) {
+    breed(state, {mother, father, location}) {
       state.totalCritters++;
-      state.totalGenerations = Math.max(state.totalGenerations, critter.generation);
-
-      const slot = state[location][critter.gender];
-      slot.critters.push(critter);
-      slot.critters.sort((a, b) => b.score - a.score);
+      const id = state.totalCritters;
+      const generation = Math.max(mother.generation, father.generation) + 1;
+      state.totalGenerations = Math.max(state.totalGenerations, generation);
+      const child = CritterFactory.breed(id, mother, father);
+      const slot = state[location][child.gender];
+      slot.critters.push(child);
+      slot.critters.sort((a, b) => b[slot.sortBy] - a[slot.sortBy]);
       if (slot.critters.length > slot.size) {
         slot.critters.pop()
       }
@@ -159,6 +175,9 @@ export const store = new Vuex.Store({
           state.worker[owner].productionPerSecond = value;
         }
       }
+    },
+    setBoost(state, {location, value}) {
+      state[location].boosts = value;
     }
   },
   actions: {
@@ -173,11 +192,7 @@ export const store = new Vuex.Store({
       const father = context.getters.critters(location, 'father')[0];
       context.commit('setCritterHealth', {critter: mother, value: 0});
       context.commit('setCritterHealth', {critter: father, value: 0});
-
-      const id = context.state.totalCritters +1;
-      const child = CritterFactory.breed(id, mother, father);
-
-      context.commit('addNewCritter', {location, critter: child});
+      context.commit('breed', {mother, father, location});
 
     },
     replaceParent: (context, {location, owner}) => {
@@ -222,6 +237,18 @@ export const store = new Vuex.Store({
           context.commit('updateProduction')
         }
       }
+    },
+    useBoost: (context, location) => {
+      const mother = context.getters.critters(location, 'mother')[0];
+      const father = context.getters.critters(location, 'father')[0];
+      context.commit('setCritterHealth', {critter: mother, value: 0});
+      context.commit('setCritterHealth', {critter: father, value: 0});
+      const value = context.getters.boosts(location) - 1;
+      context.commit('setBoost', {location, value});
+      context.commit('breed', {mother, father, location});
+    },
+    setBoost: (context, payload) => {
+      context.commit('setBoost', payload)
     }
   }
 });
