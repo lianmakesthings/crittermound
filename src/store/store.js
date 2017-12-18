@@ -83,37 +83,15 @@ export const store = new Vuex.Store({
           .concat(state.royalHatchery.male.critters);
         return allCritters.find(critter => critterId === critter.id)
       },
-    lowestMiner: state => {
-      const mound = state.worker.mine;
-      let result = 0;
-      if (mound.critters.length > 0) {
-        result = mound.critters[mound.critters.length-1].dirtPerSecond
+    lowestWorker: state => {
+      return type => {
+        const mound = state.worker[type];
+        let result = 0;
+        if (mound.critters.length > 0) {
+          result = mound.critters[mound.critters.length - 1][mound.sortBy]
+        }
+        return result;
       }
-      return result;
-    },
-    lowestFarmer: state => {
-      const mound = state.worker.farm;
-      let result = 0;
-      if (mound.critters.length > 0) {
-        result = mound.critters[mound.critters.length-1].grassPerSecond
-      }
-      return result;
-    },
-    lowestCarrier: state => {
-      const mound = state.worker.carry;
-      let result = 0;
-      if (mound.critters.length > 0) {
-        result = mound.critters[mound.critters.length-1].carryPerSecond
-      }
-      return result;
-    },
-    lowestFactory: state => {
-      const mound = state.worker.factory;
-      let result = 0;
-      if (mound.critters.length > 0) {
-        result = mound.critters[mound.critters.length-1].sodPerSecond
-      }
-      return result;
     },
     productionPerSecond: state => {
       const production = [];
@@ -209,19 +187,19 @@ export const store = new Vuex.Store({
         const productions = [
           {
             type: 'mine',
-            canAdd: critter.dirtPerSecond>context.getters.lowestMiner || context.state.worker.mine.critters.length<context.state.worker.mine.size,
+            canAdd: critter.dirtPerSecond>context.getters.lowestWorker('mine') || context.state.worker.mine.critters.length<context.state.worker.mine.size,
             production: context.state.worker.mine.productionPerSecond
           },{
             type: 'farm',
-            canAdd: critter.grassPerSecond>context.getters.lowestFarmer || context.state.worker.farm.critters.length<context.state.worker.farm.size,
+            canAdd: critter.grassPerSecond>context.getters.lowestWorker('farm') || context.state.worker.farm.critters.length<context.state.worker.farm.size,
             production: context.state.worker.farm.productionPerSecond
           }, {
             type: 'carry',
-            canAdd: critter.carryPerSecond>context.getters.lowestCarrier || context.state.worker.carry.critters.length<context.state.worker.carry.size,
+            canAdd: critter.carryPerSecond>context.getters.lowestWorker('carry') || context.state.worker.carry.critters.length<context.state.worker.carry.size,
             production: context.state.worker.carry.productionPerSecond
           }, {
             type: 'factory',
-            canAdd: critter.sodPerSecond>context.getters.lowestFactory || context.state.worker.factory.critters.length<context.state.worker.factory.size,
+            canAdd: critter.sodPerSecond>context.getters.lowestWorker('factory') || context.state.worker.factory.critters.length<context.state.worker.factory.size,
             production: context.state.worker.factory.productionPerSecond
           }
         ];
