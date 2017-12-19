@@ -5,6 +5,8 @@ class Controller {
     this.store = store;
     this.timeBetweenTicks = 1000 / ticksPerSecond;
     this.lastTick = null;
+    this.timeBetweenSaves = 5 * 50 * 1000;
+    this.lastSave = null;
   }
 
   breed(location) {
@@ -76,12 +78,21 @@ class Controller {
     this.produceSod();
   }
 
+  save() {
+    this.store.dispatch('saveState');
+  }
+
   checkTick(timestamp) {
     if (!this.lastTick) this.lastTick = timestamp;
     const timeSinceLastTick = timestamp - this.lastTick;
     if (timeSinceLastTick >= this.timeBetweenTicks) {
       this.lastTick = timestamp;
       this.tick();
+    }
+    if (!this.lastSave) this.lastSave = timestamp;
+    const timeSinceLastSave = timestamp - this.lastTick;
+    if (timeSinceLastSave >= this.timeBetweenSaves) {
+      this.save();
     }
     window.requestAnimationFrame(this.checkTick.bind(this));
   }
