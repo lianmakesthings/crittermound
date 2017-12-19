@@ -11,6 +11,12 @@ npm install
 # serve with hot reload at localhost:8080
 npm run dev
 
+# run dev setup inside docker container (assuming pwd is project root)
+docker run -p 8080:8080 -v $(pwd):/app -it --rm node bash
+cd app
+npm install
+npm run dev
+
 # build for production with minification
 npm run build
 
