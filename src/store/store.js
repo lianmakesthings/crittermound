@@ -188,8 +188,10 @@ export const store = new Vuex.Store({
     setSodAmount(state, value) {
       state.totalSod = value;
     },
-    increaseMoundSize(state, {location, type}) {
-      state[location][type].size += 1
+    upgradeMound(state, {location, type}) {
+      const mound = state[location][type];
+      mound.size += 1;
+      mound.upgradeCost = mound.upgradeCost * 10;
     },
     saveState(state) {
     },
@@ -293,7 +295,7 @@ export const store = new Vuex.Store({
       const mound = context.getters.mound(location, type);
       const upgradeCost = mound.upgradeCost;
       if (upgradeCost <= sod) {
-        context.commit('increaseMoundSize', {location, type});
+        context.commit('upgradeMound', {location, type});
         context.commit('setSodAmount', sod - upgradeCost);
       }
     },
