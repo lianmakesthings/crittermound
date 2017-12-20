@@ -1,6 +1,7 @@
 <template>
   <div class="worker-mound">
     <h3>{{ type }}</h3>
+    <button v-on:click="upgrade(location, type)">Upgrade {{ upgradeCost }} Sod</button>
       <table class="table">
         <thead>
         <tr v-bind:style="headerBackground">
@@ -58,6 +59,14 @@
         return {
           'background-color': this.bgColor
         }
+      },
+      upgradeCost() {
+        return this.$store.getters.mound(this.location, this.type).upgradeCost
+      }
+    },
+    methods: {
+      upgrade: function(location, type) {
+        this.$store.dispatch('upgradeMound', {location, type})
       }
     }
   }
