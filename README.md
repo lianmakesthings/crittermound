@@ -25,6 +25,7 @@ npm run build --report
 ```
 
 ## Not implemented yet
+ * Run controller in background (web-worker)
  * Sod used for breeding
  * Animate workers
  * Mutations/Genes
