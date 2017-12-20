@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate'
 import { SmartRound } from '../lib/Helpers';
 import { Critter, CritterFactory } from '../lib/Critter';
+import SodProduction from '../lib/SodProduction';
 
 Vue.use(Vuex);
 
@@ -85,7 +86,6 @@ const initialState = {
     }
   }
 };
-
 
 export const store = new Vuex.Store({
   state: initialState,
@@ -225,52 +225,14 @@ export const store = new Vuex.Store({
       const mound = context.state[location][type];
       const critter = mound.critters[0];
       if (critter) {
-        const worstMiner = context.getters.lowestWorker('mine');
-        const worstFarmer = context.getters.lowestWorker('farm');
-        const worstCarrier = context.getters.lowestWorker('carry');
-        const worstFactoryWorker = context.getters.lowestWorker('factory');
-        const lowestProduction = Math.min(worstMiner, worstFarmer, worstCarrier, worstFactoryWorker);
-        const productions = [
-          {
-            type: 'mine',
-            canAdd: critter.dirtPerSecond>worstMiner || context.state.worker.mine.critters.length<context.state.worker.mine.size,
-            lowestProduction: lowestProduction === worstMiner,
-            production: context.state.worker.mine.productionPerSecondRaw
-          },{
-            type: 'farm',
-            canAdd: critter.grassPerSecond>worstFarmer || context.state.worker.farm.critters.length<context.state.worker.farm.size,
-            lowestProduction: lowestProduction === worstFarmer,
-            production: context.state.worker.farm.productionPerSecondRaw
-          }, {
-            type: 'carry',
-            canAdd: critter.carryPerSecond>worstCarrier || context.state.worker.carry.critters.length<context.state.worker.carry.size,
-            lowestProduction: lowestProduction === worstCarrier,
-            production: context.state.worker.carry.productionPerSecondRaw
-          }, {
-            type: 'factory',
-            canAdd: critter.sodPerSecond>worstFactoryWorker || context.state.worker.factory.critters.length<context.state.worker.factory.size,
-            lowestProduction: lowestProduction === worstFactoryWorker,
-            production: context.state.worker.factory.productionPerSecondRaw
-          }
-        ];
+        const sodProduction = new SodProduction(context.state);
+        const destination = sodProduction.allocateWorker(critter);
+        context.commit('moveCritter', {
+          from: {location, type},
+          to: destination
+        });
 
-        const productionsToAdd = productions.filter(prod => prod.canAdd);
-        if (productionsToAdd.length > 0) {
-          let production = productionsToAdd.find(prod => prod.lowestProduction);
-          if (!production) {
-            production = productionsToAdd[0]
-          }
-          context.commit('moveCritter', {
-            from: {location, type},
-            to: {location: 'worker', type: production.type}
-          });
-          context.commit('updateProductionRaw')
-        } else {
-          context.commit('moveCritter', {
-            from: {location, type},
-            to: null
-          });
-        }
+        if (destination) context.commit('updateProductionRaw')
       }
     },
     useBoost: (context, location) => {
