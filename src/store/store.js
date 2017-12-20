@@ -14,6 +14,7 @@ const initialState = {
   totalCritters: 2,
   totalGenerations: 0,
   totalSod: 0,
+  stateSaved: false,
   royalHatchery: {
     boosts: 10,
     maxBoosts: 10,
@@ -125,6 +126,9 @@ export const store = new Vuex.Store({
       location => {
         return state[location].maxBoosts;
       },
+    showStateSaved: state => {
+      return state.stateSaved
+    }
   },
   mutations: {
     breed(state, {mother, father, location}) {
@@ -187,7 +191,11 @@ export const store = new Vuex.Store({
     increaseMoundSize(state, {location, type}) {
       state[location][type].size += 1
     },
-    saveState(state) {}
+    saveState(state) {
+    },
+    setStateSaved(state, bool) {
+      state.stateSaved = bool;
+    }
   },
   actions: {
     healCritter: (context, critterId) => {
@@ -291,6 +299,8 @@ export const store = new Vuex.Store({
     },
     saveState: (context) => {
       context.commit('saveState');
+      context.commit('setStateSaved', true);
+      setTimeout(() => context.commit('setStateSaved', false), 5000)
     }
   },
   plugins: [createPersistedState({

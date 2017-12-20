@@ -5,7 +5,7 @@ class Controller {
     this.store = store;
     this.timeBetweenTicks = 1000 / ticksPerSecond;
     this.lastTick = null;
-    this.timeBetweenSaves = 5 * 50 * 1000;
+    this.timeBetweenSaves = 5 * 60 * 1000;
     this.lastSave = null;
   }
 
@@ -90,8 +90,9 @@ class Controller {
       this.tick();
     }
     if (!this.lastSave) this.lastSave = timestamp;
-    const timeSinceLastSave = timestamp - this.lastTick;
+    const timeSinceLastSave = timestamp - this.lastSave;
     if (timeSinceLastSave >= this.timeBetweenSaves) {
+      this.lastSave = timestamp;
       this.save();
     }
     window.requestAnimationFrame(this.checkTick.bind(this));

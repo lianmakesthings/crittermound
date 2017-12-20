@@ -1,8 +1,13 @@
 <template>
   <div id="app" class="container">
     <div class="appHeader">
-      <div class="totalSod">Sod {{ totalSod }}</div>
-      <button v-on:click="save">Save</button>
+      <div class="headerColumn">
+        <div v-show="stateSaved" class="alert alert-info">State saved</div>
+      </div>
+      <div class="headerColumn">
+        <div class="totalSod">Sod {{ totalSod }}</div>
+        <button v-on:click="save">Save</button>
+      </div>
     </div>
     <royal-hatchery></royal-hatchery>
     <worker></worker>
@@ -23,6 +28,9 @@
     computed: {
       totalSod() {
         return SmartRound(this.$store.getters.totalSod)
+      },
+      stateSaved() {
+        return this.$store.getters.showStateSaved
       }
     },
     methods: {
@@ -36,6 +44,9 @@
 <style scoped>
   .appHeader {
     float: right;
+  }
+  .headerColumn {
+    display: inline-block;
   }
   .totalSod {
     font-size: 20px;
