@@ -3,9 +3,9 @@
     <div v-if="showProgressBar" class="progress">
       <div class="progress-bar progress-bar-striped" v-bind:style="progressBar"></div>
     </div>
-    <div class="d-flex flex-row justify-content-around">
+    <div class="d-flex justify-content-around">
       <div id="totalDetails" @mouseenter="showDetails" @mouseleave="hideDetails">
-        <h4>{{ critter.score }}</h4>
+        <span>{{ critter.score }}</span>
         <div v-if="showTotalDetails">
           <div>Generation: {{ critter.generation }}</div>
           <div>Birth Order: {{ critter.id }}</div>
@@ -14,7 +14,7 @@
         </div>
       </div>
       <div id="vitalityDetails" @mouseenter="showDetails" @mouseleave="hideDetails">
-        <h4>{{ critter.traits[0].value }}</h4>
+        <span>{{ critter.traits[0].value }}</span>
         <div v-if="showVitalityDetails">
           <div>Base: {{ critter.traits[0].value }}</div>
           <div>Bonus: {{ critter.traits[0].bonus }}</div>
@@ -24,7 +24,7 @@
         </div>
       </div>
       <div id="strengthDetails" @mouseenter="showDetails" @mouseleave="hideDetails">
-        <h4>{{ critter.traits[1].value }}</h4>
+        <span>{{ critter.traits[1].value }}</span>
         <div v-if="showStrengthDetails">
           <div>Base: {{ critter.traits[1].value }}</div>
           <div>Bonus: {{ critter.traits[1].bonus }}</div>
@@ -33,7 +33,7 @@
         </div>
       </div>
       <div id="agilityDetails" @mouseenter="showDetails" @mouseleave="hideDetails">
-        <h4>{{ critter.traits[2].value }}</h4>
+        <span>{{ critter.traits[2].value }}</span>
         <div v-if="showAgilityDetails">
           <div>Base: {{ critter.traits[2].value }}</div>
           <div>Bonus: {{ critter.traits[2].bonus }}</div>
@@ -42,7 +42,7 @@
         </div>
       </div>
       <div id="biteDetails" @mouseenter="showDetails" @mouseleave="hideDetails">
-        <h4>{{ critter.traits[3].value }}</h4>
+        <span>{{ critter.traits[3].value }}</span>
         <div v-if="showBiteDetails">
           <div>Base: {{ critter.traits[3].value }}</div>
           <div>Bonus: {{ critter.traits[3].bonus }}</div>
@@ -52,7 +52,7 @@
         </div>
       </div>
       <div id="stingDetails" @mouseenter="showDetails" @mouseleave="hideDetails">
-          <h4>{{ critter.traits[4].value }}</h4>
+          <span>{{ critter.traits[4].value }}</span>
           <div v-if="showStingDetails">
             <div>Base: {{ critter.traits[4].value }}</div>
             <div>Bonus: {{ critter.traits[4].bonus }}</div>

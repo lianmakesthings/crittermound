@@ -1,7 +1,7 @@
 <template>
   <div id="royal-hatchery">
     <h2>Royal Hatchery</h2>
-    <div>
+    <div class="d-flex flex-column">
       <div class="breeding-unit">
         <breeding-mound id="queen-breeding-mound" location="royalHatchery" type="mother"></breeding-mound>
         <hatchery-mound id="female-hatchery-mound" location="royalHatchery" type="female"></hatchery-mound>

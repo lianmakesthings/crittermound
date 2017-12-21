@@ -2,14 +2,7 @@
   <div class="worker-mound">
     <h3>{{ type }}</h3>
     <b-button v-on:click="upgrade(location, type)">Upgrade {{ upgradeCost }} Sod</b-button>
-    <div v-bind:style="headerStyle" class="d-flex flex-row justify-content-around">
-      <div>Score</div>
-      <div>Vitality</div>
-      <div>Strength</div>
-      <div>Agility</div>
-      <div>Bite</div>
-      <div>Sting</div>
-    </div>
+    <critter-header :bgColor="bgColor"></critter-header>
     <div v-for="critter in critters">
       <critter :critterId="critter.id" :bgColor="bgColor" :showProgressBar="true"></critter>
     </div>
@@ -18,10 +11,12 @@
 
 <script>
   import Critter from './Critter.vue';
+  import CritterHeader from './CritterHeader.vue';
 
   export default {
     components: {
-      'critter': Critter
+      Critter,
+      'critter-header': CritterHeader
     },
     props: {
       location: {

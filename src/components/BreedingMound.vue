@@ -3,26 +3,19 @@
     <h3>{{ name }}</h3>
     <b-button v-on:click="boost(location)">Boost: {{ boosts }}/{{ maxBoosts }}</b-button>
     <b-button v-on:click="upgrade(location, critter)">Upgrade {{ upgradeCost }} Sod</b-button>
-
-    <div v-bind:style="headerStyle" class="d-flex flex-row justify-content-around">
-      <div>Score</div>
-      <div>Vitality</div>
-      <div>Strength</div>
-      <div>Agility</div>
-      <div>Bite</div>
-      <div>Sting</div>
-    </div>
+    <critter-header :bgColor="bgColor"></critter-header>
     <critter :critterId="critter.id" :bgColor="bgColor" :showProgressBar="true"></critter>
-    </table>
   </div>
 </template>
 
 <script>
   import Critter from './Critter.vue';
+  import CritterHeader from './CritterHeader.vue';
 
   export default {
     components: {
-      'critter': Critter
+      Critter,
+      'critter-header': CritterHeader
     },
     props: {
       location: {
@@ -43,11 +36,6 @@
       },
       bgColor() {
         return (this.type === 'mother') ? '#f2dede' : '#d9edf7'
-      },
-      headerStyle() {
-        return {
-          'background-color': this.bgColor
-        }
       },
       name() {
         return (this.type === 'mother') ? 'Queen' : 'King';

@@ -27,11 +27,10 @@
         <div>{{ sodProductionData.grassStored }} {{ sodProductionData.grassPerSecond }}</div>
       </div>
     </div>
-    <div class="worker-column">
+    <div></div>
+    <div class="d-flex flex-column">
       <worker-mound id="mine-worker-mound" location="worker" type="mine"></worker-mound>
       <worker-mound id="farm-worker-mound" location="worker" type="farm"></worker-mound>
-    </div>
-    <div class="worker-column">
       <worker-mound id="carry-worker-mound" location="worker" type="carry"></worker-mound>
       <worker-mound id="factory-worker-mound" location="worker" type="factory"></worker-mound>
     </div>
@@ -72,8 +71,5 @@
   }
 </script>
 
-<style scoped>
-.worker-column {
-  display: inline-block;
-}
+<style>
 </style>
