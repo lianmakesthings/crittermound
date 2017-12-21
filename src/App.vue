@@ -6,7 +6,7 @@
       </div>
       <div class="headerColumn">
         <div class="totalSod">Sod {{ totalSod }}</div>
-        <button v-on:click="save">Save</button>
+        <b-button v-on:click="save">Save</b-button>
       </div>
     </div>
     <royal-hatchery></royal-hatchery>
