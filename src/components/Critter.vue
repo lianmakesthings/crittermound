@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div v-if="showProgressBar" class="progress">
-      <div class="progress-bar progress-bar-striped" v-bind:style="progressBar"></div>
-    </div>
+    <b-progress v-if="showProgressBar" :value="health" :max="maxHealth" animated></b-progress>
     <div class="d-flex justify-content-around">
       <div id="totalDetails" @mouseenter="showDetails" @mouseleave="hideDetails">
         <span>{{ critter.score }}</span>
@@ -96,19 +94,11 @@
       critter() {
         return this.$store.getters.findCritter(this.critterId)
       },
-      breedingProgress() {
-        return this.critter.progress
+      health() {
+        return this.critter.currentHealth
       },
-      progressBar() {
-        return {
-          'background-color': this.bgColor,
-          'width': this.breedingProgress + '%'
-        }
-      },
-      headerBackground() {
-        return {
-          'background-color': this.bgColor
-        }
+      maxHealth() {
+        return this.critter.maxHealth
       },
       showTotalDetails() {
         return this.totalDetails;
