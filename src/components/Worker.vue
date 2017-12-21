@@ -1,27 +1,35 @@
 <template>
   <div id="worker">
     <h2>Worker</h2>
-    <div id="visualisation" class="d-flex justify-content-around align-items-center">
+    <div id="visualisation" class="d-flex flex-column justify-content-between" style="text-align: center">
       <div id="mine-dirt" class="alert alert-warning">
         <strong>Mined Dirt</strong>
         <div>{{ sodProductionData.dirtStored }} {{ sodProductionData.dirtPerSecond }}</div>
       </div>
-      <i id="carry-dirt" class="fas fa-angle-double-right fa-3x" style="color:sandybrown"></i>
+      <div id="carry-dirt">
+        <i class="fas fa-angle-double-down fa-3x" style="color:sandybrown"></i>
+      </div>
       <div id="factory-dirt" class="alert alert-warning">
         <strong>Factory Dirt</strong>
         <div>{{ sodProductionData.factoryDirtStored }} {{ sodProductionData.dirtCarriedPerSecond }}</div>
       </div>
-      <i id="use-dirt" class="fas fa-angle-double-right fa-3x" style="color:sandybrown"></i>
+      <div id="use-dirt">
+        <i class="fas fa-angle-double-down fa-3x" style="color:sandybrown"></i>
+      </div>
       <div id="produce-sod" class="alert alert-info">
         <strong>Produce Sod</strong>
         <div>{{ sodProductionData.totalSod }} {{ sodProductionData.sodPerSecond }}</div>
       </div>
-      <i id="use-grass" class="fas fa-angle-double-left fa-3x" style="color:darkgreen"></i>
+      <div id="use-grass">
+        <i class="fas fa-angle-double-up fa-3x" style="color:darkgreen"></i>
+      </div>
       <div id="factory-grass" class="alert alert-success">
         <strong>Factory Grass</strong>
         <div>{{ sodProductionData.factoryGrassStored }} {{ sodProductionData.grassCarriedPerSecond }}</div>
       </div>
-      <i id="carry-grass" class="fas fa-angle-double-left fa-3x" style="color:darkgreen"></i>
+      <div id="carry-grass">
+        <i class="fas fa-angle-double-up fa-3x" style="color:darkgreen"></i>
+      </div>
       <div id="farm-grass" class="alert alert-success">
         <strong>Farmed Grass</strong>
         <div>{{ sodProductionData.grassStored }} {{ sodProductionData.grassPerSecond }}</div>
