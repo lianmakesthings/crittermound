@@ -2,9 +2,17 @@
   <div class="hatchery-mound">
     <div>
       <div>
-        <button v-on:click="replaceParent">{{ parent }}</button>
-        <button v-on:click="addWorker">Worker</button>
+        <b-button v-on:click="replaceParent">{{ parent }}</b-button>
+        <b-button v-on:click="addWorker">Worker</b-button>
       </div>
+    </div>
+    <div v-bind:style="headerStyle" class="d-flex flex-row justify-content-around">
+      <div>Score</div>
+      <div>Vitality</div>
+      <div>Strength</div>
+      <div>Agility</div>
+      <div>Bite</div>
+      <div>Sting</div>
     </div>
     <div v-for="critter in critters">
       <critter :critterId="critter.id" :bgColor="bgColor" :showProgressBar="false"></critter>
@@ -22,12 +30,12 @@
     props: {
       location: {
         required: true,
-        type: String,
+        type: String
       },
       type: {
         required: true,
-        type: String,
-      },
+        type: String
+      }
     },
     methods: {
       replaceParent: function () {
@@ -52,6 +60,11 @@
       },
       parent() {
         return (this.type === 'female') ? 'Queen' : 'King'
+      },
+      headerStyle() {
+        return {
+          'background-color': this.bgColor
+        }
       }
     }
   }

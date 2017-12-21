@@ -4,9 +4,21 @@ import Vue from 'vue';
 import App from './App';
 import { store } from './store/store';
 import Controller from './lib/controller';
-require('../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss');
+import BootstrapVue from 'bootstrap-vue'
+Vue.use(BootstrapVue);
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
 
 Vue.config.productionTip = false;
+
+const vueApp = new Vue({
+  el: '#app',
+  store: store,
+  template: '<App/>',
+  components: { App }
+});
+
 
 //enable requestAnimationFrame & cancelAnimationFrame
 var lastTime = 0;
@@ -33,13 +45,6 @@ if (!window.cancelAnimationFrame) {
     clearTimeout(id);
   };
 }
-
-const vueApp = new Vue({
-  el: '#app',
-  store: store,
-  template: '<App/>',
-  components: { App }
-});
 
 const controller = new Controller(store);
 controller.start();

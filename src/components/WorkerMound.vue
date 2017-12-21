@@ -1,7 +1,15 @@
 <template>
   <div class="worker-mound">
     <h3>{{ type }}</h3>
-    <button v-on:click="upgrade(location, type)">Upgrade {{ upgradeCost }} Sod</button>
+    <b-button v-on:click="upgrade(location, type)">Upgrade {{ upgradeCost }} Sod</b-button>
+    <div v-bind:style="headerStyle" class="d-flex flex-row justify-content-around">
+      <div>Score</div>
+      <div>Vitality</div>
+      <div>Strength</div>
+      <div>Agility</div>
+      <div>Bite</div>
+      <div>Sting</div>
+    </div>
     <div v-for="critter in critters">
       <critter :critterId="critter.id" :bgColor="bgColor" :showProgressBar="true"></critter>
     </div>
@@ -39,6 +47,11 @@
             return '#b87900';
           case 'factory':
             return '#65749f';
+        }
+      },
+      headerStyle() {
+        return {
+          'background-color': this.bgColor
         }
       },
       upgradeCost() {
