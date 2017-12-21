@@ -1,29 +1,29 @@
 <template>
   <div id="worker">
     <h2>Worker</h2>
-    <div id="visualisation">
-      <div id="mine-dirt" class="worker-column">
-        <div>Mined Dirt</div>
+    <div id="visualisation" class="d-flex justify-content-around align-items-center">
+      <div id="mine-dirt" class="alert alert-warning">
+        <strong>Mined Dirt</strong>
         <div>{{ sodProductionData.dirtStored }} {{ sodProductionData.dirtPerSecond }}</div>
       </div>
-      <div id="carry-dirt" class="worker-column glyphicon glyphicon-arrow-right"></div>
-      <div id="factory-dirt" class="worker-column">
-        <div>Factory Dirt</div>
+      <i id="carry-dirt" class="fas fa-angle-double-right fa-3x" style="color:sandybrown"></i>
+      <div id="factory-dirt" class="alert alert-warning">
+        <strong>Factory Dirt</strong>
         <div>{{ sodProductionData.factoryDirtStored }} {{ sodProductionData.dirtCarriedPerSecond }}</div>
       </div>
-      <div id="use-dirt" class="worker-column glyphicon glyphicon-arrow-right"></div>
-      <div id="produce-sod" class="worker-column">
-        <div>Produce Sod</div>
+      <i id="use-dirt" class="fas fa-angle-double-right fa-3x" style="color:sandybrown"></i>
+      <div id="produce-sod" class="alert alert-info">
+        <strong>Produce Sod</strong>
         <div>{{ sodProductionData.totalSod }} {{ sodProductionData.sodPerSecond }}</div>
       </div>
-      <div id="use-grass" class="worker-column glyphicon glyphicon-arrow-left"></div>
-      <div id="factory-grass" class="worker-column">
-        <div>Factory Grass</div>
+      <i id="use-grass" class="fas fa-angle-double-left fa-3x" style="color:darkgreen"></i>
+      <div id="factory-grass" class="alert alert-success">
+        <strong>Factory Grass</strong>
         <div>{{ sodProductionData.factoryGrassStored }} {{ sodProductionData.grassCarriedPerSecond }}</div>
       </div>
-      <div id="carry-grass" class="worker-column glyphicon glyphicon-arrow-left"></div>
-      <div id="farm-grass" class="worker-column">
-        <div>Farmed Grass</div>
+      <i id="carry-grass" class="fas fa-angle-double-left fa-3x" style="color:darkgreen"></i>
+      <div id="farm-grass" class="alert alert-success">
+        <strong>Farmed Grass</strong>
         <div>{{ sodProductionData.grassStored }} {{ sodProductionData.grassPerSecond }}</div>
       </div>
     </div>

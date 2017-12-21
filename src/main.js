@@ -7,6 +7,10 @@ import Controller from './lib/controller';
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import fontawesome from '@fortawesome/fontawesome'
+import { faUser } from '@fortawesome/fontawesome-free-solid'
+
+fontawesome.icon(faUser)
 
 Vue.use(BootstrapVue);
 Vue.config.productionTip = false;

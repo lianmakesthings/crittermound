@@ -15,7 +15,7 @@
 
   export default {
     components: {
-      Critter,
+      'critter': Critter,
       'critter-header': CritterHeader
     },
     props: {
