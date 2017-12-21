@@ -2,33 +2,20 @@
   <div class="worker-mound">
     <h3>{{ type }}</h3>
     <button v-on:click="upgrade(location, type)">Upgrade {{ upgradeCost }} Sod</button>
-      <table class="table">
-        <thead>
-        <tr v-bind:style="headerBackground">
-          <th>Score</th>
-          <th>Vitality</th>
-          <th>Strength</th>
-          <th>Agility</th>
-          <th>Bite</th>
-          <th>Sting</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="critter in critters">
-          <td>{{ critter.score }}</td>
-          <td>{{ critter.traits[0].value }}</td>
-          <td>{{ critter.traits[1].value }}</td>
-          <td>{{ critter.traits[2].value }}</td>
-          <td>{{ critter.traits[3].value }}</td>
-          <td>{{ critter.traits[4].value }}</td>
-        </tr>
-        </tbody>
-      </table>
-      </div>
+    <div v-for="critter in critters">
+      {{critter.id}}
+      <critter :critterId="critter.id" :bgColor="bgColor" :showProgressBar="true"></critter>
+    </div>
+    </div>
 </template>
 
 <script>
+  import Critter from './Critter.vue';
+
   export default {
+    components: {
+      'critter': Critter
+    },
     props: {
       location: {
         required: true,
@@ -53,11 +40,6 @@
             return '#b87900';
           case 'factory':
             return '#65749f';
-        }
-      },
-      headerBackground() {
-        return {
-          'background-color': this.bgColor
         }
       },
       upgradeCost() {

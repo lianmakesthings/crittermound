@@ -108,7 +108,11 @@ export const store = new Vuex.Store({
         const allCritters = state.royalHatchery.mother.critters
           .concat(state.royalHatchery.father.critters)
           .concat(state.royalHatchery.female.critters)
-          .concat(state.royalHatchery.male.critters);
+          .concat(state.royalHatchery.male.critters)
+          .concat(state.worker.mine.critters)
+          .concat(state.worker.farm.critters)
+          .concat(state.worker.carry.critters)
+          .concat(state.worker.factory.critters);
         return allCritters.find(critter => critterId === critter.id)
       },
     lowestWorker: state => {
