@@ -1,10 +1,9 @@
 <template>
   <div id="app" class="container">
-    <div class="appHeader">
-      <div class="headerColumn">
-        <div v-show="stateSaved" class="alert alert-info">State saved</div>
-      </div>
-      <div class="headerColumn">
+    <div class="appHeader d-flex justify-content-end">
+      <div>
+        <div v-show="stateSaved" class="alert alert-info">State saved</div></div>
+      <div>
         <div class="totalSod">Sod {{ totalSod }}</div>
         <b-button v-on:click="save">Save</b-button>
       </div>
