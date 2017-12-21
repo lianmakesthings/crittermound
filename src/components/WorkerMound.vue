@@ -3,7 +3,6 @@
     <h3>{{ type }}</h3>
     <button v-on:click="upgrade(location, type)">Upgrade {{ upgradeCost }} Sod</button>
     <div v-for="critter in critters">
-      {{critter.id}}
       <critter :critterId="critter.id" :bgColor="bgColor" :showProgressBar="true"></critter>
     </div>
     </div>

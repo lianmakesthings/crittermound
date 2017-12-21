@@ -92,6 +92,22 @@ const initialState = {
 export const store = new Vuex.Store({
   state: initialState,
   getters: {
+    allCritters: state => {
+      return state.royalHatchery.mother.critters
+        .concat(state.royalHatchery.father.critters)
+        .concat(state.royalHatchery.female.critters)
+        .concat(state.royalHatchery.male.critters)
+        .concat(state.worker.mine.critters)
+        .concat(state.worker.farm.critters)
+        .concat(state.worker.carry.critters)
+        .concat(state.worker.factory.critters);
+    },
+    allWorkers: state => {
+      return state.worker.mine.critters
+        .concat(state.worker.farm.critters)
+        .concat(state.worker.carry.critters)
+        .concat(state.worker.factory.critters);
+    },
     critters: state =>
       (location, type) => {
         return state[location][type].critters;
@@ -115,16 +131,6 @@ export const store = new Vuex.Store({
           .concat(state.worker.factory.critters);
         return allCritters.find(critter => critterId === critter.id)
       },
-    lowestWorker: state => {
-      return type => {
-        const mound = state.worker[type];
-        let result = 0;
-        if (mound.critters.length > 0) {
-          result = mound.critters[mound.critters.length - 1][mound.sortBy]
-        }
-        return result;
-      }
-    },
     boosts: state =>
       location => {
         return state[location].boosts;
@@ -162,6 +168,7 @@ export const store = new Vuex.Store({
           if (targetMound.critters.length >= targetMound.size) {
             targetMound.critters.pop();
           }
+          critter.currentHealth = 0;
           targetMound.critters.push(critter);
           targetMound.critters.sort((a,b) => b[targetMound.sortBy] - a[targetMound.sortBy])
         }
@@ -212,11 +219,15 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
-    healCritter: (context, critterId) => {
+    healAllCritters: (context) => {
+      context.getters.allCritters.forEach(critter => {
+        const value = critter.currentHealth + critter.maxHealth / critter.actionTime;
+        context.commit('setCritterHealth', {critter, value});
+      })
+    },
+    resetCritterHealth: (context, critterId) => {
       const critter = context.getters.findCritter(critterId);
-      const value = critter.currentHealth + critter.maxHealth / critter.actionTime;
-      context.commit('setCritterHealth', {critter, value});
-
+      context.commit('setCritterHealth', {critter, value: 0})
     },
     breedCritter: (context, location) => {
       const id = context.getters.totalCritters + 1;

@@ -68,13 +68,15 @@ class Controller {
     const queen = this.store.getters.mound(location, 'mother').critters[0];
     const king = this.store.getters.mound(location, 'father').critters[0];
 
+    this.store.dispatch('healAllCritters');
     if (queen.progress >= 100 && king.progress >= 100) {
       this.breed(location)
-    } else {
-      this.store.dispatch('healCritter', queen.id);
-      this.store.dispatch('healCritter', king.id);
     }
-
+    this.store.getters.allWorkers.forEach(critter => {
+      if (critter.progress >= 100) {
+        this.store.dispatch('resetCritterHealth', critter.id)
+      }
+    });
     this.produceSod();
   }
 
