@@ -85,7 +85,7 @@ class Critter {
 
   get bonusScore() {
     if(!this.rawGeneValue) {
-      this.rawGeneValue = this.traits.reduce((acc, trait) => acc * trait.rawGeneValue, 1);
+      this.rawGeneValue = this.traits.reduce((acc, trait) => acc * trait.geneValue, 1);
     }
     return SmartRound(Math.pow(this.rawGeneValue,.2));
   }
