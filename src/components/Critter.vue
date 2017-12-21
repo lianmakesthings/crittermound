@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="progress">
+    <div v-if="showProgressBar" class="progress">
       <div class="progress-bar progress-bar-striped" v-bind:style="progressBar"></div>
     </div>
     <table class="table">
@@ -111,6 +111,10 @@
       bgColor: {
         required: true,
         type: String,
+      },
+      showProgressBar : {
+        required: true,
+        type: Boolean
       }
     },
     computed: {

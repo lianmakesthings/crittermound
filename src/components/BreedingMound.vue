@@ -3,7 +3,9 @@
     <h3>{{ name }}</h3>
     <button v-on:click="boost(location)">Boost: {{ boosts }}/{{ maxBoosts }}</button>
     <button v-on:click="upgrade(location, critter)">Upgrade {{ upgradeCost }} Sod</button>
-    <critter :critterId="critter.id" :bgColor="bgColor"></critter>
+
+    <critter :critterId="critter.id" :bgColor="bgColor" :showProgressBar="true"></critter>
+    </table>
   </div>
 </template>
 
