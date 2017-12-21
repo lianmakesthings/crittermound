@@ -8,8 +8,17 @@
         <b-button v-on:click="save">Save</b-button>
       </div>
     </div>
-    <royal-hatchery></royal-hatchery>
-    <worker></worker>
+    <b-tabs>
+      <b-tab title="Royal Hatchery" active>
+        <royal-hatchery></royal-hatchery>
+      </b-tab>
+      <b-tab title="Worker">
+        <worker></worker>
+      </b-tab>
+      <b-tab title="Soldiers" disabled></b-tab>
+      <b-tab title="Achievements" disabled></b-tab>
+      <b-tab title="How To Play" disabled></b-tab>
+    </b-tabs>
   </div>
 </template>
 
