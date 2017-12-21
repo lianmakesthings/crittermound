@@ -1,14 +1,37 @@
+import {SmartRound} from './Helpers';
 class Trait {
-  constructor(id, value) {
+  constructor(id, baseValue) {
     this.id = id;
     this.name = Trait.NAMES[id];
-    this.bonus = 0;
-    this.base = value;
+    this.base = baseValue;
     this.genes = [];
   }
 
+  get geneValue() {
+    let totalGeneValue = this.genes.reduce((acc, gene) => {
+      if (gene.expression == Trait.GENE_EXPRESSION_DOMINANT) {
+        acc = acc + gene.value
+      }
+      return acc;
+    }, 0);
+    return Math.round(totalGeneValue);
+  }
+
   get value() {
-    return this.base;
+    let calculatedValue = this.base + this.base * (this.geneValue/100);
+
+    return SmartRound(calculatedValue);
+  }
+
+  getTrueValue(bonus) {
+    if (this.id == Trait.ID_BITE || this.id == Trait.ID_STING) {
+      return SmartRound(this.value + bonus);
+    }
+    return this.value;
+  }
+
+  get bonus() {
+    return this.geneValue;
   }
 }
 Trait.MAX_VALUE = 999999;

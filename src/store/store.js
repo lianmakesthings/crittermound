@@ -202,6 +202,9 @@ export const store = new Vuex.Store({
     },
     setNewGeneChance(state, val) {
       state.newGeneChance = val;
+    },
+    addDiscoveredGene(state, id) {
+      state.unlockedGenes.push(id)
     }
   },
   actions: {
@@ -272,6 +275,9 @@ export const store = new Vuex.Store({
     },
     setNewGeneChance: (context, value) => {
       context.commit('setNewGeneChance', value)
+    },
+    addDiscoveredGene: (context, geneId) => {
+      context.commit('addDiscoveredGene', geneId);
     }
   },
   plugins: [createPersistedState({

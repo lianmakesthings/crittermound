@@ -32,31 +32,6 @@ class Critter {
     return SmartRound(Math.pow(score, .2));
   }
 
-  calculateScore() {
-    let baseModifier = 1;
-    let geneModifier = 1;
-    let valueModifier = 1;
-    this.traits.forEach(trait => {
-      let totalGeneValue = trait.genes.reduce((acc, gene) => {
-        if (gene.expression == Trait.GENE_EXPRESSION_DOMINANT) {
-          acc = acc + gene.value
-        }
-        return acc;
-      }, 0);
-      totalGeneValue = Math.round(totalGeneValue);
-      let calculatedValue = trait.base + trait.base * (totalGeneValue/100);
-      trait.value = SmartRound(calculatedValue);
-      trait.trueValue = SmartRound(calculatedValue);
-      trait.bonus = totalGeneValue;
-
-      baseModifier = baseModifier * trait.base;
-      geneModifier = geneModifier * totalGeneValue;
-      valueModifier = valueModifier * trait.value
-    });
-    this.rawBaseValue = baseModifier;
-    this.rawGeneValue = geneModifier;
-  }
-
   get maxHealth() {
     return SmartRound(this.traits[Trait.ID_VITALITY].value*15);
   }
@@ -86,26 +61,32 @@ class Critter {
   }
 
   get dirtPerSecond() {
-    return SmartRound(60/(this.actionTime/ticksPerSecond)*this.traits[4].value/60);
+    return SmartRound(60/(this.actionTime/ticksPerSecond)*this.traits[Trait.ID_STING].value/60);
   }
 
   get grassPerSecond() {
-    return SmartRound(60/(this.actionTime/ticksPerSecond)*this.traits[3].value/60);
+    return SmartRound(60/(this.actionTime/ticksPerSecond)*this.traits[Trait.ID_BITE].value/60);
   }
 
   get carryPerSecond() {
-    return SmartRound(60/(this.actionTime/ticksPerSecond)*this.traits[1].value/60);
+    return SmartRound(60/(this.actionTime/ticksPerSecond)*this.traits[Trait.ID_STRENGTH].value/60);
   }
 
   get sodPerSecond() {
-    return SmartRound(60/(this.actionTime/ticksPerSecond)*this.traits[0].value/60);
+    return SmartRound(60/(this.actionTime/ticksPerSecond)*this.traits[Trait.ID_VITALITY].value/60);
   }
 
   get baseScore() {
+    if (!this.rawBaseValue) {
+      this.rawBaseValue = this.traits.reduce((acc, trait) => acc * trait.base, 1);
+    }
     return SmartRound(Math.pow(this.rawBaseValue,.2));
   }
 
-  get geneScore() {
+  get bonusScore() {
+    if(!this.rawGeneValue) {
+      this.rawGeneValue = this.traits.reduce((acc, trait) => acc * trait.rawGeneValue, 1);
+    }
     return SmartRound(Math.pow(this.rawGeneValue,.2));
   }
 }
@@ -226,7 +207,7 @@ class CritterFactory {
     // chance for new gene to randomly develop
     const newGeneChanceRange = 1e3;
     const randVal = RandomInRange(1, newGeneChanceRange);
-    if (randVal <= store.getters.newGeneChance) {
+    if (true) {
       store.dispatch('setNewGeneChance', 0);
       const unlockedGenes = store.getters.unlockedGenes;
       const developedGenes = child.traits.reduce((acc, trait) => {
@@ -237,10 +218,11 @@ class CritterFactory {
       // discover new gene
       let newGene;
       if (nextGeneId) {
-        newGene = GeneDict.getRandomGeneExcluding(unlockedGenes);
-      } else {
         newGene = GeneDict.getGene(nextGeneId);
+      } else {
+        newGene = GeneDict.getRandomGeneExcluding(unlockedGenes);
       }
+
       var base = child.traits[newGene.traitId].base;
       var bonus = child.traits[newGene.traitId].bonus;
       var geneCount = child.traits[newGene.traitId].genes.length+1;
@@ -248,6 +230,7 @@ class CritterFactory {
         newGene.expression = 1;
         newGene.value = 0;
         child.traits[newGene.traitId].genes.push(u);
+        store.dispatch('addDiscoveredGene', newGene.id);
       }
     } else {
       store.dispatch('setNewGeneChance', store.getters.newGeneChance + 1);
