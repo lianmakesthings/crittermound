@@ -1,5 +1,6 @@
 <template>
   <div id="app" class="container">
+    <h1>Critter Mound v2.0</h1>
     <div class="appHeader d-flex justify-content-end">
       <div>
         <div v-show="stateSaved" class="alert alert-info">State saved</div></div>
