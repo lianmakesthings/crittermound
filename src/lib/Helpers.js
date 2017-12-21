@@ -11,11 +11,23 @@ const StatVariance = (value) => {
 const RandomInRange = (min , max) => {
   return Math.floor(Math.random()*(max-min+1))+min
 };
+const Shuffle = (array) => {
+  let r;
+  let i;
+  for(let t = array.length; 0!==t; t--) {
+    i = Math.floor(Math.random()*t);
+    r = array[t];
+    array[t] = array[i];
+    array[i] = r;
+  }
+  return array
+};
 
 export {
   ticksPerSecond,
   SmartRound,
   CoinFlip,
   StatVariance,
-  RandomInRange
+  RandomInRange,
+  Shuffle
 }
