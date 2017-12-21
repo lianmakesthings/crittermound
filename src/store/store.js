@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate'
-import { SmartRound } from '../lib/Helpers';
 import { Critter, CritterFactory } from '../lib/Critter';
+import Sorter from '../lib/Sorter';
 import SodProduction from '../lib/SodProduction';
 
 Vue.use(Vuex);
@@ -12,9 +12,9 @@ queen.rank = Critter.RANK_ROYAL;
 const king = CritterFactory.default(2, 0, Critter.GENDER_MALE);
 king.rank = Critter.RANK_ROYAL;
 const initialState = {
+  totalSod: 0,
   totalCritters: 2,
   totalGenerations: 0,
-  totalSod: 0,
   stateSaved: false,
   unlockedGenes: [],
   newGeneChance: 0,
@@ -55,7 +55,7 @@ const initialState = {
     grassCarriedPerSecond: 0,
     sodPerSecond: 0,
     mine: {
-      sortBy: 'dirtPerSecond',
+      sortBy: 'mine',
       productionPerSecondRaw: 0,
       bonusPercent: 0,
       size: 1,
@@ -63,7 +63,7 @@ const initialState = {
       critters: []
     },
     farm: {
-      sortBy: 'grassPerSecond',
+      sortBy: 'farm',
       productionPerSecondRaw: 0,
       bonusPercent: 0,
       size: 1,
@@ -71,7 +71,7 @@ const initialState = {
       critters: []
     },
     carry: {
-      sortBy: 'carryPerSecond',
+      sortBy: 'carry',
       productionPerSecondRaw: 0,
       bonusPercent: 0,
       size: 1,
@@ -79,7 +79,7 @@ const initialState = {
       critters: []
     },
     factory: {
-      sortBy: 'sodPerSecond',
+      sortBy: 'factory',
       productionPerSecondRaw: 0,
       size: 1,
       bonusPercent: 0,
@@ -141,7 +141,8 @@ export const store = new Vuex.Store({
       },
     showStateSaved: state => state.stateSaved,
     newGeneChance: state => state.newGeneChance,
-    unlockedGenes: state => state.unlockedGenes
+    unlockedGenes: state => state.unlockedGenes,
+    sorts: state => Sorter.getAllNames()
   },
   mutations: {
     addChildToHatchery(state, {location, critter}) {
@@ -216,6 +217,11 @@ export const store = new Vuex.Store({
     },
     addDiscoveredGene(state, id) {
       state.unlockedGenes.push(id)
+    },
+    sortMound(state, {location, type, sortBy}) {
+      const mound = state[location][type];
+      mound.sortBy = sortBy;
+      mound.critters.sort(Sorter.callback(sortBy));
     }
   },
   actions: {
@@ -293,6 +299,9 @@ export const store = new Vuex.Store({
     },
     addDiscoveredGene: (context, geneId) => {
       context.commit('addDiscoveredGene', geneId);
+    },
+    sortMound: (context, payload) => {
+      context.commit('sortMound', payload)
     }
   },
   plugins: [createPersistedState({

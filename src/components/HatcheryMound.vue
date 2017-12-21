@@ -4,6 +4,12 @@
       <div>
         <b-button v-on:click="replaceParent">{{ parent }}</b-button>
         <b-button v-on:click="addWorker">Worker</b-button>
+
+        <b-dropdown text="sort">
+          <div v-for="sort in sortNames">
+            <b-dropdown-item-button v-on:click="sortMound(sort)">{{sort}}</b-dropdown-item-button>
+          </div>
+        </b-dropdown>
       </div>
     </div>
     <critter-header :bgColor="bgColor"></critter-header>
@@ -43,6 +49,9 @@
           location: this.location,
           type: this.type
         })
+      },
+      sortMound: function(sortBy) {
+        this.$store.dispatch('sortMound', {location: this.location, type: this.type, sortBy});
       }
     },
     computed: {
@@ -59,6 +68,9 @@
         return {
           'background-color': this.bgColor
         }
+      },
+      sortNames() {
+        return this.$store.getters.sorts;
       }
     }
   }
