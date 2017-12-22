@@ -272,9 +272,11 @@ export const store = new Vuex.Store({
       }
     },
     useBoost: (context, location) => {
-      const value = context.getters.boosts(location) - 1;
-      context.commit('setBoost', {location, value});
-      context.dispatch('breedCritter', location);
+      const currentBoosts = context.getters.boosts(location);
+      if (currentBoosts> 0) {
+        context.commit('setBoost', {location, value: currentBoosts - 1});
+        context.dispatch('breedCritter', location);
+      }
     },
     setBoost: (context, payload) => {
       context.commit('setBoost', payload)
