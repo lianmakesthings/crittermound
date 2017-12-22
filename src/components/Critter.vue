@@ -44,7 +44,7 @@
         <b-popover title="Stats" triggers="hover focus" :target="'biteDetails-'+critter.id">
           <div>Base: {{ critter.traits[3].value }}</div>
           <div>Bonus: {{ critter.traits[3].bonus }}</div>
-          <div>Value: {{ critter.traits[3].getTrueValue() }}</div>
+          <div>Value: {{ critter.traits[3].getTrueValue(critter.strengthBonus) }}</div>
           <div>Strength Bonus: {{ critter.strengthBonus }}</div>
           <div>Farm Production: {{ critter.grassPerSecond }} per sec.</div>
         </b-popover>
@@ -54,7 +54,7 @@
         <b-popover title="Stats" triggers="hover focus" :target="'stingDetails-'+critter.id">
           <div>Base: {{ critter.traits[4].value }}</div>
           <div>Bonus: {{ critter.traits[4].bonus }}</div>
-          <div>Value: {{ critter.traits[4].getTrueValue() }}</div>
+          <div>Value: {{ critter.traits[4].getTrueValue(critter.agilityBonus) }}</div>
           <div>Agility Bonus {{ critter.agilityBonus }}</div>
           <div>Mine Production: {{ critter.dirtPerSecond }} per sec.</div>
         </b-popover>
@@ -88,21 +88,6 @@
       },
       maxHealth() {
         return this.critter.maxHealth
-      },
-      showVitalityDetails() {
-        return this.vitalityDetails;
-      },
-      showStrengthDetails() {
-        return this.strengthDetails;
-      },
-      showAgilityDetails() {
-        return this.agilityDetails;
-      },
-      showBiteDetails() {
-        return this.biteDetails;
-      },
-      showStingDetails() {
-        return this.stingDetails;
       }
     },
     methods: {
