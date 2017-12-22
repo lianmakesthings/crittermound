@@ -63,15 +63,15 @@
           factoryGrassStored: SmartRound(sodProduction.factoryGrassStored),
           totalSod: SmartRound(this.$store.getters.totalSod)
         };
-        viewData.dirtPerSecond = (sodProduction.dirtPerSecond < 0) ? '-' : '+';
+        viewData.dirtPerSecond = (sodProduction.dirtPerSecond < 0) ? '' : '+';
         viewData.dirtPerSecond += SmartRound(sodProduction.dirtPerSecond) + '/s';
-        viewData.grassPerSecond = (sodProduction.grassPerSecond < 0) ? '-' : '+';
+        viewData.grassPerSecond = (sodProduction.grassPerSecond < 0) ? '' : '+';
         viewData.grassPerSecond += SmartRound(sodProduction.grassPerSecond) + '/s';
-        viewData.dirtCarriedPerSecond = (sodProduction.dirtCarriedPerSecond < 0) ? '-' : '+';
+        viewData.dirtCarriedPerSecond = (sodProduction.dirtCarriedPerSecond < 0) ? '' : '+';
         viewData.dirtCarriedPerSecond += SmartRound(sodProduction.dirtCarriedPerSecond) + '/s';
         viewData.grassCarriedPerSecond = (sodProduction.grassCarriedPerSecond < 0) ? '-' : '+';
         viewData.grassCarriedPerSecond += SmartRound(sodProduction.grassCarriedPerSecond) + '/s';
-        viewData.sodPerSecond = (sodProduction.sodPerSecond < 0) ? '-' : '+';
+        viewData.sodPerSecond = (sodProduction.sodPerSecond < 0) ? '' : '+';
         viewData.sodPerSecond += SmartRound(sodProduction.sodPerSecond) + '/s';
         return viewData;
       }
