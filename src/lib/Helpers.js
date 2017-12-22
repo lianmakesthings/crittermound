@@ -14,7 +14,7 @@ const RandomInRange = (min , max) => {
 const Shuffle = (array) => {
   let r;
   let i;
-  for(let t = array.length; 0!==t; t--) {
+  for(let t = array.length -1; t >= 0; t--) {
     i = Math.floor(Math.random()*t);
     r = array[t];
     array[t] = array[i];

@@ -207,14 +207,14 @@ class CritterFactory {
     // chance for new gene to randomly develop
     const newGeneChanceRange = 1e3;
     const randVal = RandomInRange(1, newGeneChanceRange);
-    if (true) {
+    if (randVal <= store.getters.newGeneChance) {
       store.dispatch('setNewGeneChance', 0);
       const unlockedGenes = store.getters.unlockedGenes;
       const developedGenes = child.traits.reduce((acc, trait) => {
         return acc.concat(trait.genes)
       }, []);
 
-      let nextGeneId = unlockedGenes.find(geneId => developedGenes.indexOf(geneId) == -1);
+      let nextGeneId = unlockedGenes.find(geneId => !developedGenes.find(gene => gene.id == geneId));
       // discover new gene
       let newGene;
       if (nextGeneId) {
