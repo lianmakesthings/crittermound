@@ -7,8 +7,10 @@
         <b-popover title="Stats" triggers="hover focus" :target="'totalDetails-'+critter.id">
           <div>Generation: {{critter.generation}}</div>
           <div>Birth Order: {{critter.id}}</div>
-          <div>Total Score: {{critter.baseScore}}</div>
-          <div>Bonus Score: {{critter.bonusScore}}</div>
+          <div>Total Score: {{critter.score}}</div>
+          <div>Total Base: {{critter.baseScore}}</div>
+          <div>Total Bonus: {{critter.bonusScore}}</div>
+          <div>Mutations: {{critter.mutations}}</div>
         </b-popover>
       </div>
       <div>
@@ -72,7 +74,7 @@
       },
       bgColor: {
         required: true,
-        type: String,
+        type: String
       },
       showProgressBar: {
         required: true,

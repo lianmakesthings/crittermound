@@ -89,6 +89,10 @@ class Critter {
     }
     return SmartRound(Math.pow(this.rawGeneValue,.2));
   }
+
+  get mutations() {
+    return this.traits.reduce((acc, trait) => acc + trait.genes.length, 0);
+  }
 }
 
 class CritterFactory {
