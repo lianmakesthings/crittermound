@@ -1,4 +1,4 @@
-import genes from './geneDict.json';
+import genes from './genes.json';
 import {Shuffle} from './Helpers';
 
 class GeneDict {

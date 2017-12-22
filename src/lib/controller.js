@@ -1,4 +1,5 @@
 import { ticksPerSecond, SmartRound } from './Helpers';
+import Achievements from './Achievements';
 
 class Controller {
   constructor(store) {
@@ -7,6 +8,8 @@ class Controller {
     this.lastTick = null;
     this.timeBetweenSaves = 5 * 60 * 1000;
     this.lastSave = null;
+    this.timeBetweenAchievementChecks = 1000;
+    this.lastAchievementCheck = null;
   }
 
   breed(location) {
@@ -96,6 +99,12 @@ class Controller {
     if (timeSinceLastSave >= this.timeBetweenSaves) {
       this.lastSave = timestamp;
       this.save();
+    }
+    if (!this.lastAchievementCheck) this.lastAchievementCheck = timestamp;
+    const timeSinceLastAchievementCheck = timestamp - this.lastAchievementCheck;
+    if(timeSinceLastAchievementCheck >= this.timeBetweenAchievementChecks) {
+      this.lastAchievementCheck = timestamp;
+      Achievements.check(this.store)
     }
     window.requestAnimationFrame(this.checkTick.bind(this));
   }

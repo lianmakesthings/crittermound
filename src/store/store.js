@@ -4,6 +4,7 @@ import createPersistedState from 'vuex-persistedstate'
 import { Critter, CritterFactory } from '../lib/Critter';
 import Sorter from '../lib/Sorter';
 import SodProduction from '../lib/SodProduction';
+import Achievement from '../lib/Achievements';
 
 Vue.use(Vuex);
 
@@ -18,6 +19,7 @@ const initialState = {
   stateSaved: false,
   unlockedGenes: [],
   newGeneChance: 0,
+  achievements: [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
   royalHatchery: {
     boosts: 10,
     maxBoosts: 10,
@@ -148,19 +150,35 @@ export const store = new Vuex.Store({
     unlockedGenes: state => state.unlockedGenes,
     sorts: state => Sorter.getAllNames(),
     royalHatcheryAlloc: state => {
+      const current = state.royalHatchery.female.critters.length + state.royalHatchery.male.critters.length;
+      const max = state.royalHatchery.female.size + state.royalHatchery.male.size;
       return {
-        current: state.royalHatchery.female.critters.length + state.royalHatchery.male.critters.length,
-        max: state.royalHatchery.female.size + state.royalHatchery.male.size
+        current: current,
+        max: max
       }
     },
     workerAlloc: state => {
+      const current = state.worker.mine.critters.length + state.worker.farm.critters.length + state.worker.carry.critters.length + state.worker.factory.critters.length;
+      const max = state.worker.mine.size + state.worker.farm.size + state.worker.carry.size + state.worker.factory.size;
       return {
-        current: state.worker.mine.critters.length + state.worker.farm.critters.length + state.worker.carry.critters.length + state.worker.factory.critters.length,
-        max: state.worker.mine.size + state.worker.farm.size + state.worker.carry.size + state.worker.factory.size
+        current: current,
+        max: max
+      }
+    },
+    unlockedAchievements: state => {
+      return state.achievements
+    },
+    achievementAlloc: state => {
+      const current = state.achievements.reduce((acc, curr) => {
+        return acc + (curr + 1);
+      }, 0);
+      const max = Achievement.allAchievements().length;
+      return {
+        current: current,
+        max: max
       }
     }
-  }
-  ,
+  },
   mutations: {
     addChildToHatchery(state, {location, critter}) {
       state.totalCritters++;
@@ -239,6 +257,9 @@ export const store = new Vuex.Store({
       const mound = state[location][type];
       mound.sortBy = sortBy;
       mound.critters.sort(Sorter.callback(sortBy));
+    },
+    unlockAchievement(state, achievement) {
+      state.achievements[achievement.type] = achievement.level;
     }
   },
   actions: {
@@ -321,6 +342,9 @@ export const store = new Vuex.Store({
     },
     sortMound: (context, payload) => {
       context.commit('sortMound', payload)
+    },
+    unlockAchievement: (context, achievement) => {
+      context.commit(achievement)
     }
   },
   plugins: [createPersistedState({
