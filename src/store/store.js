@@ -56,6 +56,7 @@ const initialState = {
     sodPerSecond: 0,
     mine: {
       sortBy: 'mine',
+      productionProp: 'dirtPerSecond',
       productionPerSecondRaw: 0,
       bonusPercent: 0,
       size: 1,
@@ -64,6 +65,7 @@ const initialState = {
     },
     farm: {
       sortBy: 'farm',
+      productionProp: 'grassPerSecond',
       productionPerSecondRaw: 0,
       bonusPercent: 0,
       size: 1,
@@ -72,6 +74,7 @@ const initialState = {
     },
     carry: {
       sortBy: 'carry',
+      productionProp: 'carryPerSecond',
       productionPerSecondRaw: 0,
       bonusPercent: 0,
       size: 1,
@@ -80,6 +83,7 @@ const initialState = {
     },
     factory: {
       sortBy: 'factory',
+      productionProp: 'sodPerSecond',
       productionPerSecondRaw: 0,
       size: 1,
       bonusPercent: 0,
@@ -182,7 +186,7 @@ export const store = new Vuex.Store({
       for (let type in state.worker) {
         if (state.worker.hasOwnProperty(type) && isNaN(state.worker[type])) {
           let value = state.worker[type].critters.reduce((acc, critter) => {
-            return acc + critter[state.worker[type].sortBy];
+            return acc + critter[state.worker[type].productionProp];
           }, 0);
           value = value * (1 + state.worker[type].bonusPercent/100);
           state.worker[type].productionPerSecondRaw = value;
