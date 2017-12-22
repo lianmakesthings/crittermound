@@ -1,7 +1,7 @@
 <template>
   <div class="hatchery-mound">
+    <h4>Hatchery {{critters.length}} / {{mound.size}}</h4>
     <div>
-      <div>
         <b-button v-on:click="replaceParent">{{ parent }}</b-button>
         <b-button v-on:click="addWorker">Worker</b-button>
 
@@ -10,7 +10,6 @@
             <b-dropdown-item-button v-on:click="sortMound(sort)">{{sort}}</b-dropdown-item-button>
           </div>
         </b-dropdown>
-      </div>
     </div>
     <critter-header :bgColor="bgColor"></critter-header>
     <div v-for="critter in critters">
@@ -55,6 +54,9 @@
       }
     },
     computed: {
+      mound() {
+        return this.$store.getters.mound(this.location, this.type)
+      },
       critters() {
         return this.$store.getters.critters(this.location, this.type)
       },

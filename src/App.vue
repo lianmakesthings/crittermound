@@ -7,10 +7,10 @@
         <div v-show="stateSaved" class="alert alert-info">State saved</div>
     </div>
     <b-tabs>
-      <b-tab title="Royal Hatchery" active>
+      <b-tab :title="'Royal Hatchery '+royalHatchery.current+' / '+royalHatchery.max" active>
         <royal-hatchery></royal-hatchery>
       </b-tab>
-      <b-tab title="Worker">
+      <b-tab :title="'Worker '+worker.current+' / '+worker.max">
         <worker></worker>
       </b-tab>
       <b-tab title="Soldiers" disabled></b-tab>
@@ -32,6 +32,12 @@
       'worker': Worker
     },
     computed: {
+      royalHatchery() {
+        return this.$store.getters.royalHatcheryAlloc
+      },
+      worker() {
+        return this.$store.getters.workerAlloc
+      },
       totalSod() {
         return SmartRound(this.$store.getters.totalSod)
       },

@@ -146,8 +146,21 @@ export const store = new Vuex.Store({
     showStateSaved: state => state.stateSaved,
     newGeneChance: state => state.newGeneChance,
     unlockedGenes: state => state.unlockedGenes,
-    sorts: state => Sorter.getAllNames()
-  },
+    sorts: state => Sorter.getAllNames(),
+    royalHatcheryAlloc: state => {
+      return {
+        current: state.royalHatchery.female.critters.length + state.royalHatchery.male.critters.length,
+        max: state.royalHatchery.female.size + state.royalHatchery.male.size
+      }
+    },
+    workerAlloc: state => {
+      return {
+        current: state.worker.mine.critters.length + state.worker.farm.critters.length + state.worker.carry.critters.length + state.worker.factory.critters.length,
+        max: state.worker.mine.size + state.worker.farm.size + state.worker.carry.size + state.worker.factory.size
+      }
+    }
+  }
+  ,
   mutations: {
     addChildToHatchery(state, {location, critter}) {
       state.totalCritters++;

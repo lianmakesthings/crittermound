@@ -1,6 +1,6 @@
 <template>
   <div class="worker-mound">
-    <h3>{{ type }}</h3>
+    <h3>{{ type }} {{critters.length}} / {{mound.size}}</h3>
     <b-button v-on:click="upgrade(location, type)">Upgrade {{ upgradeCost }} Sod</b-button>
     <critter-header :bgColor="bgColor"></critter-header>
     <div v-for="critter in critters">
@@ -29,6 +29,9 @@
       }
     },
     computed: {
+      mound() {
+        return this.$store.getters.mound(this.location, this.type);
+      },
       critters() {
         return this.$store.getters.critters(this.location, this.type)
       },
