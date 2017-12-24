@@ -17,7 +17,9 @@
       <b-tab :title="'Achievements '+achievement.current+' / '+achievement.max">
         <achievement></achievement>
       </b-tab>
-      <b-tab title="How To Play" disabled></b-tab>
+      <b-tab title="How To Play">
+        <how-to></how-to>
+      </b-tab>
     </b-tabs>
   </div>
 </template>
@@ -26,6 +28,7 @@
   import RoyalHatchery from './components/RoyalHatchery.vue'
   import Worker from './components/Worker.vue'
   import Achievement from './components/Achievement.vue';
+  import HowTo from './components/HowTo.vue'
   import { SmartRound } from './lib/Helpers'
 
 
@@ -34,7 +37,8 @@
     components: {
       'royal-hatchery': RoyalHatchery,
       'worker': Worker,
-      'achievement': Achievement
+      'achievement': Achievement,
+      'how-to': HowTo
     },
     computed: {
       royalHatchery() {
