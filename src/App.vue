@@ -28,6 +28,7 @@
   import Achievement from './components/Achievement.vue';
   import { SmartRound } from './lib/Helpers'
 
+
   export default {
     name: 'app',
     components: {
@@ -54,7 +55,7 @@
     },
     methods: {
       save: function() {
-        this.$store.dispatch('saveState')
+        this.$store.dispatch('saveToStorage')
       }
     }
   }
@@ -63,9 +64,6 @@
 <style scoped>
   .appHeader {
     float: right;
-  }
-  .headerColumn {
-    display: inline-block;
   }
   .totalSod {
     font-size: 20px;

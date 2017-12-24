@@ -14,11 +14,9 @@
     "@fortawesome/fontawesome-free-solid": "^5.0.2",
     "bootstrap": "^4.0.0-beta.2",
     "bootstrap-vue": "^1.4.0",
+    "localforage": "^1.5.5",
     "vue": "^2.5.2",
-    "vue-fraction-grid": "^1.1.0",
-    "vue-grid2": "^0.2.9",
-    "vuex": "^3.0.1",
-    "vuex-persistedstate": "^2.4.2"
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -54,7 +52,8 @@
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",
-    "webpack-merge": "^4.1.0"
+    "webpack-merge": "^4.1.0",
+    "worker-loader": "^1.1.0"
   },
   "engines": {
     "node": ">= 4.0.0",

@@ -83,7 +83,7 @@
     },
     computed: {
       critter() {
-        return this.$store.getters.findCritter(this.critterId)
+        return this.$store.getters.findCritter(this.critterId);
       },
       health() {
         return this.critter.currentHealth

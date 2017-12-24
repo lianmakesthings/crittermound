@@ -142,7 +142,7 @@ class CritterFactory {
     return RandomInRange(lowerVal, higherVal);
   }
 
-  static breed(id, mother, father, store) {
+  static breed(id, mother, father, state) {
     const generation = Math.max(mother.generation, father.generation) + 1;
     const gender = CoinFlip() ? Critter.GENDER_FEMALE : Critter.GENDER_MALE;
     const child = new Critter(id, generation, gender);
@@ -211,9 +211,9 @@ class CritterFactory {
     // chance for new gene to randomly develop
     const newGeneChanceRange = 1e3;
     const randVal = RandomInRange(1, newGeneChanceRange);
-    if (randVal <= store.getters.newGeneChance) {
-      store.dispatch('setNewGeneChance', 0);
-      const unlockedGenes = store.getters.unlockedGenes;
+    if (randVal <= state.newGeneChance) {
+      state.newGeneChance = 0;
+      const unlockedGenes = state.unlockedGenes;
       const developedGenes = child.traits.reduce((acc, trait) => {
         return acc.concat(trait.genes)
       }, []);
@@ -234,19 +234,19 @@ class CritterFactory {
         newGene.expression = 1;
         newGene.value = 0;
         child.traits[newGene.traitId].genes.push(u);
-        store.dispatch('addDiscoveredGene', newGene.id);
+        state.unlockedGenes.push(newGene.id);
       }
     } else {
-      store.dispatch('setNewGeneChance', store.getters.newGeneChance + 1);
+      state.newGeneChance = state.newGeneChance + 1;
     }
     return child
   }
 
-  static fromState(state) {
-    const critter = new Critter(state.id, state.generation, state.gender);
-    critter.rank = state.rank;
-    critter.traits = state.traits.map(trait => new Trait(trait.name, trait.base));
-    critter.currentHealth = state.currentHealth || 0 ;
+  static fromState(critterState) {
+    const critter = new Critter(critterState.id, critterState.generation, critterState.gender);
+    critter.rank = critterState.rank;
+    critter.traits = critterState.traits.map(trait => new Trait(trait.name, trait.base));
+    critter.currentHealth = critterState.currentHealth || 0;
     return critter;
   }
 }

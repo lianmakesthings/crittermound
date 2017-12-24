@@ -2,87 +2,143 @@ import achievements from './achievements.json';
 import Trait from './Trait';
 
 class Achievements {
-  static check(store) {
+  static check(state, changes) {
     for (let typeId = this.TYPE_VITALITY; typeId < this.TYPE_MAP; typeId++) {
       let checkFn;
-      const currLevel = store.getters.unlockedAchievements[typeId];
+      const currLevel = state.achievements[typeId];
       const achievement = achievements[typeId][currLevel+1];
 
       switch(typeId) {
         case this.TYPE_VITALITY:
-           checkFn = (store) => {
-             const allCritters = store.getters.allCritters;
+           checkFn = (state) => {
+             const allCritters = state.royalHatchery.mother.critters
+               .concat(state.royalHatchery.father.critters)
+               .concat(state.royalHatchery.female.critters)
+               .concat(state.royalHatchery.male.critters)
+               .concat(state.worker.mine.critters)
+               .concat(state.worker.farm.critters)
+               .concat(state.worker.carry.critters)
+               .concat(state.worker.factory.critters);
              return allCritters.find(critter => critter.traits[Trait.ID_VITALITY].value >= achievement.value)
            };
            break;
         case this.TYPE_STRENGTH:
-          checkFn = (store) => {
-            const allCritters = store.getters.allCritters;
+          checkFn = (state) => {
+            const allCritters = state.royalHatchery.mother.critters
+              .concat(state.royalHatchery.father.critters)
+              .concat(state.royalHatchery.female.critters)
+              .concat(state.royalHatchery.male.critters)
+              .concat(state.worker.mine.critters)
+              .concat(state.worker.farm.critters)
+              .concat(state.worker.carry.critters)
+              .concat(state.worker.factory.critters);
             return allCritters.find(critter => critter.traits[Trait.ID_STRENGTH].value >= achievement.value)
           };
           break;
         case this.TYPE_AGILITY:
-          checkFn = (store) => {
-            const allCritters = store.getters.allCritters;
+          checkFn = (state) => {
+            const allCritters = state.royalHatchery.mother.critters
+              .concat(state.royalHatchery.father.critters)
+              .concat(state.royalHatchery.female.critters)
+              .concat(state.royalHatchery.male.critters)
+              .concat(state.worker.mine.critters)
+              .concat(state.worker.farm.critters)
+              .concat(state.worker.carry.critters)
+              .concat(state.worker.factory.critters);
             return allCritters.find(critter => critter.traits[Trait.ID_AGILITY].value >= achievement.value)
           };
           break;
         case this.TYPE_BITE:
-          checkFn = (store) => {
-            const allCritters = store.getters.allCritters;
+          checkFn = (state) => {
+            const allCritters = state.royalHatchery.mother.critters
+              .concat(state.royalHatchery.father.critters)
+              .concat(state.royalHatchery.female.critters)
+              .concat(state.royalHatchery.male.critters)
+              .concat(state.worker.mine.critters)
+              .concat(state.worker.farm.critters)
+              .concat(state.worker.carry.critters)
+              .concat(state.worker.factory.critters);
             return allCritters.find(critter => critter.traits[Trait.ID_BITE].value >= achievement.value)
           };
           break;
         case this.TYPE_STING:
-          checkFn = (store) => {
-            const allCritters = store.getters.allCritters;
+          checkFn = (state) => {
+            const allCritters = state.royalHatchery.mother.critters
+              .concat(state.royalHatchery.father.critters)
+              .concat(state.royalHatchery.female.critters)
+              .concat(state.royalHatchery.male.critters)
+              .concat(state.worker.mine.critters)
+              .concat(state.worker.farm.critters)
+              .concat(state.worker.carry.critters)
+              .concat(state.worker.factory.critters);
             return allCritters.find(critter => critter.traits[Trait.ID_STING].value >= achievement.value)
           };
           break;
         case this.TYPE_MUTATION:
-          checkFn = (store) => {
-            const allCritters = store.getters.allCritters;
+          checkFn = (state) => {
+            const allCritters = state.royalHatchery.mother.critters
+              .concat(state.royalHatchery.father.critters)
+              .concat(state.royalHatchery.female.critters)
+              .concat(state.royalHatchery.male.critters)
+              .concat(state.worker.mine.critters)
+              .concat(state.worker.farm.critters)
+              .concat(state.worker.carry.critters)
+              .concat(state.worker.factory.critters);
             return allCritters.find(critter => critter.mutations >= achievement.value)
           };
           break;
         case this.TYPE_SCORE:
           checkFn = (store) => {
-            const allCritters = store.getters.allCritters;
+            const allCritters = state.royalHatchery.mother.critters
+              .concat(state.royalHatchery.father.critters)
+              .concat(state.royalHatchery.female.critters)
+              .concat(state.royalHatchery.male.critters)
+              .concat(state.worker.mine.critters)
+              .concat(state.worker.farm.critters)
+              .concat(state.worker.carry.critters)
+              .concat(state.worker.factory.critters);
             return allCritters.find(critter => critter.score >= achievement.value)
           };
           break;
         case this.TYPE_GENERATION:
           checkFn = (store) => {
-            const allCritters = store.getters.allCritters;
+            const allCritters = state.royalHatchery.mother.critters
+              .concat(state.royalHatchery.father.critters)
+              .concat(state.royalHatchery.female.critters)
+              .concat(state.royalHatchery.male.critters)
+              .concat(state.worker.mine.critters)
+              .concat(state.worker.farm.critters)
+              .concat(state.worker.carry.critters)
+              .concat(state.worker.factory.critters);
             return allCritters.find(critter => critter.generation >= achievement.value)
           };
           break;
         case this.TYPE_CRITTERS:
           checkFn = (store) => {
-            return store.getters.totalCritters >= achievement.value;
+            return store.totalCritters >= achievement.value;
           };
           break;
         case this.TYPE_DIRT:
           checkFn = (store) => {
-            return store.getters.sodProduction.dirtPerSecond >= achievement.value;
+            return store.worker.dirtPerSecond >= achievement.value;
           };
           break;
         case this.TYPE_GRASS:
           checkFn = (store) => {
-            return store.getters.sodProduction.grassPerSecond >= achievement.value;
+            return store.worker.grassPerSecond >= achievement.value;
           };
           break;
         case this.TYPE_SOD:
           checkFn = (store) => {
-            return store.getters.sodProduction.sodPerSecond >= achievement.value;
+            return store.worker.sodPerSecond >= achievement.value;
           };
           break;
         default:
           checkFn = () => false;
       }
 
-      if (checkFn(store)) {
-        store.dispatch('unlockAchievement', achievement);
+      if (checkFn(state)) {
+        changes.achievements[achievement.typeId] = achievement.level;
       }
     }
   }
