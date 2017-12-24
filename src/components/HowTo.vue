@@ -3,6 +3,9 @@
       <div>
         <h4>How To Play</h4>
         <p>
+          <strong>Original Game at <a href="http://yoyz.com/critter/" target="_blank">yoyz.com/critter</a></strong>
+        </p>
+        <p>
           <strong>Questions & Discussion at <a href="http://www.reddit.com/r/crittermound">www.reddit.com/r/crittermound</a></strong><br />
         </p>
         <p>
