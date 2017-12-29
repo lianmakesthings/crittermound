@@ -4,6 +4,7 @@
     <div>
         <b-button v-on:click="replaceParent">{{ parent }}</b-button>
         <b-button v-on:click="addWorker">Worker</b-button>
+        <b-button v-on:click="addSoldier">Army</b-button>
 
         <b-dropdown text="sort">
           <div v-for="sort in sortNames">
@@ -13,7 +14,7 @@
     </div>
     <critter-header :bgColor="bgColor"></critter-header>
     <div v-for="critter in critters">
-      <critter :critterId="critter.id" :bgColor="bgColor" :showProgressBar="false"></critter>
+      <critter :critterId="critter.id" :showProgressBar="false"></critter>
     </div>
   </div>
 </template>
@@ -45,6 +46,12 @@
       },
       addWorker: function() {
         this.$store.dispatch('addWorker', {
+          location: this.location,
+          type: this.type
+        })
+      },
+      addSoldier: function() {
+        this.$store.dispatch('addSoldier', {
           location: this.location,
           type: this.type
         })

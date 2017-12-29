@@ -73,10 +73,11 @@ class Controller {
     const queen = state[location].mother.critters[0];
     const king = state[location].father.critters[0];
 
-    const hatcheryCritters = state.royalHatchery.mother.critters
-      .concat(state.royalHatchery.father.critters);
+    const crittersToHeal = state.royalHatchery.mother.critters
+      .concat(state.royalHatchery.father.critters)
+      .concat(state.soldiers.army.critters);
 
-    hatcheryCritters.forEach(critter => {
+    crittersToHeal.forEach(critter => {
       critter.currentHealth = critter.currentHealth + critter.maxHealth / critter.actionTime;
       changes.critters.push(critter)
     });
@@ -141,6 +142,9 @@ class Controller {
     }, {
       location: 'worker',
       type: 'factory'
+    }, {
+      location: 'soldiers',
+      type: 'army'
     }];
 
     mounds.forEach(address => {
@@ -180,10 +184,6 @@ class Controller {
     }
 
     return changes;
-  }
-
-  run() {
-    this.checkTick(new Date().getTime());
   }
 }
 

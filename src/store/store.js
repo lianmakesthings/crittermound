@@ -43,6 +43,9 @@ localforage.getItem('crittermound')
     }, {
       location: 'worker',
       type: 'factory'
+    }, {
+      location: 'soldiers',
+      type: 'army'
     }];
 
     mounds.forEach(address => {
@@ -189,7 +192,8 @@ localforage.getItem('crittermound')
               .concat(state.worker.mine.critters)
               .concat(state.worker.farm.critters)
               .concat(state.worker.carry.critters)
-              .concat(state.worker.factory.critters);
+              .concat(state.worker.factory.critters)
+              .concat(state.soldiers.army.critters);
             return allCritters.find(critter => critterId === critter.id)
           },
         boosts: state =>
@@ -252,8 +256,9 @@ localforage.getItem('crittermound')
             .concat(state.worker.mine.critters)
             .concat(state.worker.farm.critters)
             .concat(state.worker.carry.critters)
-            .concat(state.worker.factory.critters);
-          const critter = allCritters.find(critter => critterId === critter.id)
+            .concat(state.worker.factory.critters)
+            .concat(state.soldiers.army.critters);
+          const critter = allCritters.find(critter => critterId === critter.id);
           critter.currentHealth = value;
         },
         moveCritter(state, {from, to}) {
@@ -361,6 +366,17 @@ localforage.getItem('crittermound')
             });
 
             if (destination) context.commit('updateProductionRaw')
+          }
+        },
+        addSoldier: (context, {location, type}) => {
+          const mound = context.state[location][type];
+          const critter = mound.critters[0];
+          if (critter) {
+            context.commit('moveCritter', {
+              from: {location, type},
+              to: {location: 'soldiers', type: 'army'}
+            });
+
           }
         },
         useBoost: (context, location) => {
