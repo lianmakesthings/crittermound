@@ -4,7 +4,7 @@
     <b-button v-on:click="upgrade(location, type)">Upgrade {{ upgradeCost }} Sod</b-button>
     <critter-header :bgColor="bgColor"></critter-header>
     <div v-for="critter in critters">
-      <critter :critterId="critter.id" :bgColor="bgColor" :showProgressBar="true"></critter>
+      <critter :critterId="critter.id" :showProgressBar="true"></critter>
     </div>
     </div>
 </template>

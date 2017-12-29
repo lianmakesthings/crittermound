@@ -72,10 +72,6 @@
         required: true,
         type: Number
       },
-      bgColor: {
-        required: true,
-        type: String
-      },
       showProgressBar: {
         required: true,
         type: Boolean

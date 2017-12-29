@@ -4,7 +4,7 @@
     <b-button v-on:click="boost(location)">Boost: {{ boosts }}/{{ maxBoosts }}</b-button>
     <b-button v-on:click="upgrade(location, critter)">Upgrade {{ upgradeCost }} Sod</b-button>
     <critter-header :bgColor="bgColor"></critter-header>
-    <critter :critterId="critter.id" :bgColor="bgColor" :showProgressBar="true"></critter>
+    <critter :critterId="critter.id" :showProgressBar="true"></critter>
   </div>
 </template>
 
