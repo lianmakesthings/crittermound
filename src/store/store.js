@@ -136,6 +136,13 @@ localforage.getItem('crittermound')
         upgradeCost: 500,
         critters: []
       }
+    },
+    soldiers: {
+      army: {
+        size: 1,
+        sortBy: 'score',
+        critters: []
+      }
     }
   }
   })
@@ -200,31 +207,27 @@ localforage.getItem('crittermound')
         royalHatcheryAlloc: state => {
           const current = state.royalHatchery.female.critters.length + state.royalHatchery.male.critters.length;
           const max = state.royalHatchery.female.size + state.royalHatchery.male.size;
-          return {
-            current: current,
-            max: max
-          }
+          return { current, max }
         },
         workerAlloc: state => {
           const current = state.worker.mine.critters.length + state.worker.farm.critters.length + state.worker.carry.critters.length + state.worker.factory.critters.length;
           const max = state.worker.mine.size + state.worker.farm.size + state.worker.carry.size + state.worker.factory.size;
-          return {
-            current: current,
-            max: max
-          }
+          return { current, max }
         },
         unlockedAchievements: state => {
           return state.achievements
+        },
+        armyAlloc: state => {
+          const current = state.soldiers.army.critters.length;
+          const max = state.soldiers.army.size;
+          return { current, max }
         },
         achievementAlloc: state => {
           const current = state.achievements.reduce((acc, curr) => {
             return acc + (curr + 1);
           }, 0);
           const max = Achievement.allAchievements().length;
-          return {
-            current: current,
-            max: max
-          }
+          return { current, max }
         },
       },
       mutations: {

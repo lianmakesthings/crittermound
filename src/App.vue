@@ -13,7 +13,9 @@
       <b-tab :title="'Worker '+worker.current+' / '+worker.max">
         <worker></worker>
       </b-tab>
-      <b-tab title="Soldiers" disabled></b-tab>
+      <b-tab :title="'Soldiers '+army.current+' / '+army.max">
+        <soldiers></soldiers>
+      </b-tab>
       <b-tab :title="'Achievements '+achievement.current+' / '+achievement.max">
         <achievement></achievement>
       </b-tab>
@@ -27,6 +29,7 @@
 <script>
   import RoyalHatchery from './components/RoyalHatchery.vue'
   import Worker from './components/Worker.vue'
+  import Soldiers from './components/Soldiers.vue';
   import Achievement from './components/Achievement.vue';
   import HowTo from './components/HowTo.vue'
   import { SmartRound } from './lib/Helpers'
@@ -37,6 +40,7 @@
     components: {
       'royal-hatchery': RoyalHatchery,
       'worker': Worker,
+      'soldiers': Soldiers,
       'achievement': Achievement,
       'how-to': HowTo
     },
@@ -46,6 +50,9 @@
       },
       worker() {
         return this.$store.getters.workerAlloc
+      },
+      army() {
+        return this.$store.getters.armyAlloc
       },
       achievement() {
         return this.$store.getters.achievementAlloc
