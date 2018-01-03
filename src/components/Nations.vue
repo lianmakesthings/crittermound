@@ -1,9 +1,9 @@
 <template>
-  <div class="d-flex">
+  <div class="d-flex flex-column">
     <div v-for="nation in nations">
-      <b-card :title="nation.name" style="min-width: 15rem;" v-on:click="startWar(nation.id)">
-        <span>{{ nation.custom }}</span>
-        <span>{{ nation.minBaseVal }} - {{ nation.maxBaseVal }}</span>
+      <b-card :title="nation.name" class="nationCard" v-on:click="startWar(nation.id)">
+        <p>{{ nation.custom }}</p>
+        <p>{{ nation.minBaseVal }} - {{ nation.maxBaseVal }}</p>
       </b-card>
     </div>
   </div>
@@ -27,5 +27,9 @@
 </script>
 
 <style>
-
+.nationCard {
+  text-align: center;
+  min-width: 15rem;
+  margin-top: 20px;
+}
 </style>
