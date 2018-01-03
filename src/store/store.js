@@ -1,15 +1,16 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { Critter, CritterFactory } from '../lib/Critter';
+import {Critter, CritterFactory} from '../lib/Critter';
 import Sorter from '../lib/Sorter';
 import SodProduction from '../lib/SodProduction';
 import Achievement from '../lib/Achievements';
+import Nation from '../lib/Nation';
 import localforage from 'localforage';
 
 localforage.config({
-  driver      : localforage.INDEXEDDB,
-  name        : 'crittermound',
-  storeName   : 'crittermound'
+  driver: localforage.INDEXEDDB,
+  name: 'crittermound',
+  storeName: 'crittermound'
 });
 
 Vue.use(Vuex);
@@ -19,34 +20,44 @@ let initialState;
 localforage.getItem('crittermound')
   .then(data => {
     initialState = data;
-    const mounds = [{
-      location: 'royalHatchery',
-      type: 'mother'
-    }, {
-      location: 'royalHatchery',
-      type: 'father'
-    }, {
-      location: 'royalHatchery',
-      type: 'female'
-    }, {
-      location: 'royalHatchery',
-      type: 'male'
-    }, {
-      location: 'worker',
-      type: 'mine'
-    }, {
-      location: 'worker',
-      type: 'farm'
-    }, {
-      location: 'worker',
-      type: 'carry'
-    }, {
-      location: 'worker',
-      type: 'factory'
-    }, {
-      location: 'soldiers',
-      type: 'army'
-    }];
+    const mounds = [
+      {
+        location: 'royalHatchery',
+        type: 'mother'
+      },
+      {
+        location: 'royalHatchery',
+        type: 'father'
+      },
+      {
+        location: 'royalHatchery',
+        type: 'female'
+      },
+      {
+        location: 'royalHatchery',
+        type: 'male'
+      },
+      {
+        location: 'worker',
+        type: 'mine'
+      },
+      {
+        location: 'worker',
+        type: 'farm'
+      },
+      {
+        location: 'worker',
+        type: 'carry'
+      },
+      {
+        location: 'worker',
+        type: 'factory'
+      },
+      {
+        location: 'soldiers',
+        type: 'army'
+      }
+    ];
 
     mounds.forEach(address => {
       const critters = initialState[address.location][address.type].critters;
@@ -60,94 +71,96 @@ localforage.getItem('crittermound')
     king.rank = Critter.RANK_ROYAL;
 
     initialState = {
-    totalSod: 0,
-    totalCritters: 2,
-    totalGenerations: 0,
-    stateSaved: false,
-    unlockedGenes: [],
-    newGeneChance: 0,
-    achievements: [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-    royalHatchery: {
-      boosts: 10,
-      maxBoosts: 10,
-      mother: {
-        size: 1,
-        sortBy: 'score',
-        critters: [queen]
+      totalSod: 0,
+      totalCritters: 2,
+      totalGenerations: 0,
+      stateSaved: false,
+      unlockedGenes: [],
+      newGeneChance: 0,
+      achievements: [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+      royalHatchery: {
+        boosts: 10,
+        maxBoosts: 10,
+        mother: {
+          size: 1,
+          sortBy: 'score',
+          critters: [queen]
+        },
+        father: {
+          size: 1,
+          sortBy: 'score',
+          critters: [king]
+        },
+        female: {
+          size: 1,
+          sortBy: 'score',
+          upgradeCost: 10,
+          critters: []
+        },
+        male: {
+          size: 1,
+          sortBy: 'score',
+          upgradeCost: 10,
+          critters: []
+        }
       },
-      father: {
-        size: 1,
-        sortBy: 'score',
-        critters: [king]
+      worker: {
+        dirtStored: 0,
+        grassStored: 0,
+        factoryDirtStored: 0,
+        factoryGrassStored: 0,
+        dirtPerSecond: 0,
+        grassPerSecond: 0,
+        dirtCarriedPerSecond: 0,
+        grassCarriedPerSecond: 0,
+        sodPerSecond: 0,
+        mine: {
+          sortBy: 'mine',
+          productionProp: 'dirtPerSecond',
+          productionPerSecondRaw: 0,
+          bonusPercent: 0,
+          size: 1,
+          upgradeCost: 500,
+          critters: []
+        },
+        farm: {
+          sortBy: 'farm',
+          productionProp: 'grassPerSecond',
+          productionPerSecondRaw: 0,
+          bonusPercent: 0,
+          size: 1,
+          upgradeCost: 500,
+          critters: []
+        },
+        carry: {
+          sortBy: 'carry',
+          productionProp: 'carryPerSecond',
+          productionPerSecondRaw: 0,
+          bonusPercent: 0,
+          size: 1,
+          upgradeCost: 500,
+          critters: []
+        },
+        factory: {
+          sortBy: 'factory',
+          productionProp: 'sodPerSecond',
+          productionPerSecondRaw: 0,
+          size: 1,
+          bonusPercent: 0,
+          upgradeCost: 500,
+          critters: []
+        }
       },
-      female: {
-        size: 1,
-        sortBy: 'score',
-        upgradeCost: 10,
-        critters: []
-      },
-      male: {
-        size: 1,
-        sortBy: 'score',
-        upgradeCost: 10,
-        critters: []
-      }
-    },
-    worker: {
-      dirtStored: 0,
-      grassStored: 0,
-      factoryDirtStored: 0,
-      factoryGrassStored: 0,
-      dirtPerSecond: 0,
-      grassPerSecond: 0,
-      dirtCarriedPerSecond: 0,
-      grassCarriedPerSecond: 0,
-      sodPerSecond: 0,
-      mine: {
-        sortBy: 'mine',
-        productionProp: 'dirtPerSecond',
-        productionPerSecondRaw: 0,
-        bonusPercent: 0,
-        size: 1,
-        upgradeCost: 500,
-        critters: []
-      },
-      farm: {
-        sortBy: 'farm',
-        productionProp: 'grassPerSecond',
-        productionPerSecondRaw: 0,
-        bonusPercent: 0,
-        size: 1,
-        upgradeCost: 500,
-        critters: []
-      },
-      carry: {
-        sortBy: 'carry',
-        productionProp: 'carryPerSecond',
-        productionPerSecondRaw: 0,
-        bonusPercent: 0,
-        size: 1,
-        upgradeCost: 500,
-        critters: []
-      },
-      factory: {
-        sortBy: 'factory',
-        productionProp: 'sodPerSecond',
-        productionPerSecondRaw: 0,
-        size: 1,
-        bonusPercent: 0,
-        upgradeCost: 500,
-        critters: []
-      }
-    },
-    soldiers: {
-      army: {
-        size: 1,
-        sortBy: 'score',
-        critters: []
+      soldiers: {
+        unlockedNations: [Nation.CRICKETS.id],
+        currentWar: null,
+        army: {
+          size: 1,
+          sortBy: 'score',
+          critters: []
+        }
       }
     }
-  }
   })
   .then(() => {
     const store = new Vuex.Store({
@@ -211,12 +224,12 @@ localforage.getItem('crittermound')
         royalHatcheryAlloc: state => {
           const current = state.royalHatchery.female.critters.length + state.royalHatchery.male.critters.length;
           const max = state.royalHatchery.female.size + state.royalHatchery.male.size;
-          return { current, max }
+          return {current, max}
         },
         workerAlloc: state => {
           const current = state.worker.mine.critters.length + state.worker.farm.critters.length + state.worker.carry.critters.length + state.worker.factory.critters.length;
           const max = state.worker.mine.size + state.worker.farm.size + state.worker.carry.size + state.worker.factory.size;
-          return { current, max }
+          return {current, max}
         },
         unlockedAchievements: state => {
           return state.achievements
@@ -224,15 +237,16 @@ localforage.getItem('crittermound')
         armyAlloc: state => {
           const current = state.soldiers.army.critters.length;
           const max = state.soldiers.army.size;
-          return { current, max }
+          return {current, max}
         },
         achievementAlloc: state => {
           const current = state.achievements.reduce((acc, curr) => {
             return acc + (curr + 1);
           }, 0);
           const max = Achievement.allAchievements().length;
-          return { current, max }
+          return {current, max}
         },
+        atWar: state => state.soldiers.currentWar != null
       },
       mutations: {
         addChildToHatchery(state, {location, critter}) {
@@ -272,7 +286,7 @@ localforage.getItem('crittermound')
               }
               critter.currentHealth = 0;
               targetMound.critters.push(critter);
-              targetMound.critters.sort((a,b) => b[targetMound.sortBy] - a[targetMound.sortBy])
+              targetMound.critters.sort((a, b) => b[targetMound.sortBy] - a[targetMound.sortBy])
             }
           }
         },
@@ -285,14 +299,14 @@ localforage.getItem('crittermound')
               let value = state.worker[type].critters.reduce((acc, critter) => {
                 return acc + critter[state.worker[type].productionProp];
               }, 0);
-              value = value * (1 + state.worker[type].bonusPercent/100);
+              value = value * (1 + state.worker[type].bonusPercent / 100);
               state.worker[type].productionPerSecondRaw = value;
             }
           }
         },
         updateProductionMounds(state, payload) {
           for (let type in payload) {
-            if(payload.hasOwnProperty(type)) {
+            if (payload.hasOwnProperty(type)) {
               state.worker[type] = payload[type]
             }
           }
@@ -330,7 +344,7 @@ localforage.getItem('crittermound')
         healAllCritters: (context) => {
           context.getters.allCritters.forEach(critter => {
             const value = critter.currentHealth + critter.maxHealth / critter.actionTime;
-            context.commit('setCritterHealth', {critterId : critter.id, value});
+            context.commit('setCritterHealth', {critterId: critter.id, value});
           })
         },
         resetCritterHealth: (context, critterId) => {
@@ -345,7 +359,7 @@ localforage.getItem('crittermound')
           context.commit('setCritterHealth', {critterId: mother.id, value: 0});
           context.commit('setCritterHealth', {critterId: father.id, value: 0});
           const child = CritterFactory.breed(id, mother, father, store);
-          context.commit('addChildToHatchery', {location, critter : child})
+          context.commit('addChildToHatchery', {location, critter: child})
         },
         replaceParent: (context, {location, type}) => {
           const parent = (type === Critter.GENDER_FEMALE) ? 'mother' : 'father';
@@ -381,7 +395,7 @@ localforage.getItem('crittermound')
         },
         useBoost: (context, location) => {
           const currentBoosts = context.getters.boosts(location);
-          if (currentBoosts> 0) {
+          if (currentBoosts > 0) {
             context.commit('setBoost', {location, value: currentBoosts - 1});
             context.dispatch('breedCritter', location);
           }
