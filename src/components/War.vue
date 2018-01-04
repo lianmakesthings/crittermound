@@ -5,7 +5,7 @@
       <div v-for="row in currentWar">
         <div class="d-flex flex-column">
           <div v-for="tile in row">
-              <div class="tile">{{tile.x}}, {{tile.y}}</div>
+              <div class="tile">{{tile.danger}}</div>
           </div>
         </div>
       </div>
@@ -25,7 +25,10 @@
 
 <style scoped>
   .tile {
-    font-size: small;
+    font-size: 5pt;
+    text-align: center;
+    min-width: 15px;
+    min-height: 15px;
     border-radius: 2px;
     border: 1px solid black;
     margin-left: 1px;
