@@ -28,6 +28,26 @@ class Map {
     const tile = this.getTile(loc.x, loc.y);
     tile.bonus = name;
   }
+
+  clear() {
+    var n,i,t,r;
+    if(this.currentBattle!=null&&(n=this.GetTile(this.currentBattle),n.isUnlocked()))
+    {
+      if(n.isCleared(!0),n.isUnlocked(!1),this.tilesCleared(this.tilesCleared()+1),n.danger()>this.highestDanger&&(this.highestDanger=n.danger()),i=n.coords,t=this.GetTile(new Point(i.x,i.y-1)),t!=undefined&&t.isUnlocked(!0),t=this.GetTile(new Point(i.x,i.y+1)),t!=undefined&&t.isUnlocked(!0),t=this.GetTile(new Point(i.x-1,i.y)),t!=undefined&&t.isUnlocked(!0),t=this.GetTile(new Point(i.x+1,i.y)),t!=undefined&&t.isUnlocked(!0),this.canExplore(!0),n.coords.x==this.mound.x&&n.coords.y==this.mound.y)return n.extraClass("mound"),n.danger(0),null;
+      if(this.mine!=undefined&&n.coords.x==this.mine.x&&n.coords.y==this.mine.y)return n.extraClass("mine"),n.danger(0),1;
+      if(this.farm!=undefined&&n.coords.x==this.farm.x&&n.coords.y==this.farm.y)return n.extraClass("farm"),n.danger(0),2;
+      if(this.carry!=undefined&&n.coords.x==this.carry.x&&n.coords.y==this.carry.y)return n.extraClass("carry"),n.danger(0),3;
+      if(this.factory!=undefined&&n.coords.x==this.factory.x&&n.coords.y==this.factory.y)return n.extraClass("factory"),n.danger(0),4;
+      if(this.fort!=undefined&&n.coords.x==this.fort.x&&n.coords.y==this.fort.y)return n.extraClass("fort"),n.danger(0),9;
+      if(this.explore!=undefined&&n.coords.x==this.explore.x&&n.coords.y==this.explore.y)return n.extraClass("explore"),n.danger(0),8;
+      if(this.gene!=undefined&&n.coords.x==this.gene.x&&n.coords.y==this.gene.y)return n.extraClass("gene"),n.danger(0),6;
+      if(this.boost!=undefined&&n.coords.x==this.boost.x&&n.coords.y==this.boost.y)return n.extraClass("boost"),n.danger(0),7;
+      if(this.enemy!=undefined&&n.coords.x==this.enemy.x&&n.coords.y==this.enemy.y)return n.extraClass("enemy"),n.danger(0),0;
+      for(r=0;
+          r<this.treasures.length;
+          r++)if(this.treasures[r]!=undefined&&n.coords.x==this.treasures[r].x&&n.coords.y==this.treasures[r].y)return n.extraClass("treasure"),n.danger(0),5
+    }
+  }
 }
 
 class War {
