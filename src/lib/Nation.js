@@ -1,4 +1,31 @@
-class Nation {}
+class Nation {
+  static allNations() {
+    return [
+      this.CRICKETS,
+      this.ANTS,
+      this.GRASSHOPPERS,
+      this.GNATS,
+      this.CHIGGERS,
+      this.LADYBUGS,
+      this.BEES,
+      this.WASPS,
+      this.SCORPIONS,
+      this.BEETLES,
+      this.HORSEFLIES,
+      this.TERMITES,
+      this.TICKS,
+      this.MOSQUITOES,
+      this.LEECHES,
+      this.CENTIPEDES,
+      this.MANTIS,
+      this.TARANTULAS
+    ];
+  };
+
+  static get(id) {
+    return Object.assign({}, this.allNations().find(nation => nation.id == id))
+  }
+}
 Nation.CUSTOM_BALANCED = 'Balanced';
 Nation.CUSTOM_HIGH_NUMBERS = 'High Numbers';
 Nation.CUSTOM_HIGH_STING = 'High Sting';
@@ -185,29 +212,6 @@ Nation.TARANTULAS = {
   armySizeBase: 9,
   requiredToUnlock: Nation.MANTIS.id,
   treasurePoints: 3
-};
-
-Nation.allNations = () => {
-  return [
-    Nation.CRICKETS,
-    Nation.ANTS,
-    Nation.GRASSHOPPERS,
-    Nation.GNATS,
-    Nation.CHIGGERS,
-    Nation.LADYBUGS,
-    Nation.BEES,
-    Nation.WASPS,
-    Nation.SCORPIONS,
-    Nation.BEETLES,
-    Nation.HORSEFLIES,
-    Nation.TERMITES,
-    Nation.TICKS,
-    Nation.MOSQUITOES,
-    Nation.LEECHES,
-    Nation.CENTIPEDES,
-    Nation.MANTIS,
-    Nation.TARANTULAS
-  ];
 };
 
 export default Nation;

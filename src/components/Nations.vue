@@ -20,16 +20,15 @@
     },
     methods: {
       startWar: function (nationId) {
-        console.log('start war with '+nationId)
+        this.$store.dispatch('startWar', nationId);
       }
     }
   }
 </script>
 
-<style>
+<style scoped>
 .nationCard {
   text-align: center;
-  min-width: 15rem;
   margin-top: 20px;
 }
 </style>

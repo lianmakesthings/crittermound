@@ -5,6 +5,7 @@ import Sorter from '../lib/Sorter';
 import SodProduction from '../lib/SodProduction';
 import Achievement from '../lib/Achievements';
 import Nation from '../lib/Nation';
+import War from '../lib/War';
 import localforage from 'localforage';
 
 localforage.config({
@@ -152,7 +153,7 @@ localforage.getItem('crittermound')
         }
       },
       soldiers: {
-        unlockedNations: [Nation.CRICKETS.id],
+        unlockedNations: [Nation.CRICKETS],
         currentWar: null,
         army: {
           size: 1,
@@ -246,7 +247,8 @@ localforage.getItem('crittermound')
           const max = Achievement.allAchievements().length;
           return {current, max}
         },
-        atWar: state => state.soldiers.currentWar != null
+        atWar: state => state.soldiers.currentWar != null,
+        currentMap: state => state.soldiers.currentWar.tiles
       },
       mutations: {
         addChildToHatchery(state, {location, critter}) {
@@ -338,6 +340,9 @@ localforage.getItem('crittermound')
         },
         saveToStorage(state) {
           localforage.setItem('crittermound', state);
+        },
+        startWar(state, map) {
+          state.soldiers.currentWar = map;
         }
       },
       actions: {
@@ -449,6 +454,10 @@ localforage.getItem('crittermound')
         },
         saveToStorage: (context) => {
           context.commit('saveToStorage');
+        },
+        startWar: (context, nationId) => {
+          const map = War.generateMap(Nation.get(nationId));
+          context.commit('startWar', map)
         }
       }
     });

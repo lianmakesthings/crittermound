@@ -2,7 +2,7 @@
   <div>
   <army-mound></army-mound>
     <war v-if="atWar"></war>
-    <nations v-else>No</nations>
+    <nations v-else></nations>
   </div>
 </template>
 
@@ -19,7 +19,7 @@
     },
     computed: {
       atWar() {
-        return this.$store.getters.atWar;
+        return !!this.$store.getters.atWar;
       }
     }
   }
