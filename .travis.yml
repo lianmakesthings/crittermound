@@ -1,0 +1,7 @@
+language: node_js
+install: npm install
+script: node build/build.js
+deploy:
+  provider: pages
+  github-token: $GITHUB_TOKEN
+  local-dir: dist
