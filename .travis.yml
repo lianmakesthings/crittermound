@@ -2,9 +2,7 @@ language: node_js
 sudo: true
 before_install:
   - sudo apt-get update -q
-  - npm cache clean -f
-  - npm install -g n
-  - sudo n stable
+  - npm install npm -g
 install: npm install
 script: node build/build.js
 deploy:
