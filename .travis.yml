@@ -1,4 +1,9 @@
 language: node_js
+before_install:
+  - sudo apt-get update -q
+  - sudo npm cache clean -f
+  - sudo npm install -g n
+  - sudo n stable
 install: npm install
 script: node build/build.js
 deploy:
