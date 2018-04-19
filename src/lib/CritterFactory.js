@@ -1,5 +1,5 @@
 import {CoinFlip, RandomInRange, StatVariance} from "./Helpers";
-import {Critter} from "./Critter";
+import Critter from "./Critter";
 import Trait from "./Trait";
 import GeneDict from "./GeneDict";
 

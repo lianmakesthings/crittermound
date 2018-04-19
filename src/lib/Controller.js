@@ -1,6 +1,6 @@
 import { ticksPerSecond } from './Helpers';
 import Achievements from './Achievements';
-import { Critter, CritterFactory } from '../lib/Critter';
+import CritterFactory from '../lib/CritterFactory';
 
 class Controller {
   constructor() {
