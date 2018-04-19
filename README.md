@@ -1,4 +1,4 @@
-# crittermound
+# crittermound ![build status](https://travis-ci.org/Chimney42/crittermound.svg?branch=master)
 
 > a complete rework of http://yoyz.com/critter/ with vuejs
 
@@ -25,9 +25,6 @@ npm run build --report
 ```
 
 ## Not implemented yet
- * Run controller in background (web-worker)
- * Sod used for breeding
- * Buying stuff
  * War
  * Achievements
  * overall styling
