@@ -10,10 +10,6 @@ install: npm install
 
 script: node build/build.js
 
-before_deploy:
-  - cd ./dist
-  - ls -lisah
-
 deploy:
   provider: heroku
   api_key:
