@@ -18,4 +18,4 @@ deploy:
   skip-cleanup: true 
   on:
     repo: Chimney42/crittermound
-    branch: setup-deplyment
+    branch: master
