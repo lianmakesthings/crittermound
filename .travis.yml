@@ -8,7 +8,9 @@ before_install:
   - npm install npm -g
 install: npm install
 
-script: node build/build.js
+script:
+  - npm test
+  - node build/build.js
 
 deploy:
   provider: heroku
