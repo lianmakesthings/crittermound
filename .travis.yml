@@ -21,3 +21,6 @@ deploy:
   on:
     repo: Chimney42/crittermound
     branch: master
+
+notifications:
+  email: false
