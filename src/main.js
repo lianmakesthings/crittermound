@@ -9,7 +9,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import fontawesome from '@fortawesome/fontawesome'
 import { faUser } from '@fortawesome/fontawesome-free-solid'
 import Worker from 'worker-loader!./Worker.js';
-import { Critter, CritterFactory } from './lib/Critter';
+import CritterFactory from './lib/CritterFactory';
 fontawesome.icon(faUser);
 
 Vue.use(BootstrapVue);

@@ -1,7 +1,7 @@
 import Controller from './lib/Controller';
 let state;
 const controller = new Controller();
-import { Critter, CritterFactory } from './lib/Critter';
+import CritterFactory from './lib/CritterFactory';
 
 // Respond to message from parent thread
 onmessage = (msg) => {
