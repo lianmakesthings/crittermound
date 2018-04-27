@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import CritterFactory from '../lib/CritterFactory';
+import Critter from '../lib/Critter';
 import Sorter from '../lib/Sorter';
 import SodProduction from '../lib/SodProduction';
 import Achievement from '../lib/Achievements';
