@@ -12,8 +12,8 @@ class CritterFactory {
         let expression;
         const sum = x + y;
 
-        if (2 == sum) {
-            if (x == y) {
+        if (2 === sum) {
+            if (x === y) {
                 expression = CoinFlip()
                     ? Trait.GENE_EXPRESSION_RECESSIVE
                     : CoinFlip()
@@ -22,9 +22,9 @@ class CritterFactory {
             } else {
                 expression = Trait.GENE_EXPRESSION_RECESSIVE;
             }
-        } else if (3 == sum || 1 == sum) {
+        } else if (3 === sum || 1 === sum) {
             expression = CoinFlip() ? x : y;
-        } else if (4 == sum) {
+        } else if (4 === sum) {
             expression = x
         } else {
             expression = Trait.GENE_EXPRESSION_NONE;
@@ -105,7 +105,7 @@ class CritterFactory {
                         if (parentGeneData[geneId].length > 1) {
                             const fatherGeneData = parentGeneData[geneId][1];
                             // if both parents have the gene && expression is dominant, calculate value from parent value
-                            if (expression == Trait.GENE_EXPRESSION_DOMINANT) {
+                            if (expression === Trait.GENE_EXPRESSION_DOMINANT) {
                                 newGene.value = Math.max(this.mutateStat(motherGeneData, fatherGeneData), geneMax);
                             }
                         }
@@ -126,7 +126,7 @@ class CritterFactory {
                 return acc.concat(trait.genes)
             }, []);
 
-            let nextGeneId = unlockedGenes.find(geneId => !developedGenes.find(gene => gene.id == geneId));
+            let nextGeneId = unlockedGenes.find(geneId => !developedGenes.find(gene => gene.id === geneId));
             // discover new gene
             let newGene;
             if (nextGeneId) {
@@ -135,13 +135,13 @@ class CritterFactory {
                 newGene = GeneDict.getRandomGeneExcluding(unlockedGenes);
             }
 
-            var base = child.traits[newGene.traitId].base;
-            var bonus = child.traits[newGene.traitId].bonus;
-            var geneCount = child.traits[newGene.traitId].genes.length+1;
+            const base = child.traits[newGene.traitId].base;
+            const bonus = child.traits[newGene.traitId].bonus;
+            const geneCount = child.traits[newGene.traitId].genes.length+1;
             if (base>25 && this.mutationCheck(geneCount,bonus)) {
-                newGene.expression = 1;
+                newGene.expression = Trait.GENE_EXPRESSION_RECESSIVE;
                 newGene.value = 0;
-                child.traits[newGene.traitId].genes.push(u);
+                child.traits[newGene.traitId].genes.push(newGene);
                 state.unlockedGenes.push(newGene.id);
             }
         } else {
