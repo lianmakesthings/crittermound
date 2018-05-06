@@ -1,7 +1,7 @@
 import genes from './genes.json';
 import {Shuffle} from './Helpers';
 
-class GeneDict {
+class Gene {
   static getGene(id) {
     return Object.assign({}, genes.find(gene => gene.id === id));
   }
@@ -15,4 +15,4 @@ class GeneDict {
   }
 }
 
-export default GeneDict;
+export default Gene;
