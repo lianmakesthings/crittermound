@@ -1,9 +1,11 @@
 import genes from './genes.json';
+import Gene from './Gene';
 import {Shuffle} from './Helpers';
 
-class Gene {
+class GeneFactory {
   static getGene(id) {
-    return Object.assign({}, genes.find(gene => gene.id === id));
+    id = parseInt(id);
+    return new Gene(genes.find(gene => gene.id === id));
   }
 
   static getRandomGeneExcluding(excludeIds) {
@@ -15,4 +17,4 @@ class Gene {
   }
 }
 
-export default Gene;
+export default GeneFactory;
