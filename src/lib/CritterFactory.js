@@ -1,7 +1,7 @@
 import {CoinFlip, RandomInRange, StatVariance} from "./Helpers";
 import Critter from "./Critter";
 import Trait from "./Trait";
-import GeneDict from "./GeneDict";
+import GeneFactory from "./GeneFactory";
 
 class CritterFactory {
     static default(id, generation, gender) {
@@ -96,9 +96,9 @@ class CritterFactory {
                     if (parentGeneData[geneId][1]) fatherExpression = parentGeneData[geneId][1].expression;
 
                     let expression = this.calculateExpression(motherGeneData.expression, fatherExpression);
-                    // only genes with expression over 1 will be added
+                    // only genes with expression over 0 will be added
                     if (expression > Trait.GENE_EXPRESSION_NONE) {
-                        let newGene = GeneDict.getGene(geneId);
+                        let newGene = GeneFactory.getGene(geneId);
                         // default value is 0
                         newGene.value = 0;
                         newGene.expression = expression;
@@ -130,15 +130,15 @@ class CritterFactory {
             // discover new gene
             let newGene;
             if (nextGeneId) {
-                newGene = GeneDict.getGene(nextGeneId);
+                newGene = GeneFactory.getGene(nextGeneId);
             } else {
-                newGene = GeneDict.getRandomGeneExcluding(unlockedGenes);
+                newGene = GeneFactory.getRandomGeneExcluding(unlockedGenes);
             }
 
             const base = child.traits[newGene.traitId].base;
             const bonus = child.traits[newGene.traitId].bonus;
             const geneCount = child.traits[newGene.traitId].genes.length+1;
-            if (base>25 && this.mutationCheck(geneCount,bonus)) {
+            if (base > 25 && this.mutationCheck(geneCount, bonus)) {
                 newGene.expression = Trait.GENE_EXPRESSION_RECESSIVE;
                 newGene.value = 0;
                 child.traits[newGene.traitId].genes.push(newGene);

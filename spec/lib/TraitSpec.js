@@ -1,5 +1,4 @@
 import Trait from '../../src/lib/Trait';
-import GeneDict from '../src/lib/GeneDict';
 
 describe('A trait', () => {
     const someId = Trait.ID_STING;
