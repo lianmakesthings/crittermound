@@ -58,5 +58,26 @@ describe('A trait', () => {
         trait.genes.push(someGene);
 
         expect(trait.value).toBe(5)
+    });
+
+    it('should calculate a true value from value and bonus', () => {
+        const someGene = GeneFactory.getGene(414);
+        someGene.expression = Gene.EXPRESSION_RECESSIVE;
+        someGene.value = someValue;
+        trait.genes.push(someGene);
+
+        const trueValue = trait.getTrueValue(someValue);
+        expect(trueValue).toBe(10)
+    });
+
+    it('should not take bonus for calculation for true value if trait is not bite or sting', () => {
+        const someGene = GeneFactory.getGene(214);
+        someGene.expression = Gene.EXPRESSION_RECESSIVE;
+        someGene.value = someValue;
+        trait.genes.push(someGene);
+        trait.id = Trait.ID_AGILITY;
+
+        const trueValue = trait.getTrueValue(someValue);
+        expect(trueValue).toBe(5)
     })
 });
