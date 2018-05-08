@@ -41,5 +41,15 @@ describe('A trait', () => {
         trait.genes.push(someGene);
 
         expect(trait.geneValue).toBe(0)
+    });
+
+    it('should have the same value for bonus and gene value', () => {
+        const someGene = GeneFactory.getGene(414);
+        const someValue = 5;
+        someGene.expression = Gene.EXPRESSION_DOMINANT;
+        someGene.value = someValue;
+        trait.genes.push(someGene);
+
+        expect(trait.bonus).toBe(trait.geneValue)
     })
 });
