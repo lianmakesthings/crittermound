@@ -10,5 +10,5 @@ describe('CritterFactory', () => {
         const critter = CritterFactory.default(someId, someGeneration, someGender);
         const defaultCritter = new Critter(someId, someGeneration, someGender);
         expect(critter).toEqual(defaultCritter);
-    })
+    });
 });

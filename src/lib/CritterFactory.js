@@ -2,6 +2,7 @@ import {CoinFlip, RandomInRange, StatVariance} from "./Helpers";
 import Critter from "./Critter";
 import Trait from "./Trait";
 import GeneFactory from "./GeneFactory";
+import Gene from './Gene';
 
 class CritterFactory {
     static default(id, generation, gender) {
@@ -15,19 +16,19 @@ class CritterFactory {
         if (2 === sum) {
             if (x === y) {
                 expression = CoinFlip()
-                    ? Trait.GENE_EXPRESSION_RECESSIVE
+                    ? Gene.EXPRESSION_RECESSIVE
                     : CoinFlip()
-                        ? Trait.GENE_EXPRESSION_DOMINANT
-                        : Trait.GENE_EXPRESSION_NONE;
+                        ? Gene.EXPRESSION_DOMINANT
+                        : Gene.EXPRESSION_NONE;
             } else {
-                expression = Trait.GENE_EXPRESSION_RECESSIVE;
+                expression = Gene.EXPRESSION_RECESSIVE;
             }
         } else if (3 === sum || 1 === sum) {
             expression = CoinFlip() ? x : y;
         } else if (4 === sum) {
             expression = x
         } else {
-            expression = Trait.GENE_EXPRESSION_NONE;
+            expression = Gene.EXPRESSION_NONE;
         }
 
         return expression
@@ -97,7 +98,7 @@ class CritterFactory {
 
                     let expression = this.calculateExpression(motherGeneData.expression, fatherExpression);
                     // only genes with expression over 0 will be added
-                    if (expression > Trait.GENE_EXPRESSION_NONE) {
+                    if (expression > Gene.EXPRESSION_NONE) {
                         let newGene = GeneFactory.getGene(geneId);
                         // default value is 0
                         newGene.value = 0;
@@ -105,7 +106,7 @@ class CritterFactory {
                         if (parentGeneData[geneId].length > 1) {
                             const fatherGeneData = parentGeneData[geneId][1];
                             // if both parents have the gene && expression is dominant, calculate value from parent value
-                            if (expression === Trait.GENE_EXPRESSION_DOMINANT) {
+                            if (expression === Gene.EXPRESSION_DOMINANT) {
                                 newGene.value = Math.max(this.mutateStat(motherGeneData, fatherGeneData), geneMax);
                             }
                         }
@@ -139,7 +140,7 @@ class CritterFactory {
             const bonus = child.traits[newGene.traitId].bonus;
             const geneCount = child.traits[newGene.traitId].genes.length+1;
             if (base > 25 && this.mutationCheck(geneCount, bonus)) {
-                newGene.expression = Trait.GENE_EXPRESSION_RECESSIVE;
+                newGene.expression = Gene.EXPRESSION_RECESSIVE;
                 newGene.value = 0;
                 child.traits[newGene.traitId].genes.push(newGene);
                 state.unlockedGenes.push(newGene.id);
