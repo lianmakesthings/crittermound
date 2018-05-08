@@ -1,6 +1,7 @@
 import Critter from '../../src/lib/Critter';
 import Trait from '../../src/lib/Trait';
 import GeneFactory from '../../src/lib/GeneFactory';
+import Gene from '../../src/lib/Gene';
 
 describe('A Critter', () => {
     const someId = 2;
@@ -48,5 +49,39 @@ describe('A Critter', () => {
         critter.traits[3].genes.push(someGene);
 
         expect(critter.mutations).toBe(2)
+    });
+
+    it('should calculate score from all trait values', () => {
+        expect(critter.score).toBe(5)
+    });
+
+    it('should calculate base score from raw base value', () => {
+        const someValue = 3;
+        critter.rawBaseValue = Math.pow(someValue, 5);
+        expect(critter.baseScore).toBe(someValue);
+    });
+
+    it('should calculate raw base value from trait base scores', () => {
+        expect(critter.baseScore).toBe(5);
+        expect(critter.rawBaseValue).toBe(Math.pow(5, 5));
+    });
+
+    it('should calculate bonus score from raw gene value', () => {
+        const someValue = 3;
+        critter.rawGeneValue = Math.pow(someValue, 5);
+        expect(critter.bonusScore).toBe(someValue);
+    });
+
+    it('should calculate raw gene value from trait gene values', () => {
+        const someValue = 3;
+        const someGene = GeneFactory.getGene(1);
+        someGene.expression = Gene.EXPRESSION_DOMINANT;
+        someGene.value = someValue;
+        for (let i = 0; i < 5; i++) {
+            critter.traits[i].genes.push(someGene);
+        }
+
+        expect(critter.bonusScore).toBe(someValue);
+        expect(critter.rawGeneValue).toBe(Math.pow(someValue, 5))
     })
 });
