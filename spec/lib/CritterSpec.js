@@ -1,5 +1,6 @@
 import Critter from '../../src/lib/Critter';
 import Trait from '../../src/lib/Trait';
+import GeneFactory from '../../src/lib/GeneFactory';
 
 describe('A Critter', () => {
     const someId = 2;
@@ -40,4 +41,12 @@ describe('A Critter', () => {
             index++;
         })
     });
+
+    it('should calculate number of mutations', () => {
+        const someGene = GeneFactory.getGene(1);
+        critter.traits[0].genes.push(someGene);
+        critter.traits[3].genes.push(someGene);
+
+        expect(critter.mutations).toBe(2)
+    })
 });
