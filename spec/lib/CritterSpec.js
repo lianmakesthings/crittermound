@@ -83,5 +83,35 @@ describe('A Critter', () => {
 
         expect(critter.bonusScore).toBe(someValue);
         expect(critter.rawGeneValue).toBe(Math.pow(someValue, 5))
-    })
+    });
+
+    it('should calculate max health from vitality value', () => {
+        const someValue = 5;
+        critter.traits[Trait.ID_VITALITY].base = someValue;
+
+        expect(critter.maxHealth).toBe(someValue * 15)
+
+    });
+
+    it('should calculate the current action progress', () => {
+        const someValue = 10;
+        critter.traits[Trait.ID_VITALITY].base = someValue;
+        critter.currentHealth = someValue * 1.5;
+
+        expect(critter.progress).toBe(someValue);
+    });
+
+    it('should calculate action time from agility', () => {
+        critter.traits[Trait.ID_AGILITY].base = 1;
+
+        expect(critter.actionTime).toBe(600);
+    });
+
+    it('should calculate action time in seconds', () => {
+        critter.traits[Trait.ID_AGILITY].base = 1;
+
+        expect(critter.actionTimeSeconds).toBe(30);
+    });
+
+
 });
