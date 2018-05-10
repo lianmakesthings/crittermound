@@ -113,5 +113,41 @@ describe('A Critter', () => {
         expect(critter.actionTimeSeconds).toBe(30);
     });
 
+    it('should calculate strength bonus from trait', () => {
+        const someValue = 10;
+        critter.traits[Trait.ID_STRENGTH].base = someValue;
 
+        expect(critter.strengthBonus).toBe(someValue/2)
+    });
+
+    it('should calculate agility bonus from trait', () => {
+        const someValue = 10;
+        critter.traits[Trait.ID_AGILITY].base = someValue;
+
+        expect(critter.agilityBonus).toBe(someValue/2)
+    });
+
+    it('should calculate dirt per second with sting', () => {
+        critter.traits[Trait.ID_STING].base = 24;
+
+        expect(critter.dirtPerSecond).toBe(1)
+    });
+
+    it('should calculate grass per second with bite', () => {
+        critter.traits[Trait.ID_BITE].base = 24;
+
+        expect(critter.grassPerSecond).toBe(1)
+    });
+
+    it('should calculate carry per second with strength', () => {
+        critter.traits[Trait.ID_STRENGTH].base = 24;
+
+        expect(critter.carryPerSecond).toBe(1)
+    });
+
+    it('should calculate sod per second with vitality', () => {
+        critter.traits[Trait.ID_VITALITY].base = 24;
+
+        expect(critter.sodPerSecond).toBe(1)
+    });
 });
