@@ -55,12 +55,12 @@ describe('A Gene helper', () => {
         })
     });
 
-    describe('checking mutations', () => {
+    describe('checking if mutation should occur', () => {
         it('should return true if count is less than 10 and value is sufficiently greater than count', () => {
             const someCount = 2;
             const someValue = 10;
 
-            const mutationCheck = GeneHelper.mutationCheck(someCount, someValue);
+            const mutationCheck = GeneHelper.shouldMutate(someCount, someValue);
             expect(mutationCheck).toBeTruthy();
         });
 
@@ -68,7 +68,7 @@ describe('A Gene helper', () => {
             const someCount = 2;
             const someValue = 5;
 
-            const mutationCheck = GeneHelper.mutationCheck(someCount, someValue);
+            const mutationCheck = GeneHelper.shouldMutate(someCount, someValue);
             expect(mutationCheck).toBeFalsy();
         });
 
@@ -76,7 +76,7 @@ describe('A Gene helper', () => {
             const someCount = 10;
             const someValue = 450;
 
-            const mutationCheck = GeneHelper.mutationCheck(someCount, someValue);
+            const mutationCheck = GeneHelper.shouldMutate(someCount, someValue);
             expect(mutationCheck).toBeTruthy();
         });
 
