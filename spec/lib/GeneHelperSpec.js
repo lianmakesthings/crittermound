@@ -1,5 +1,6 @@
 import GeneHelper from '../../src/lib/GeneHelper';
 import Gene from '../../src/lib/Gene';
+import {StatVariance} from "../../src/lib/Helpers";
 
 describe('A Gene helper', () => {
     describe('calculating expressions', () => {
@@ -84,9 +85,20 @@ describe('A Gene helper', () => {
             const someCount = 10;
             const someValue = 100;
 
-            const mutationCheck = GeneHelper.mutationCheck(someCount, someValue);
+            const mutationCheck = GeneHelper.shouldMutate(someCount, someValue);
             expect(mutationCheck).toBeFalsy();
         })
-    })
+    });
+
+    describe('calculating gene value', () => {
+        it('should be in range between the parents stat including stat variance', () => {
+            const lowerVal = 2;
+            const higherVal = 10;
+
+            const geneValue = GeneHelper.calculateValue(lowerVal, higherVal);
+            expect(geneValue).toBeGreaterThanOrEqual(lowerVal-StatVariance(lowerVal));
+            expect(geneValue).toBeLessThanOrEqual(higherVal-StatVariance(higherVal));
+        })
+    });
 
 });

@@ -35,7 +35,7 @@ class GeneHelper {
         }
     }
 
-    static mutateStat(motherVal, fatherVal) {
+    static calculateValue(motherVal, fatherVal) {
         let lowerVal = Math.min(motherVal, fatherVal);
         let higherVal = Math.max(motherVal, fatherVal);
         lowerVal = lowerVal-StatVariance(lowerVal);
