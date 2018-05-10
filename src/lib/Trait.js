@@ -1,7 +1,9 @@
 import {SmartRound} from './Helpers';
+import Gene from './Gene';
+
 class Trait {
   constructor(id, baseValue) {
-    this.id = id;
+    this.id = parseInt(id);
     this.name = Trait.NAMES[id];
     this.base = baseValue;
     this.genes = [];
@@ -9,7 +11,7 @@ class Trait {
 
   get geneValue() {
     let totalGeneValue = this.genes.reduce((acc, gene) => {
-      if (gene.expression == Trait.GENE_EXPRESSION_DOMINANT) {
+      if (gene.expression === Gene.EXPRESSION_DOMINANT) {
         acc = acc + gene.value
       }
       return acc;
@@ -24,7 +26,7 @@ class Trait {
   }
 
   getTrueValue(bonus) {
-    if (this.id == Trait.ID_BITE || this.id == Trait.ID_STING) {
+    if (this.id === Trait.ID_BITE || this.id === Trait.ID_STING) {
       return SmartRound(this.value + bonus);
     }
     return this.value;
@@ -41,8 +43,5 @@ Trait.ID_AGILITY = 2;
 Trait.ID_BITE = 3;
 Trait.ID_STING = 4;
 Trait.NAMES = ['vitality', 'strength', 'agility', 'bite', 'sting'];
-Trait.GENE_EXPRESSION_DOMINANT = 2;
-Trait.GENE_EXPRESSION_RECESSIVE = 1;
-Trait.GENE_EXPRESSION_NONE = 0;
 
 export default Trait;
