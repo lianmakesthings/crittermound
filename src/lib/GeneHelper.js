@@ -27,11 +27,11 @@ class GeneHelper {
         return expression
     }
 
-    static mutationCheck(geneCount, bonus) {
+    static mutationCheck(geneCount, geneValue) {
         if (geneCount >= 10) {
-            return bonus >= (geneCount-10)*100+450
+            return geneValue >= (geneCount-10)*100+450
         } else {
-            return bonus >= geneCount*(geneCount-1)*5
+            return geneValue >= geneCount*(geneCount-1)*5
         }
     }
 

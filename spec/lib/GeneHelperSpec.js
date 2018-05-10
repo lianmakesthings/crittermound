@@ -53,5 +53,40 @@ describe('A Gene helper', () => {
             expect(childExpression).toBeGreaterThanOrEqual(Gene.EXPRESSION_NONE);
             expect(childExpression).toBeLessThanOrEqual(Gene.EXPRESSION_DOMINANT);
         })
+    });
+
+    describe('checking mutations', () => {
+        it('should return true if count is less than 10 and value is sufficiently greater than count', () => {
+            const someCount = 2;
+            const someValue = 10;
+
+            const mutationCheck = GeneHelper.mutationCheck(someCount, someValue);
+            expect(mutationCheck).toBeTruthy();
+        });
+
+        it('should return false if count is less than 10 and value is not sufficiently greater than count', () => {
+            const someCount = 2;
+            const someValue = 5;
+
+            const mutationCheck = GeneHelper.mutationCheck(someCount, someValue);
+            expect(mutationCheck).toBeFalsy();
+        });
+
+        it('should return true if count is more than 10 and value is sufficiently greater than count', () => {
+            const someCount = 10;
+            const someValue = 450;
+
+            const mutationCheck = GeneHelper.mutationCheck(someCount, someValue);
+            expect(mutationCheck).toBeTruthy();
+        });
+
+        it('should return false if count is more than 10 and value is not sufficiently greater than count', () => {
+            const someCount = 10;
+            const someValue = 100;
+
+            const mutationCheck = GeneHelper.mutationCheck(someCount, someValue);
+            expect(mutationCheck).toBeFalsy();
+        })
     })
+
 });
