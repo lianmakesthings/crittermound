@@ -1,6 +1,6 @@
-import CritterFactory from '../../src/lib/CritterFactory';
 import Critter from '../../src/lib/Critter';
 import { StatVariance } from "../../src/lib/Helpers";
+import CritterFactory from '../../src/lib/CritterFactory';
 import GeneFactory from "../../src/lib/GeneFactory";
 import Gene from '../../src/lib/Gene';
 
@@ -29,6 +29,10 @@ describe('CritterFactory', () => {
             }
         });
 
+        afterEach(() => {
+            CritterFactory.GeneHelper = GeneFactory
+        });
+
         it("should calculate a base value between the parent's values for each trait", () => {
             const critter = CritterFactory.breed(someId, mother, father, {newGeneChance: 1});
             critter.traits.forEach((trait, index) => {
@@ -42,34 +46,46 @@ describe('CritterFactory', () => {
             });
         });
 
-        it("should give the parent's genes to the child", () => {
+        it("should calculate expression from parent's expressions", () => {
             const someGeneId = 1;
-            const someOtherGeneId = 101;
             const someGene = GeneFactory.getGene(someGeneId);
-            someGene.expression = Gene.EXPRESSION_RECESSIVE;
-            const someOtherGene = GeneFactory.getGene(someOtherGeneId);
-            someOtherGene.expression = Gene.EXPRESSION_RECESSIVE;
-
+            const someGeneCopy = GeneFactory.getGene(someGeneId);
+            someGeneCopy.expression = Gene.EXPRESSION_DOMINANT;
             mother.traits[0].genes.push(someGene);
-            mother.traits[1].genes.push(someOtherGene);
-            father.traits[0].genes.push(someGene);
+            father.traits[0].genes.push(someGeneCopy);
 
-            const critter = CritterFactory.breed(someId, mother, father, {newGeneChance: 1});
+            CritterFactory.GeneHelper.calculateExpression = jasmine.createSpy('calculateExpression');
+            CritterFactory.breed(someId, mother, father, {newGeneChance: 1});
 
-            expect(critter.mutations).toBe(2);
-            expect(critter.traits[0].genes.length).toBe(1);
-            expect(critter.traits[0].genes[0].id).toBe(someGeneId);
-            expect(critter.traits[1].genes.length).toBe(1);
-            expect(critter.traits[1].genes[0].id).toBe(someOtherGeneId);
+            expect(CritterFactory.GeneHelper.calculateExpression).toHaveBeenCalledWith(someGene.expression, someGeneCopy.expression)
         });
 
-        it('should not give genes to the child if expression is none', () => {
-            const someGene = GeneFactory.getGene(1);
+        it("should calculate expression with 0 if second parent doesn't have the gene", () => {
+            const someGeneId = 1;
+            const someGene = GeneFactory.getGene(someGeneId);
+            someGene.expression = Gene.EXPRESSION_DOMINANT;
             mother.traits[0].genes.push(someGene);
 
+            CritterFactory.GeneHelper.calculateExpression = jasmine.createSpy('calculateExpression');
+            CritterFactory.breed(someId, mother, father, {newGeneChance: 1});
+
+            expect(CritterFactory.GeneHelper.calculateExpression).toHaveBeenCalledWith(someGene.expression, 0)
+        });
+
+        it("should give the parent's genes to the child if expression is at least recessive", () => {
+            const someGeneId = 1;
+            const someGene = GeneFactory.getGene(someGeneId);
+
+            mother.traits[0].genes.push(someGene);
+
+            CritterFactory.GeneHelper.calculateExpression = jasmine.createSpy('calculateExpression').and.returnValue(Gene.EXPRESSION_RECESSIVE);
             const critter = CritterFactory.breed(someId, mother, father, {newGeneChance: 1});
 
-            expect(critter.mutations).toBe(0);
-        })
+            expect(critter.mutations).toBeGreaterThanOrEqual(1);
+            expect(critter.traits[0].genes.length).toBe(1);
+            expect(critter.traits[0].genes[0].id).toBe(someGeneId);
+        });
+
+
     })
 });

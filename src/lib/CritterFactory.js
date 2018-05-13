@@ -6,6 +6,8 @@ import GeneHelper from "./GeneHelper";
 import Gene from './Gene';
 
 class CritterFactory {
+    static GeneHelper = GeneHelper;
+
     static default(id, generation, gender) {
         return new Critter(id, generation, gender)
     }
@@ -41,19 +43,21 @@ class CritterFactory {
 
             // add gene to child trait for each geneId collected during traversing parents genes
             const geneMax = 100;
+
             for (let geneId in parentGeneData) {
                 if(parentGeneData.hasOwnProperty(geneId)) {
                     const motherGeneData = parentGeneData[geneId][0];
-                    let fatherExpression = 0;
-                    if (parentGeneData[geneId][1]) fatherExpression = parentGeneData[geneId][1].expression;
+                    const fatherGeneData = parentGeneData[geneId][1];
 
-                    let expression = GeneHelper.calculateExpression(motherGeneData.expression, fatherExpression);
+                    let expression = CritterFactory.GeneHelper.calculateExpression(motherGeneData.expression, fatherGeneData ? fatherGeneData.expression : 0);
+
                     // only genes with expression over 0 will be added
                     if (expression > Gene.EXPRESSION_NONE) {
                         let newGene = GeneFactory.getGene(geneId);
                         // default value is 0
                         newGene.value = 0;
                         newGene.expression = expression;
+
                         if (parentGeneData[geneId].length > 1) {
                             const fatherGeneData = parentGeneData[geneId][1];
                             // if both parents have the gene && expression is dominant, calculate value from parent value
