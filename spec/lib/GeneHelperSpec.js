@@ -97,7 +97,7 @@ describe('A Gene helper', () => {
 
             const geneValue = GeneHelper.calculateValue(lowerVal, higherVal);
             expect(geneValue).toBeGreaterThanOrEqual(lowerVal-StatVariance(lowerVal));
-            expect(geneValue).toBeLessThanOrEqual(higherVal-StatVariance(higherVal));
+            expect(geneValue).toBeLessThanOrEqual(higherVal+StatVariance(higherVal));
         })
     });
 
