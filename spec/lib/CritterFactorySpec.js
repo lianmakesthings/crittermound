@@ -1,5 +1,5 @@
 import Critter from '../../src/lib/Critter';
-import { StatVariance } from "../../src/lib/Helpers";
+import { RandomInRange, StatVariance } from "../../src/lib/Helpers";
 import CritterFactory from '../../src/lib/CritterFactory';
 import GeneFactory from "../../src/lib/GeneFactory";
 import Gene from '../../src/lib/Gene';
@@ -26,8 +26,8 @@ describe('CritterFactory', () => {
             father = CritterFactory.default(someId, someGeneration, someGender);
 
             for (let i = 0; i++; i < mother.traits.length) {
-                mother.traits[i].base = Math.floor(Math.random() * 20);
-                father.traits[i].base = Math.floor(Math.random() * 20);
+                mother.traits[i].base = RandomInRange(0, 20);
+                father.traits[i].base = RandomInRange(0, 20);
             }
 
             CritterFactory.GeneHelper = {
