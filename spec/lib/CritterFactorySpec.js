@@ -30,7 +30,10 @@ describe('CritterFactory', () => {
                 father.traits[i].base = Math.floor(Math.random() * 20);
             }
 
-            CritterFactory.GeneHelper.calculateExpression = jasmine.createSpy('calculateExpression');
+            CritterFactory.GeneHelper = {
+                calculateExpression: jasmine.createSpy('calculateExpression'),
+                calculateValue: jasmine.createSpy('calculateValue')
+            }
         });
 
         afterEach(() => {
@@ -76,10 +79,10 @@ describe('CritterFactory', () => {
         it("should give the parent's genes to the child", () => {
             const someGeneId = 1;
             const someGene = GeneFactory.getGene(someGeneId);
-
             mother.traits[0].genes.push(someGene);
 
-            CritterFactory.GeneHelper.calculateExpression.and.returnValue(Gene.EXPRESSION_RECESSIVE);
+            const someExpression = Gene.EXPRESSION_RECESSIVE;
+            CritterFactory.GeneHelper.calculateExpression.and.returnValue(someExpression);
             const critter = CritterFactory.breed(someId, mother, father, {newGeneChance: 1});
 
             expect(critter.mutations).toBe(1);
@@ -98,6 +101,47 @@ describe('CritterFactory', () => {
             expect(critter.traits[0].genes.length).toBe(0);
         });
 
+        it('should give a value of 0 if expression is recessive', () => {
+            const someGene = GeneFactory.getGene(1);
+            mother.traits[0].genes.push(someGene);
+            const expression = Gene.EXPRESSION_RECESSIVE;
 
+            CritterFactory.GeneHelper.calculateExpression.and.returnValue(expression);
+            const critter = CritterFactory.breed(someId, mother, father, {newGeneChance: 1});
+
+            expect(critter.traits[0].genes[0].expression).toBe(expression);
+            expect(critter.traits[0].genes[0].value).toBe(0);
+        });
+
+        it("should calculate a value from parent's values if expression if both parents have the gene and expression is dominant", () => {
+            const someGene = GeneFactory.getGene(1);
+            mother.traits[0].genes.push(someGene);
+            father.traits[0].genes.push(someGene);
+            const expression = Gene.EXPRESSION_DOMINANT;
+            const someValue = 10;
+
+            CritterFactory.GeneHelper.calculateExpression.and.returnValue(expression);
+            CritterFactory.GeneHelper.calculateValue.and.returnValue(someValue);
+            const critter = CritterFactory.breed(someId, mother, father, {newGeneChance: 1});
+
+            expect(critter.traits[0].genes[0].expression).toBe(expression);
+            expect(critter.traits[0].genes[0].value).toBe(someValue);
+        });
+
+        it('should give gene the maximum value if calculated value is greater', () => {
+            const someGene = GeneFactory.getGene(1);
+            mother.traits[0].genes.push(someGene);
+            father.traits[0].genes.push(someGene);
+
+            const maxValue = 50;
+            const calculatedValue = maxValue + 20;
+
+            CritterFactory.GeneHelper.calculateExpression.and.returnValue(Gene.EXPRESSION_DOMINANT);
+            CritterFactory.GeneHelper.calculateValue.and.returnValue(calculatedValue);
+            CritterFactory.geneMax = maxValue;
+            const critter = CritterFactory.breed(someId, mother, father, {newGeneChance: 1});
+
+            expect(critter.traits[0].genes[0].value).toBe(maxValue);
+        })
     })
 });
