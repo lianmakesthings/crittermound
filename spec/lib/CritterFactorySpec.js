@@ -10,6 +10,7 @@ describe('CritterFactory', () => {
     const someGeneration = 42;
     const someGender = Critter.GENDER_FEMALE;
     const geneHelper = Object.assign({}, GeneHelper);
+    const randomInRange = RandomInRange.bind({});
 
     it('should return default Critter', () => {
         const critter = CritterFactory.default(someId, someGeneration, someGender);
@@ -20,6 +21,7 @@ describe('CritterFactory', () => {
     describe('breeding a new critter', () => {
         let mother;
         let father;
+        let state = {newGeneChance: 1, unlockedGenes: []};
 
         beforeEach(() => {
             mother = CritterFactory.default(someId, someGeneration, someGender);
@@ -37,11 +39,12 @@ describe('CritterFactory', () => {
         });
 
         afterEach(() => {
-            CritterFactory.GeneHelper = geneHelper
+            CritterFactory.GeneHelper = geneHelper;
+            CritterFactory.RandomInRange = randomInRange;
         });
 
         it("should calculate a base value between the parent's values for each trait", () => {
-            const critter = CritterFactory.breed(someId, mother, father, {newGeneChance: 1});
+            const critter = CritterFactory.breed(someId, mother, father, state);
             critter.traits.forEach((trait, index) => {
                 const motherVal = mother.traits[index].base;
                 const fatherVal = father.traits[index].base;
@@ -61,7 +64,7 @@ describe('CritterFactory', () => {
             mother.traits[0].genes.push(someGene);
             father.traits[0].genes.push(someGeneCopy);
 
-            CritterFactory.breed(someId, mother, father, {newGeneChance: 1});
+            CritterFactory.breed(someId, mother, father, state);
 
             expect(CritterFactory.GeneHelper.calculateExpression).toHaveBeenCalledWith(someGene.expression, someGeneCopy.expression)
         });
@@ -71,7 +74,7 @@ describe('CritterFactory', () => {
             someGene.expression = Gene.EXPRESSION_DOMINANT;
             mother.traits[0].genes.push(someGene);
 
-            CritterFactory.breed(someId, mother, father, {newGeneChance: 1});
+            CritterFactory.breed(someId, mother, father, state);
 
             expect(CritterFactory.GeneHelper.calculateExpression).toHaveBeenCalledWith(someGene.expression, 0)
         });
@@ -83,7 +86,7 @@ describe('CritterFactory', () => {
 
             const someExpression = Gene.EXPRESSION_RECESSIVE;
             CritterFactory.GeneHelper.calculateExpression.and.returnValue(someExpression);
-            const critter = CritterFactory.breed(someId, mother, father, {newGeneChance: 1});
+            const critter = CritterFactory.breed(someId, mother, father, state);
 
             expect(critter.mutations).toBe(1);
             expect(critter.traits[0].genes.length).toBe(1);
@@ -95,7 +98,7 @@ describe('CritterFactory', () => {
             mother.traits[0].genes.push(someGene);
 
             CritterFactory.GeneHelper.calculateExpression.and.returnValue(Gene.EXPRESSION_NONE);
-            const critter = CritterFactory.breed(someId, mother, father, {newGeneChance: 1});
+            const critter = CritterFactory.breed(someId, mother, father, state);
 
             expect(critter.mutations).toBe(0);
             expect(critter.traits[0].genes.length).toBe(0);
@@ -107,7 +110,7 @@ describe('CritterFactory', () => {
             const expression = Gene.EXPRESSION_RECESSIVE;
 
             CritterFactory.GeneHelper.calculateExpression.and.returnValue(expression);
-            const critter = CritterFactory.breed(someId, mother, father, {newGeneChance: 1});
+            const critter = CritterFactory.breed(someId, mother, father, state);
 
             expect(critter.traits[0].genes[0].expression).toBe(expression);
             expect(critter.traits[0].genes[0].value).toBe(0);
@@ -122,7 +125,7 @@ describe('CritterFactory', () => {
 
             CritterFactory.GeneHelper.calculateExpression.and.returnValue(expression);
             CritterFactory.GeneHelper.calculateValue.and.returnValue(someValue);
-            const critter = CritterFactory.breed(someId, mother, father, {newGeneChance: 1});
+            const critter = CritterFactory.breed(someId, mother, father, state);
 
             expect(critter.traits[0].genes[0].expression).toBe(expression);
             expect(critter.traits[0].genes[0].value).toBe(someValue);
@@ -139,9 +142,23 @@ describe('CritterFactory', () => {
             CritterFactory.GeneHelper.calculateExpression.and.returnValue(Gene.EXPRESSION_DOMINANT);
             CritterFactory.GeneHelper.calculateValue.and.returnValue(calculatedValue);
             CritterFactory.geneMax = maxValue;
-            const critter = CritterFactory.breed(someId, mother, father, {newGeneChance: 1});
+            const critter = CritterFactory.breed(someId, mother, father, state);
 
             expect(critter.traits[0].genes[0].value).toBe(maxValue);
-        })
+        });
+
+        it('should set new gene chance to 0 if new gene develops', () => {
+            const oldGeneChance = state.newGeneChance;
+            CritterFactory.RandomInRange = jasmine.createSpy('RandomInRange').and.returnValue(oldGeneChance);
+            CritterFactory.breed(someId, mother, father, state);
+            expect(state.newGeneChance).toBe(0);
+        });
+
+        it('should increase new gene chance threshold by 1 if no new gene develops', () => {
+            const oldGeneChance = state.newGeneChance;
+            CritterFactory.RandomInRange = jasmine.createSpy('RandomInRange').and.returnValue(state.newGeneChance+5);
+            CritterFactory.breed(someId, mother, father, state);
+            expect(state.newGeneChance).toBe(oldGeneChance + 1);
+        });
     })
 });

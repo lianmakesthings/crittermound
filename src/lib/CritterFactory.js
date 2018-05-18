@@ -8,6 +8,8 @@ import Gene from './Gene';
 class CritterFactory {
     static GeneHelper = GeneHelper;
     static geneMax = 100;
+    static newGeneChanceRange = 1e3;
+    static RandomInRange = RandomInRange;
 
     static default(id, generation, gender) {
         return new Critter(id, generation, gender)
@@ -70,8 +72,7 @@ class CritterFactory {
         }
 
         // chance for new gene to randomly develop
-        const newGeneChanceRange = 1e3;
-        const randVal = RandomInRange(1, newGeneChanceRange);
+        const randVal = CritterFactory.RandomInRange(1, CritterFactory.newGeneChanceRange);
         if (randVal <= state.newGeneChance) {
             state.newGeneChance = 0;
             const unlockedGenes = state.unlockedGenes;
