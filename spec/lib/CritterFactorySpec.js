@@ -192,5 +192,21 @@ describe('CritterFactory', () => {
 
             expect(CritterFactory.GeneFactory.getRandomGeneExcluding).toHaveBeenCalledWith(state.unlockedGenes)
         });
+
+        it("should add new gene to unlocked genes and child if base is above 25 and it should mutate", () => {
+            const someGene = GeneFactory.getGene(someId);
+            mother.traits[someGene.traitId].base = 50;
+            father.traits[someGene.traitId].base = 50;
+            CritterFactory.RandomInRange = jasmine.createSpy('RandomInRange').and.returnValue(state.newGeneChance);
+            CritterFactory.GeneFactory.getRandomGeneExcluding = jasmine.createSpy('getRandomGeneExcluding').and.returnValue(someGene);
+            CritterFactory.GeneHelper.shouldMutate = jasmine.createSpy('shouldMutate').and.returnValue(true);
+
+            const critter = CritterFactory.breed(someId, mother, father, state);
+
+            expect(state.unlockedGenes[0]).toBe(someId);
+            expect(critter.traits[someGene.traitId].genes[0]).toBe(someGene);
+            expect(someGene.expression).toBe(Gene.EXPRESSION_RECESSIVE);
+            expect(someGene.value).toBe(0);
+        })
     })
 });

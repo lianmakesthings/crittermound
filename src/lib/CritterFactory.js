@@ -92,7 +92,7 @@ class CritterFactory {
             const base = child.traits[newGene.traitId].base;
             const geneValue = child.traits[newGene.traitId].geneValue;
             const geneCount = child.traits[newGene.traitId].genes.length+1;
-            if (base > 25 && GeneHelper.shouldMutate(geneCount, geneValue)) {
+            if (base > 25 && CritterFactory.GeneHelper.shouldMutate(geneCount, geneValue)) {
                 newGene.expression = Gene.EXPRESSION_RECESSIVE;
                 newGene.value = 0;
                 child.traits[newGene.traitId].genes.push(newGene);
