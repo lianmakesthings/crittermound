@@ -11,6 +11,7 @@ describe('CritterFactory', () => {
     const someGender = Critter.GENDER_FEMALE;
     const geneHelper = Object.assign({}, GeneHelper);
     const randomInRange = RandomInRange.bind({});
+    const geneFactory = GeneFactory;
 
     it('should return default Critter', () => {
         const critter = CritterFactory.default(someId, someGeneration, someGender);
@@ -21,7 +22,7 @@ describe('CritterFactory', () => {
     describe('breeding a new critter', () => {
         let mother;
         let father;
-        let state = {newGeneChance: 1, unlockedGenes: []};
+        let state;
 
         beforeEach(() => {
             mother = CritterFactory.default(someId, someGeneration, someGender);
@@ -35,12 +36,15 @@ describe('CritterFactory', () => {
             CritterFactory.GeneHelper = {
                 calculateExpression: jasmine.createSpy('calculateExpression'),
                 calculateValue: jasmine.createSpy('calculateValue')
-            }
+            };
+
+            state = {newGeneChance: 1, unlockedGenes: []};
         });
 
         afterEach(() => {
             CritterFactory.GeneHelper = geneHelper;
             CritterFactory.RandomInRange = randomInRange;
+            CritterFactory.GeneFactory = geneFactory;
         });
 
         it("should calculate a base value between the parent's values for each trait", () => {
@@ -80,17 +84,16 @@ describe('CritterFactory', () => {
         });
 
         it("should give the parent's genes to the child", () => {
-            const someGeneId = 1;
-            const someGene = GeneFactory.getGene(someGeneId);
-            mother.traits[0].genes.push(someGene);
+            const someGene = GeneFactory.getGene(someId);
+            mother.traits[someGene.traitId].genes.push(someGene);
 
             const someExpression = Gene.EXPRESSION_RECESSIVE;
             CritterFactory.GeneHelper.calculateExpression.and.returnValue(someExpression);
             const critter = CritterFactory.breed(someId, mother, father, state);
 
             expect(critter.mutations).toBe(1);
-            expect(critter.traits[0].genes.length).toBe(1);
-            expect(critter.traits[0].genes[0].id).toBe(someGeneId);
+            expect(critter.traits[someGene.traitId].genes.length).toBe(1);
+            expect(critter.traits[someGene.traitId].genes[0].id).toBe(someId);
         });
 
         it("should not give the parent's genes to the child if calculated expression is 0", () => {
@@ -159,6 +162,35 @@ describe('CritterFactory', () => {
             CritterFactory.RandomInRange = jasmine.createSpy('RandomInRange').and.returnValue(state.newGeneChance+5);
             CritterFactory.breed(someId, mother, father, state);
             expect(state.newGeneChance).toBe(oldGeneChance + 1);
+        });
+
+        it('should get first gene which is unlocked but not developed', () => {
+            CritterFactory.RandomInRange = jasmine.createSpy('RandomInRange').and.returnValue(state.newGeneChance);
+            CritterFactory.GeneFactory.getGene = jasmine.createSpy('getGene').and.returnValue(GeneFactory.getGene(someId));
+            state.unlockedGenes.push(someId);
+            CritterFactory.breed(someId, mother, father, state);
+
+            expect(CritterFactory.GeneFactory.getGene).toHaveBeenCalledWith(someId)
+        });
+
+        it('should get random gene if no genes are unlocked', () => {
+            CritterFactory.RandomInRange = jasmine.createSpy('RandomInRange').and.returnValue(state.newGeneChance);
+            CritterFactory.GeneFactory.getRandomGeneExcluding = jasmine.createSpy('getRandomGeneExcluding').and.returnValue(GeneFactory.getGene(someId));
+            CritterFactory.breed(someId, mother, father, state);
+
+            expect(CritterFactory.GeneFactory.getRandomGeneExcluding).toHaveBeenCalledWith(state.unlockedGenes)
+        });
+
+        it('should get random gene if child has all unlocked genes', () => {
+            const someGene = GeneFactory.getGene(someId);
+            state.unlockedGenes.push(someId);
+            mother.traits[someGene.traitId].genes.push(someGene);
+            CritterFactory.GeneHelper.calculateExpression = jasmine.createSpy('calculateExpression').and.returnValue(Gene.EXPRESSION_DOMINANT);
+            CritterFactory.RandomInRange = jasmine.createSpy('RandomInRange').and.returnValue(state.newGeneChance);
+            CritterFactory.GeneFactory.getRandomGeneExcluding = jasmine.createSpy('getRandomGeneExcluding').and.returnValue(someGene);
+            CritterFactory.breed(someId, mother, father, state);
+
+            expect(CritterFactory.GeneFactory.getRandomGeneExcluding).toHaveBeenCalledWith(state.unlockedGenes)
         });
     })
 });

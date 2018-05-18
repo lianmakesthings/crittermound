@@ -7,6 +7,7 @@ import Gene from './Gene';
 
 class CritterFactory {
     static GeneHelper = GeneHelper;
+    static GeneFactory = GeneFactory;
     static geneMax = 100;
     static newGeneChanceRange = 1e3;
     static RandomInRange = RandomInRange;
@@ -45,14 +46,12 @@ class CritterFactory {
             });
 
             // add gene to child trait for each geneId collected during traversing parents genes
-
             for (let geneId in parentGeneData) {
                 if(parentGeneData.hasOwnProperty(geneId)) {
                     const motherGene = parentGeneData[geneId][0];
                     const fatherGene = parentGeneData[geneId][1];
 
                     let expression = CritterFactory.GeneHelper.calculateExpression(motherGene.expression, fatherGene ? fatherGene.expression : 0);
-
                     // only genes with expression over 0 will be added
                     if (expression > Gene.EXPRESSION_NONE) {
                         let newGene = GeneFactory.getGene(geneId);
@@ -77,6 +76,7 @@ class CritterFactory {
             state.newGeneChance = 0;
             const unlockedGenes = state.unlockedGenes;
             const developedGenes = child.traits.reduce((acc, trait) => {
+
                 return acc.concat(trait.genes)
             }, []);
 
@@ -84,9 +84,9 @@ class CritterFactory {
             // discover new gene
             let newGene;
             if (nextGeneId) {
-                newGene = GeneFactory.getGene(nextGeneId);
+                newGene = CritterFactory.GeneFactory.getGene(nextGeneId);
             } else {
-                newGene = GeneFactory.getRandomGeneExcluding(unlockedGenes);
+                newGene = CritterFactory.GeneFactory.getRandomGeneExcluding(unlockedGenes);
             }
 
             const base = child.traits[newGene.traitId].base;
