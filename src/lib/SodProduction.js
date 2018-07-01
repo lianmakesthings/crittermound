@@ -5,11 +5,13 @@ class SodProduction {
 
   lowestWorker(type){
     const mound = this.state.worker[type];
-    let result = 0;
-    if (mound.critters.length > 0) {
-      result = mound.critters[mound.critters.length - 1][mound.sortBy]
-    }
-    return result;
+    return mound.critters.reduce((acc, critter) => {
+        if (!acc) return critter;
+        if (critter[mound.productionProp] < acc[mound.productionProp]) {
+            acc = critter
+        }
+        return acc;
+    }, null);
   }
 
   allocateWorker(critter) {
