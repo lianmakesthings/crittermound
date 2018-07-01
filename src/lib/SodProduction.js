@@ -14,6 +14,19 @@ class SodProduction {
         }, null);
     }
 
+    canAdd(critter, type) {
+        const mound = this.state.worker[type];
+        const lowestWorker = this.lowestWorker(type);
+        if (mound.critters.length < mound.size) {
+            return true;
+        }
+
+        if (lowestWorker) {
+            return critter[mound.productionProp] > lowestWorker[mound.productionProp]
+        }
+
+    }
+
     allocateWorker(critter) {
         const worstMiner = this.lowestWorker('mine');
         const worstFarmer = this.lowestWorker('farm');
