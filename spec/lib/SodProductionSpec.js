@@ -35,7 +35,6 @@ describe('Sod production', () => {
 
     describe('checking whether critter can be added to production type', () => {
         it('should return true if critter is better than worst production critter', () => {
-            const type = 'mine';
             const lowCritter = CritterFactory.default(1, 1, Critter.GENDER_MALE);
             const highCritter = CritterFactory.default(2, 1, Critter.GENDER_MALE);
             highCritter.traits[Trait.ID_STING].base = 15;
@@ -46,7 +45,6 @@ describe('Sod production', () => {
         });
 
         it('should return true if production has no critters', () => {
-            const type = 'mine';
             const newCritter = CritterFactory.default(4, 1, Critter.GENDER_FEMALE);
             expect(sodProduction.canAdd(newCritter, type)).toBeTruthy();
         });
