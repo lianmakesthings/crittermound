@@ -5,6 +5,14 @@ import GeneFactory from "../../src/lib/GeneFactory";
 import Gene from '../../src/lib/Gene';
 import GeneHelper from "../../src/lib/GeneHelper";
 
+import chai from 'chai';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+
+chai.use(sinonChai);
+
+const expect = chai.expect;
+
 describe('CritterFactory', () => {
     const someId = 3;
     const someGeneration = 42;
@@ -16,7 +24,7 @@ describe('CritterFactory', () => {
     it('should return default Critter', () => {
         const critter = CritterFactory.default(someId, someGeneration, someGender);
         const defaultCritter = new Critter(someId, someGeneration, someGender);
-        expect(critter).toEqual(defaultCritter);
+        expect(critter).to.deep.equal(defaultCritter);
     });
 
     describe('breeding a new critter', () => {
@@ -34,8 +42,8 @@ describe('CritterFactory', () => {
             }
 
             CritterFactory.GeneHelper = {
-                calculateExpression: jasmine.createSpy('calculateExpression'),
-                calculateValue: jasmine.createSpy('calculateValue')
+                calculateExpression: sinon.stub(),
+                calculateValue: sinon.stub()
             };
 
             state = {newGeneChance: 1, unlockedGenes: []};
@@ -55,8 +63,8 @@ describe('CritterFactory', () => {
                 const minVal = Math.min(motherVal, fatherVal);
                 const maxVal = Math.max(motherVal, fatherVal);
 
-                expect(trait.base).toBeGreaterThanOrEqual(minVal - StatVariance(minVal));
-                expect(trait.base).toBeLessThanOrEqual(maxVal + StatVariance(maxVal));
+                expect(trait.base).to.be.at.least(minVal - StatVariance(minVal));
+                expect(trait.base).to.be.at.most(maxVal + StatVariance(maxVal));
             });
         });
 
@@ -70,7 +78,7 @@ describe('CritterFactory', () => {
 
             CritterFactory.breed(someId, mother, father, state);
 
-            expect(CritterFactory.GeneHelper.calculateExpression).toHaveBeenCalledWith(someGene.expression, someGeneCopy.expression)
+            expect(CritterFactory.GeneHelper.calculateExpression).to.have.been.calledWith(someGene.expression, someGeneCopy.expression)
         });
 
         it("should calculate expression with 0 if second parent doesn't have the gene", () => {
@@ -80,7 +88,7 @@ describe('CritterFactory', () => {
 
             CritterFactory.breed(someId, mother, father, state);
 
-            expect(CritterFactory.GeneHelper.calculateExpression).toHaveBeenCalledWith(someGene.expression, 0)
+            expect(CritterFactory.GeneHelper.calculateExpression).to.have.been.calledWith(someGene.expression, 0)
         });
 
         it("should give the parent's genes to the child", () => {
@@ -88,23 +96,23 @@ describe('CritterFactory', () => {
             mother.traits[someGene.traitId].genes.push(someGene);
 
             const someExpression = Gene.EXPRESSION_RECESSIVE;
-            CritterFactory.GeneHelper.calculateExpression.and.returnValue(someExpression);
+            CritterFactory.GeneHelper.calculateExpression.returns(someExpression);
             const critter = CritterFactory.breed(someId, mother, father, state);
 
-            expect(critter.mutations).toBe(1);
-            expect(critter.traits[someGene.traitId].genes.length).toBe(1);
-            expect(critter.traits[someGene.traitId].genes[0].id).toBe(someId);
+            expect(critter.mutations).to.equal(1);
+            expect(critter.traits[someGene.traitId].genes.length).to.equal(1);
+            expect(critter.traits[someGene.traitId].genes[0].id).to.equal(someId);
         });
 
         it("should not give the parent's genes to the child if calculated expression is 0", () => {
             const someGene = GeneFactory.getGene(1);
             mother.traits[0].genes.push(someGene);
 
-            CritterFactory.GeneHelper.calculateExpression.and.returnValue(Gene.EXPRESSION_NONE);
+            CritterFactory.GeneHelper.calculateExpression.returns(Gene.EXPRESSION_NONE);
             const critter = CritterFactory.breed(someId, mother, father, state);
 
-            expect(critter.mutations).toBe(0);
-            expect(critter.traits[0].genes.length).toBe(0);
+            expect(critter.mutations).to.equal(0);
+            expect(critter.traits[0].genes.length).to.equal(0);
         });
 
         it('should give a value of 0 if expression is recessive', () => {
@@ -112,11 +120,11 @@ describe('CritterFactory', () => {
             mother.traits[0].genes.push(someGene);
             const expression = Gene.EXPRESSION_RECESSIVE;
 
-            CritterFactory.GeneHelper.calculateExpression.and.returnValue(expression);
+            CritterFactory.GeneHelper.calculateExpression.returns(expression);
             const critter = CritterFactory.breed(someId, mother, father, state);
 
-            expect(critter.traits[0].genes[0].expression).toBe(expression);
-            expect(critter.traits[0].genes[0].value).toBe(0);
+            expect(critter.traits[0].genes[0].expression).to.equal(expression);
+            expect(critter.traits[0].genes[0].value).to.equal(0);
         });
 
         it("should calculate a value from parent's values if expression if both parents have the gene and expression is dominant", () => {
@@ -126,12 +134,12 @@ describe('CritterFactory', () => {
             const expression = Gene.EXPRESSION_DOMINANT;
             const someValue = 10;
 
-            CritterFactory.GeneHelper.calculateExpression.and.returnValue(expression);
-            CritterFactory.GeneHelper.calculateValue.and.returnValue(someValue);
+            CritterFactory.GeneHelper.calculateExpression.returns(expression);
+            CritterFactory.GeneHelper.calculateValue.returns(someValue);
             const critter = CritterFactory.breed(someId, mother, father, state);
 
-            expect(critter.traits[0].genes[0].expression).toBe(expression);
-            expect(critter.traits[0].genes[0].value).toBe(someValue);
+            expect(critter.traits[0].genes[0].expression).to.equal(expression);
+            expect(critter.traits[0].genes[0].value).to.equal(someValue);
         });
 
         it('should give gene the maximum value if calculated value is greater', () => {
@@ -142,71 +150,71 @@ describe('CritterFactory', () => {
             const maxValue = 50;
             const calculatedValue = maxValue + 20;
 
-            CritterFactory.GeneHelper.calculateExpression.and.returnValue(Gene.EXPRESSION_DOMINANT);
-            CritterFactory.GeneHelper.calculateValue.and.returnValue(calculatedValue);
+            CritterFactory.GeneHelper.calculateExpression.returns(Gene.EXPRESSION_DOMINANT);
+            CritterFactory.GeneHelper.calculateValue.returns(calculatedValue);
             CritterFactory.geneMax = maxValue;
             const critter = CritterFactory.breed(someId, mother, father, state);
 
-            expect(critter.traits[0].genes[0].value).toBe(maxValue);
+            expect(critter.traits[0].genes[0].value).to.equal(maxValue);
         });
 
         it('should set new gene chance to 0 if new gene develops', () => {
             const oldGeneChance = state.newGeneChance;
-            CritterFactory.RandomInRange = jasmine.createSpy('RandomInRange').and.returnValue(oldGeneChance);
+            CritterFactory.RandomInRange = sinon.stub().returns(oldGeneChance);
             CritterFactory.breed(someId, mother, father, state);
-            expect(state.newGeneChance).toBe(0);
+            expect(state.newGeneChance).to.equal(0);
         });
 
         it('should increase new gene chance threshold by 1 if no new gene develops', () => {
             const oldGeneChance = state.newGeneChance;
-            CritterFactory.RandomInRange = jasmine.createSpy('RandomInRange').and.returnValue(state.newGeneChance+5);
+            CritterFactory.RandomInRange = sinon.stub().returns(state.newGeneChance+5);
             CritterFactory.breed(someId, mother, father, state);
-            expect(state.newGeneChance).toBe(oldGeneChance + 1);
+            expect(state.newGeneChance).to.equal(oldGeneChance + 1);
         });
 
         it('should get first gene which is unlocked but not developed', () => {
-            CritterFactory.RandomInRange = jasmine.createSpy('RandomInRange').and.returnValue(state.newGeneChance);
-            CritterFactory.GeneFactory.getGene = jasmine.createSpy('getGene').and.returnValue(GeneFactory.getGene(someId));
+            CritterFactory.RandomInRange = sinon.stub().returns(state.newGeneChance);
+            CritterFactory.GeneFactory.getGene = sinon.stub().returns(GeneFactory.getGene(someId));
             state.unlockedGenes.push(someId);
             CritterFactory.breed(someId, mother, father, state);
 
-            expect(CritterFactory.GeneFactory.getGene).toHaveBeenCalledWith(someId)
+            expect(CritterFactory.GeneFactory.getGene).to.have.been.calledWith(someId)
         });
 
         it('should get random gene if no genes are unlocked', () => {
-            CritterFactory.RandomInRange = jasmine.createSpy('RandomInRange').and.returnValue(state.newGeneChance);
-            CritterFactory.GeneFactory.getRandomGeneExcluding = jasmine.createSpy('getRandomGeneExcluding').and.returnValue(GeneFactory.getGene(someId));
+            CritterFactory.RandomInRange = sinon.stub().returns(state.newGeneChance);
+            CritterFactory.GeneFactory.getRandomGeneExcluding = sinon.stub().returns(GeneFactory.getGene(someId));
             CritterFactory.breed(someId, mother, father, state);
 
-            expect(CritterFactory.GeneFactory.getRandomGeneExcluding).toHaveBeenCalledWith(state.unlockedGenes)
+            expect(CritterFactory.GeneFactory.getRandomGeneExcluding).to.have.been.calledWith(state.unlockedGenes)
         });
 
         it('should get random gene if child has all unlocked genes', () => {
             const someGene = GeneFactory.getGene(someId);
             state.unlockedGenes.push(someId);
             mother.traits[someGene.traitId].genes.push(someGene);
-            CritterFactory.GeneHelper.calculateExpression = jasmine.createSpy('calculateExpression').and.returnValue(Gene.EXPRESSION_DOMINANT);
-            CritterFactory.RandomInRange = jasmine.createSpy('RandomInRange').and.returnValue(state.newGeneChance);
-            CritterFactory.GeneFactory.getRandomGeneExcluding = jasmine.createSpy('getRandomGeneExcluding').and.returnValue(someGene);
+            CritterFactory.GeneHelper.calculateExpression = sinon.stub().returns(Gene.EXPRESSION_DOMINANT);
+            CritterFactory.RandomInRange = sinon.stub().returns(state.newGeneChance);
+            CritterFactory.GeneFactory.getRandomGeneExcluding = sinon.stub().returns(someGene);
             CritterFactory.breed(someId, mother, father, state);
 
-            expect(CritterFactory.GeneFactory.getRandomGeneExcluding).toHaveBeenCalledWith(state.unlockedGenes)
+            expect(CritterFactory.GeneFactory.getRandomGeneExcluding).to.have.been.calledWith(state.unlockedGenes)
         });
 
         it("should add new gene to unlocked genes and child if base is above 25 and it should mutate", () => {
             const someGene = GeneFactory.getGene(someId);
             mother.traits[someGene.traitId].base = 50;
             father.traits[someGene.traitId].base = 50;
-            CritterFactory.RandomInRange = jasmine.createSpy('RandomInRange').and.returnValue(state.newGeneChance);
-            CritterFactory.GeneFactory.getRandomGeneExcluding = jasmine.createSpy('getRandomGeneExcluding').and.returnValue(someGene);
-            CritterFactory.GeneHelper.shouldMutate = jasmine.createSpy('shouldMutate').and.returnValue(true);
+            CritterFactory.RandomInRange = sinon.stub().returns(state.newGeneChance);
+            CritterFactory.GeneFactory.getRandomGeneExcluding = sinon.stub().returns(someGene);
+            CritterFactory.GeneHelper.shouldMutate = sinon.stub().returns(true);
 
             const critter = CritterFactory.breed(someId, mother, father, state);
 
-            expect(state.unlockedGenes[0]).toBe(someId);
-            expect(critter.traits[someGene.traitId].genes[0]).toBe(someGene);
-            expect(someGene.expression).toBe(Gene.EXPRESSION_RECESSIVE);
-            expect(someGene.value).toBe(0);
+            expect(state.unlockedGenes[0]).to.equal(someId);
+            expect(critter.traits[someGene.traitId].genes[0]).to.equal(someGene);
+            expect(someGene.expression).to.equal(Gene.EXPRESSION_RECESSIVE);
+            expect(someGene.value).to.equal(0);
         })
     })
 });

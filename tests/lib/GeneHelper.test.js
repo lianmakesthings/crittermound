@@ -2,6 +2,14 @@ import GeneHelper from '../../src/lib/GeneHelper';
 import Gene from '../../src/lib/Gene';
 import {StatVariance} from "../../src/lib/Helpers";
 
+import chai from 'chai';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+
+chai.use(sinonChai);
+
+const expect = chai.expect;
+
 describe('A Gene helper', () => {
     describe('calculating expressions', () => {
         it("should determine none if both parent's expressions are none", () => {
@@ -9,7 +17,7 @@ describe('A Gene helper', () => {
             const fatherExpression = Gene.EXPRESSION_NONE;
 
             const childExpression = GeneHelper.calculateExpression(motherExpression, fatherExpression);
-            expect(childExpression).toBe(Gene.EXPRESSION_NONE);
+            expect(childExpression).to.equal(Gene.EXPRESSION_NONE);
         });
 
         it("should determine dominant if both parent's expressions are dominant", () => {
@@ -17,7 +25,7 @@ describe('A Gene helper', () => {
             const fatherExpression = Gene.EXPRESSION_DOMINANT;
 
             const childExpression = GeneHelper.calculateExpression(motherExpression, fatherExpression);
-            expect(childExpression).toBe(Gene.EXPRESSION_DOMINANT);
+            expect(childExpression).to.equal(Gene.EXPRESSION_DOMINANT);
         });
 
         it("should determine dominant or recessive if one parent's expression is dominant and the other's is recessive", () => {
@@ -25,8 +33,8 @@ describe('A Gene helper', () => {
             const fatherExpression = Gene.EXPRESSION_RECESSIVE;
 
             const childExpression = GeneHelper.calculateExpression(motherExpression, fatherExpression);
-            expect(childExpression).toBeGreaterThanOrEqual(Gene.EXPRESSION_RECESSIVE);
-            expect(childExpression).toBeLessThanOrEqual(Gene.EXPRESSION_DOMINANT);
+            expect(childExpression).to.be.at.least(Gene.EXPRESSION_RECESSIVE);
+            expect(childExpression).to.be.at.most(Gene.EXPRESSION_DOMINANT);
         });
 
         it("should determine recessive or none if one parent's expression is recessive and the other's is none", () => {
@@ -34,8 +42,8 @@ describe('A Gene helper', () => {
             const fatherExpression = Gene.EXPRESSION_NONE;
 
             const childExpression = GeneHelper.calculateExpression(motherExpression, fatherExpression);
-            expect(childExpression).toBeGreaterThanOrEqual(Gene.EXPRESSION_NONE);
-            expect(childExpression).toBeLessThanOrEqual(Gene.EXPRESSION_RECESSIVE);
+            expect(childExpression).to.be.at.least(Gene.EXPRESSION_NONE);
+            expect(childExpression).to.be.at.most(Gene.EXPRESSION_RECESSIVE);
         });
 
         it("should determine recessive if one parent's expression is dominant and the other's is none", () => {
@@ -43,7 +51,7 @@ describe('A Gene helper', () => {
             const fatherExpression = Gene.EXPRESSION_NONE;
 
             const childExpression = GeneHelper.calculateExpression(motherExpression, fatherExpression);
-            expect(childExpression).toBe(Gene.EXPRESSION_RECESSIVE);
+            expect(childExpression).to.equal(Gene.EXPRESSION_RECESSIVE);
         });
 
         it("should determine any expression if both parent's expressions are recessive", () => {
@@ -51,8 +59,8 @@ describe('A Gene helper', () => {
             const fatherExpression = Gene.EXPRESSION_RECESSIVE;
 
             const childExpression = GeneHelper.calculateExpression(motherExpression, fatherExpression);
-            expect(childExpression).toBeGreaterThanOrEqual(Gene.EXPRESSION_NONE);
-            expect(childExpression).toBeLessThanOrEqual(Gene.EXPRESSION_DOMINANT);
+            expect(childExpression).to.be.at.least(Gene.EXPRESSION_NONE);
+            expect(childExpression).to.be.at.most(Gene.EXPRESSION_DOMINANT);
         })
     });
 
@@ -62,7 +70,7 @@ describe('A Gene helper', () => {
             const someValue = 10;
 
             const mutationCheck = GeneHelper.shouldMutate(someCount, someValue);
-            expect(mutationCheck).toBeTruthy();
+            expect(mutationCheck).to.be.true;
         });
 
         it('should return false if count is less than 10 and value is not sufficiently greater than count', () => {
@@ -70,7 +78,7 @@ describe('A Gene helper', () => {
             const someValue = 5;
 
             const mutationCheck = GeneHelper.shouldMutate(someCount, someValue);
-            expect(mutationCheck).toBeFalsy();
+            expect(mutationCheck).to.be.false;
         });
 
         it('should return true if count is more than 10 and value is sufficiently greater than count', () => {
@@ -78,7 +86,7 @@ describe('A Gene helper', () => {
             const someValue = 450;
 
             const mutationCheck = GeneHelper.shouldMutate(someCount, someValue);
-            expect(mutationCheck).toBeTruthy();
+            expect(mutationCheck).to.be.true;
         });
 
         it('should return false if count is more than 10 and value is not sufficiently greater than count', () => {
@@ -86,7 +94,7 @@ describe('A Gene helper', () => {
             const someValue = 100;
 
             const mutationCheck = GeneHelper.shouldMutate(someCount, someValue);
-            expect(mutationCheck).toBeFalsy();
+            expect(mutationCheck).to.be.false;
         })
     });
 
@@ -96,8 +104,8 @@ describe('A Gene helper', () => {
             const higherVal = 10;
 
             const geneValue = GeneHelper.calculateValue(lowerVal, higherVal);
-            expect(geneValue).toBeGreaterThanOrEqual(lowerVal-StatVariance(lowerVal));
-            expect(geneValue).toBeLessThanOrEqual(higherVal+StatVariance(higherVal));
+            expect(geneValue).to.be.at.least(lowerVal-StatVariance(lowerVal));
+            expect(geneValue).to.be.at.most(higherVal+StatVariance(higherVal));
         })
     });
 

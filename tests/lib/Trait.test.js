@@ -1,6 +1,13 @@
-import Trait from '../../src/lib/Trait';
-import GeneFactory from '../../src/lib/GeneFactory';
-import Gene from '../../src/lib/Gene'
+import Trait from "../../src/lib/Trait";
+import chai from 'chai';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+import Gene from "../../src/lib/Gene";
+import GeneFactory from "../../src/lib/GeneFactory";
+
+chai.use(sinonChai);
+
+const expect = chai.expect;
 
 describe('A trait', () => {
     const someId = Trait.ID_STING;
@@ -12,10 +19,10 @@ describe('A trait', () => {
     });
 
     it('should have given values', () => {
-        expect(trait.id).toBe(someId);
-        expect(trait.name).toBe(Trait.NAMES[someId]);
-        expect(trait.base).toBe(someValue);
-        expect(trait.genes instanceof Array).toBe(true);
+        expect(trait.id).to.equal(someId);
+        expect(trait.name).to.equal(Trait.NAMES[someId]);
+        expect(trait.base).to.equal(someValue);
+        expect(trait.genes).to.be.an.instanceof(Array);
     });
 
     it('should calculate gene value from genes', () => {
@@ -26,7 +33,7 @@ describe('A trait', () => {
         trait.genes.push(someGene);
         trait.genes.push(someGene);
 
-        expect(trait.geneValue).toBe(someValue*2)
+        expect(trait.geneValue).to.equal(someValue*2)
     });
 
     it('should not add gene value if expression is less than dominant', () => {
@@ -39,7 +46,7 @@ describe('A trait', () => {
         otherGene.expression = Gene.EXPRESSION_NONE;
         trait.genes.push(someGene);
 
-        expect(trait.geneValue).toBe(0)
+        expect(trait.geneValue).to.equal(0)
     });
 
     it('should have the same value for bonus and gene value', () => {
@@ -48,7 +55,7 @@ describe('A trait', () => {
         someGene.value = someValue;
         trait.genes.push(someGene);
 
-        expect(trait.bonus).toBe(trait.geneValue)
+        expect(trait.bonus).to.equal(trait.geneValue)
     });
 
     it('should calculate a value from base and gene value', () => {
@@ -57,7 +64,7 @@ describe('A trait', () => {
         someGene.value = someValue;
         trait.genes.push(someGene);
 
-        expect(trait.value).toBe(5)
+        expect(trait.value).to.equal(5)
     });
 
     it('should calculate a true value from value and bonus', () => {
@@ -67,7 +74,7 @@ describe('A trait', () => {
         trait.genes.push(someGene);
 
         const trueValue = trait.getTrueValue(someValue);
-        expect(trueValue).toBe(10)
+        expect(trueValue).to.equal(10)
     });
 
     it('should not take bonus for calculation for true value if trait is not bite or sting', () => {
@@ -78,6 +85,6 @@ describe('A trait', () => {
         trait.id = Trait.ID_AGILITY;
 
         const trueValue = trait.getTrueValue(someValue);
-        expect(trueValue).toBe(5)
+        expect(trueValue).to.equal(5)
     })
 });
