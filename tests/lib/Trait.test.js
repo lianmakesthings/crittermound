@@ -1,9 +1,9 @@
-import Trait from "../src/lib/Trait";
+import Trait from "../../src/lib/Trait";
 import chai from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-import Gene from "../src/lib/Gene";
-import GeneFactory from "../src/lib/GeneFactory";
+import Gene from "../../src/lib/Gene";
+import GeneFactory from "../../src/lib/GeneFactory";
 
 chai.use(sinonChai);
 

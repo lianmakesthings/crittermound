@@ -1,5 +1,5 @@
-import genes from '../src/lib/genes.json';
-import Gene from "../src/lib/Gene";
+import genes from '../../src/lib/genes.json';
+import Gene from "../../src/lib/Gene";
 import chai from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
