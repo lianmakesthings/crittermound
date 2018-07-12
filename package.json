@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "build": "node build/build.js",
-    "test": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register ./tests/**/*.test.js"
+    "test": "./node_modules/mocha/bin/mocha --require babel-core/register ./tests/**/*.test.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.5",
