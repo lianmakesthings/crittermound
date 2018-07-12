@@ -12,15 +12,30 @@ chai.use(sinonChai);
 const expect = chai.expect;
 
 let sodProduction;
-const type = 'mine';
+const type = SodProduction.TYPE_MINE;
 describe('Sod production', () => {
     beforeEach(() => {
         const state = {
             worker: {
                 mine: {
                     productionProp: 'dirtPerSecond',
-                    critters: [],
-                    size: 1
+                    size: 1,
+                    critters: []
+                },
+                farm: {
+                    productionProp: 'grassPerSecond',
+                    size: 1,
+                    critters: []
+                },
+                carry: {
+                    productionProp: 'carryPerSecond',
+                    size: 1,
+                    critters: []
+                },
+                factory: {
+                    productionProp: 'sodPerSecond',
+                    size: 1,
+                    critters: []
                 }
             }
         };
@@ -28,16 +43,16 @@ describe('Sod production', () => {
     });
 
     describe('getting the worker with lowest production', () => {
-        it('should return Critter', () => {
+        it('should return production amount', () => {
             const lowCritter = CritterFactory.default(1, 1, Critter.GENDER_MALE);
             const highCritter = CritterFactory.default(2, 1, Critter.GENDER_FEMALE);
             highCritter.traits[Trait.ID_STING].base = 10;
             sodProduction.state.worker[type].critters = [lowCritter, highCritter];
-            expect(sodProduction.lowestWorker(type)).to.equal(lowCritter)
+            expect(sodProduction.getLowestProduction(type)).to.equal(lowCritter.dirtPerSecond)
         });
 
         it("should return null if production has no workers", () => {
-            expect(sodProduction.lowestWorker(type)).to.be.null;
+            expect(sodProduction.getLowestProduction(type)).to.be.null;
         });
     });
 
@@ -75,4 +90,26 @@ describe('Sod production', () => {
         })
     });
 
+    describe('allocating worker', () => {
+        it('should allocate to the correct production', () => {
+            sinon.stub(sodProduction, 'getLowestProduction');
+            sinon.stub(sodProduction, 'canAdd').returns(true);
+            const lowProduction = 0;
+            const highProduction = 1;
+            const newCritter = CritterFactory.default(3, 1, Critter.GENDER_FEMALE);
+
+            sodProduction.getLowestProduction.withArgs(type).returns(lowProduction);
+            sodProduction.getLowestProduction.returns(highProduction);
+
+            const expectedDestination = {location: 'worker', type: type};
+            expect(sodProduction.allocateWorker(newCritter)).to.deep.equal(expectedDestination);
+        });
+
+        it('should return null if no production can be added to', () => {
+            sinon.stub(sodProduction, 'canAdd').returns(false);
+
+            const newCritter = CritterFactory.default(3, 1, Critter.GENDER_FEMALE);
+            expect(sodProduction.allocateWorker(newCritter)).to.be.null;
+        })
+    });
 });
