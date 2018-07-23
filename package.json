@@ -10,7 +10,7 @@
     "test": "./node_modules/mocha/bin/mocha --require babel-core/register ./tests/**/*.test.js"
   },
   "dependencies": {
-    "@fortawesome/fontawesome": "^1.1.5",
+    "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-free-solid": "^5.0.10",
     "bootstrap": "^4.0.0-beta.2",
     "bootstrap-vue": "^1.4.0",
