@@ -10,12 +10,12 @@
 </template>
 
 <script>
-  import Achievements from '../lib/Achievements'
+  import Achievement from '../lib/Achievement'
 
   export default {
     computed: {
       allAchievements() {
-        const allAchievements = Achievements.allAchievements();
+        const allAchievements = Achievement.allAchievements();
         const unlockedAchievements = this.$store.getters.unlockedAchievements;
 
         return allAchievements.map(achievement => {

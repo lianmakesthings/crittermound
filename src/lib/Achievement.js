@@ -1,7 +1,7 @@
 import achievements from './achievements.json';
 import Trait from './Trait';
 
-class Achievements {
+class Achievement {
   static check(state, changes) {
     for (let typeId = this.TYPE_VITALITY; typeId < this.TYPE_MAP; typeId++) {
       let checkFn;
@@ -150,27 +150,27 @@ class Achievements {
   }
 }
 
-Achievements.TYPE_VITALITY = 0;
-Achievements.TYPE_STRENGTH = 1;
-Achievements.TYPE_AGILITY = 2;
-Achievements.TYPE_BITE = 3;
-Achievements.TYPE_STING = 4;
-Achievements.TYPE_MUTATION = 5;
-Achievements.TYPE_SCORE = 6;
-Achievements.TYPE_GENERATION = 7;
-Achievements.TYPE_CRITTERS = 8;
-Achievements.TYPE_DIRT = 9;
-Achievements.TYPE_GRASS = 10;
-Achievements.TYPE_SOD = 11;
-Achievements.TYPE_BATTLES = 12;
-Achievements.TYPE_MINES = 13;
-Achievements.TYPE_FARMS = 14;
-Achievements.TYPE_EQUIPMENT = 15;
-Achievements.TYPE_FACTORIES = 16;
-Achievements.TYPE_ENEMY_GENES = 17;
-Achievements.TYPE_HIGH_GROUND = 18;
-Achievements.TYPE_BOOST_UPGRADES = 19;
-Achievements.TYPE_FORTS = 20;
-Achievements.TYPE_MAP = 21;
+Achievement.TYPE_VITALITY = 0;
+Achievement.TYPE_STRENGTH = 1;
+Achievement.TYPE_AGILITY = 2;
+Achievement.TYPE_BITE = 3;
+Achievement.TYPE_STING = 4;
+Achievement.TYPE_MUTATION = 5;
+Achievement.TYPE_SCORE = 6;
+Achievement.TYPE_GENERATION = 7;
+Achievement.TYPE_CRITTERS = 8;
+Achievement.TYPE_DIRT = 9;
+Achievement.TYPE_GRASS = 10;
+Achievement.TYPE_SOD = 11;
+Achievement.TYPE_BATTLES = 12;
+Achievement.TYPE_MINES = 13;
+Achievement.TYPE_FARMS = 14;
+Achievement.TYPE_EQUIPMENT = 15;
+Achievement.TYPE_FACTORIES = 16;
+Achievement.TYPE_ENEMY_GENES = 17;
+Achievement.TYPE_HIGH_GROUND = 18;
+Achievement.TYPE_BOOST_UPGRADES = 19;
+Achievement.TYPE_FORTS = 20;
+Achievement.TYPE_MAP = 21;
 
-export default Achievements;
+export default Achievement;
