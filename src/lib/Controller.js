@@ -1,5 +1,5 @@
 import { ticksPerSecond } from './Helpers';
-import Achievements from './Achievements';
+import Achievement from './Achievement';
 import CritterFactory from '../lib/CritterFactory';
 
 class Controller {
@@ -180,7 +180,7 @@ class Controller {
     const timeSinceLastAchievementCheck = timestamp - this.lastAchievementCheck;
     if(timeSinceLastAchievementCheck >= this.timeBetweenAchievementChecks) {
       this.lastAchievementCheck = timestamp;
-      Achievements.check(state, changes)
+      Achievement.check(state, changes)
     }
 
     return changes;

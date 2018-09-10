@@ -4,7 +4,7 @@ import CritterFactory from '../lib/CritterFactory';
 import Critter from '../lib/Critter';
 import Sorter from '../lib/Sorter';
 import SodProduction from '../lib/SodProduction';
-import Achievement from '../lib/Achievements';
+import Achievement from '../lib/Achievement';
 import Nation from '../lib/Nation';
 import War from '../lib/War';
 import localforage from 'localforage';
