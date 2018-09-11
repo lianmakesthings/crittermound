@@ -3,25 +3,25 @@ import Trait from './Trait';
 
 class Achievement {
   static check(state, changes) {
-    for (let typeId = this.TYPE_VITALITY; typeId < this.TYPE_MAP; typeId++) {
+    for (let typeId = this.TYPE_VITALITY; typeId < state.achievements.length; typeId++) {
       let checkFn;
       const currLevel = state.achievements[typeId];
-      const achievement = achievements[typeId][currLevel+1];
+      const achievement = achievements[typeId][currLevel];
 
       switch(typeId) {
         case this.TYPE_VITALITY:
-           checkFn = (state) => {
-             const allCritters = state.royalHatchery.mother.critters
-               .concat(state.royalHatchery.father.critters)
-               .concat(state.royalHatchery.female.critters)
-               .concat(state.royalHatchery.male.critters)
-               .concat(state.worker.mine.critters)
-               .concat(state.worker.farm.critters)
-               .concat(state.worker.carry.critters)
-               .concat(state.worker.factory.critters);
-             return allCritters.find(critter => critter.traits[Trait.ID_VITALITY].value >= achievement.value)
-           };
-           break;
+          checkFn = (state) => {
+            const allCritters = state.royalHatchery.mother.critters
+             .concat(state.royalHatchery.father.critters)
+             .concat(state.royalHatchery.female.critters)
+             .concat(state.royalHatchery.male.critters)
+             .concat(state.worker.mine.critters)
+             .concat(state.worker.farm.critters)
+             .concat(state.worker.carry.critters)
+             .concat(state.worker.factory.critters);
+            return allCritters.find(critter => critter.traits[Trait.ID_VITALITY].value >= achievement.value)
+          };
+         break;
         case this.TYPE_STRENGTH:
           checkFn = (state) => {
             const allCritters = state.royalHatchery.mother.critters
@@ -138,7 +138,7 @@ class Achievement {
       }
 
       if (checkFn(state)) {
-        changes.achievements[achievement.typeId] = achievement.level;
+        changes.achievements[achievement.typeId] = achievement.level+1;
       }
     }
   }
