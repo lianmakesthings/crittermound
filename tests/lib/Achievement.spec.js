@@ -75,5 +75,48 @@ describe('Achievement', () => {
 
       expect(changes.achievements[0]).to.equal(1)
     });
-  })
+  });
+  it('should leave unfinished achievement levels', () => {
+    const critter = CritterFactory.default(1, 1, Critter.GENDER_FEMALE);
+    sandbox.stub(critter.traits[0], 'value');
+
+    const state = {
+      achievements: [0],
+      royalHatchery: {
+        mother: {
+          critters: [critter]
+        },
+        father: {
+          critters: []
+        },
+        female: {
+          critters: []
+        },
+        male: {
+          critters: []
+        }
+      },
+      worker: {
+        mine: {
+          critters: []
+        },
+        farm: {
+          critters: []
+        },
+        carry: {
+          critters: []
+        },
+        factory: {
+          critters: []
+        }
+      }
+    };
+    const changes = {
+      achievements: state.achievements
+    };
+
+    Achievement.check(state, changes);
+
+    expect(changes.achievements[0]).to.equal(0)
+  });
 });
