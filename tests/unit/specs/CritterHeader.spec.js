@@ -1,21 +1,20 @@
-import Vue from 'vue';
-import CritterHeader from '@/components/CritterHeader';
+import { mount } from '@vue/test-utils'
+import CritterHeader from '../../../src/components/CritterHeader';
 
 describe('The critterHeader view', () => {
   it('should set the correct background color', () => {
-    const Constructor = Vue.extend(CritterHeader);
-    const vmPink = new Constructor({
+    const wrapperPink = mount(CritterHeader, {
       propsData: {
         bgColor: '#f2dede'
       }
-    }).$mount();
-    const vmBlue = new Constructor({
+    });
+    const wrapperBlue = mount(CritterHeader, {
       propsData: {
         bgColor: '#d9edf7'
       }
-    }).$mount();
+    });
 
-    expect(vmPink.$el.style.background).to.equal('rgb(242, 222, 222)');
-    expect(vmBlue.$el.style.background).to.equal('rgb(217, 237, 247)');
+    expect(wrapperPink.element.style.background).to.equal('rgb(242, 222, 222)');
+    expect(wrapperBlue.element.style.background).to.equal('rgb(217, 237, 247)');
   });
 });
