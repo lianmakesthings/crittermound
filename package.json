@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "build": "node build/build.js",
-    "test-lib": "./node_modules/mocha/bin/mocha --require babel-core/register ./tests/**/*.test.js",
+    "test-lib": "./node_modules/mocha/bin/mocha --require babel-core/register ./tests/lib/*.spec.js",
     "test-components": "cross-env BABEL_ENV=test karma start tests/unit/karma.conf.js --single-run"
   },
   "dependencies": {

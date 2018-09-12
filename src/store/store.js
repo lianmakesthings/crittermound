@@ -79,7 +79,7 @@ localforage.getItem('crittermound')
       stateSaved: false,
       unlockedGenes: [],
       newGeneChance: 0,
-      achievements: [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+      achievements: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       royalHatchery: {
         boosts: 10,
         maxBoosts: 10,

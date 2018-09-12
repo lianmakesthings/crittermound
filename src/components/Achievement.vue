@@ -20,7 +20,7 @@
 
         return allAchievements.map(achievement => {
           const currLevel = unlockedAchievements[achievement.typeId];
-          achievement.unlocked = currLevel >= achievement.level;
+          achievement.unlocked = currLevel > achievement.level;
           return achievement;
         })
       }
