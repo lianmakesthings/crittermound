@@ -104,9 +104,7 @@ const initializeStore = async () => {
         },
       totalCritters: state => state.totalCritters,
       sodProduction: state => state.worker,
-      totalSod: state => {
-        return state.totalSod
-      },
+      totalSod: state => state.totalSod,
       mound: state =>
         (location, type) => {
           return state[location][type]

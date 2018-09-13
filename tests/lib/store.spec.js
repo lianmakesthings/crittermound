@@ -60,6 +60,122 @@ describe('The vuex store', () => {
     afterEach(() => {
       localforage.config.restore();
       localforage.getItem.restore();
-    })
+    });
   });
+
+  describe.only("getters", () => {
+    let expectedState;
+    beforeEach(() => {
+      expectedState = JSON.parse(JSON.stringify(state));
+    });
+
+    it('should return the entire state', (done) => {
+      getStore((store) => {
+        store.replaceState(expectedState);
+
+        expect(store.getters.entireState).to.equal(expectedState);
+        done();
+      }, true)
+    });
+
+    it('should return all critters', (done) => {
+      const queen = {};
+      const worker = {};
+      expectedState.royalHatchery.mother.critters.push(queen);
+      expectedState.worker.mine.critters.push(worker);
+
+      getStore((store) => {
+        store.replaceState(expectedState);
+        const allCritters = store.getters.allCritters;
+
+        expect(allCritters.length).to.equal(2);
+        expect(allCritters).to.include(queen);
+        expect(allCritters).to.include(worker);
+        done();
+      }, true);
+    });
+
+    it('should return all workers', (done) => {
+      const queen = {};
+      const worker = {};
+      expectedState.royalHatchery.mother.critters.push(queen);
+      expectedState.worker.mine.critters.push(worker);
+
+      getStore((store) => {
+        store.replaceState(expectedState);
+        const allCritters = store.getters.allWorkers;
+
+        expect(allCritters.length).to.equal(1);
+        expect(allCritters).to.include(worker);
+        expect(allCritters).not.to.include(queen);
+        done();
+      }, true);
+    });
+
+    it('should return critters by location and type', (done) => {
+      const location = 'royalHatchery';
+      const type = 'mother';
+      const queen = {};
+      const worker = {};
+      expectedState[location][type].critters.push(queen);
+      expectedState.worker.mine.critters.push(worker);
+      getStore((store) => {
+        store.replaceState(expectedState);
+        const critters = store.getters.critters(location, type);
+
+        expect(critters).to.include(queen);
+        expect(critters).not.to.include(worker);
+        done();
+      }, true)
+    });
+
+    it('should return number of total critters', (done) => {
+      const totalCritters = 42;
+      expectedState.totalCritters = totalCritters;
+      getStore((store) => {
+        store.replaceState(expectedState);
+
+        expect(store.getters.totalCritters).to.equal(totalCritters);
+        done();
+      }, true)
+    });
+
+    it('should return sod production part of state', (done) => {
+      const sodProduction = {some : "value"};
+      expectedState.worker = sodProduction;
+
+      getStore((store) => {
+        store.replaceState(expectedState);
+
+        expect(store.getters.sodProduction).to.equal(sodProduction);
+        done();
+      }, true);
+    });
+
+    it('should return the total amount of sod', (done) => {
+      const totalSod = 1337;
+      expectedState.totalSod = totalSod;
+
+      getStore((store) => {
+        store.replaceState(expectedState);
+
+        expect(store.getters.totalSod).to.equal(totalSod);
+        done();
+      })
+    });
+
+    it('should return mound by location and type', (done) => {
+      const location = 'royalHatchery';
+      const type = 'mother';
+      const expectedMound = {some: "mound"};
+      expectedState[location][type] = expectedMound;
+
+      getStore((store) => {
+        store.replaceState(expectedState);
+
+        expect(store.getters.mound(location, type)).to.equal(expectedMound);
+        done();
+      })
+    })
+  })
 });
