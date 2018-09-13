@@ -158,7 +158,7 @@ localforage.getItem('crittermound')
         },
         achievementAlloc: state => {
           const current = state.achievements.reduce((acc, curr) => {
-            return acc + (curr + 1);
+            return acc + curr;
           }, 0);
           const max = Achievement.allAchievements().length;
           return {current, max}
