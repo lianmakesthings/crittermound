@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils';
+import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
 import Achievement from '../../../src/components/Achievement';
 import BootstrapVue from "bootstrap-vue";
@@ -20,10 +20,24 @@ describe('The Achievement view', () => {
       },
       actions: {}
     });
-    const achievementWrapper = mount(Achievement, {store, localVue});
+    const achievementWrapper = shallowMount(Achievement, {store, localVue});
 
     const expectedText = `${firstAchievement.name} ${firstAchievement.description}`
     expect(achievementWrapper.vm.$children[0].$el.innerText).to.equal(expectedText);
     expect(achievementWrapper.vm.$children.length).to.equal(allAchievements.length)
   });
+
+  it('should mark unlocked achievements', () => {
+    const store = new Vuex.Store({
+      state: {},
+      getters: {
+        unlockedAchievements: () => [1]
+      },
+      actions: {}
+    });
+    const achievementWrapper = shallowMount(Achievement, {store, localVue});
+
+    expect(achievementWrapper.vm.$children[0].$el.getAttribute('variant')).to.equal('info');
+    expect(achievementWrapper.vm.$children[1].$el.getAttribute('variant')).to.equal('light');
+  })
 });
