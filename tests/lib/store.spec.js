@@ -63,7 +63,7 @@ describe('The vuex store', () => {
     });
   });
 
-  describe.only("getters", () => {
+  describe("getters", () => {
     let expectedState;
     beforeEach(() => {
       expectedState = JSON.parse(JSON.stringify(state));
