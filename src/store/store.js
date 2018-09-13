@@ -8,6 +8,7 @@ import Achievement from '../lib/Achievement';
 import Nation from '../lib/Nation';
 import War from '../lib/War';
 import localforage from 'localforage';
+import state from './state.json';
 
 localforage.config({
   driver: localforage.INDEXEDDB,
@@ -67,102 +68,16 @@ localforage.getItem('crittermound')
     });
   })
   .catch(err => {
+    initialState = JSON.parse(JSON.stringify(state));
+
     const queen = CritterFactory.default(1, 0, Critter.GENDER_FEMALE);
     queen.rank = Critter.RANK_ROYAL;
     const king = CritterFactory.default(2, 0, Critter.GENDER_MALE);
     king.rank = Critter.RANK_ROYAL;
 
-    initialState = {
-      totalSod: 0,
-      totalCritters: 2,
-      totalGenerations: 0,
-      stateSaved: false,
-      unlockedGenes: [],
-      newGeneChance: 0,
-      achievements: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      royalHatchery: {
-        boosts: 10,
-        maxBoosts: 10,
-        mother: {
-          size: 1,
-          sortBy: 'score',
-          critters: [queen]
-        },
-        father: {
-          size: 1,
-          sortBy: 'score',
-          critters: [king]
-        },
-        female: {
-          size: 1,
-          sortBy: 'score',
-          upgradeCost: 10,
-          critters: []
-        },
-        male: {
-          size: 1,
-          sortBy: 'score',
-          upgradeCost: 10,
-          critters: []
-        }
-      },
-      worker: {
-        dirtStored: 0,
-        grassStored: 0,
-        factoryDirtStored: 0,
-        factoryGrassStored: 0,
-        dirtPerSecond: 0,
-        grassPerSecond: 0,
-        dirtCarriedPerSecond: 0,
-        grassCarriedPerSecond: 0,
-        sodPerSecond: 0,
-        mine: {
-          sortBy: 'mine',
-          productionProp: 'dirtPerSecond',
-          productionPerSecondRaw: 0,
-          bonusPercent: 0,
-          size: 1,
-          upgradeCost: 500,
-          critters: []
-        },
-        farm: {
-          sortBy: 'farm',
-          productionProp: 'grassPerSecond',
-          productionPerSecondRaw: 0,
-          bonusPercent: 0,
-          size: 1,
-          upgradeCost: 500,
-          critters: []
-        },
-        carry: {
-          sortBy: 'carry',
-          productionProp: 'carryPerSecond',
-          productionPerSecondRaw: 0,
-          bonusPercent: 0,
-          size: 1,
-          upgradeCost: 500,
-          critters: []
-        },
-        factory: {
-          sortBy: 'factory',
-          productionProp: 'sodPerSecond',
-          productionPerSecondRaw: 0,
-          size: 1,
-          bonusPercent: 0,
-          upgradeCost: 500,
-          critters: []
-        }
-      },
-      soldiers: {
-        unlockedNations: [Nation.CRICKETS],
-        currentWar: null,
-        army: {
-          size: 1,
-          sortBy: 'score',
-          critters: []
-        }
-      }
-    }
+    initialState.royalHatchery.mother.critters.push(queen);
+    initialState.royalHatchery.father.critters.push(king);
+    initialState.soldiers.unlockedNations.push(Nation.CRICKETS)
   })
   .then(() => {
     const store = new Vuex.Store({
