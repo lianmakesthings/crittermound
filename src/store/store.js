@@ -379,8 +379,8 @@ const initializeStore = async () => {
   return store;
 };
 
-export default (cb) => {
-  if (store) {
+export default (cb, reinitialize = false) => {
+  if (store && !reinitialize) {
     cb(store);
   } else {
     initializeStore().then(cb)
