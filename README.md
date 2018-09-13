@@ -26,5 +26,4 @@ npm run build --report
 
 ## Not implemented yet
  * War
- * Achievements
  * overall styling
