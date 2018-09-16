@@ -55,7 +55,7 @@
         return this.$store.getters.armyAlloc
       },
       achievement() {
-        return this.$store.getters.achievementAlloc
+        return this.$store.getters.achievementQuota
       },
       totalSod() {
         return SmartRound(this.$store.getters.totalSod)
