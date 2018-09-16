@@ -146,7 +146,7 @@ const initializeStore = async () => {
         const max = state.soldiers.army.size;
         return {current, max}
       },
-      achievementAlloc: state => {
+      achievementQuota: state => {
         const current = state.achievements.reduce((acc, curr) => {
           return acc + curr;
         }, 0);
