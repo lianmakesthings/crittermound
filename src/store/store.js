@@ -305,7 +305,7 @@ const initializeStore = async () => {
         }
       },
       useBoost: (context, location) => {
-        const currentBoosts = context.getters.boosts(location);
+        const currentBoosts = context.getters.boosts;
         if (currentBoosts > 0) {
           context.commit('setBoost', {location, value: currentBoosts - 1});
           context.dispatch('breedCritter', location);
