@@ -343,5 +343,132 @@ describe('The vuex store', () => {
         done();
       })
     });
-  })
+  });
+
+  describe("mutations", () => {
+    let mockedState;
+    beforeEach(() => {
+      mockedState = JSON.parse(JSON.stringify(state));
+    });
+
+    it('should add child to hatchery', (done) => {
+      const totalCritters = mockedState.totalCritters;
+      const totalGenerations = mockedState.totalGenerations;
+      const location = 'royalHatchery';
+      const critter = CritterFactory.default(1, totalGenerations+1, Critter.GENDER_FEMALE);
+
+      getStore((store) => {
+        store.replaceState(mockedState);
+
+        store.commit('addChildToHatchery', {location, critter});
+        expect(mockedState.totalCritters).to.equal(totalCritters+1);
+        expect(mockedState.totalGenerations).to.equal(totalGenerations+1);
+        expect(mockedState.royalHatchery.female.critters).to.include(critter);
+        done();
+      })
+    });
+
+    it('should sort and remove excess critters when adding children', (done) => {
+      const location = 'royalHatchery';
+      const lowCritter = CritterFactory.default(1, 1, Critter.GENDER_FEMALE);
+      const highCritter = CritterFactory.default(1, 1, Critter.GENDER_FEMALE);
+      sinon.stub(lowCritter, 'score').get(() => 5);
+      sinon.stub(highCritter, 'score').get(() => 10);
+      mockedState[location][lowCritter.gender].critters.push(lowCritter);
+
+      getStore((store) => {
+        store.replaceState(mockedState);
+
+        store.commit('addChildToHatchery', {location, critter: highCritter});
+        expect(mockedState.royalHatchery.female.critters).to.include(highCritter);
+        expect(mockedState.royalHatchery.female.critters).not.to.include(lowCritter);
+        done();
+      })
+    });
+
+    it('should set total generations', (done) => {
+      const totalGenerations = 10;
+      getStore((store) => {
+        store.replaceState(mockedState);
+
+        store.commit('setTotalGenerations', totalGenerations);
+        expect(mockedState.totalGenerations).to.equal(totalGenerations);
+        done();
+      })
+    });
+
+    it('should set the health of specific critter', (done) => {
+      const critterId = 5;
+      const critter = {id: critterId, currentHealth: 0};
+      const health = 10;
+      mockedState.worker.mine.critters.push(critter);
+      getStore((store) => {
+        store.replaceState(mockedState);
+
+        store.commit('setCritterHealth', {critterId, value: health});
+        expect(critter.currentHealth).to.equal(health);
+        done();
+      })
+    });
+
+    it('should move critter from one mound to another', (done) => {
+      const from = {location: 'royalHatchery', type: 'female'};
+      const to = {location: 'worker', type: 'mine'};
+      const firstCritter = {};
+      const secondCritter = {};
+      mockedState[from.location][from.type].critters.push(firstCritter);
+      mockedState[from.location][from.type].critters.push(secondCritter);
+      getStore((store) => {
+        store.replaceState(mockedState);
+
+        store.commit('moveCritter', {from, to});
+        expect(mockedState[from.location][from.type].critters).not.to.include(firstCritter);
+        expect(mockedState[from.location][from.type].critters).to.include(secondCritter);
+        expect(mockedState[to.location][to.type].critters).to.include(firstCritter);
+        done();
+      })
+    });
+
+    it('should update raw production values', (done) => {
+      const rawMineValue = mockedState.worker.mine.productionPerSecondRaw;
+      const dirtPerSecond = rawMineValue + 5;
+      const rawFarmValue = mockedState.worker.farm.productionPerSecondRaw;
+      const rawCarryValue = mockedState.worker.carry.productionPerSecondRaw;
+      const rawFactoryValue = mockedState.worker.factory.productionPerSecondRaw;
+      const critter = {dirtPerSecond};
+      mockedState.worker.mine.critters.push(critter);
+      getStore((store) => {
+        store.replaceState(mockedState);
+
+        store.commit('updateProductionRaw');
+        expect(mockedState.worker.mine.productionPerSecondRaw).to.equal(dirtPerSecond);
+        expect(mockedState.worker.farm.productionPerSecondRaw).to.equal(rawFarmValue);
+        expect(mockedState.worker.carry.productionPerSecondRaw).to.equal(rawCarryValue);
+        expect(mockedState.worker.factory.productionPerSecondRaw).to.equal(rawFactoryValue);
+        done();
+      })
+    });
+
+    it('should update production mounds', (done) => {
+      const payload = {};
+      const mine = mockedState.worker.mine;
+      const farm = mockedState.worker.farm;
+      const carry = mockedState.worker.carry;
+      const factory = mockedState.worker.factory;
+      payload['farm'] = {};
+      payload['carry'] = {};
+      getStore((store) => {
+        store.replaceState(mockedState);
+
+        store.commit('updateProductionMounds', payload);
+        expect(mockedState.worker.mine).to.equal(mine);
+        expect(mockedState.worker.farm).not.to.equal(farm);
+        expect(mockedState.worker.farm).to.equal(payload.farm);
+        expect(mockedState.worker.carry).not.to.equal(carry);
+        expect(mockedState.worker.carry).to.equal(payload.carry);
+        expect(mockedState.worker.factory).to.equal(factory);
+        done();
+      })
+    });
+  });
 });

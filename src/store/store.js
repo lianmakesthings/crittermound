@@ -159,7 +159,7 @@ const initializeStore = async () => {
     mutations: {
       addChildToHatchery(state, {location, critter}) {
         state.totalCritters++;
-        state.totalGenerations = Math.max(critter.generation, state.totalGenerations)
+        state.totalGenerations = Math.max(critter.generation, state.totalGenerations);
         const mound = state[location][critter.gender];
         mound.critters.push(critter);
         mound.critters.sort((a, b) => b[mound.sortBy] - a[mound.sortBy]);
@@ -197,9 +197,6 @@ const initializeStore = async () => {
             targetMound.critters.sort((a, b) => b[targetMound.sortBy] - a[targetMound.sortBy])
           }
         }
-      },
-      setStored(state, {type, value}) {
-        state.worker[type].productionPerSecondRaw = value
       },
       updateProductionRaw(state) {
         for (let type in state.worker) {
@@ -313,11 +310,6 @@ const initializeStore = async () => {
       },
       setBoost: (context, payload) => {
         context.commit('setBoost', payload)
-      },
-      produce: (context, {payload, addSod}) => {
-        context.commit('updateProductionMounds', payload);
-        const value = context.getters.totalSod + addSod;
-        context.commit('setSodAmount', value);
       },
       upgradeMound: (context, {location, type}) => {
         const sod = context.getters.totalSod;
