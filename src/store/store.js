@@ -216,8 +216,8 @@ const initializeStore = async () => {
           }
         }
       },
-      setBoost(state, {location, value}) {
-        state[location].boosts = value;
+      setBoost(state, value) {
+        state.royalHatchery.boosts = value;
       },
       setSodAmount(state, value) {
         state.totalSod = value;
@@ -304,12 +304,9 @@ const initializeStore = async () => {
       useBoost: (context, location) => {
         const currentBoosts = context.getters.boosts;
         if (currentBoosts > 0) {
-          context.commit('setBoost', {location, value: currentBoosts - 1});
+          context.commit('setBoost', currentBoosts - 1);
           context.dispatch('breedCritter', location);
         }
-      },
-      setBoost: (context, payload) => {
-        context.commit('setBoost', payload)
       },
       upgradeMound: (context, {location, type}) => {
         const sod = context.getters.totalSod;

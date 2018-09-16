@@ -345,7 +345,7 @@ describe('The vuex store', () => {
     });
   });
 
-  describe("mutations", () => {
+  describe.only("mutations", () => {
     let mockedState;
     beforeEach(() => {
       mockedState = JSON.parse(JSON.stringify(state));
@@ -470,5 +470,18 @@ describe('The vuex store', () => {
         done();
       })
     });
+
+    it('should set boost value', (done) => {
+      const boosts = mockedState.royalHatchery.boosts;
+      getStore((store) => {
+        store.replaceState(mockedState);
+
+        store.commit('setBoost', boosts + 5);
+        expect(mockedState.royalHatchery.boosts).to.equal(boosts+5)
+        done();
+      })
+    });
+
+
   });
 });
