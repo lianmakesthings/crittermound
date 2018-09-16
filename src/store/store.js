@@ -122,14 +122,8 @@ const initializeStore = async () => {
             .concat(state.soldiers.army.critters);
           return allCritters.find(critter => critterId === critter.id)
         },
-      boosts: state =>
-        location => {
-          return state[location].boosts;
-        },
-      maxBoosts: state =>
-        location => {
-          return state[location].maxBoosts;
-        },
+      boosts: state => state.royalHatchery.boosts,
+      maxBoosts: state => state.royalHatchery.maxBoosts,
       showStateSaved: state => state.stateSaved,
       newGeneChance: state => state.newGeneChance,
       unlockedGenes: state => state.unlockedGenes,

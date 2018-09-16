@@ -41,10 +41,10 @@
         return (this.type === 'mother') ? 'Queen' : 'King';
       },
       boosts() {
-          return this.$store.getters.boosts(this.location)
+          return this.$store.getters.boosts
       },
       maxBoosts() {
-        return this.$store.getters.maxBoosts(this.location)
+        return this.$store.getters.maxBoosts
       },
       upgradeCost() {
         return this.$store.getters.mound(this.location, this.critter.gender).upgradeCost

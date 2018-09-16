@@ -176,6 +176,45 @@ describe('The vuex store', () => {
         expect(store.getters.mound(location, type)).to.equal(expectedMound);
         done();
       })
-    })
+    });
+
+    it('should return a specific critter by id', (done) => {
+      const critterId = 5;
+      const expectedCritter = {id: critterId};
+      const otherCritter = {id: 2};
+
+      expectedState.worker.mine.critters.push(expectedCritter);
+      expectedState.royalHatchery.female.critters.push(otherCritter);
+
+      getStore((store) => {
+        store.replaceState(expectedState);
+
+        expect(store.getters.findCritter(critterId)).to.equal(expectedCritter);
+        done();
+      })
+    });
+
+    it('should return number of boosts', (done) => {
+      const expectedBoosts = 5;
+      expectedState.royalHatchery.boosts = expectedBoosts;
+      getStore((store) => {
+        store.replaceState(expectedState);
+
+        expect(store.getters.boosts).to.equal(expectedBoosts);
+        done();
+      })
+    });
+
+    it('should return max number of boosts', (done) => {
+      const expectedMaxBoosts = 9;
+      expectedState.royalHatchery.maxBoosts = expectedMaxBoosts;
+      getStore((store) => {
+        store.replaceState(expectedState);
+
+        expect(store.getters.maxBoosts).to.equal(expectedMaxBoosts);
+        done();
+      })
+    });
+
   })
 });
