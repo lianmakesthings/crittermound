@@ -31,7 +31,7 @@ describe('The Achievement view', () => {
     const store = new Vuex.Store({
       state: {},
       getters: {
-        unlockedAchievements: () => [1]
+        unlockedAchievements: () => [1, 0]
       },
       actions: {}
     });
