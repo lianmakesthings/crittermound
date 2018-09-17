@@ -345,7 +345,7 @@ describe('The vuex store', () => {
     });
   });
 
-  describe.only("mutations", () => {
+  describe("mutations", () => {
     let mockedState;
     beforeEach(() => {
       mockedState = JSON.parse(JSON.stringify(state));
