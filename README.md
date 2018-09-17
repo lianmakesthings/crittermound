@@ -26,4 +26,5 @@ npm run build --report
 
 ## Not implemented yet
  * War
+ * Princess & Prince hatchery
  * overall styling
