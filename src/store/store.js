@@ -325,13 +325,10 @@ const initializeStore = async () => {
       sortMound: (context, payload) => {
         context.commit('sortMound', payload)
       },
-      unlockAchievement: (context, achievement) => {
-        context.commit(achievement)
-      },
       updateData: (context, changes) => {
         changes.critters.forEach(critter => {
           if (!context.getters.findCritter(critter.id)) {
-            context.commit('addChildToHatchery', {location: 'royalHatchery', critter: critter})
+            context.commit('addChildToHatchery', {location: 'royalHatchery', critter})
           }
           context.commit('setCritterHealth', {critterId: critter.id, value: critter.currentHealth});
         });
