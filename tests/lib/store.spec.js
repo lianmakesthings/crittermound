@@ -345,7 +345,7 @@ describe('The vuex store', () => {
     });
   });
 
-  describe.only("mutations", () => {
+  describe("mutations", () => {
     let mockedState;
     beforeEach(() => {
       mockedState = JSON.parse(JSON.stringify(state));
@@ -477,11 +477,116 @@ describe('The vuex store', () => {
         store.replaceState(mockedState);
 
         store.commit('setBoost', boosts + 5);
-        expect(mockedState.royalHatchery.boosts).to.equal(boosts+5)
+        expect(mockedState.royalHatchery.boosts).to.equal(boosts+5);
         done();
       })
     });
 
+    it('should set sod amount', (done) => {
+      const totalSod = mockedState.totalSod;
+      getStore((store) => {
+        store.replaceState(mockedState);
 
+        store.commit('setSodAmount', totalSod + 5);
+        expect(mockedState.totalSod).to.equal(totalSod+5);
+        done();
+      })
+    });
+
+    it('should upgrade mound', (done) => {
+      const location = 'worker';
+      const type = 'farm';
+      const size = mockedState[location][type].size;
+      const cost = mockedState[location][type].upgradeCost;
+      getStore((store) => {
+        store.replaceState(mockedState);
+
+        store.commit('upgradeMound', {location, type});
+        const mound = mockedState[location][type];
+        expect(mound.size).to.equal(size+1);
+        expect(mound.upgradeCost).to.equal(cost*10);
+        done();
+      })
+    });
+
+    it('should set new gene chance value', (done) => {
+      const newGeneChance = mockedState.newGeneChance;
+      getStore((store) => {
+        store.replaceState(mockedState);
+
+        store.commit('setNewGeneChance', newGeneChance + 10);
+        expect(mockedState.newGeneChance).to.equal(newGeneChance+10);
+        done();
+      })
+    });
+
+    it('should add discovered gene id', (done) => {
+      const geneId = 13;
+      getStore((store) => {
+        store.replaceState(mockedState);
+
+        store.commit('addDiscoveredGene', geneId);
+        expect(mockedState.unlockedGenes).to.include(geneId);
+        done();
+      })
+    });
+
+    it('should sort mound', (done) => {
+      const location = 'worker';
+      const type = 'farm';
+      const sortBy = 'base';
+      const highCritter = CritterFactory.default(1, 1, Critter.GENDER_FEMALE);
+      sinon.stub(highCritter, 'baseScore').get(() => 10);
+      const lowCritter = CritterFactory.default(1, 2, Critter.GENDER_MALE);
+      sinon.stub(lowCritter, 'baseScore').get(() => 5);
+
+      mockedState[location][type].critters.push(lowCritter);
+      mockedState[location][type].critters.push(highCritter);
+      getStore((store) => {
+        store.replaceState(mockedState);
+
+        store.commit('sortMound', {location, type, sortBy});
+        expect(mockedState[location][type].critters[0]).to.equal(highCritter);
+        expect(mockedState[location][type].critters[1]).to.equal(lowCritter);
+        done();
+      })
+    });
+
+    it('should set achievements', (done) => {
+      const achievements = [1, 2];
+      getStore((store) => {
+        store.replaceState(mockedState);
+
+        store.commit('setAchievements', achievements);
+        expect(mockedState.achievements).to.equal(achievements);
+        done();
+      })
+    });
+
+    it('should save state to storage', (done) => {
+      sinon.stub(localforage, 'setItem');
+
+      getStore((store) => {
+        store.replaceState(mockedState);
+
+        store.commit('saveToStorage');
+        expect(localforage.setItem).to.have.been.calledWith('crittermound', mockedState);
+
+        localforage.setItem.restore();
+        done();
+      })
+    });
+
+    it('should set war', (done) => {
+      const war = {some: 'value'};
+      getStore((store) => {
+        store.replaceState(mockedState);
+
+        store.commit('setWar', war);
+
+        expect(mockedState.soldiers.currentWar).to.equal(war)
+        done();
+      })
+    })
   });
 });
