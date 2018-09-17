@@ -244,7 +244,7 @@ const initializeStore = async () => {
       saveToStorage(state) {
         localforage.setItem('crittermound', state);
       },
-      startWar(state, map) {
+      setWar(state, map) {
         state.soldiers.currentWar = map;
       }
     },
@@ -352,7 +352,7 @@ const initializeStore = async () => {
       },
       startWar: (context, nationId) => {
         const map = War.generateMap(Nation.get(nationId));
-        context.commit('startWar', map)
+        context.commit('setWar', map)
       }
     }
   });
