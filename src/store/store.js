@@ -187,15 +187,13 @@ const initializeStore = async () => {
         const originMound = state[from.location][from.type];
         if (originMound.critters.length > 0) {
           const critter = originMound.critters.shift();
-          if (to) {
-            const targetMound = state[to.location][to.type];
-            if (targetMound.critters.length >= targetMound.size) {
-              targetMound.critters.pop();
-            }
-            critter.currentHealth = 0;
-            targetMound.critters.push(critter);
-            targetMound.critters.sort((a, b) => b[targetMound.sortBy] - a[targetMound.sortBy])
+          const targetMound = state[to.location][to.type];
+          if (targetMound.critters.length >= targetMound.size) {
+            targetMound.critters.pop();
           }
+          critter.currentHealth = 0;
+          targetMound.critters.push(critter);
+          targetMound.critters.sort((a, b) => b[targetMound.sortBy] - a[targetMound.sortBy])
         }
       },
       updateProductionRaw(state) {
@@ -280,14 +278,15 @@ const initializeStore = async () => {
         const mound = context.state[location][type];
         const critter = mound.critters[0];
         if (critter) {
-          const sodProduction = new SodProduction(context.state);
+          const sodProduction = SodProduction.instance(context.state);
           const destination = sodProduction.allocateWorker(critter);
-          context.commit('moveCritter', {
-            from: {location, type},
-            to: destination
-          });
-
-          if (destination) context.commit('updateProductionRaw')
+          if (destination) {
+            context.commit('moveCritter', {
+              from: {location, type},
+              to: destination
+            });
+            context.commit('updateProductionRaw')
+          }
         }
       },
       addSoldier: (context, {location, type}) => {
@@ -326,13 +325,10 @@ const initializeStore = async () => {
       sortMound: (context, payload) => {
         context.commit('sortMound', payload)
       },
-      unlockAchievement: (context, achievement) => {
-        context.commit(achievement)
-      },
       updateData: (context, changes) => {
         changes.critters.forEach(critter => {
           if (!context.getters.findCritter(critter.id)) {
-            context.commit('addChildToHatchery', {location: 'royalHatchery', critter: critter})
+            context.commit('addChildToHatchery', {location: 'royalHatchery', critter})
           }
           context.commit('setCritterHealth', {critterId: critter.id, value: critter.currentHealth});
         });

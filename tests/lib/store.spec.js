@@ -8,6 +8,7 @@ import CritterFactory from "../../src/lib/CritterFactory";
 import Critter from "../../src/lib/Critter";
 import Nation from "../../src/lib/Nation";
 import War from "../../src/lib/War";
+import SodProduction from "../../src/lib/SodProduction";
 
 chai.use(sinonChai);
 const expect = chai.expect;
@@ -587,6 +588,373 @@ describe('The vuex store', () => {
         expect(mockedState.soldiers.currentWar).to.equal(war)
         done();
       })
+    })
+  });
+
+  describe("actions", () => {
+    let mockedState;
+    beforeEach(() => {
+      mockedState = JSON.parse(JSON.stringify(state));
+    });
+
+    it('should heal all critters', (done) => {
+      const firstCritter = { id: 1, currentHealth: 0, maxHealth: 10, actionTime: 1};
+      const secondCritter = { id: 2, currentHealth: 5, maxHealth: 10, actionTime: 10};
+      mockedState.royalHatchery.mother.critters.push(firstCritter);
+      mockedState.royalHatchery.father.critters.push(secondCritter);
+      const expectedFirst = {critterId: firstCritter.id, value: 10};
+      const expectedSecond = {critterId: secondCritter.id, value: 6};
+
+      getStore((store) => {
+        store.replaceState(mockedState);
+        const context = store._modules.root.context;
+        sinon.stub(context, 'commit');
+
+        store.dispatch('healAllCritters');
+        expect(context.commit).to.have.been.calledTwice;
+        expect(context.commit).to.have.been.calledWith('setCritterHealth', expectedFirst);
+        expect(context.commit).to.have.been.calledWith('setCritterHealth', expectedSecond);
+        done();
+      }, true);
+    });
+
+    it('should reset critter health', (done) => {
+      const critterId = 4;
+      getStore((store) => {
+        const context = store._modules.root.context;
+        sinon.stub(context, 'commit');
+
+        store.dispatch('resetCritterHealth', critterId);
+        expect(context.commit).to.have.been.calledWith('setCritterHealth', {critterId, value: 0});
+        done();
+      }, true);
+    });
+
+    it('should breed a new critter', (done) => {
+      const location = 'royalHatchery';
+      const generation = 2;
+      const mother = {generation, id:1};
+      const father = {generation, id:2};
+      mockedState[location].mother.critters.push(mother);
+      mockedState[location].father.critters.push(father);
+      const child = {};
+      getStore((store) => {
+        store.replaceState(mockedState);
+        const context = store._modules.root.context;
+        sinon.stub(context, 'commit');
+        sinon.stub(CritterFactory, 'breed').callsFake(() => child);
+
+        store.dispatch('breedCritter', location);
+        expect(context.commit).to.have.been.calledWith('setTotalGenerations', generation+1);
+        expect(context.commit).to.have.been.calledWith('setCritterHealth', {critterId: mother.id, value: 0});
+        expect(context.commit).to.have.been.calledWith('setCritterHealth', {critterId: father.id, value: 0});
+        expect(context.commit).to.have.been.calledWith('addChildToHatchery', {location, critter: child});
+
+        CritterFactory.breed.restore();
+        done();
+      }, true);
+    });
+
+    it('should replace parent', (done) => {
+      const location = 'royalHatchery';
+      const type = Critter.GENDER_FEMALE;
+
+      const from = {location, type};
+      const to = {location, type: 'mother'};
+      getStore((store) => {
+        const context = store._modules.root.context;
+        sinon.stub(context, 'commit');
+        store.dispatch('replaceParent', {location, type});
+
+        expect(context.commit).to.have.been.calledWith('moveCritter', {from, to});
+        done();
+      }, true)
+    });
+
+    it('should add worker', (done) => {
+      const location = 'royalHatchery';
+      const type = Critter.GENDER_FEMALE;
+      const critter = {some: 'value'};
+      const destination = {location: 'worker', type: 'farm'};
+      const sodProductionStub = {allocateWorker: () => destination};
+      const from = {location, type};
+      mockedState[location][type].critters.push(critter);
+
+      getStore((store) => {
+        store.replaceState(mockedState);
+        const context = store._modules.root.context;
+
+        sinon.stub(SodProduction, 'instance').callsFake(() => sodProductionStub);
+        sinon.stub(context, 'commit');
+
+        store.dispatch('addWorker', {location, type});
+        expect(context.commit).to.have.been.calledWith('moveCritter', {from, to: destination});
+        expect(context.commit).to.have.been.calledWith('updateProductionRaw');
+
+        SodProduction.instance.restore();
+        done();
+      }, true)
+    });
+
+    it('should not add worker if original location has no critters', (done) => {
+      const location = 'royalHatchery';
+      const type = Critter.GENDER_FEMALE;
+      const sodProductionStub = {allocateWorker: () => null};
+
+      getStore((store) => {
+        store.replaceState(mockedState);
+        const context = store._modules.root.context;
+
+        sinon.stub(SodProduction, 'instance').callsFake(() => sodProductionStub);
+        sinon.stub(context, 'commit');
+
+        store.dispatch('addWorker', {location, type});
+        expect(context.commit).not.to.have.been.called;
+        expect(context.commit).not.to.have.been.called;
+
+        SodProduction.instance.restore();
+        done();
+      }, true)
+    });
+
+    it('should add soldier', (done) => {
+      const from = {location: 'royalHatchery', type: Critter.GENDER_FEMALE};
+      const to = {location: 'soldiers', type: 'army'};
+      const critter = {};
+      mockedState[from.location][from.type].critters.push(critter);
+      getStore((store) => {
+        store.replaceState(mockedState);
+        const context = store._modules.root.context;
+
+        sinon.stub(context, 'commit');
+
+        store.dispatch('addSoldier', from);
+        expect(context.commit).to.have.been.calledWith('moveCritter', {from, to});
+        done();
+      }, true)
+    });
+
+    it('should not add soldier if original location has no critters', (done) => {
+      const location = 'royalHatchery';
+      const type = Critter.GENDER_FEMALE;
+
+      getStore((store) => {
+        store.replaceState(mockedState);
+        const context = store._modules.root.context;
+        sinon.stub(context, 'commit');
+
+        store.dispatch('addSoldier', {location, type});
+        expect(context.commit).not.to.have.been.called;
+        done();
+      }, true)
+    });
+
+    it('should use boost', (done) => {
+      const boosts = mockedState.royalHatchery.boosts;
+      const location = 'royalHatchery';
+
+      getStore((store) => {
+        store.replaceState(mockedState);
+        const context = store._modules.root.context;
+        sinon.stub(context, 'commit');
+        sinon.stub(context, 'dispatch').withArgs('breedCritter');
+
+        store.dispatch('useBoost', location);
+        expect(context.commit).to.have.been.calledWith('setBoost', boosts-1);
+        expect(context.dispatch).to.have.been.calledWith('breedCritter', location);
+        done();
+      }, true);
+    });
+
+    it('should not use boost if none are left', (done) => {
+      mockedState.royalHatchery.boosts = 0;
+      const location = 'royalHatchery';
+
+      getStore((store) => {
+        store.replaceState(mockedState);
+        const context = store._modules.root.context;
+        sinon.stub(context, 'commit');
+        sinon.stub(context, 'dispatch').withArgs('breedCritter');
+
+        store.dispatch('useBoost', location);
+        expect(context.commit).not.to.have.been.called;
+        expect(context.dispatch).not.to.have.been.called;
+        done();
+      }, true);
+    });
+
+    it('should upgrade mound', (done) => {
+      const sod = 100;
+      const upgradeCost = 10;
+      const location = 'royalHatchery';
+      const type = Critter.GENDER_FEMALE;
+      mockedState.totalSod = sod;
+      mockedState[location][type].upgradeCost = upgradeCost;
+
+      getStore((store) => {
+        store.replaceState(mockedState);
+        const context = store._modules.root.context;
+        sinon.stub(context, 'commit');
+
+        store.dispatch('upgradeMound', {location, type});
+        expect(context.commit).to.have.been.calledWith('upgradeMound', {location, type});
+        expect(context.commit).to.have.been.calledWith('setSodAmount', sod - upgradeCost);
+        done();
+      }, true)
+    });
+
+    it('should not upgrade mount if sod is not enough', (done) => {
+      const sod = 10;
+      const upgradeCost = 100;
+      const location = 'royalHatchery';
+      const type = Critter.GENDER_FEMALE;
+      mockedState.totalSod = sod;
+      mockedState[location][type].upgradeCost = upgradeCost;
+
+      getStore((store) => {
+        store.replaceState(mockedState);
+        const context = store._modules.root.context;
+        sinon.stub(context, 'commit');
+
+        store.dispatch('upgradeMound', {location, type});
+        expect(context.commit).not.to.have.been.called;
+        done();
+      }, true)
+    });
+
+    it('should set new gene chance', (done) => {
+      const newGeneChance = 15;
+      getStore((store) => {
+        const context = store._modules.root.context;
+        sinon.stub(context, 'commit');
+
+        store.dispatch('setNewGeneChance', newGeneChance);
+        expect(context.commit).to.have.been.calledWith('setNewGeneChance', newGeneChance);
+        done();
+      }, true)
+    });
+
+    it('should add discovered gene id', (done) => {
+      const geneId = 15;
+      getStore((store) => {
+        const context = store._modules.root.context;
+        sinon.stub(context, 'commit');
+
+        store.dispatch('addDiscoveredGene', geneId);
+        expect(context.commit).to.have.been.calledWith('addDiscoveredGene', geneId);
+        done();
+      }, true)
+    });
+
+    it('trigger mound sort', (done) => {
+      const payload = {};
+      getStore((store) => {
+        const context = store._modules.root.context;
+        sinon.stub(context, 'commit');
+
+        store.dispatch('sortMound', payload);
+        expect(context.commit).to.have.been.calledWith('sortMound', payload);
+        done();
+      }, true)
+    });
+
+    it('should update data', (done) => {
+      const critter = {id: 9, currentHealth: 10};
+      const changes = {
+        critters: [critter],
+        sodProduction: {
+          dirtPerSecond: 1,
+          grassPerSecond: 2,
+          dirtStored: 3,
+          grassStored: 4,
+          dirtCarriedPerSecond: 5,
+          grassCarriedPerSecond: 6,
+          factoryDirtStored: 7,
+          factoryGrassStored: 8,
+          sodPerSecond: 9
+        },
+        addSod: 23,
+        achievements: [0, 1, 2, 3]
+      };
+      const totalSod = mockedState.totalSod;
+
+      getStore((store) => {
+        const context = store._modules.root.context;
+        sinon.stub(context, 'commit');
+
+        store.dispatch('updateData', changes);
+        expect(context.commit).to.have.been.calledWith('setCritterHealth', {critterId: critter.id, value: critter.currentHealth});
+        expect(context.commit).to.have.been.calledWith('updateProductionMounds', changes.sodProduction);
+        expect(context.commit).to.have.been.calledWith('setSodAmount', totalSod + changes.addSod);
+        expect(context.commit).to.have.been.calledWith('setAchievements', changes.achievements);
+        done();
+      }, true)
+    });
+
+    it('should add critters that cannot be found', (done) => {
+      const location = 'royalHatchery';
+      const critter = {id: 23};
+      const changes = {
+        critters: [critter]
+      };
+
+      getStore((store) => {
+        store.replaceState(mockedState);
+        const context = store._modules.root.context;
+        sinon.stub(context, 'commit');
+
+        store.dispatch('updateData', changes);
+        expect(context.commit).to.have.been.calledWith('addChildToHatchery', {location, critter});
+        done();
+      }, true);
+    });
+
+    it('should not add critters that are already present', (done) => {
+      const location = 'royalHatchery';
+      const critter = {id: 23};
+      const changes = {
+        critters: [critter]
+      };
+      mockedState[location].mother.critters.push(critter);
+      getStore((store) => {
+        store.replaceState(mockedState);
+        const context = store._modules.root.context;
+        sinon.stub(context, 'commit');
+
+        store.dispatch('updateData', changes);
+        expect(context.commit).not.to.have.been.calledWith('addChildToHatchery', {location, critter});
+        done();
+      }, true);
+    });
+
+    it('should trigger save', (done) => {
+      getStore((store) => {
+        const context = store._modules.root.context;
+        sinon.stub(context, 'commit');
+
+        store.dispatch('saveToStorage');
+        expect(context.commit).to.have.been.calledWith('saveToStorage');
+        done();
+      }, true);
+    });
+
+    it('should start war', (done) => {
+      const nationId = Nation.BEES;
+      const nation = {id: nationId}
+      const map = {};
+      getStore((store) => {
+        const context = store._modules.root.context;
+        sinon.stub(War, 'generateMap').callsFake(() => map);
+        sinon.stub(Nation, 'get').callsFake(() => nation);
+        sinon.stub(context, 'commit');
+
+        store.dispatch('startWar', nationId);
+        expect(context.commit).to.have.been.calledWith('setWar', map);
+
+        War.generateMap.restore();
+        Nation.get.restore();
+        done();
+      }, true);
     })
   });
 });

@@ -1,4 +1,7 @@
 class SodProduction {
+    static instance(state) {
+        return new SodProduction(state)
+    }
     constructor(state) {
         this.state = state;
     }
