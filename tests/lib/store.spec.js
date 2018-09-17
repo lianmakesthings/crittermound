@@ -589,4 +589,86 @@ describe('The vuex store', () => {
       })
     })
   });
+
+  describe("actions", () => {
+    let mockedState;
+    beforeEach(() => {
+      mockedState = JSON.parse(JSON.stringify(state));
+    });
+
+    it('should heal all critters', (done) => {
+      const firstCritter = { id: 1, currentHealth: 0, maxHealth: 10, actionTime: 1};
+      const secondCritter = { id: 2, currentHealth: 5, maxHealth: 10, actionTime: 10};
+      mockedState.royalHatchery.mother.critters.push(firstCritter);
+      mockedState.royalHatchery.father.critters.push(secondCritter);
+      const expectedFirst = {critterId: firstCritter.id, value: 10};
+      const expectedSecond = {critterId: secondCritter.id, value: 6};
+
+      getStore((store) => {
+        store.replaceState(mockedState);
+        const context = store._modules.root.context;
+        sinon.stub(context, 'commit');
+
+        store.dispatch('healAllCritters');
+        expect(context.commit).to.have.been.calledTwice;
+        expect(context.commit).to.have.been.calledWith('setCritterHealth', expectedFirst);
+        expect(context.commit).to.have.been.calledWith('setCritterHealth', expectedSecond);
+        done();
+      });
+    });
+
+    it('should reset critter health', (done) => {
+      const critterId = 4;
+      getStore((store) => {
+        const context = store._modules.root.context;
+        sinon.stub(context, 'commit');
+
+        store.dispatch('resetCritterHealth', critterId);
+        expect(context.commit).to.have.been.calledWith('setCritterHealth', {critterId, value: 0});
+        done();
+      });
+    });
+
+    it('should breed a new critter', (done) => {
+      const location = 'royalHatchery';
+      const generation = 2;
+      const mother = {generation, id:1};
+      const father = {generation, id:2};
+      mockedState[location].mother.critters.push(mother);
+      mockedState[location].father.critters.push(father);
+      const child = {};
+      getStore((store) => {
+        store.replaceState(mockedState);
+        const context = store._modules.root.context;
+        sinon.stub(context, 'commit');
+        sinon.stub(CritterFactory, 'breed').callsFake(() => child);
+
+        store.dispatch('breedCritter', location);
+        expect(context.commit).to.have.been.calledWith('setTotalGenerations', generation+1);
+        expect(context.commit).to.have.been.calledWith('setCritterHealth', {critterId: mother.id, value: 0});
+        expect(context.commit).to.have.been.calledWith('setCritterHealth', {critterId: father.id, value: 0});
+        expect(context.commit).to.have.been.calledWith('addChildToHatchery', {location, critter: child});
+
+        CritterFactory.breed.restore();
+        done();
+      });
+    });
+
+    it('should replace parent', (done) => {
+      const location = 'royalHatchery';
+      const type = Critter.GENDER_FEMALE;
+
+      const from = {location, type};
+      const to = {location, type: 'mother'};
+      getStore((store) => {
+        const context = store._modules.root.context;
+        sinon.stub(context, 'commit');
+        store.dispatch('replaceParent', {location, type});
+
+        expect(context.commit).to.have.been.calledWith('moveCritter', {from, to});
+        done();
+      })
+    });
+    
+  });
 });
