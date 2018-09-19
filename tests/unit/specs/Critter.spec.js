@@ -1,4 +1,4 @@
-import {createLocalVue, shallowMount, mount} from "@vue/test-utils";
+import {createLocalVue, shallowMount} from "@vue/test-utils";
 import BootstrapVue from "bootstrap-vue";
 import Vuex from "vuex";
 import Critter from "../../../src/components/Critter";
