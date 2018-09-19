@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-progress v-if="showProgressBar" :value="health" :max="maxHealth" animated></b-progress>
+    <b-progress :id="'progressBar-'+critter.id" v-if="showProgressBar" :value="health" :max="maxHealth" animated></b-progress>
     <div class="d-flex justify-content-around">
       <div id="totalDetails">
         <div :id="'totalDetails-'+critter.id">{{ critter.score }}</div>

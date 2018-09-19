@@ -185,6 +185,17 @@ describe("The critter view", () => {
     expect(stingDetails[1].children[2].innerHTML).to.equal(`Value: ${trueValue}`);
     expect(stingDetails[1].children[3].innerHTML).to.equal(`Agility Bonus: ${agilityBonus}`);
     expect(stingDetails[1].children[4].innerHTML).to.equal(`Mine Production: ${dirtPerSecond} per sec.`);
-  })
+  });
+
+  it('should show progress bar', () => {
+    propsData.showProgressBar = true;
+    critter.currentHealth = 15;
+    const maxHealth = 40;
+    sinon.stub(critter, 'maxHealth').get(() => maxHealth);
+    const critterWrapper = shallowMount(Critter, {propsData, store, localVue});
+    const progressBar = critterWrapper.find(`#progressBar-${critter.id}`);
+    expect(progressBar.attributes('value')).to.equal(critter.currentHealth.toString());
+    expect(progressBar.attributes('max')).to.equal(maxHealth.toString());
+  });
 });
 
