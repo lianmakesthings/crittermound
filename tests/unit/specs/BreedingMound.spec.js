@@ -14,7 +14,7 @@ describe("The breeding mound view", () => {
   const upgradeCost = 20;
   const boosts = 2;
   const maxBoosts = 10;
-  const critter = {id: 23};
+  const critter = {id: 23, gender: 'female'};
   const mound = {critters: [critter], upgradeCost};
   const propsData = {location, type};
   let store;
@@ -70,7 +70,7 @@ describe("The breeding mound view", () => {
     const upgradeButton = breedingMoundWrapper.find(`#button-upgrade-${location}-${type}`);
 
     upgradeButton.trigger('click');
-    expect(store.dispatch).to.have.been.calledWith('upgradeMound', {location, type});
+    expect(store.dispatch).to.have.been.calledWith('upgradeMound', {location, type: critter.gender});
   });
 
   it('should render critter details', () => {
@@ -78,8 +78,22 @@ describe("The breeding mound view", () => {
     const breedingMoundWrapper = shallowMount(BreedingMound, {propsData, store, localVue});
     const headerWrapper = breedingMoundWrapper.find(`#critter-header-${critter.id}`);
     const critterWrapper = breedingMoundWrapper.find(`#critter-${critter.id}`);
+
     expect(headerWrapper.attributes('bgcolor')).to.equal(bgColor);
     expect(critterWrapper.attributes('critterid')).to.equal(critter.id.toString());
     expect(critterWrapper.attributes('showprogressbar')).to.equal('true');
+  });
+
+  it('should render other properties for other type: father', () => {
+    propsData.type = 'father';
+    critter.gender = 'male';
+    const name = 'King';
+    const bgColor = '#d9edf7';
+    const breedingMoundWrapper = shallowMount(BreedingMound, {propsData, store, localVue});
+    const headerWrapper = breedingMoundWrapper.find(`#critter-header-${critter.id}`);
+    const title = breedingMoundWrapper.find('h3');
+
+    expect(headerWrapper.attributes('bgcolor')).to.equal(bgColor);
+    expect(title.text()).to.equal(name)
   });
 });

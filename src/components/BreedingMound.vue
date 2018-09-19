@@ -55,7 +55,7 @@
         this.$store.dispatch('useBoost', this.location);
       },
       upgrade: function() {
-        this.$store.dispatch('upgradeMound', {location: this.location, type: this.type})
+        this.$store.dispatch('upgradeMound', {location: this.location, type: this.critter.gender})
       },
     }
   }
