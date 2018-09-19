@@ -12,9 +12,9 @@
           </div>
         </b-dropdown>
     </div>
-    <critter-header :bgColor="bgColor"></critter-header>
+    <critter-header :id="'critter-header-'+location+'-'+type" :bgColor="bgColor"></critter-header>
     <div v-for="critter in critters">
-      <critter :critterId="critter.id" :showProgressBar="false"></critter>
+      <critter :id="'critter-'+critter.id" :critterId="critter.id" :showProgressBar="false"></critter>
     </div>
   </div>
 </template>
