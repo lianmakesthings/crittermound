@@ -26,8 +26,8 @@ describe('The vuex store', () => {
       savedState.royalHatchery.mother.critters.push({});
       savedState.royalHatchery.mother.critters.push({});
 
-      sinon.stub(CritterFactory, 'fromState').callsFake(() => { return {}});
-      localforage.getItem.callsFake(() => Promise.resolve(savedState));
+      sinon.stub(CritterFactory, 'fromState').returns({});
+      localforage.getItem.returns(Promise.resolve(savedState));
 
       getStore((store) => {
         const storeState = JSON.parse(JSON.stringify(store.state));
@@ -46,8 +46,8 @@ describe('The vuex store', () => {
       expectedState.royalHatchery.father.critters.push({ rank: Critter.RANK_ROYAL});
       expectedState.soldiers.unlockedNations.push(Nation.CRICKETS);
 
-      sinon.stub(CritterFactory, 'default').callsFake(() => { return {}});
-      localforage.getItem.callsFake(() => Promise.reject('no localstorage'));
+      sinon.stub(CritterFactory, 'default').returns({});
+      localforage.getItem.returns(Promise.reject('no localstorage'));
 
       getStore((store) => {
         const storeState = JSON.parse(JSON.stringify(store.state));
@@ -642,7 +642,7 @@ describe('The vuex store', () => {
         store.replaceState(mockedState);
         const context = store._modules.root.context;
         sinon.stub(context, 'commit');
-        sinon.stub(CritterFactory, 'breed').callsFake(() => child);
+        sinon.stub(CritterFactory, 'breed').returns(child);
 
         store.dispatch('breedCritter', location);
         expect(context.commit).to.have.been.calledWith('setTotalGenerations', generation+1);
@@ -684,7 +684,7 @@ describe('The vuex store', () => {
         store.replaceState(mockedState);
         const context = store._modules.root.context;
 
-        sinon.stub(SodProduction, 'instance').callsFake(() => sodProductionStub);
+        sinon.stub(SodProduction, 'instance').returns(sodProductionStub);
         sinon.stub(context, 'commit');
 
         store.dispatch('addWorker', {location, type});
@@ -705,7 +705,7 @@ describe('The vuex store', () => {
         store.replaceState(mockedState);
         const context = store._modules.root.context;
 
-        sinon.stub(SodProduction, 'instance').callsFake(() => sodProductionStub);
+        sinon.stub(SodProduction, 'instance').returns(sodProductionStub);
         sinon.stub(context, 'commit');
 
         store.dispatch('addWorker', {location, type});
@@ -940,12 +940,12 @@ describe('The vuex store', () => {
 
     it('should start war', (done) => {
       const nationId = Nation.BEES;
-      const nation = {id: nationId}
+      const nation = {id: nationId};
       const map = {};
       getStore((store) => {
         const context = store._modules.root.context;
-        sinon.stub(War, 'generateMap').callsFake(() => map);
-        sinon.stub(Nation, 'get').callsFake(() => nation);
+        sinon.stub(War, 'generateMap').returns(map);
+        sinon.stub(Nation, 'get').returns(nation);
         sinon.stub(context, 'commit');
 
         store.dispatch('startWar', nationId);
