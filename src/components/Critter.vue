@@ -88,14 +88,6 @@
         return this.critter.maxHealth
       }
     },
-    methods: {
-      showDetails: function (event) {
-        this[event.originalTarget.id] = true;
-      },
-      hideDetails: function (event) {
-        this[event.originalTarget.id] = false;
-      }
-    }
   }
 </script>
 
