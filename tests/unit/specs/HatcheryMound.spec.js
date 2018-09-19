@@ -8,7 +8,7 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 localVue.use(Vuex);
 
-describe.only('The Hatchery Mound View', () => {
+describe('The Hatchery Mound View', () => {
   const location = 'royalHatchery';
   const type = 'female';
   const critter = {id: 1};
