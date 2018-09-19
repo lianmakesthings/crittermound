@@ -57,7 +57,7 @@
           <div>Base: {{ critter.traits[4].value }}</div>
           <div>Bonus: {{ critter.traits[4].bonus }}</div>
           <div>Value: {{ critter.traits[4].getTrueValue(critter.agilityBonus) }}</div>
-          <div>Agility Bonus {{ critter.agilityBonus }}</div>
+          <div>Agility Bonus: {{ critter.agilityBonus }}</div>
           <div>Mine Production: {{ critter.dirtPerSecond }} per sec.</div>
         </b-popover>
       </div>
