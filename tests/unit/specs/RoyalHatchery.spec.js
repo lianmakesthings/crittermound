@@ -1,11 +1,7 @@
-import {createLocalVue, shallowMount, mount} from "@vue/test-utils";
-import BootstrapVue from "bootstrap-vue";
-import Vuex from "vuex";
+import {createLocalVue, shallowMount} from "@vue/test-utils";
 import RoyalHatchery from '../../../src/components/RoyalHatchery';
 
 const localVue = createLocalVue();
-localVue.use(BootstrapVue);
-localVue.use(Vuex);
 
 describe('The Royal Hatchery View', () => {
   it('should show breeding and hatchery mounds for males and females', () => {
