@@ -154,7 +154,11 @@ const initializeStore = async () => {
         return {current, max}
       },
       atWar: state => state.soldiers.currentWar != null,
-      currentMap: state => state.soldiers.currentWar.tiles
+      currentMap: state => state.soldiers.currentWar.tiles,
+      isNationUnlocked: state =>
+        nationId => {
+          return !!state.soldiers.unlockedNations.find(nation => nation.id === nationId)
+        }
     },
     mutations: {
       addChildToHatchery(state, {location, critter}) {

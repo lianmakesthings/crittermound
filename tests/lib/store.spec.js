@@ -344,6 +344,19 @@ describe('The vuex store', () => {
         done();
       })
     });
+
+    it('should return whether a nation is unlocked', (done) => {
+      const unlockedNation = Nation.ANTS;
+      const lockedNation = Nation.BEES;
+      mockedState.soldiers.unlockedNations = [unlockedNation];
+      getStore((store) => {
+        store.replaceState(mockedState);
+
+        expect(store.getters.isNationUnlocked(unlockedNation.id)).to.be.true;
+        expect(store.getters.isNationUnlocked(lockedNation.id)).to.be.false;
+        done();
+      })
+    })
   });
 
   describe("mutations", () => {
