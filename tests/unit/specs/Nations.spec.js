@@ -53,12 +53,20 @@ describe('The Nations View', () => {
 
   it('should start war', () => {
     const nationsViewWrapper = mount(Nations, {store, localVue});
+    const cricketNationWrapper = nationsViewWrapper.find(`#nation-${cricketNation.id}`);
+
+    cricketNationWrapper.trigger('click');
+
+    expect(store.dispatch).to.have.been.calledWith('startWar', cricketNation.id);
+  });
+
+  it('should not start war if nation is not unlocked', () => {
+    const nationsViewWrapper = mount(Nations, {store, localVue});
     const beeNationWrapper = nationsViewWrapper.find(`#nation-${beeNation.id}`);
 
     beeNationWrapper.trigger('click');
 
-    expect(store.dispatch).to.have.been.calledWith('startWar', beeNation.id);
-    expect(store.dispatch).not.to.have.been.calledWith('startWar', cricketNation.id);
+    expect(store.dispatch).not.to.have.been.calledWith('startWar', beeNation.id);
   });
 
   afterEach(() => {

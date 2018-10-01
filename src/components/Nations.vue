@@ -36,7 +36,9 @@
     },
     methods: {
       startWar: function (nationId) {
-        this.$store.dispatch('startWar', nationId);
+        if (this.$store.getters.isNationUnlocked(nationId)) {
+          this.$store.dispatch('startWar', nationId);
+        }
       }
     }
   }
