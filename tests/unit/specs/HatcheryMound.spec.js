@@ -49,6 +49,15 @@ describe('The Hatchery Mound View', () => {
     expect(critterWrapper.attributes('showprogressbar')).not.to.be.defined;
   });
 
+  it('should show a different bgcolor for other type', () => {
+    const otherType = 'male';
+    const props = JSON.parse(JSON.stringify(propsData));
+    props.type = otherType;
+    const hatcheryMoundWrapper = shallowMount(HatcheryMound, {propsData: props, store, localVue});
+    const headerWrapper = hatcheryMoundWrapper.find(`#critter-header-${location}-${otherType}`);
+    expect(headerWrapper.attributes('bgcolor')).to.equal('#d9edf7');
+  });
+
   it('should show buttons to use critters', () => {
     const hatcheryMoundWrapper = shallowMount(HatcheryMound, {propsData, store, localVue});
     const replaceParentButton = hatcheryMoundWrapper.find(`#replace-parent-${location}-${type}`);
