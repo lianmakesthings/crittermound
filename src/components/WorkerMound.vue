@@ -1,10 +1,10 @@
 <template>
   <div class="worker-mound">
     <h3>{{ type }} {{critters.length}} / {{mound.size}}</h3>
-    <b-button v-on:click="upgrade(location, type)">Upgrade {{ upgradeCost }} Sod</b-button>
-    <critter-header :bgColor="bgColor"></critter-header>
+    <b-button :id="'upgrade-'+location+'-'+type" v-on:click="upgrade(location, type)">Upgrade {{ upgradeCost }} Sod</b-button>
+    <critter-header :id="'critter-header-'+location+'-'+type" :bgColor="bgColor"></critter-header>
     <div v-for="critter in critters">
-      <critter :critterId="critter.id" :showProgressBar="true"></critter>
+      <critter :id="'critter-'+critter.id" :critterId="critter.id" :showProgressBar="true"></critter>
     </div>
     </div>
 </template>
