@@ -1,10 +1,10 @@
 <template>
   <div class="breeding-mound">
     <h3>{{ name }}</h3>
-    <b-button v-on:click="boost(location)">Boost: {{ boosts }}/{{ maxBoosts }}</b-button>
-    <b-button v-on:click="upgrade(location, critter)">Upgrade {{ upgradeCost }} Sod</b-button>
-    <critter-header :bgColor="bgColor"></critter-header>
-    <critter :critterId="critter.id" :showProgressBar="true"></critter>
+    <b-button :id="'button-boost-'+location+'-'+type" v-on:click="boost">Boost: {{ boosts }}/{{ maxBoosts }}</b-button>
+    <b-button :id="'button-upgrade-'+location+'-'+type" v-on:click="upgrade">Upgrade {{ upgradeCost }} Sod</b-button>
+    <critter-header :id="'critter-header-'+critter.id" :bgColor="bgColor"></critter-header>
+    <critter :id="'critter-'+critter.id" :critterId="critter.id" :showProgressBar="true"></critter>
   </div>
 </template>
 
@@ -51,18 +51,12 @@
       }
     },
     methods: {
-      boost: function(location) {
-        this.$store.dispatch('useBoost', location);
+      boost: function() {
+        this.$store.dispatch('useBoost', this.location);
       },
-      upgrade: function(location, critter) {
-        this.$store.dispatch('upgradeMound', {location, type: critter.gender})
+      upgrade: function() {
+        this.$store.dispatch('upgradeMound', {location: this.location, type: this.critter.gender})
       },
-      showDetails: function(event) {
-        this[event.originalTarget.id] = true;
-      },
-      hideDetails: function(event) {
-        this[event.originalTarget.id] = false;
-      }
     }
   }
 </script>

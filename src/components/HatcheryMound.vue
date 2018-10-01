@@ -2,19 +2,19 @@
   <div class="hatchery-mound">
     <h4>Hatchery {{critters.length}} / {{mound.size}}</h4>
     <div>
-        <b-button v-on:click="replaceParent">{{ parent }}</b-button>
-        <b-button v-on:click="addWorker">Worker</b-button>
-        <b-button v-on:click="addSoldier">Army</b-button>
+      <b-button :id="'replace-parent-'+location+'-'+type" v-on:click="replaceParent">{{ parent }}</b-button>
+      <b-button :id="'add-worker-'+location+'-'+type" v-on:click="addWorker">Worker</b-button>
+      <b-button :id="'add-soldier-'+location+'-'+type" v-on:click="addSoldier">Army</b-button>
 
-        <b-dropdown text="sort">
-          <div v-for="sort in sortNames">
-            <b-dropdown-item-button v-on:click="sortMound(sort)">{{sort}}</b-dropdown-item-button>
-          </div>
-        </b-dropdown>
+      <b-dropdown :id="'sort-dropdown-'+location+'-'+type">
+        <div v-for="sort in sortNames">
+          <b-dropdown-item-button v-on:click="sortMound(sort)">{{sort}}</b-dropdown-item-button>
+        </div>
+      </b-dropdown>
     </div>
-    <critter-header :bgColor="bgColor"></critter-header>
+    <critter-header :id="'critter-header-'+location+'-'+type" :bgColor="bgColor"></critter-header>
     <div v-for="critter in critters">
-      <critter :critterId="critter.id" :showProgressBar="false"></critter>
+      <critter :id="'critter-'+critter.id" :critterId="critter.id" :showProgressBar="false"></critter>
     </div>
   </div>
 </template>
