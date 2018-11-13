@@ -154,7 +154,7 @@ const initializeStore = async () => {
         return {current, max}
       },
       atWar: state => state.soldiers.currentWar != null,
-      currentMap: state => state.soldiers.currentWar.tiles,
+      currentMap: state => state.soldiers.currentWar.map,
       isNationUnlocked: state =>
         nationId => {
           return !!state.soldiers.unlockedNations.find(nation => nation.id === nationId)
@@ -351,8 +351,8 @@ const initializeStore = async () => {
         context.commit('saveToStorage');
       },
       startWar: (context, nationId) => {
-        const map = War.generateMap(Nation.get(nationId));
-        context.commit('setWar', map)
+        const war = new War(Nation.get(nationId));
+        context.commit('setWar', war)
       }
     }
   });

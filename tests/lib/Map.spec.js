@@ -46,6 +46,4 @@ describe('A map', () => {
 
     expect(tile.bonus).to.equal(bonusName)
   });
-
-
 });

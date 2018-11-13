@@ -8,6 +8,7 @@ import CritterFactory from "../../src/lib/CritterFactory";
 import Critter from "../../src/lib/Critter";
 import Nation from "../../src/lib/Nation";
 import War from "../../src/lib/War";
+import Map from "../../src/lib/Map";
 import SodProduction from "../../src/lib/SodProduction";
 
 chai.use(sinonChai);
@@ -325,7 +326,7 @@ describe('The vuex store', () => {
     });
 
     it('should return the current war state', (done) => {
-      mockedState.soldiers.currentWar = War.generateMap(Nation.CRICKETS);
+      mockedState.soldiers.currentWar = new War(Nation.CRICKETS);
       getStore((store) => {
         store.replaceState(mockedState);
 
@@ -335,12 +336,12 @@ describe('The vuex store', () => {
     });
 
     it('should return the current war map', (done) => {
-      const map = War.generateMap(Nation.CRICKETS);
-      mockedState.soldiers.currentWar = map;
+      const war = new War(Nation.CRICKETS);
+      mockedState.soldiers.currentWar = war;
       getStore((store) => {
         store.replaceState(mockedState);
 
-        expect(store.getters.currentMap).to.equal(map.tiles);
+        expect(store.getters.currentMap).to.equal(war.map);
         done();
       })
     });
@@ -952,19 +953,21 @@ describe('The vuex store', () => {
     });
 
     it('should start war', (done) => {
-      const nationId = Nation.BEES;
+      const nationId = Nation.BEES.id;
       const nation = {id: nationId};
-      const map = {};
+      const map = {tiles: []};
+      const war = {nation : nation, map: map};
       getStore((store) => {
         const context = store._modules.root.context;
-        sinon.stub(War, 'generateMap').returns(map);
+        sinon.stub(War.prototype, 'generateMap').returns(map);
         sinon.stub(Nation, 'get').returns(nation);
         sinon.stub(context, 'commit');
 
         store.dispatch('startWar', nationId);
-        expect(context.commit).to.have.been.calledWith('setWar', map);
+        expect(Nation.get).to.have.been.calledWith(nationId);
+        expect(context.commit).to.have.been.calledWith('setWar', war);
 
-        War.generateMap.restore();
+        War.prototype.generateMap.restore();
         Nation.get.restore();
         done();
       }, true);
