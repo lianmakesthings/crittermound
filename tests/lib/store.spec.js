@@ -959,7 +959,7 @@ describe('The vuex store', () => {
       const war = {nation : nation, map: map};
       getStore((store) => {
         const context = store._modules.root.context;
-        sinon.stub(War.prototype, 'generateMap').returns(map);
+        sinon.stub(War.prototype, 'generateBases').returns(map);
         sinon.stub(Nation, 'get').returns(nation);
         sinon.stub(context, 'commit');
 
@@ -967,7 +967,7 @@ describe('The vuex store', () => {
         expect(Nation.get).to.have.been.calledWith(nationId);
         expect(context.commit).to.have.been.calledWith('setWar', war);
 
-        War.prototype.generateMap.restore();
+        War.prototype.generateBases.restore();
         Nation.get.restore();
         done();
       }, true);
