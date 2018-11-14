@@ -955,19 +955,15 @@ describe('The vuex store', () => {
     it('should start war', (done) => {
       const nationId = Nation.BEES.id;
       const nation = {id: nationId};
-      const map = {tiles: []};
-      const war = {nation : nation, map: map};
       getStore((store) => {
         const context = store._modules.root.context;
-        sinon.stub(War.prototype, 'generateBases').returns(map);
         sinon.stub(Nation, 'get').returns(nation);
         sinon.stub(context, 'commit');
 
         store.dispatch('startWar', nationId);
         expect(Nation.get).to.have.been.calledWith(nationId);
-        expect(context.commit).to.have.been.calledWith('setWar', war);
+        expect(context.commit).to.have.been.calledWith('setWar', sinon.match({nation}));
 
-        War.prototype.generateBases.restore();
         Nation.get.restore();
         done();
       }, true);
