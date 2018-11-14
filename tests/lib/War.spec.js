@@ -42,10 +42,10 @@ describe('A war', () => {
       war = new War({id: 12});
       sinon.stub(war, 'randomInRange').returns(x);
       sinon.stub(war, 'coinFlip').returns(true);
+      sinon.stub(war.map, 'setSpecialTile');
     });
 
     it('should set one for the critters and enemy', () => {
-      sinon.stub(war.map, 'setSpecialTile');
 
       war.generateBases();
 
@@ -54,7 +54,6 @@ describe('A war', () => {
     });
 
     it('should switch base positions on coin flip', () => {
-      sinon.stub(war.map, 'setSpecialTile');
       war.coinFlip.returns(false);
 
       war.generateBases();
@@ -66,6 +65,7 @@ describe('A war', () => {
     afterEach(() => {
       war.randomInRange.restore();
       war.coinFlip.restore();
+      war.map.setSpecialTile.restore();
     });
   });
 

@@ -14,8 +14,27 @@ class War {
   }
 
   generateMap() {
-    return new Map();
+    return new Map(War.MAP_WIDTH, War.MAP_HEIGHT);
   }
+
+  generateBases() {
+    const h = {x: this.randomInRange(4, War.MAP_WIDTH - 4), y: 3};
+    const c = {x: this.randomInRange(4, War.MAP_WIDTH - 4), y: War.MAP_HEIGHT - 3};
+
+    let base;
+    let enemy;
+    if (this.coinFlip()) {
+      base = h;
+      enemy = c;
+    } else {
+      base = c;
+      enemy = h;
+    }
+
+    this.map.setSpecialTile('mound', base);
+    this.map.setSpecialTile('enemy', enemy);
+  }
+
 }
 
 export default War;
