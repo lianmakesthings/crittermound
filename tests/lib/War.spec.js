@@ -8,7 +8,7 @@ chai.use(sinonChai);
 
 const expect = chai.expect;
 
-describe.only('A war', () => {
+describe('A war', () => {
   it('should have an enemy nation and a map', () => {
     const nation = {id: 12};
     const map = {tiles: []};
