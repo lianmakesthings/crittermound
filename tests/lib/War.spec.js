@@ -69,4 +69,11 @@ describe('A war', () => {
     });
   });
 
+  it('should get a list of all treasures cloned', () => {
+    const allTreasures = War.getAllTreasures();
+    expect(allTreasures).not.to.equal(War.getAllTreasures());
+    expect(allTreasures[0]).not.to.equal(War.getAllTreasures()[0]);
+    expect(allTreasures).to.deep.equal(War.getAllTreasures());
+    expect(allTreasures[0]).to.deep.equal(War.getAllTreasures()[0]);
+  });
 });
