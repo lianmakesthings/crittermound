@@ -4,6 +4,10 @@ class Tile {
     this.y = y;
     this.bonus = null;
   }
+
+  isBlocked() {
+    return !!this.bonus;
+  }
 }
 
 Tile.SPECIAL_BASE = 'base';
