@@ -39,6 +39,21 @@ class War {
     return [War.TREASURE_MINE, War.TREASURE_FARM, War.TREASURE_CARRY, War.TREASURE_FACTORY, War.TREASURE_GENE, War.TREASURE_BOOST, War.TREASURE_FORT, War.TREASURE_EXPLORE]
       .map(treasure => Object.assign({}, treasure));
   }
+
+  generateTreasures() {
+    War.getAllTreasures().forEach(treasure => {
+      let tileFound = false;
+      while (!tileFound) {
+        const x = this.randomInRange(treasure.x.min, treasure.x.max);
+        const y = this.randomInRange(treasure.y.min, treasure.y.max);
+
+        if (!this.map.getTile(x, y).isBlocked()) {
+          this.map.setSpecialTile(treasure.name, {x, y});
+          tileFound = true;
+        }
+      }
+    });
+  }
 }
 
 War.TREASURE_MINE = {
