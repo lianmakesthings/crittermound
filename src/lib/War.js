@@ -11,6 +11,7 @@ class War {
 
     this.map = this.generateMap();
     this.generateBases();
+    this.generateTreasures();
   }
 
   generateMap() {
@@ -59,7 +60,7 @@ class War {
 War.TREASURE_MINE = {
   name: 'mine',
   x: {min: 2, max: War.MAP_WIDTH - 3},
-  y: {min: 2, max: War.TREASURE_MINE - 3},
+  y: {min: 2, max: War.MAP_HEIGHT - 3},
 };
 
 War.TREASURE_FARM = {

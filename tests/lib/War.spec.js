@@ -14,24 +14,26 @@ describe('A war', () => {
 
     sinon.stub(War.prototype, 'generateMap').returns(map);
     sinon.stub(War.prototype, 'generateBases');
+    sinon.stub(War.prototype, 'generateTreasures');
     const war = new War(nation);
 
 
     expect(war.generateMap).to.have.been.called;
     expect(war.generateBases).to.have.been.called;
+    expect(war.generateTreasures).to.have.been.called;
     expect(war.nation).to.equal(nation);
     expect(war.map).to.equal(map);
 
     War.prototype.generateMap.restore();
     War.prototype.generateBases.restore();
+    War.prototype.generateTreasures.restore();
   });
 
   it('should generate a map with set height and width of 20', () => {
     const war = new War({id: 12});
-    const map = war.generateMap();
 
-    expect(map.tiles.length).to.equal(20);
-    expect(map.tiles[0].length).to.equal(20);
+    expect(war.map.tiles.length).to.equal(20);
+    expect(war.map.tiles[0].length).to.equal(20);
   });
 
   describe('generating bases', () => {

@@ -8,7 +8,6 @@ import CritterFactory from "../../src/lib/CritterFactory";
 import Critter from "../../src/lib/Critter";
 import Nation from "../../src/lib/Nation";
 import War from "../../src/lib/War";
-import Map from "../../src/lib/Map";
 import SodProduction from "../../src/lib/SodProduction";
 
 chai.use(sinonChai);
@@ -955,6 +954,7 @@ describe('The vuex store', () => {
     it('should start war', (done) => {
       const nationId = Nation.BEES.id;
       const nation = {id: nationId};
+      const war = {nation};
       getStore((store) => {
         const context = store._modules.root.context;
         sinon.stub(Nation, 'get').returns(nation);
@@ -962,7 +962,7 @@ describe('The vuex store', () => {
 
         store.dispatch('startWar', nationId);
         expect(Nation.get).to.have.been.calledWith(nationId);
-        expect(context.commit).to.have.been.calledWith('setWar', sinon.match({nation}));
+        expect(context.commit).to.have.been.calledWith('setWar', sinon.match(war));
 
         Nation.get.restore();
         done();
