@@ -325,7 +325,7 @@ describe('The vuex store', () => {
     });
 
     it('should return the current war state', (done) => {
-      mockedState.soldiers.currentWar = War.generateMap(Nation.CRICKETS);
+      mockedState.soldiers.currentWar = new War(Nation.CRICKETS);
       getStore((store) => {
         store.replaceState(mockedState);
 
@@ -335,15 +335,28 @@ describe('The vuex store', () => {
     });
 
     it('should return the current war map', (done) => {
-      const map = War.generateMap(Nation.CRICKETS);
-      mockedState.soldiers.currentWar = map;
+      const war = new War(Nation.CRICKETS);
+      mockedState.soldiers.currentWar = war;
       getStore((store) => {
         store.replaceState(mockedState);
 
-        expect(store.getters.currentMap).to.equal(map.tiles);
+        expect(store.getters.currentMap).to.equal(war.map);
         done();
       })
     });
+
+    it('should return whether a nation is unlocked', (done) => {
+      const unlockedNation = Nation.ANTS;
+      const lockedNation = Nation.BEES;
+      mockedState.soldiers.unlockedNations = [unlockedNation];
+      getStore((store) => {
+        store.replaceState(mockedState);
+
+        expect(store.getters.isNationUnlocked(unlockedNation.id)).to.be.true;
+        expect(store.getters.isNationUnlocked(lockedNation.id)).to.be.false;
+        done();
+      })
+    })
   });
 
   describe("mutations", () => {
@@ -939,19 +952,18 @@ describe('The vuex store', () => {
     });
 
     it('should start war', (done) => {
-      const nationId = Nation.BEES;
+      const nationId = Nation.BEES.id;
       const nation = {id: nationId};
-      const map = {};
+      const war = {nation};
       getStore((store) => {
         const context = store._modules.root.context;
-        sinon.stub(War, 'generateMap').returns(map);
         sinon.stub(Nation, 'get').returns(nation);
         sinon.stub(context, 'commit');
 
         store.dispatch('startWar', nationId);
-        expect(context.commit).to.have.been.calledWith('setWar', map);
+        expect(Nation.get).to.have.been.calledWith(nationId);
+        expect(context.commit).to.have.been.calledWith('setWar', sinon.match(war));
 
-        War.generateMap.restore();
         Nation.get.restore();
         done();
       }, true);

@@ -4,7 +4,6 @@ import GeneFactory from '../../src/lib/GeneFactory';
 import Gene from '../../src/lib/Gene';
 
 import chai from 'chai';
-import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 
 chai.use(sinonChai);
