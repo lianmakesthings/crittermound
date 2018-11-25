@@ -36,6 +36,14 @@ describe('A war', () => {
     expect(war.map.tiles[0].length).to.equal(20);
   });
 
+  it('should get a list of all treasures cloned', () => {
+    const allTreasures = War.getAllTreasures();
+    expect(allTreasures).not.to.equal(War.getAllTreasures());
+    expect(allTreasures[0]).not.to.equal(War.getAllTreasures()[0]);
+    expect(allTreasures).to.deep.equal(War.getAllTreasures());
+    expect(allTreasures[0]).to.deep.equal(War.getAllTreasures()[0]);
+  });
+
   describe('generating bases', () => {
     let war;
     const x = 2;
@@ -68,14 +76,6 @@ describe('A war', () => {
       war.coinFlip.restore();
       war.map.setSpecialTile.restore();
     });
-  });
-
-  it('should get a list of all treasures cloned', () => {
-    const allTreasures = War.getAllTreasures();
-    expect(allTreasures).not.to.equal(War.getAllTreasures());
-    expect(allTreasures[0]).not.to.equal(War.getAllTreasures()[0]);
-    expect(allTreasures).to.deep.equal(War.getAllTreasures());
-    expect(allTreasures[0]).to.deep.equal(War.getAllTreasures()[0]);
   });
 
   describe('generating treasures', () => {
