@@ -141,4 +141,62 @@ describe('A war', () => {
       war.map.getTile.restore();
     })
   });
+
+  describe('generating artifacts', () => {
+    const x = 2;
+    const y = 5;
+    let war;
+
+    beforeEach(() => {
+      war = new War({id: 12});
+      sinon.stub(war, 'randomInRange').returns(0);
+      sinon.stub(war.map, 'setSpecialTile');
+    });
+
+    it('should generate four artifacts', () => {
+      war.randomInRange
+        .onFirstCall().returns(x)
+        .onSecondCall().returns(y);
+      war.generateArtifacts();
+
+      expect(war.randomInRange).to.have.been.called;
+      expect(war.randomInRange.callCount).to.equal(8);
+      expect(war.map.setSpecialTile).to.have.been.calledWith(sinon.match('artifact'), {x, y});
+      expect(war.map.setSpecialTile.callCount).to.equal(4);
+    });
+
+    it('should put artifact in specific range', () => {
+      war.generateArtifacts();
+      expect(war.randomInRange).to.always.have.been.calledWithExactly(0, 19);
+    });
+
+    it('should not put artifact if tile is blocked', () => {
+      const x1 = 1;
+      const y1 = 3;
+
+      const blockedTile = {isBlocked: () => true};
+      const freeTile = {isBlocked: () => false};
+
+      war.randomInRange
+        .onCall(0).returns(x)
+        .onCall(1).returns(y)
+        .onCall(2).returns(x1)
+        .onCall(3).returns(y1);
+
+      sinon.stub(war.map, 'getTile')
+        .returns(freeTile)
+        .withArgs(x, y).returns(blockedTile);
+
+      war.generateArtifacts();
+      expect(war.map.setSpecialTile).not.to.have.been.calledWith('artifact0', {x, y});
+      expect(war.map.setSpecialTile).to.have.been.calledWith('artifact0', {x: x1, y: y1});
+
+      war.map.getTile.restore();
+    });
+
+    afterEach(() => {
+      war.randomInRange.restore();
+      war.map.setSpecialTile.restore();
+    });
+  });
 });

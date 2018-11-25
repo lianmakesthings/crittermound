@@ -55,6 +55,21 @@ class War {
       }
     });
   }
+
+  generateArtifacts() {
+    for (let i = 0; i < 4; i++) {
+      let tileFound = false;
+      while (!tileFound) {
+        const x = this.randomInRange(0, War.MAP_WIDTH - 1);
+        const y = this.randomInRange(0, War.MAP_HEIGHT - 1);
+
+        if (!this.map.getTile(x, y).isBlocked()) {
+          this.map.setSpecialTile('artifact'+i, {x, y});
+          tileFound = true;
+        }
+      }
+    }
+  }
 }
 
 War.TREASURE_MINE = {
