@@ -12,6 +12,7 @@ class War {
     this.map = this.generateMap();
     this.generateBases();
     this.generateTreasures();
+    this.generateArtifacts();
   }
 
   generateMap() {
