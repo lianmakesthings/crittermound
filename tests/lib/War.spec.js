@@ -39,14 +39,6 @@ describe('A war', () => {
     expect(war.map.tiles[0].length).to.equal(20);
   });
 
-  it('should get a list of all treasures cloned', () => {
-    const allTreasures = War.getAllTreasures();
-    expect(allTreasures).not.to.equal(War.getAllTreasures());
-    expect(allTreasures[0]).not.to.equal(War.getAllTreasures()[0]);
-    expect(allTreasures).to.deep.equal(War.getAllTreasures());
-    expect(allTreasures[0]).to.deep.equal(War.getAllTreasures()[0]);
-  });
-
   describe('generating bases', () => {
     let war;
     const x = 2;
@@ -95,7 +87,7 @@ describe('A war', () => {
         y: {min: 3, max: 4},
       };
       war = new War({id: 12});
-      sinon.stub(War, 'getAllTreasures').returns([treasure]);
+      sinon.stub(Treasure, 'getAll').returns([treasure]);
       sinon.stub(war, 'randomInRange');
       war.randomInRange.withArgs(treasure.x.min, treasure.x.max).returns(x);
       war.randomInRange.withArgs(treasure.y.min, treasure.y.max).returns(y);
@@ -110,7 +102,7 @@ describe('A war', () => {
         y: {min: 3, max: 4},
       };
 
-      War.getAllTreasures.returns([treasure, anotherTreasure]);
+      Treasure.getAll.returns([treasure, anotherTreasure]);
       war.generateTreasures();
 
       expect(war.map.setSpecialTile).to.have.been.calledWith(treasure.name, {x, y});
@@ -138,7 +130,7 @@ describe('A war', () => {
     });
 
     afterEach(() => {
-      War.getAllTreasures.restore();
+      Treasure.getAll.restore();
       war.randomInRange.restore();
       war.map.setSpecialTile.restore();
       war.map.getTile.restore();
