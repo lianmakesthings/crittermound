@@ -9,8 +9,7 @@ before_install:
 install: npm i -f
 
 script:
-  - npm run test-lib
-  - npm run test-components
+  - npm run test-all
   - node build/build.js
 
 deploy:
