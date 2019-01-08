@@ -1,4 +1,4 @@
-# crittermound ![build status](https://travis-ci.org/Chimney42/crittermound.svg?branch=master)
+# crittermound ![build status](https://travis-ci.com/Chimney42/crittermound.svg?branch=master)
 
 > a complete rework of http://yoyz.com/critter/ with vuejs
 
