@@ -25,7 +25,7 @@ npm run build --report
 ```
 
 ## Not implemented yet
- * Exploring & Frighting
+ * Exploring & Fighting
  * Princess & Prince hatchery
  * overall styling
  * Mobile testing
