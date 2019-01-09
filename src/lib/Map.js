@@ -18,6 +18,9 @@ class Map {
       }
       this.tiles.push(column)
     }
+
+    this.generateBases();
+    this.generateTreasures();
   }
 
   getTile(x, y) {
