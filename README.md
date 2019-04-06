@@ -1,8 +1,8 @@
 # crittermound ![build status](https://travis-ci.com/Chimney42/crittermound.svg?branch=master)
 
-> a complete rework of http://yoyz.com/critter/ with vuejs
+> a complete rework of http://crittermound.com with vuejs
 
-Visit game one: https://crittermound.netlify.com
+Visit game on: https://crittermound.netlify.com
 
 ## Build Setup
 
