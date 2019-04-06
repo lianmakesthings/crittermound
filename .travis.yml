@@ -12,9 +12,6 @@ script:
   - npm run test-lib
   - npm run test-components
 
-env:
-  - CI=true
-
 before_deploy:
   - npm run build
 
