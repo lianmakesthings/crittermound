@@ -16,14 +16,11 @@ env:
   - CI=true
 
 before_deploy:
-  - npm install netlify-cli -g
   - npm run build
 
 deploy:
   provider: script
-  script:
-    - chmod +x ./publish.sh
-    - sh ./publish.sh
+  script: chmod +x ./publish.sh && ./publish.sh
   skip_cleanup: true
   on:
     branch: master
