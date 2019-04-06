@@ -23,7 +23,7 @@ deploy:
   provider: script
   script:
     - chmod +x ./publish.sh
-    - ./publish.sh
+    - sh ./publish.sh
   skip_cleanup: true
   on:
     branch: master
