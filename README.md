@@ -1,4 +1,4 @@
-# crittermound ![build status](https://travis-ci.com/Chimney42/crittermound.svg?branch=master)
+# crittermound ![build status](https://travis-ci.com/Chimney42/crittermound.svg?branch=master) [![Netlify Status](https://api.netlify.com/api/v1/badges/772922cf-f8f7-4d59-828f-a10dd903b272/deploy-status)](https://app.netlify.com/sites/silly-heisenberg-81bb91/deploys)
 
 > a complete rework of http://yoyz.com/critter/ with vuejs
 
