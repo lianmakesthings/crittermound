@@ -2,6 +2,8 @@
 
 > a complete rework of http://yoyz.com/critter/ with vuejs
 
+Visit game one: https://crittermound.netlify.com
+
 ## Build Setup
 
 ``` bash
