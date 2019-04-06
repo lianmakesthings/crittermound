@@ -2,7 +2,7 @@
 
 > a complete rework of http://crittermound.com with vuejs
 
-Visit game on: https://crittermound.netlify.com
+Visit game on: http://crittermound.net
 
 ## Build Setup
 
