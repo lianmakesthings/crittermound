@@ -11,16 +11,19 @@ install: npm i -f
 script:
   - npm run test-lib
   - npm run test-components
-  - node build/build.js
+
+env:
+  - CI=true
+
+before_deploy:
+  - npm install netlify-cli -g
+  - npm run build
 
 deploy:
-  provider: heroku
-  api_key:
-    secure: d9pwe+cQDxyboy7vyyZSf7bs2yk/8yadFQfuFf45gn4vg2RTPt+BCy9+vjqtP/NTt7qKs/wNEGBZx1i5yJoZXSmw69aIF4NgbE6+DXY96bwbKQn8L7mWfaCUhPKVggbROagAmv61Q5SUGOitWzfUEk2xV5h/opttizLcaYqrETS58qmR4tunLuuAJH8QyydtA+0Wbc4rP5n5mIhuIo+xP4Za7a6jorpHnto+V6uP/ezVYyFwMdvI2ND6sc3lgrXdk3YtQEG0G1wSPHzZ+MnA09daRx234FxbGQ3IeCIOjIqqnQX2DT/cbTR6hHANxmQx0Vs6Hn4ogUZoxMAXAPfGzYvEyN1XJ/i0iuOVm6Vn3rV/1ZYRCLvAszOMlh28unnSgyZ7M+z3756fogL+tTkEj1X4oxoTehd8Isc0P1xGpXcXUFA1rGDl4IpxNfLgS1t1E1cWWXo+FRpkSVw1y4MULs6MkF4MZuzvbXxv1uQ+Rt31FALe+nXOfttuJl97nw4SUaDmtOD162MvywJxQpCaNI1fRPnfGtrSvo4uw7X6TPLhYwP+bnDR6uyfmljXsj3FBdj7wa8vL8OYEbJ3fn5JkFXZ7Qbm+uR4sqaILntV6rUBJyH4010qXWZciBfh8UxDaFudg7PoT27byGt4r4qmBeCncN5RX5rBZacicA86Ppc=
-  app: crittermound
-  skip-cleanup: true 
+  provider: script
+  script: netlify deploy -s $NETLIFY_SITE_ID -t $NETLIFY_TOKEN -p ./dist
+  skip_cleanup: true
   on:
-    repo: Chimney42/crittermound
     branch: master
 
 notifications:
