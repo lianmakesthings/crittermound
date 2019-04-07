@@ -19,7 +19,8 @@ deploy:
   provider: script
   script: chmod +x ./publish.sh && ./publish.sh
   skip_cleanup: true
-  if: branch = master
+  on:
+    branch: master
 
 notifications:
   email: false
