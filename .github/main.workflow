@@ -1,5 +1,8 @@
 workflow "Test, Build & Deploy" {
-  resolves = ["Publish"]
+  resolves = [
+    "Publish",
+    "Only master",
+  ]
   on = "push"
 }
 
@@ -14,9 +17,15 @@ action "Test" {
   args = "run test-all"
 }
 
+action "Only master" {
+  uses = "actions/bin/filter@master"
+  needs = ["Test"]
+  args = "branch master"
+}
+
 action "Build" {
   uses = "actions/npm@master"
-  needs = ["Test"]
+  needs = ["Only master"]
   args = "run build"
 }
 
@@ -29,3 +38,4 @@ action "Publish" {
     NETLIFY_SITE_ID = "ebf78c33-bf2b-4911-93b9-865347f37858"
   }
 }
+
