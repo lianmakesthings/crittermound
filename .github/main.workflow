@@ -17,6 +17,7 @@ action "Test" {
   uses = "actions/npm@master"
   needs = ["Setup"]
   args = "test-all"
+  runs = "run"
 }
 
 action "Build" {
