@@ -10,17 +10,17 @@ workflow "Test, Build & Deploy" {
 
 action "Setup" {
   uses = "actions/npm@master"
-  runs = "install"
+  args = "install"
 }
 
 action "Test" {
   uses = "actions/npm@master"
   needs = ["Setup"]
-  runs = "test-all"
+  args = "test-all"
 }
 
 action "Build" {
   uses = "actions/npm@master"
   needs = ["Test"]
-  runs = "build"
+  args = "build"
 }
