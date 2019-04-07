@@ -10,8 +10,7 @@ before_install:
 install: npm install
 
 script:
-  - npm run test-lib
-  - npm run test-components
+  - npm run test-all
 
 before_deploy:
   - npm run build
