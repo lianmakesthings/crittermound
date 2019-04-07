@@ -3,6 +3,9 @@
 # die on error
 set -e
 
+# install things
+sudo apt-get install curl
+
 # https://gist.github.com/cjus/1047794
 echo 'Retrieving latest deploy...'
 url=`curl -H "Authorization: Bearer $NETLIFY_AUTH_TOKEN" https://api.netlify.com/api/v1/sites/${NETLIFY_SITE_ID}/deploys`
