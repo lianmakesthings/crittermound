@@ -4,7 +4,7 @@
 set -e
 
 # install things
-sudo apt-get install curl
+apt-get --assume-yes install curl
 
 # https://gist.github.com/cjus/1047794
 echo 'Retrieving latest deploy...'
