@@ -16,7 +16,7 @@ action "test" {
 
 workflow "Test, Build & Deploy" {
   on = "push"
-  resolves = ["GitHub Action for npm"]
+  resolves = ["build"]
 }
 
 action "setup" {
@@ -28,4 +28,10 @@ action "GitHub Action for npm" {
   uses = "actions/npm@master"
   needs = ["setup"]
   runs = "test-all"
+}
+
+action "build" {
+  uses = "actions/npm@master"
+  needs = ["GitHub Action for npm"]
+  runs = "build"
 }
