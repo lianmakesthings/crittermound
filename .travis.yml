@@ -1,5 +1,6 @@
 language: node_js
 sudo: true
+if: type = pull_request || branch = master
 
 before_install:
   - sudo apt-get update -q
@@ -9,8 +10,7 @@ before_install:
 install: npm install
 
 script:
-  - npm run test-lib
-  - npm run test-components
+  - npm run test-all
 
 before_deploy:
   - npm run build
@@ -19,8 +19,7 @@ deploy:
   provider: script
   script: chmod +x ./publish.sh && ./publish.sh
   skip_cleanup: true
-  on:
-    branch: master
+  if: branch = master
 
 notifications:
   email: false
