@@ -117,46 +117,7 @@ class Controller {
 
   }
 
-  populate(state) {
-    const mounds = [{
-      location: 'royalHatchery',
-      type: 'mother'
-    }, {
-      location: 'royalHatchery',
-      type: 'father'
-    }, {
-      location: 'royalHatchery',
-      type: 'female'
-    }, {
-      location: 'royalHatchery',
-      type: 'male'
-    }, {
-      location: 'worker',
-      type: 'mine'
-    }, {
-      location: 'worker',
-      type: 'farm'
-    }, {
-      location: 'worker',
-      type: 'carry'
-    }, {
-      location: 'worker',
-      type: 'factory'
-    }, {
-      location: 'soldiers',
-      type: 'army'
-    }];
-
-    mounds.forEach(address => {
-      const critters = state[address.location][address.type].critters;
-      state[address.location][address.type].critters = critters.map(critter => CritterFactory.fromState(critter))
-    });
-
-    return state;
-  }
-
   checkTick(timestamp, state) {
-    state = this.populate(state);
     const changes = {
       critters: [],
       sodProduction: {},
