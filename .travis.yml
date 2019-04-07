@@ -11,6 +11,7 @@ install: npm install
 script:
   - npm run test-lib
   - npm run test-components
+  - if: type = pull_request || branch = master
 
 before_deploy:
   - npm run build
