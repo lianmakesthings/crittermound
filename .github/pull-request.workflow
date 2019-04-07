@@ -1,9 +1,15 @@
 workflow "Pull Requests" {
   on = "pull_request"
-  resolves = ["Run tests"]
+  resolves = ["test"]
 }
 
-action "Run tests" {
-  uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
+action "Build" {
+  uses = "actions/npm@master"
+  runs = "install"
+}
+
+action "test" {
+  uses = "actions/npm@master"
+  needs = ["Build"]
   runs = "test-all"
 }
