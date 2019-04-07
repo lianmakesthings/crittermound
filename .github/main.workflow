@@ -16,12 +16,11 @@ action "Setup" {
 action "Test" {
   uses = "actions/npm@master"
   needs = ["Setup"]
-  args = "test-all"
-  runs = "run"
+  args = "run test-all"
 }
 
 action "Build" {
   uses = "actions/npm@master"
   needs = ["Test"]
-  args = "build"
+  args = "run build"
 }
