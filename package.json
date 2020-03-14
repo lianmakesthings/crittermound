@@ -8,7 +8,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:lib": "./node_modules/mocha/bin/mocha -r esm ./tests/lib/*.spec.js",
-    "test:unit": "vue-cli-service test:unit"
+    "test:components": "vue-cli-service test:unit"
   },
   "dependencies": {
     "bootstrap": "^4.4.1",
