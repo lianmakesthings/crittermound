@@ -1,0 +1,412 @@
+[
+  {
+    "id": 0,
+    "traitId": 0,
+    "name": "Limb Regen"
+  },
+  {
+    "id": 1,
+    "traitId": 0,
+    "name": "Biologic Immortal"
+  },
+  {
+    "id": 2,
+    "traitId": 0,
+    "name": "Fast Clotting"
+  },
+  {
+    "id": 3,
+    "traitId": 0,
+    "name": "High Metabolism"
+  },
+  {
+    "id": 4,
+    "traitId": 0,
+    "name": "Reduced Aging"
+  },
+  {
+    "id": 5,
+    "traitId": 0,
+    "name": "Hardened Carapace"
+  },
+  {
+    "id": 6,
+    "traitId": 0,
+    "name": "Vigorous"
+  },
+  {
+    "id": 7,
+    "traitId": 0,
+    "name": "Redundant Organs"
+  },
+  {
+    "id": 8,
+    "traitId": 0,
+    "name": "Exoskeleton"
+  },
+  {
+    "id": 9,
+    "traitId": 0,
+    "name": "Carapace Regen"
+  },
+  {
+    "id": 10,
+    "traitId": 0,
+    "name": "Iron Skin"
+  },
+  {
+    "id": 11,
+    "traitId": 0,
+    "name": "Detachable Tail"
+  },
+  {
+    "id": 12,
+    "traitId": 0,
+    "name": "Ancient Blood"
+  },
+  {
+    "id": 13,
+    "traitId": 0,
+    "name": "Lucky"
+  },
+  {
+    "id": 14,
+    "traitId": 0,
+    "name": "Guardian Angel"
+  },
+  {
+    "id": 15,
+    "traitId": 0,
+    "name": "Replaceable Organs"
+  },
+  {
+    "id": 100,
+    "traitId": 1,
+    "name": "Big Boned"
+  },
+  {
+    "id": 101,
+    "traitId": 1,
+    "name": "Gigantism"
+  },
+  {
+    "id": 102,
+    "traitId": 1,
+    "name": "Increased Mass"
+  },
+  {
+    "id": 103,
+    "traitId": 1,
+    "name": "Berserk Instinct"
+  },
+  {
+    "id": 104,
+    "traitId": 1,
+    "name": "Elastic Tendons"
+  },
+  {
+    "id": 105,
+    "traitId": 1,
+    "name": "Adrenal Glands"
+  },
+  {
+    "id": 106,
+    "traitId": 1,
+    "name": "Tireless"
+  },
+  {
+    "id": 107,
+    "traitId": 1,
+    "name": "Fast Recovery"
+  },
+  {
+    "id": 108,
+    "traitId": 1,
+    "name": "Pain Tolerance"
+  },
+  {
+    "id": 109,
+    "traitId": 1,
+    "name": "Fast Twitch"
+  },
+  {
+    "id": 110,
+    "traitId": 1,
+    "name": "Early Puberty"
+  },
+  {
+    "id": 111,
+    "traitId": 1,
+    "name": "Badassery"
+  },
+  {
+    "id": 112,
+    "traitId": 1,
+    "name": "Iron Bones"
+  },
+  {
+    "id": 113,
+    "traitId": 1,
+    "name": "Gamma Irradiated"
+  },
+  {
+    "id": 114,
+    "traitId": 1,
+    "name": "Warrior Ancestry"
+  },
+  {
+    "id": 115,
+    "traitId": 1,
+    "name": "Strong Grip"
+  },
+  {
+    "id": 200,
+    "traitId": 2,
+    "name": "Hyperactive"
+  },
+  {
+    "id": 201,
+    "traitId": 2,
+    "name": "Instinctive"
+  },
+  {
+    "id": 202,
+    "traitId": 2,
+    "name": "Sticky Feet"
+  },
+  {
+    "id": 203,
+    "traitId": 2,
+    "name": "Precognitive"
+  },
+  {
+    "id": 204,
+    "traitId": 2,
+    "name": "Tactile"
+  },
+  {
+    "id": 205,
+    "traitId": 2,
+    "name": "Peripheral Vision"
+  },
+  {
+    "id": 206,
+    "traitId": 2,
+    "name": "Alert"
+  },
+  {
+    "id": 207,
+    "traitId": 2,
+    "name": "Good Balance"
+  },
+  {
+    "id": 208,
+    "traitId": 2,
+    "name": "Winged"
+  },
+  {
+    "id": 209,
+    "traitId": 2,
+    "name": "Finned"
+  },
+  {
+    "id": 210,
+    "traitId": 2,
+    "name": "Radial Movement"
+  },
+  {
+    "id": 211,
+    "traitId": 2,
+    "name": "Segmented Legs"
+  },
+  {
+    "id": 212,
+    "traitId": 2,
+    "name": "Compound Eyes"
+  },
+  {
+    "id": 213,
+    "traitId": 2,
+    "name": "Nimble"
+  },
+  {
+    "id": 214,
+    "traitId": 2,
+    "name": "Dodge"
+  },
+  {
+    "id": 215,
+    "traitId": 2,
+    "name": "High Jumper"
+  },
+  {
+    "id": 216,
+    "traitId": 2,
+    "name": "Clawed Feet"
+  },
+  {
+    "id": 217,
+    "traitId": 2,
+    "name": "Stealth"
+  },
+  {
+    "id": 300,
+    "traitId": 3,
+    "name": "Fanged"
+  },
+  {
+    "id": 301,
+    "traitId": 3,
+    "name": "Razor Teeth"
+  },
+  {
+    "id": 302,
+    "traitId": 3,
+    "name": "Infectious Bite"
+  },
+  {
+    "id": 303,
+    "traitId": 3,
+    "name": "Pinchers"
+  },
+  {
+    "id": 304,
+    "traitId": 3,
+    "name": "Carnivorous"
+  },
+  {
+    "id": 305,
+    "traitId": 3,
+    "name": "Mandibles"
+  },
+  {
+    "id": 306,
+    "traitId": 3,
+    "name": "Unhingable Jaw"
+  },
+  {
+    "id": 307,
+    "traitId": 3,
+    "name": "Bacterial Spit"
+  },
+  {
+    "id": 308,
+    "traitId": 3,
+    "name": "Serrated Teeth"
+  },
+  {
+    "id": 309,
+    "traitId": 3,
+    "name": "Replaceable Teeth"
+  },
+  {
+    "id": 310,
+    "traitId": 3,
+    "name": "Long Snout"
+  },
+  {
+    "id": 311,
+    "traitId": 3,
+    "name": "Hooked Teeth"
+  },
+  {
+    "id": 312,
+    "traitId": 3,
+    "name": "Locking Jaw"
+  },
+  {
+    "id": 313,
+    "traitId": 3,
+    "name": "Prehensile Tongue"
+  },
+  {
+    "id": 314,
+    "traitId": 3,
+    "name": "Whip Tongue"
+  },
+  {
+    "id": 315,
+    "traitId": 3,
+    "name": "Iron Teeth"
+  },
+  {
+    "id": 400,
+    "traitId": 4,
+    "name": "Prehensile Tail"
+  },
+  {
+    "id": 401,
+    "traitId": 4,
+    "name": "Barbed Tail"
+  },
+  {
+    "id": 402,
+    "traitId": 4,
+    "name": "Paralyzing Venom"
+  },
+  {
+    "id": 403,
+    "traitId": 4,
+    "name": "Long Tail"
+  },
+  {
+    "id": 404,
+    "traitId": 4,
+    "name": "Double Tails"
+  },
+  {
+    "id": 405,
+    "traitId": 4,
+    "name": "Forked Stinger"
+  },
+  {
+    "id": 406,
+    "traitId": 4,
+    "name": "Hallucinogenic Venom"
+  },
+  {
+    "id": 407,
+    "traitId": 4,
+    "name": "Decoagulant Venom"
+  },
+  {
+    "id": 408,
+    "traitId": 4,
+    "name": "Acidic Venom"
+  },
+  {
+    "id": 409,
+    "traitId": 4,
+    "name": "Whip Tail"
+  },
+  {
+    "id": 410,
+    "traitId": 4,
+    "name": "Projectile Barbs"
+  },
+  {
+    "id": 411,
+    "traitId": 4,
+    "name": "Iron Barb"
+  },
+  {
+    "id": 412,
+    "traitId": 4,
+    "name": "Tail Slash"
+  },
+  {
+    "id": 413,
+    "traitId": 4,
+    "name": "Lightning Strike"
+  },
+  {
+    "id": 414,
+    "traitId": 4,
+    "name": "Tail Regrowth"
+  },
+  {
+    "id": 415,
+    "traitId": 4,
+    "name": "Seeking Sting"
+  }
+]
