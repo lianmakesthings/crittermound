@@ -1,0 +1,1530 @@
+[
+  [
+    {
+      "typeId": 0,
+      "level": 0,
+      "name": "Breed 10 Vitality",
+      "description": "Breed a critter with a Vitality of 10",
+      "value": 10
+    },
+    {
+      "typeId": 0,
+      "level": 1,
+      "name": "Breed 25 Vitality",
+      "description": "Breed a critter with a Vitality of 25",
+      "value": 25
+    },
+    {
+      "typeId": 0,
+      "level": 2,
+      "name": "Breed 50 Vitality",
+      "description": "Breed a critter with a Vitality of 50",
+      "value": 50
+    },
+    {
+      "typeId": 0,
+      "level": 3,
+      "name": "Breed 100 Vitality",
+      "description": "Breed a critter with a Vitality of 100",
+      "value": 100
+    },
+    {
+      "typeId": 0,
+      "level": 4,
+      "name": "Breed 250 Vitality",
+      "description": "Breed a critter with a Vitality of 250",
+      "value": 250
+    },
+    {
+      "typeId": 0,
+      "level": 5,
+      "name": "Breed 500 Vitality",
+      "description": "Breed a critter with a Vitality of 500",
+      "value": 500
+    },
+    {
+      "typeId": 0,
+      "level": 6,
+      "name": "Breed 1,000 Vitality",
+      "description": "Breed a critter with a Vitality of 1,000",
+      "value": 1e3
+    },
+    {
+      "typeId": 0,
+      "level": 7,
+      "name": "Breed 5,000 Vitality",
+      "description": "Breed a critter with a Vitality of 5,000",
+      "value": 5e3
+    },
+    {
+      "typeId": 0,
+      "level": 8,
+      "name": "Breed 10,000 Vitality",
+      "description": "Breed a critter with a Vitality of 10,000",
+      "value": 1e4
+    },
+    {
+      "typeId": 0,
+      "level": 9,
+      "name": "Breed 50,000 Vitality",
+      "description": "Breed a critter with a Vitality of 50,000",
+      "value": 5e4
+    },
+    {
+      "typeId": 0,
+      "level": 10,
+      "name": "Breed 75,000 Vitality",
+      "description": "Breed a critter with a Vitality of 75,000",
+      "value": 75e3
+    },
+    {
+      "typeId": 0,
+      "level": 11,
+      "name": "Breed 100,000 Vitality",
+      "description": "Breed a critter with a Vitality of 100,000",
+      "value": 1e5
+    }
+  ],
+  [
+    {
+      "typeId": 1,
+      "level": 0,
+      "name": "Breed 10 Strength",
+      "description": "Breed a critter with a Strength of 10",
+      "value": 10
+    },
+    {
+      "typeId": 1,
+      "level": 1,
+      "name": "Breed 25 Strength",
+      "description": "Breed a critter with a Strength of 25",
+      "value": 25
+    },
+    {
+      "typeId": 1,
+      "level": 2,
+      "name": "Breed 50 Strength",
+      "description": "Breed a critter with a Strength of 50",
+      "value": 50
+    },
+    {
+      "typeId": 1,
+      "level": 3,
+      "name": "Breed 100 Strength",
+      "description": "Breed a critter with a Strength of 100",
+      "value": 100
+    },
+    {
+      "typeId": 1,
+      "level": 4,
+      "name": "Breed 250 Strength",
+      "description": "Breed a critter with a Strength of 250",
+      "value": 250
+    },
+    {
+      "typeId": 1,
+      "level": 5,
+      "name": "Breed 500 Strength",
+      "description": "Breed a critter with a Strength of 500",
+      "value": 500
+    },
+    {
+      "typeId": 1,
+      "level": 6,
+      "name": "Breed 1,000 Strength",
+      "description": "Breed a critter with a Strength of 1,000",
+      "value": 1e3
+    },
+    {
+      "typeId": 1,
+      "level": 7,
+      "name": "Breed 5,000 Strength",
+      "description": "Breed a critter with a Strength of 5,000",
+      "value": 5e3
+    },
+    {
+      "typeId": 1,
+      "level": 8,
+      "name": "Breed 10,000 Strength",
+      "description": "Breed a critter with a Strength of 10,000",
+      "value": 1e4
+    },
+    {
+      "typeId": 1,
+      "level": 9,
+      "name": "Breed 50,000 Strength",
+      "description": "Breed a critter with a Strength of 50,000",
+      "value": 5e4
+    },
+    {
+      "typeId": 1,
+      "level": 10,
+      "name": "Breed 75,000 Strength",
+      "description": "Breed a critter with a Strength of 75,000",
+      "value": 75e3
+    },
+    {
+      "typeId": 1,
+      "level": 11,
+      "name": "Breed 100,000 Strength",
+      "description": "Breed a critter with a Strength of 100,000",
+      "value": 1e5
+    }
+  ],
+  [
+    {
+      "typeId": 2,
+      "level": 0,
+      "name": "Breed 10 Agility",
+      "description": "Breed a critter with a Agility of 10",
+      "value": 10
+    },
+    {
+      "typeId": 2,
+      "level": 1,
+      "name": "Breed 25 Agility",
+      "description": "Breed a critter with a Agility of 25",
+      "value": 25
+    },
+    {
+      "typeId": 2,
+      "level": 2,
+      "name": "Breed 50 Agility",
+      "description": "Breed a critter with a Agility of 50",
+      "value": 50
+    },
+    {
+      "typeId": 2,
+      "level": 3,
+      "name": "Breed 100 Agility",
+      "description": "Breed a critter with a Agility of 100",
+      "value": 100
+    },
+    {
+      "typeId": 2,
+      "level": 4,
+      "name": "Breed 250 Agility",
+      "description": "Breed a critter with a Agility of 250",
+      "value": 250
+    },
+    {
+      "typeId": 2,
+      "level": 5,
+      "name": "Breed 500 Agility",
+      "description": "Breed a critter with a Agility of 500",
+      "value": 500
+    },
+    {
+      "typeId": 2,
+      "level": 6,
+      "name": "Breed 1,000 Agility",
+      "description": "Breed a critter with a Agility of 1,000",
+      "value": 1e3
+    },
+    {
+      "typeId": 2,
+      "level": 7,
+      "name": "Breed 5,000 Agility",
+      "description": "Breed a critter with a Agility of 5,000",
+      "value": 5e3
+    },
+    {
+      "typeId": 2,
+      "level": 8,
+      "name": "Breed 10,000 Agility",
+      "description": "Breed a critter with a Agility of 10,000",
+      "value": 1e4
+    },
+    {
+      "typeId": 2,
+      "level": 9,
+      "name": "Breed 50,000 Agility",
+      "description": "Breed a critter with a Agility of 50,000",
+      "value": 5e4
+    },
+    {
+      "typeId": 2,
+      "level": 10,
+      "name": "Breed 75,000 Agility",
+      "description": "Breed a critter with a Agility of 75,000",
+      "value": 75e3
+    },
+    {
+      "typeId": 2,
+      "level": 11,
+      "name": "Breed 100,000 Agility",
+      "description": "Breed a critter with a Agility of 100,000",
+      "value": 1e5
+    }
+  ],
+  [
+    {
+      "typeId": 3,
+      "level": 0,
+      "name": "Breed 10 Bite",
+      "description": "Breed a critter with a Bite of 10",
+      "value": 10
+    },
+    {
+      "typeId": 3,
+      "level": 1,
+      "name": "Breed 25 Bite",
+      "description": "Breed a critter with a Bite of 25",
+      "value": 25
+    },
+    {
+      "typeId": 3,
+      "level": 2,
+      "name": "Breed 50 Bite",
+      "description": "Breed a critter with a Bite of 50",
+      "value": 50
+    },
+    {
+      "typeId": 3,
+      "level": 3,
+      "name": "Breed 100 Bite",
+      "description": "Breed a critter with a Bite of 100",
+      "value": 100
+    },
+    {
+      "typeId": 3,
+      "level": 4,
+      "name": "Breed 250 Bite",
+      "description": "Breed a critter with a Bite of 250",
+      "value": 250
+    },
+    {
+      "typeId": 3,
+      "level": 5,
+      "name": "Breed 500 Bite",
+      "description": "Breed a critter with a Bite of 500",
+      "value": 500
+    },
+    {
+      "typeId": 3,
+      "level": 6,
+      "name": "Breed 1,000 Bite",
+      "description": "Breed a critter with a Bite of 1,000",
+      "value": 1e3
+    },
+    {
+      "typeId": 3,
+      "level": 7,
+      "name": "Breed 5,000 Bite",
+      "description": "Breed a critter with a Bite of 5,000",
+      "value": 5e3
+    },
+    {
+      "typeId": 3,
+      "level": 8,
+      "name": "Breed 10,000 Bite",
+      "description": "Breed a critter with a Bite of 10,000",
+      "value": 1e4
+    },
+    {
+      "typeId": 3,
+      "level": 9,
+      "name": "Breed 50,000 Bite",
+      "description": "Breed a critter with a Bite of 50,000",
+      "value": 5e4
+    },
+    {
+      "typeId": 3,
+      "level": 10,
+      "name": "Breed 75,000 Bite",
+      "description": "Breed a critter with a Bite of 75,000",
+      "value": 75e3
+    },
+    {
+      "typeId": 3,
+      "level": 11,
+      "name": "Breed 100,000 Bite",
+      "description": "Breed a critter with a Bite of 100,000",
+      "value": 1e5
+    }
+  ],
+  [
+    {
+      "typeId": 4,
+      "level": 0,
+      "name": "Breed 10 Sting",
+      "description": "Breed a critter with a Sting of 10",
+      "value": 10
+    },
+    {
+      "typeId": 4,
+      "level": 1,
+      "name": "Breed 25 Sting",
+      "description": "Breed a critter with a Sting of 25",
+      "value": 25
+    },
+    {
+      "typeId": 4,
+      "level": 2,
+      "name": "Breed 50 Sting",
+      "description": "Breed a critter with a Sting of 50",
+      "value": 50
+    },
+    {
+      "typeId": 4,
+      "level": 3,
+      "name": "Breed 100 Sting",
+      "description": "Breed a critter with a Sting of 100",
+      "value": 100
+    },
+    {
+      "typeId": 4,
+      "level": 4,
+      "name": "Breed 250 Sting",
+      "description": "Breed a critter with a Sting of 250",
+      "value": 250
+    },
+    {
+      "typeId": 4,
+      "level": 5,
+      "name": "Breed 500 Sting",
+      "description": "Breed a critter with a Sting of 500",
+      "value": 500
+    },
+    {
+      "typeId": 4,
+      "level": 6,
+      "name": "Breed 1,000 Sting",
+      "description": "Breed a critter with a Sting of 1,000",
+      "value": 1e3
+    },
+    {
+      "typeId": 4,
+      "level": 7,
+      "name": "Breed 5,000 Sting",
+      "description": "Breed a critter with a Sting of 5,000",
+      "value": 5e3
+    },
+    {
+      "typeId": 4,
+      "level": 8,
+      "name": "Breed 10,000 Sting",
+      "description": "Breed a critter with a Sting of 10,000",
+      "value": 1e4
+    },
+    {
+      "typeId": 4,
+      "level": 9,
+      "name": "Breed 50,000 Sting",
+      "description": "Breed a critter with a Sting of 50,000",
+      "value": 5e4
+    },
+    {
+      "typeId": 4,
+      "level": 10,
+      "name": "Breed 75,000 Sting",
+      "description": "Breed a critter with a Sting of 75,000",
+      "value": 75e3
+    },
+    {
+      "typeId": 4,
+      "level": 11,
+      "name": "Breed 100,000 Sting",
+      "description": "Breed a critter with a Sting of 100,000",
+      "value": 1e5
+    }
+  ],
+  [
+    {
+      "typeId": 5,
+      "level": 0,
+      "name": "Breed 1 Mutation",
+      "description": "Breed a critter with 1 Mutation",
+      "value": 1
+    },
+    {
+      "typeId": 5,
+      "level": 1,
+      "name": "Breed 2 Mutations",
+      "description": "Breed a critter with 2 Mutations",
+      "value": 2
+    },
+    {
+      "typeId": 5,
+      "level": 2,
+      "name": "Breed 5 Mutations",
+      "description": "Breed a critter with 5 Mutations",
+      "value": 5
+    },
+    {
+      "typeId": 5,
+      "level": 3,
+      "name": "Breed 10 Mutations",
+      "description": "Breed a critter with 10 Mutations",
+      "value": 10
+    },
+    {
+      "typeId": 5,
+      "level": 4,
+      "name": "Breed 15 Mutations",
+      "description": "Breed a critter with 15 Mutations",
+      "value": 15
+    },
+    {
+      "typeId": 5,
+      "level": 5,
+      "name": "Breed 20 Mutations",
+      "description": "Breed a critter with 20 Mutations",
+      "value": 20
+    },
+    {
+      "typeId": 5,
+      "level": 6,
+      "name": "Breed 25 Mutations",
+      "description": "Breed a critter with 25 Mutations",
+      "value": 25
+    },
+    {
+      "typeId": 5,
+      "level": 7,
+      "name": "Breed 50 Mutations",
+      "description": "Breed a critter with 50 Mutations",
+      "value": 50
+    }
+  ],
+  [
+    {
+      "typeId": 6,
+      "level": 0,
+      "name": "Breed 10 Score",
+      "description": "Breed a critter with a Score of 10",
+      "value": 10
+    },
+    {
+      "typeId": 6,
+      "level": 1,
+      "name": "Breed 50 Score",
+      "description": "Breed a critter with a Score of 50",
+      "value": 50
+    },
+    {
+      "typeId": 6,
+      "level": 2,
+      "name": "Breed 100 Score",
+      "description": "Breed a critter with a Score of 100",
+      "value": 100
+    },
+    {
+      "typeId": 6,
+      "level": 3,
+      "name": "Breed 250 Score",
+      "description": "Breed a critter with a Score of 250",
+      "value": 250
+    },
+    {
+      "typeId": 6,
+      "level": 4,
+      "name": "Breed 500 Score",
+      "description": "Breed a critter with a Score of 500",
+      "value": 500
+    },
+    {
+      "typeId": 6,
+      "level": 5,
+      "name": "Breed 1,000 Score",
+      "description": "Breed a critter with a Score of 1,000",
+      "value": 1e3
+    },
+    {
+      "typeId": 6,
+      "level": 6,
+      "name": "Breed 5,000 Score",
+      "description": "Breed a critter with a Score of 5,000",
+      "value": 5e3
+    },
+    {
+      "typeId": 6,
+      "level": 7,
+      "name": "Breed 10,000 Score",
+      "description": "Breed a critter with a Score of 10,000",
+      "value": 1e4
+    },
+    {
+      "typeId": 6,
+      "level": 8,
+      "name": "Breed 50,000 Score",
+      "description": "Breed a critter with a Score of 50,000",
+      "value": 5e4
+    },
+    {
+      "typeId": 6,
+      "level": 9,
+      "name": "Breed 75,000 Score",
+      "description": "Breed a critter with a Score of 75,000",
+      "value": 75e3
+    },
+    {
+      "typeId": 6,
+      "level": 10,
+      "name": "Breed 100,000 Score",
+      "description": "Breed a critter with a Score of 100,000",
+      "value": 1e5
+    }
+  ],
+  [
+    {
+      "typeId": 7,
+      "level": 0,
+      "name": "Breed 25 Generations",
+      "description": "Breed a critter with a Generation of 25",
+      "value": 25
+    },
+    {
+      "typeId": 7,
+      "level": 1,
+      "name": "Breed 50 Generations",
+      "description": "Breed a critter with a Generation of 50",
+      "value": 50
+    },
+    {
+      "typeId": 7,
+      "level": 2,
+      "name": "Breed 100 Generations",
+      "description": "Breed a critter with a Generation of 100",
+      "value": 100
+    },
+    {
+      "typeId": 7,
+      "level": 3,
+      "name": "Breed 200 Generations",
+      "description": "Breed a critter with a Generation of 200",
+      "value": 200
+    },
+    {
+      "typeId": 7,
+      "level": 4,
+      "name": "Breed 300 Generations",
+      "description": "Breed a critter with a Generation of 300",
+      "value": 300
+    },
+    {
+      "typeId": 7,
+      "level": 5,
+      "name": "Breed 500 Generations",
+      "description": "Breed a critter with a Generation of 500",
+      "value": 500
+    },
+    {
+      "typeId": 7,
+      "level": 6,
+      "name": "Breed 750 Generations",
+      "description": "Breed a critter with a Generation of 750",
+      "value": 750
+    },
+    {
+      "typeId": 7,
+      "level": 7,
+      "name": "Breed 1,000 Generations",
+      "description": "Breed a critter with a Generation of 1,000",
+      "value": 1e3
+    },
+    {
+      "typeId": 7,
+      "level": 8,
+      "name": "Breed 1,500 Generations",
+      "description": "Breed a critter with a Generation of 1,500",
+      "value": 1500
+    },
+    {
+      "typeId": 7,
+      "level": 9,
+      "name": "Breed 2,000 Generations",
+      "description": "Breed a critter with a Generation of 2,000",
+      "value": 2e3
+    }
+  ],
+  [
+    {
+      "typeId": 8,
+      "level": 0,
+      "name": "Breed 250 Critters",
+      "description": "Breed 250 Critters",
+      "value": 250
+    },
+    {
+      "typeId": 8,
+      "level": 1,
+      "name": "Breed 500 Critters",
+      "description": "Breed 500 Critters",
+      "value": 500
+    },
+    {
+      "typeId": 8,
+      "level": 2,
+      "name": "Breed 1,000 Critters",
+      "description": "Breed 1,000 Critters",
+      "value": 1e3
+    },
+    {
+      "typeId": 8,
+      "level": 3,
+      "name": "Breed 2,000 Critters",
+      "description": "Breed 2,000 Critters",
+      "value": 2e3
+    },
+    {
+      "typeId": 8,
+      "level": 4,
+      "name": "Breed 3,000 Critters",
+      "description": "Breed 3,000 Critters",
+      "value": 3e3
+    },
+    {
+      "typeId": 8,
+      "level": 5,
+      "name": "Breed 5,000 Critters",
+      "description": "Breed 5,000 Critters",
+      "value": 5e3
+    },
+    {
+      "typeId": 8,
+      "level": 6,
+      "name": "Breed 7,500 Critters",
+      "description": "Breed 7,500 Critters",
+      "value": 7500
+    },
+    {
+      "typeId": 8,
+      "level": 7,
+      "name": "Breed 10,000 Critters",
+      "description": "Breed 10,000 Critters",
+      "value": 1e4
+    },
+    {
+      "typeId": 8,
+      "level": 8,
+      "name": "Breed 15,000 Critters",
+      "description": "Breed 15,000 Critters",
+      "value": 15e3
+    },
+    {
+      "typeId": 8,
+      "level": 9,
+      "name": "Breed 20,000 Critters",
+      "description": "Breed 20,000 Critters",
+      "value": 20e3
+    },
+    {
+      "typeId": 8,
+      "level": 10,
+      "name": "Breed 50,000 Critters",
+      "description": "Breed 50,000 Critters",
+      "value": 50e3
+    }
+  ],
+  [
+    {
+      "typeId": 9,
+      "level": 0,
+      "name": "Mine 5 Dirt/sec",
+      "description": "Mine Dirt/sec of 5",
+      "value": 5
+    },
+    {
+      "typeId": 9,
+      "level": 1,
+      "name": "Mine 10 Dirt/sec",
+      "description": "Mine Dirt/sec of 10",
+      "value": 10
+    },
+    {
+      "typeId": 9,
+      "level": 2,
+      "name": "Mine 100 Dirt/sec",
+      "description": "Mine Dirt/sec of 100",
+      "value": 100
+    },
+    {
+      "typeId": 9,
+      "level": 3,
+      "name": "Mine 500 Dirt/sec",
+      "description": "Mine Dirt/sec of 500",
+      "value": 500
+    },
+    {
+      "typeId": 9,
+      "level": 4,
+      "name": "Mine 1,000 Dirt/sec",
+      "description": "Mine Dirt/sec of 1,000",
+      "value": 1e3
+    },
+    {
+      "typeId": 9,
+      "level": 5,
+      "name": "Mine 2,500 Dirt/sec",
+      "description": "Mine Dirt/sec of 2,500",
+      "value": 2500
+    },
+    {
+      "typeId": 9,
+      "level": 6,
+      "name": "Mine 5,000 Dirt/sec",
+      "description": "Mine Dirt/sec of 5,000",
+      "value": 5e3
+    },
+    {
+      "typeId": 9,
+      "level": 7,
+      "name": "Mine 10,000 Dirt/sec",
+      "description": "Mine Dirt/sec of 10,000",
+      "value": 1e4
+    },
+    {
+      "typeId": 9,
+      "level": 8,
+      "name": "Mine 50,000 Dirt/sec",
+      "description": "Mine Dirt/sec of 50,000",
+      "value": 5e4
+    },
+    {
+      "typeId": 9,
+      "level": 9,
+      "name": "Mine 100,000 Dirt/sec",
+      "description": "Mine Dirt/sec of 100,000",
+      "value": 1e5
+    },
+    {
+      "typeId": 9,
+      "level": 10,
+      "name": "Mine 200,000 Dirt/sec",
+      "description": "Mine Dirt/sec of 200,000",
+      "value": 2e5
+    },
+    {
+      "typeId": 9,
+      "level": 11,
+      "name": "Mine 300,000 Dirt/sec",
+      "description": "Mine Dirt/sec of 300,000",
+      "value": 3e5
+    },
+    {
+      "typeId": 9,
+      "level": 12,
+      "name": "Mine 500,000 Dirt/sec",
+      "description": "Mine Dirt/sec of 500,000",
+      "value": 5e5
+    }
+  ],
+  [
+    {
+      "typeId": 10,
+      "level": 0,
+      "name": "Farm 5 Grass/sec",
+      "description": "Farm Grass/sec of 5",
+      "value": 5
+    },
+    {
+      "typeId": 10,
+      "level": 1,
+      "name": "Farm 10 Grass/sec",
+      "description": "Farm Grass/sec of 10",
+      "value": 10
+    },
+    {
+      "typeId": 10,
+      "level": 2,
+      "name": "Farm 100 Grass/sec",
+      "description": "Farm Grass/sec of 100",
+      "value": 100
+    },
+    {
+      "typeId": 10,
+      "level": 3,
+      "name": "Farm 500 Grass/sec",
+      "description": "Farm Grass/sec of 500",
+      "value": 500
+    },
+    {
+      "typeId": 10,
+      "level": 4,
+      "name": "Farm 1,000 Grass/sec",
+      "description": "Farm Grass/sec of 1,000",
+      "value": 1e3
+    },
+    {
+      "typeId": 10,
+      "level": 5,
+      "name": "Farm 2,500 Grass/sec",
+      "description": "Farm Grass/sec of 2,500",
+      "value": 2500
+    },
+    {
+      "typeId": 10,
+      "level": 6,
+      "name": "Farm 5,000 Grass/sec",
+      "description": "Farm Grass/sec of 5,000",
+      "value": 5e3
+    },
+    {
+      "typeId": 10,
+      "level": 7,
+      "name": "Farm 10,000 Grass/sec",
+      "description": "Farm Grass/sec of 10,000",
+      "value": 1e4
+    },
+    {
+      "typeId": 10,
+      "level": 8,
+      "name": "Farm 50,000 Grass/sec",
+      "description": "Farm Grass/sec of 50,000",
+      "value": 5e4
+    },
+    {
+      "typeId": 10,
+      "level": 9,
+      "name": "Farm 100,000 Grass/sec",
+      "description": "Farm Grass/sec of 100,000",
+      "value": 1e5
+    },
+    {
+      "typeId": 10,
+      "level": 10,
+      "name": "Farm 200,000 Grass/sec",
+      "description": "Farm Grass/sec of 200,000",
+      "value": 2e5
+    },
+    {
+      "typeId": 10,
+      "level": 11,
+      "name": "Farm 300,000 Grass/sec",
+      "description": "Farm Grass/sec of 300,000",
+      "value": 3e5
+    },
+    {
+      "typeId": 10,
+      "level": 12,
+      "name": "Farm 500,000 Grass/sec",
+      "description": "Farm Grass/sec of 500,000",
+      "value": 5e5
+    }
+  ],
+  [
+    {
+      "typeId": 11,
+      "level": 0,
+      "name": "Produce 5 Sod/sec",
+      "description": "Produce Sod/sec of 5",
+      "value": 5
+    },
+    {
+      "typeId": 11,
+      "level": 1,
+      "name": "Produce 10 Sod/sec",
+      "description": "Produce Sod/sec of 10",
+      "value": 10
+    },
+    {
+      "typeId": 11,
+      "level": 2,
+      "name": "Produce 100 Sod/sec",
+      "description": "Produce Sod/sec of 100",
+      "value": 100
+    },
+    {
+      "typeId": 11,
+      "level": 3,
+      "name": "Produce 500 Sod/sec",
+      "description": "Produce Sod/sec of 500",
+      "value": 500
+    },
+    {
+      "typeId": 11,
+      "level": 4,
+      "name": "Produce 1,000 Sod/sec",
+      "description": "Produce Sod/sec of 1,000",
+      "value": 1e3
+    },
+    {
+      "typeId": 11,
+      "level": 5,
+      "name": "Produce 2,500 Sod/sec",
+      "description": "Produce Sod/sec of 2,500",
+      "value": 2500
+    },
+    {
+      "typeId": 11,
+      "level": 6,
+      "name": "Produce 5,000 Sod/sec",
+      "description": "Produce Sod/sec of 5,000",
+      "value": 5e3
+    },
+    {
+      "typeId": 11,
+      "level": 7,
+      "name": "Produce 10,000 Sod/sec",
+      "description": "Produce Sod/sec of 10,000",
+      "value": 1e4
+    },
+    {
+      "typeId": 11,
+      "level": 8,
+      "name": "Produce 50,000 Sod/sec",
+      "description": "Produce Sod/sec of 50,000",
+      "value": 5e4
+    },
+    {
+      "typeId": 11,
+      "level": 9,
+      "name": "Produce 100,000 Sod/sec",
+      "description": "Produce Sod/sec of 100,000",
+      "value": 1e5
+    },
+    {
+      "typeId": 11,
+      "level": 10,
+      "name": "Produce 200,000 Sod/sec",
+      "description": "Produce Sod/sec of 200,000",
+      "value": 2e5
+    },
+    {
+      "typeId": 11,
+      "level": 11,
+      "name": "Produce 300,000 Sod/sec",
+      "description": "Produce Sod/sec of 300,000",
+      "value": 2e5
+    },
+    {
+      "typeId": 11,
+      "level": 12,
+      "name": "Produce 500,000 Sod/sec",
+      "description": "Produce Sod/sec of 500,000",
+      "value": 5e5
+    }
+  ],
+  [
+    {
+      "typeId": 12,
+      "level": 0,
+      "name": "Win 50 Battles",
+      "description": "Win 50 Battles",
+      "value": 50
+    },
+    {
+      "typeId": 12,
+      "level": 1,
+      "name": "Win 100 Battles",
+      "description": "Win 100 Battles",
+      "value": 100
+    },
+    {
+      "typeId": 12,
+      "level": 2,
+      "name": "Win 250 Battles",
+      "description": "Win 250 Battles",
+      "value": 250
+    },
+    {
+      "typeId": 12,
+      "level": 3,
+      "name": "Win 500 Battles",
+      "description": "Win 500 Battles",
+      "value": 500
+    },
+    {
+      "typeId": 12,
+      "level": 4,
+      "name": "Win 1,000 Battles",
+      "description": "Win 1,000 Battles",
+      "value": 1e3
+    },
+    {
+      "typeId": 12,
+      "level": 5,
+      "name": "Win 2,000 Battles",
+      "description": "Win 2,000 Battles",
+      "value": 2e3
+    },
+    {
+      "typeId": 12,
+      "level": 6,
+      "name": "Win 3,000 Battles",
+      "description": "Win 3,000 Battles",
+      "value": 3e3
+    },
+    {
+      "typeId": 12,
+      "level": 7,
+      "name": "Win 5,000 Battles",
+      "description": "Win 5,000 Battles",
+      "value": 5e3
+    },
+    {
+      "typeId": 12,
+      "level": 8,
+      "name": "Win 7,500 Battles",
+      "description": "Win 7,500 Battles",
+      "value": 7500
+    },
+    {
+      "typeId": 12,
+      "level": 9,
+      "name": "Win 10,000 Battles",
+      "description": "Win 10,000 Battles",
+      "value": 1e4
+    }
+  ],
+  [
+    {
+      "typeId": 13,
+      "level": 0,
+      "name": "Find 1 Mine",
+      "description": "Find 1 Mine",
+      "value": 1
+    },
+    {
+      "typeId": 13,
+      "level": 1,
+      "name": "Find 3 Mines",
+      "description": "Find 3 Mines",
+      "value": 3
+    },
+    {
+      "typeId": 13,
+      "level": 2,
+      "name": "Find 6 Mines",
+      "description": "Find 6 Mines",
+      "value": 6
+    },
+    {
+      "typeId": 13,
+      "level": 3,
+      "name": "Find 9 Mines",
+      "description": "Find 9 Mines",
+      "value": 9
+    },
+    {
+      "typeId": 13,
+      "level": 4,
+      "name": "Find 12 Mines",
+      "description": "Find 12 Mines",
+      "value": 12
+    },
+    {
+      "typeId": 13,
+      "level": 5,
+      "name": "Find 15 Mines",
+      "description": "Find 15 Mines",
+      "value": 15
+    },
+    {
+      "typeId": 13,
+      "level": 6,
+      "name": "Find 18 Mines",
+      "description": "Find 18 Mines",
+      "value": 18
+    }
+  ],
+  [
+    {
+      "typeId": 14,
+      "level": 0,
+      "name": "Find 1 Farm",
+      "description": "Find 1 Farm",
+      "value": 1
+    },
+    {
+      "typeId": 14,
+      "level": 1,
+      "name": "Find 3 Farms",
+      "description": "Find 3 Farms",
+      "value": 3
+    },
+    {
+      "typeId": 14,
+      "level": 2,
+      "name": "Find 6 Farms",
+      "description": "Find 6 Farms",
+      "value": 6
+    },
+    {
+      "typeId": 14,
+      "level": 3,
+      "name": "Find 9 Farms",
+      "description": "Find 9 Farms",
+      "value": 9
+    },
+    {
+      "typeId": 14,
+      "level": 4,
+      "name": "Find 12 Farms",
+      "description": "Find 12 Farms",
+      "value": 12
+    },
+    {
+      "typeId": 14,
+      "level": 5,
+      "name": "Find 15 Farms",
+      "description": "Find 15 Farms",
+      "value": 15
+    },
+    {
+      "typeId": 14,
+      "level": 6,
+      "name": "Find 18 Farms",
+      "description": "Find 18 Farms",
+      "value": 18
+    }
+  ],
+  [
+    {
+      "typeId": 15,
+      "level": 0,
+      "name": "Find 1 Equipment",
+      "description": "Find 1 Equipment",
+      "value": 1
+    },
+    {
+      "typeId": 15,
+      "level": 1,
+      "name": "Find 3 Equipment",
+      "description": "Find 3 Equipment",
+      "value": 3
+    },
+    {
+      "typeId": 15,
+      "level": 2,
+      "name": "Find 6 Equipment",
+      "description": "Find 6 Equipment",
+      "value": 6
+    },
+    {
+      "typeId": 15,
+      "level": 3,
+      "name": "Find 9 Equipment",
+      "description": "Find 9 Equipment",
+      "value": 9
+    },
+    {
+      "typeId": 15,
+      "level": 4,
+      "name": "Find 12 Equipment",
+      "description": "Find 12 Equipment",
+      "value": 12
+    },
+    {
+      "typeId": 15,
+      "level": 5,
+      "name": "Find 15 Equipment",
+      "description": "Find 15 Equipment",
+      "value": 15
+    },
+    {
+      "typeId": 15,
+      "level": 6,
+      "name": "Find 18 Equipment",
+      "description": "Find 18 Equipment",
+      "value": 18
+    }
+  ],
+  [
+    {
+      "typeId": 16,
+      "level": 0,
+      "name": "Find 1 Factory",
+      "description": "Find 1 Factory",
+      "value": 1
+    },
+    {
+      "typeId": 16,
+      "level": 1,
+      "name": "Find 3 Factories",
+      "description": "Find 3 Factories",
+      "value": 3
+    },
+    {
+      "typeId": 16,
+      "level": 2,
+      "name": "Find 6 Factories",
+      "description": "Find 6 Factories",
+      "value": 6
+    },
+    {
+      "typeId": 16,
+      "level": 3,
+      "name": "Find 9 Factories",
+      "description": "Find 9 Factories",
+      "value": 9
+    },
+    {
+      "typeId": 16,
+      "level": 4,
+      "name": "Find 12 Factories",
+      "description": "Find 12 Factories",
+      "value": 12
+    },
+    {
+      "typeId": 16,
+      "level": 5,
+      "name": "Find 15 Factories",
+      "description": "Find 15 Factories",
+      "value": 15
+    },
+    {
+      "typeId": 16,
+      "level": 6,
+      "name": "Find 18 Factories",
+      "description": "Find 18 Factories",
+      "value": 18
+    }
+  ],
+  [
+    {
+      "typeId": 17,
+      "level": 0,
+      "name": "Find 1 Enemy Gene",
+      "description": "Find 1 Enemy Gene",
+      "value": 1
+    },
+    {
+      "typeId": 17,
+      "level": 1,
+      "name": "Find 3 Enemy Genes",
+      "description": "Find 3 Enemy Genes",
+      "value": 3
+    },
+    {
+      "typeId": 17,
+      "level": 2,
+      "name": "Find 6 Enemy Genes",
+      "description": "Find 6 Enemy Genes",
+      "value": 6
+    },
+    {
+      "typeId": 17,
+      "level": 3,
+      "name": "Find 9 Enemy Genes",
+      "description": "Find 9 Enemy Genes",
+      "value": 9
+    },
+    {
+      "typeId": 17,
+      "level": 4,
+      "name": "Find 12 Enemy Genes",
+      "description": "Find 12 Enemy Genes",
+      "value": 12
+    },
+    {
+      "typeId": 17,
+      "level": 5,
+      "name": "Find 15 Enemy Genes",
+      "description": "Find 15 Enemy Genes",
+      "value": 15
+    },
+    {
+      "typeId": 17,
+      "level": 6,
+      "name": "Find 18 Enemy Genes",
+      "description": "Find 18 Enemy Genes",
+      "value": 18
+    }
+  ],
+  [
+    {
+      "typeId": 18,
+      "level": 0,
+      "name": "Find 1 High Ground",
+      "description": "Find 1 High Ground",
+      "value": 1
+    },
+    {
+      "typeId": 18,
+      "level": 1,
+      "name": "Find 3 High Ground",
+      "description": "Find 3 High Ground",
+      "value": 3
+    },
+    {
+      "typeId": 18,
+      "level": 2,
+      "name": "Find 6 High Ground",
+      "description": "Find 6 High Ground",
+      "value": 6
+    },
+    {
+      "typeId": 18,
+      "level": 3,
+      "name": "Find 9 High Ground",
+      "description": "Find 9 High Ground",
+      "value": 9
+    },
+    {
+      "typeId": 18,
+      "level": 4,
+      "name": "Find 12 High Ground",
+      "description": "Find 12 High Ground",
+      "value": 12
+    },
+    {
+      "typeId": 18,
+      "level": 5,
+      "name": "Find 15 High Ground",
+      "description": "Find 15 High Ground",
+      "value": 15
+    },
+    {
+      "typeId": 18,
+      "level": 6,
+      "name": "Find 18 High Ground",
+      "description": "Find 18 High Ground",
+      "value": 18
+    }
+  ],
+  [
+    {
+      "typeId": 19,
+      "level": 0,
+      "name": "Find 1 Boost Upgrade",
+      "description": "Find 1 Boost Upgrade",
+      "value": 1
+    },
+    {
+      "typeId": 19,
+      "level": 1,
+      "name": "Find 3 Boost Upgrades",
+      "description": "Find 3 Boost Upgrades",
+      "value": 3
+    },
+    {
+      "typeId": 19,
+      "level": 2,
+      "name": "Find 6 Boost Upgrades",
+      "description": "Find 6 Boost Upgrades",
+      "value": 6
+    },
+    {
+      "typeId": 19,
+      "level": 3,
+      "name": "Find 9 Boost Upgrades",
+      "description": "Find 9 Boost Upgrades",
+      "value": 9
+    },
+    {
+      "typeId": 19,
+      "level": 4,
+      "name": "Find 12 Boost Upgrades",
+      "description": "Find 12 Boost Upgrades",
+      "value": 12
+    },
+    {
+      "typeId": 19,
+      "level": 5,
+      "name": "Find 15 Boost Upgrades",
+      "description": "Find 15 Boost Upgrades",
+      "value": 15
+    },
+    {
+      "typeId": 19,
+      "level": 6,
+      "name": "Find 18 Boost Upgrades",
+      "description": "Find 18 Boost Upgrades",
+      "value": 18
+    }
+  ],
+  [
+    {
+      "typeId": 20,
+      "level": 0,
+      "name": "Find 1 Fort",
+      "description": "Find 1 Fort",
+      "value": 1
+    },
+    {
+      "typeId": 20,
+      "level": 1,
+      "name": "Find 3 Forts",
+      "description": "Find 3 Forts",
+      "value": 3
+    },
+    {
+      "typeId": 20,
+      "level": 2,
+      "name": "Find 6 Forts",
+      "description": "Find 6 Forts",
+      "value": 6
+    },
+    {
+      "typeId": 20,
+      "level": 3,
+      "name": "Find 9 Forts",
+      "description": "Find 9 Forts",
+      "value": 9
+    },
+    {
+      "typeId": 20,
+      "level": 4,
+      "name": "Find 12 Forts",
+      "description": "Find 12 Forts",
+      "value": 12
+    },
+    {
+      "typeId": 20,
+      "level": 5,
+      "name": "Find 15 Forts",
+      "description": "Find 15 Forts",
+      "value": 15
+    },
+    {
+      "typeId": 20,
+      "level": 6,
+      "name": "Find 18 Forts",
+      "description": "Find 18 Forts",
+      "value": 18
+    }
+  ],
+  [
+    {
+      "typeId": 21,
+      "level": 0,
+      "name": "Complete 1 Map",
+      "description": "Finish 1 Map 100%",
+      "value": 1
+    },
+    {
+      "typeId": 21,
+      "level": 1,
+      "name": "Complete 3 Maps",
+      "description": "Finish 3 Maps 100%",
+      "value": 3
+    },
+    {
+      "typeId": 21,
+      "level": 2,
+      "name": "Complete 6 Maps",
+      "description": "Finish 6 Maps 100%",
+      "value": 6
+    },
+    {
+      "typeId": 21,
+      "level": 3,
+      "name": "Complete 9 Maps",
+      "description": "Finish 9 Maps 100%",
+      "value": 9
+    },
+    {
+      "typeId": 21,
+      "level": 4,
+      "name": "Complete 12 Maps",
+      "description": "Finish 12 Maps 100%",
+      "value": 12
+    },
+    {
+      "typeId": 21,
+      "level": 5,
+      "name": "Complete 15 Maps",
+      "description": "Finish 15 Maps 100%",
+      "value": 15
+    },
+    {
+      "typeId": 21,
+      "level": 6,
+      "name": "Complete 18 Maps",
+      "description": "Finish 18 Maps 100%",
+      "value": 18
+    }
+  ]
+]

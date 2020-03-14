@@ -10,7 +10,17 @@ before_install:
 install: npm install
 
 script:
-  - npm run test
+  - npm run test-all
+
+before_deploy:
+  - npm run build
+
+deploy:
+  provider: script
+  script: chmod +x ./publish.sh && ./publish.sh
+  skip_cleanup: true
+  on:
+    branch: master
 
 notifications:
   email: false

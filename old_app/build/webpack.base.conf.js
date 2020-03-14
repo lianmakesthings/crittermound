@@ -25,11 +25,7 @@ module.exports = {
     globalObject: 'this'
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
-    alias: {
-      'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src'),
-    }
+    extensions: ['.js', '.vue', '.json']
   },
   module: {
     rules: [
