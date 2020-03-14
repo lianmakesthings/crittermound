@@ -7,6 +7,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "test": "./node_modules/mocha/bin/mocha -r esm ./tests/lib/*.spec.js && vue-cli-service test:unit",
     "test:lib": "./node_modules/mocha/bin/mocha -r esm ./tests/lib/*.spec.js",
     "test:components": "vue-cli-service test:unit"
   },
