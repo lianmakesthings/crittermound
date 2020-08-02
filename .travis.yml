@@ -1,5 +1,4 @@
 language: node_js
-sudo: true
 if: type = pull_request || branch = master
 
 before_install:
