@@ -1,22 +1,24 @@
-import Vue from 'vue';
+import { createApp } from 'vue';
 import App from './App.vue';
-import BootstrapVue from 'bootstrap-vue';
+import { createBootstrap } from 'bootstrap-vue-next';
 import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
+import 'bootstrap-vue-next/dist/bootstrap-vue-next.css';
 import getStore from './store/store';
-import Worker from 'worker-loader!./Worker.js';
 import CritterFactory from './lib/CritterFactory';
 
-Vue.use(BootstrapVue);
-Vue.config.productionTip = false
-
 getStore((store) => {
-  const vueApp = new Vue({
-    store,
-    render: h => h(App)
-  }).$mount('#app')
+  const app = createApp(App);
 
-  const worker = new Worker();
+  app.use(store);
+  app.use(createBootstrap());
+
+  const vueApp = app.mount('#app');
+
+  // Use native ES module worker
+  const worker = new Worker(
+    new URL('./Worker.js', import.meta.url),
+    { type: 'module' }
+  );
 
   worker.onmessage = (msg) => {
     const changes = msg.data;
