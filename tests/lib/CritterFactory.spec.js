@@ -1,9 +1,9 @@
-import Critter from '../../src/lib/Critter';
-import { RandomInRange, StatVariance } from "../../src/lib/Helpers";
-import CritterFactory from '../../src/lib/CritterFactory';
-import GeneFactory from "../../src/lib/GeneFactory";
-import Gene from '../../src/lib/Gene';
-import GeneHelper from "../../src/lib/GeneHelper";
+import Critter from '../../src/lib/Critter.js';
+import { RandomInRange, StatVariance } from '../../src/lib/Helpers.js';
+import CritterFactory from '../../src/lib/CritterFactory.js';
+import GeneFactory from '../../src/lib/GeneFactory.js';
+import Gene from '../../src/lib/Gene.js';
+import GeneHelper from '../../src/lib/GeneHelper.js';
 
 import chai from 'chai';
 import sinon from 'sinon';

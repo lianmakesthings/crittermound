@@ -1,7 +1,7 @@
 import chai from 'chai';
 import sinonChai from 'sinon-chai';
-import Treasure from "../../src/lib/Treasure";
-import War from "../../src/lib/War";
+import Treasure from '../../src/lib/Treasure.js';
+import War from '../../src/lib/War.js';
 
 chai.use(sinonChai);
 

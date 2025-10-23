@@ -5,9 +5,9 @@ const sandbox = sinon.createSandbox();
 chai.use(sinonChai);
 const expect = chai.expect;
 
-import Achievement from '../../src/lib/Achievement';
-import Critter from "../../src/lib/Critter";
-import CritterFactory from "../../src/lib/CritterFactory";
+import Achievement from '../../src/lib/Achievement.js';
+import Critter from '../../src/lib/Critter.js';
+import CritterFactory from '../../src/lib/CritterFactory.js';
 describe('Achievement', () => {
   describe('getting all achievements', () => {
     it('should return in one flattened array', () => {

@@ -1,7 +1,7 @@
-import Critter from '../../src/lib/Critter';
-import Trait from '../../src/lib/Trait';
-import GeneFactory from '../../src/lib/GeneFactory';
-import Gene from '../../src/lib/Gene';
+import Critter from '../../src/lib/Critter.js';
+import Trait from '../../src/lib/Trait.js';
+import GeneFactory from '../../src/lib/GeneFactory.js';
+import Gene from '../../src/lib/Gene.js';
 
 import chai from 'chai';
 import sinonChai from 'sinon-chai';

@@ -1,6 +1,6 @@
-import Trait from "../../src/lib/Trait";
-import Gene from "../../src/lib/Gene";
-import GeneFactory from "../../src/lib/GeneFactory";
+import Trait from '../../src/lib/Trait.js';
+import Gene from '../../src/lib/Gene.js';
+import GeneFactory from '../../src/lib/GeneFactory.js';
 
 import chai from 'chai';
 import sinon from 'sinon';

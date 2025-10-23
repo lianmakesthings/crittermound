@@ -1,6 +1,6 @@
-import GeneHelper from '../../src/lib/GeneHelper';
-import Gene from '../../src/lib/Gene';
-import {StatVariance} from "../../src/lib/Helpers";
+import GeneHelper from '../../src/lib/GeneHelper.js';
+import Gene from '../../src/lib/Gene.js';
+import {StatVariance} from '../../src/lib/Helpers.js';
 
 import chai from 'chai';
 import sinon from 'sinon';

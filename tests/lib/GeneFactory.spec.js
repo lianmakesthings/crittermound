@@ -1,6 +1,6 @@
-import GeneFactory from '../../src/lib/GeneFactory';
-import Gene from '../../src/lib/Gene';
-import genes from '../../src/lib/genes.json'
+import GeneFactory from '../../src/lib/GeneFactory.js';
+import Gene from '../../src/lib/Gene.js';
+import genes from '../../src/lib/genes.json' with { type: 'json' }
 
 import chai from 'chai';
 import sinon from 'sinon';

@@ -1,14 +1,14 @@
-import getStore from '../../src/store/store';
+import getStore from '../../src/store/store.js';
 import chai from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import localforage from 'localforage';
-import state from '../../src/store/state';
-import CritterFactory from "../../src/lib/CritterFactory";
-import Critter from "../../src/lib/Critter";
-import Nation from "../../src/lib/Nation";
-import War from "../../src/lib/War";
-import SodProduction from "../../src/lib/SodProduction";
+import state from '../../src/store/state.json' with { type: 'json' };
+import CritterFactory from '../../src/lib/CritterFactory.js';
+import Critter from '../../src/lib/Critter.js';
+import Nation from '../../src/lib/Nation.js';
+import War from '../../src/lib/War.js';
+import SodProduction from '../../src/lib/SodProduction.js';
 
 chai.use(sinonChai);
 const expect = chai.expect;

@@ -1,7 +1,7 @@
-import SodProduction from '../../src/lib/SodProduction';
-import Trait from '../../src/lib/Trait';
-import CritterFactory from '../../src/lib/CritterFactory';
-import Critter from '../../src/lib/Critter';
+import SodProduction from '../../src/lib/SodProduction.js';
+import Trait from '../../src/lib/Trait.js';
+import CritterFactory from '../../src/lib/CritterFactory.js';
+import Critter from '../../src/lib/Critter.js';
 
 import chai from 'chai';
 import sinon from 'sinon';

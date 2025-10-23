@@ -1,7 +1,7 @@
 import chai from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-import Tile from '../../src/lib/Tile';
+import Tile from '../../src/lib/Tile.js';
 
 chai.use(sinonChai);
 
