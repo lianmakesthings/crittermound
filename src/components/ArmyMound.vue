@@ -1,7 +1,7 @@
 <template>
   <div class="army-mound">
     <h3>Army {{critters.length}} / {{mound.size}}</h3>
-    <b-button v-on:click="upgrade(location, type)">Upgrade {{ upgradeCost }} Sod</b-button>
+    <BButton @click="upgrade(location, type)">Upgrade {{ upgradeCost }} Sod</BButton>
     <critter-header :bgColor="bgColor"></critter-header>
     <div v-for="critter in critters">
       <critter :critterId="critter.id" :showProgressBar="true"></critter>
