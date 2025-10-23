@@ -362,6 +362,8 @@ export default (cb, reinitialize = false) => {
   if (store && !reinitialize) {
     cb(store);
   } else {
-    initializeStore().then(cb)
+    initializeStore().then(cb).catch(err => {
+      console.error('initializeStore failed:', err);
+    })
   }
 }
