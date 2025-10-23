@@ -1,12 +1,7 @@
-import {createLocalVue, shallowMount} from "@vue/test-utils";
-import BootstrapVue from "bootstrap-vue";
-import Vuex from "vuex";
-import Worker from '../../src/components/Worker';
+import {shallowMount} from "@vue/test-utils";
+import {createStore} from "vuex";
+import Worker from '../../src/components/Worker.vue';
 import { expect } from "chai";
-
-const localVue = createLocalVue();
-localVue.use(BootstrapVue);
-localVue.use(Vuex);
 
 describe('The Worker View', () => {
   let store;
@@ -24,7 +19,7 @@ describe('The Worker View', () => {
   const totalSod = 0;
 
   beforeEach(() => {
-    store = new Vuex.Store({
+    store = createStore({
       getters: {
         sodProduction: () => sodProduction,
         totalSod: () => totalSod
@@ -33,7 +28,11 @@ describe('The Worker View', () => {
   });
 
   it('should show the production overview', () => {
-    const workerTabWrapper = shallowMount(Worker, {store, localVue});
+    const workerTabWrapper = shallowMount(Worker, {
+      global: {
+        plugins: [store]
+      }
+    });
     const mineDirtWrapper = workerTabWrapper.find('#mine-dirt');
     const factoryDirtWrapper = workerTabWrapper.find('#factory-dirt');
     const produceSodWrapper = workerTabWrapper.find('#produce-sod');
@@ -50,7 +49,11 @@ describe('The Worker View', () => {
   it('should show the worker mounds', () => {
     const location = 'worker';
     const workerMoundStub = 'WORKER-MOUND-STUB';
-    const workerTabWrapper = shallowMount(Worker, {store, localVue});
+    const workerTabWrapper = shallowMount(Worker, {
+      global: {
+        plugins: [store]
+      }
+    });
     const mineWorkerWrapper = workerTabWrapper.find('#mine-worker-mound');
     const farmWorkerWrapper = workerTabWrapper.find('#farm-worker-mound');
     const carryWorkerWrapper = workerTabWrapper.find('#carry-worker-mound');

@@ -1,15 +1,10 @@
-import {createLocalVue, shallowMount, mount} from "@vue/test-utils";
-import BootstrapVue from "bootstrap-vue";
-import Vuex from "vuex";
-import HatcheryMound from '../../src/components/HatcheryMound';
+import {shallowMount, mount} from "@vue/test-utils";
+import {createStore} from "vuex";
+import HatcheryMound from '../../src/components/HatcheryMound.vue';
 import chai, { expect } from "chai";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 chai.use(sinonChai);
-
-const localVue = createLocalVue();
-localVue.use(BootstrapVue);
-localVue.use(Vuex);
 
 describe('The Hatchery Mound View', () => {
   const location = 'royalHatchery';
@@ -22,7 +17,7 @@ describe('The Hatchery Mound View', () => {
   let store;
 
   beforeEach(() => {
-    store = new Vuex.Store({
+    store = createStore({
       getters: {
         critters: () => {
           return () => [critter];
@@ -36,14 +31,24 @@ describe('The Hatchery Mound View', () => {
   });
 
   it('should display the basic information', () => {
-    const hatcheryMoundWrapper = shallowMount(HatcheryMound, {propsData, store, localVue});
+    const hatcheryMoundWrapper = shallowMount(HatcheryMound, {
+      props: propsData,
+      global: {
+        plugins: [store]
+      }
+    });
     const title = hatcheryMoundWrapper.find('h4');
 
     expect(title.text()).to.equal(`Hatchery ${critters.length} / ${mound.size}`)
   });
 
   it('should show critter details', () => {
-    const hatcheryMoundWrapper = shallowMount(HatcheryMound, {propsData, store, localVue});
+    const hatcheryMoundWrapper = shallowMount(HatcheryMound, {
+      props: propsData,
+      global: {
+        plugins: [store]
+      }
+    });
     const headerWrapper = hatcheryMoundWrapper.find(`#critter-header-${location}-${type}`);
     const critterWrapper = hatcheryMoundWrapper.find(`#critter-${critter.id}`);
 
@@ -62,7 +67,12 @@ describe('The Hatchery Mound View', () => {
   });
 
   it('should show buttons to use critters', () => {
-    const hatcheryMoundWrapper = shallowMount(HatcheryMound, {propsData, store, localVue});
+    const hatcheryMoundWrapper = shallowMount(HatcheryMound, {
+      props: propsData,
+      global: {
+        plugins: [store]
+      }
+    });
     const replaceParentButton = hatcheryMoundWrapper.find(`#replace-parent-${location}-${type}`);
     const addWorkerButton = hatcheryMoundWrapper.find(`#add-worker-${location}-${type}`);
     const addSoldierButton = hatcheryMoundWrapper.find(`#add-soldier-${location}-${type}`);
@@ -82,7 +92,13 @@ describe('The Hatchery Mound View', () => {
       'b-dropdown': true
     };
     sinon.stub(store, 'dispatch');
-    const hatcheryMoundWrapper = mount(HatcheryMound, {propsData, store, localVue, stubs});
+    const hatcheryMoundWrapper = mount(HatcheryMound, {
+      props: propsData,
+      global: {
+        plugins: [store],
+        stubs
+      }
+    });
     const replaceParentButton = hatcheryMoundWrapper.find(`#replace-parent-${location}-${type}`);
 
     replaceParentButton.trigger('click');
@@ -96,7 +112,13 @@ describe('The Hatchery Mound View', () => {
       'b-dropdown': true
     };
     sinon.stub(store, 'dispatch');
-    const hatcheryMoundWrapper = mount(HatcheryMound, {propsData, store, localVue, stubs});
+    const hatcheryMoundWrapper = mount(HatcheryMound, {
+      props: propsData,
+      global: {
+        plugins: [store],
+        stubs
+      }
+    });
     const addWorkerButton = hatcheryMoundWrapper.find(`#add-worker-${location}-${type}`);
 
     addWorkerButton.trigger('click');
@@ -110,7 +132,13 @@ describe('The Hatchery Mound View', () => {
       'b-dropdown': true
     };
     sinon.stub(store, 'dispatch');
-    const hatcheryMoundWrapper = mount(HatcheryMound, {propsData, store, localVue, stubs});
+    const hatcheryMoundWrapper = mount(HatcheryMound, {
+      props: propsData,
+      global: {
+        plugins: [store],
+        stubs
+      }
+    });
     const addSoldierButton = hatcheryMoundWrapper.find(`#add-soldier-${location}-${type}`);
 
     addSoldierButton.trigger('click');
@@ -123,7 +151,13 @@ describe('The Hatchery Mound View', () => {
       'critter': true,
     };
 
-    const hatcheryMoundWrapper = mount(HatcheryMound, {propsData, store, localVue, stubs});
+    const hatcheryMoundWrapper = mount(HatcheryMound, {
+      props: propsData,
+      global: {
+        plugins: [store],
+        stubs
+      }
+    });
     const sortDropdown = hatcheryMoundWrapper.find(`#sort-dropdown-${location}-${type}`);
     const expectedText = `${sorts[0]}${sorts[1]}`;
     expect(sortDropdown.text()).to.equal(expectedText);

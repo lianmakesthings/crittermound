@@ -1,16 +1,11 @@
-import {createLocalVue, shallowMount, mount} from "@vue/test-utils";
-import BootstrapVue from "bootstrap-vue";
-import Vuex from "vuex";
+import {shallowMount, mount} from "@vue/test-utils";
+import {createStore} from "vuex";
 import chai, { expect } from "chai";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 chai.use(sinonChai);
-import Nation from '../../src/lib/Nation';
-import Nations from '../../src/components/Nations';
-
-const localVue = createLocalVue();
-localVue.use(BootstrapVue);
-localVue.use(Vuex);
+import Nation from '../../src/lib/Nation.js';
+import Nations from '../../src/components/Nations.vue';
 
 describe('The Nations View', () => {
   const cricketNation = Nation.CRICKETS;
@@ -21,7 +16,7 @@ describe('The Nations View', () => {
 
   beforeEach(() => {
     sinon.stub(Nation, 'allNations').returns(allNations);
-    store = new Vuex.Store({
+    store = createStore({
       getters: {
         isNationUnlocked: () => {
           return nationId => !!unlockedNations.find(n => n.id === nationId)
@@ -32,7 +27,11 @@ describe('The Nations View', () => {
   });
 
   it('should display information for each nation', () => {
-    const nationsViewWrapper = shallowMount(Nations, {store, localVue});
+    const nationsViewWrapper = shallowMount(Nations, {
+      global: {
+        plugins: [store]
+      }
+    });
 
     const cricketNationWrapper = nationsViewWrapper.find(`#nation-${cricketNation.id}`);
     expect(cricketNationWrapper.text()).to.equal(`${cricketNation.custom}${cricketNation.minBaseVal} - ${cricketNation.maxBaseVal}`);
@@ -44,7 +43,11 @@ describe('The Nations View', () => {
   });
 
   it('should show different bg and text variants for locked and unlocked nations', () => {
-    const nationsViewWrapper = shallowMount(Nations, {store, localVue});
+    const nationsViewWrapper = shallowMount(Nations, {
+      global: {
+        plugins: [store]
+      }
+    });
     const cricketNationWrapper = nationsViewWrapper.find(`#nation-${cricketNation.id}`);
     const beeNationWrapper = nationsViewWrapper.find(`#nation-${beeNation.id}`);
 
@@ -55,7 +58,11 @@ describe('The Nations View', () => {
   });
 
   it('should start war', () => {
-    const nationsViewWrapper = mount(Nations, {store, localVue});
+    const nationsViewWrapper = mount(Nations, {
+      global: {
+        plugins: [store]
+      }
+    });
     const cricketNationWrapper = nationsViewWrapper.find(`#nation-${cricketNation.id}`);
 
     cricketNationWrapper.trigger('click');
@@ -64,7 +71,11 @@ describe('The Nations View', () => {
   });
 
   it('should not start war if nation is not unlocked', () => {
-    const nationsViewWrapper = mount(Nations, {store, localVue});
+    const nationsViewWrapper = mount(Nations, {
+      global: {
+        plugins: [store]
+      }
+    });
     const beeNationWrapper = nationsViewWrapper.find(`#nation-${beeNation.id}`);
 
     beeNationWrapper.trigger('click');

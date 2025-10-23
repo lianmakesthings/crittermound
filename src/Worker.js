@@ -4,7 +4,7 @@ const controller = new Controller();
 import CritterFactory from './lib/CritterFactory';
 
 // Respond to message from parent thread
-onmessage = (msg) => {
+self.onmessage = (msg) => {
   state = msg.data;
 
   const mounds = [{
@@ -41,5 +41,5 @@ onmessage = (msg) => {
   });
 
   const changes = controller.checkTick(new Date().getTime(), state);
-  postMessage(changes);
+  self.postMessage(changes);
 };

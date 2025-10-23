@@ -1,16 +1,16 @@
 import { mount } from '@vue/test-utils'
-import CritterHeader from '../../src/components/CritterHeader';
+import CritterHeader from '../../src/components/CritterHeader.vue';
 import { expect } from "chai";
 
 describe('The critterHeader view', () => {
   it('should set the correct background color', () => {
     const wrapperPink = mount(CritterHeader, {
-      propsData: {
+      props: {
         bgColor: '#f2dede'
       }
     });
     const wrapperBlue = mount(CritterHeader, {
-      propsData: {
+      props: {
         bgColor: '#d9edf7'
       }
     });

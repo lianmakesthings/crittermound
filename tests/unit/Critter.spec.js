@@ -1,17 +1,12 @@
-import {createLocalVue, shallowMount} from "@vue/test-utils";
-import BootstrapVue from "bootstrap-vue";
-import Vuex from "vuex";
-import Critter from "../../src/components/Critter";
-import CritterFactory from "../../src/lib/CritterFactory";
-import Trait from "../../src/lib/Trait";
+import {shallowMount} from "@vue/test-utils";
+import {createStore} from "vuex";
+import Critter from "../../src/components/Critter.vue";
+import CritterFactory from "../../src/lib/CritterFactory.js";
+import Trait from "../../src/lib/Trait.js";
 import chai, { expect } from "chai";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 chai.use(sinonChai);
-
-const localVue = createLocalVue();
-localVue.use(BootstrapVue);
-localVue.use(Vuex);
 
 describe("The critter view", () => {
   let critter;
@@ -35,7 +30,7 @@ describe("The critter view", () => {
       critterId: critter.id,
       showProgressBar: false
     };
-    store = new Vuex.Store({
+    store = createStore({
       state: {},
       getters: {
         findCritter: () => {
@@ -46,7 +41,12 @@ describe("The critter view", () => {
     });
   });
   it('should show critter properties', () => {
-    const critterWrapper = shallowMount(Critter, {propsData, store, localVue});
+    const critterWrapper = shallowMount(Critter, {
+      props: propsData,
+      global: {
+        plugins: [store]
+      }
+    });
 
     const detailsId = `totalDetails-${critter.id}`;
     const totalDetails = critterWrapper.find('#totalDetails').element.children;
@@ -122,7 +122,12 @@ describe("The critter view", () => {
     sinon.stub(critter.traits[Trait.ID_STING], 'bonus').get(() => bonusScore);
     sinon.stub(critter.traits[Trait.ID_STING], 'getTrueValue').returns(trueValue);
 
-    const critterWrapper = shallowMount(Critter, {propsData, store, localVue});
+    const critterWrapper = shallowMount(Critter, {
+      props: propsData,
+      global: {
+        plugins: [store]
+      }
+    });
 
     const detailsId = `totalDetails-${critter.id}`;
     const totalDetails = critterWrapper.find('#totalDetails').element.children;
@@ -195,7 +200,12 @@ describe("The critter view", () => {
     critter.currentHealth = 15;
     const maxHealth = 40;
     sinon.stub(critter, 'maxHealth').get(() => maxHealth);
-    const critterWrapper = shallowMount(Critter, {propsData, store, localVue});
+    const critterWrapper = shallowMount(Critter, {
+      props: propsData,
+      global: {
+        plugins: [store]
+      }
+    });
     const progressBar = critterWrapper.find(`#progressBar-${critter.id}`);
     expect(progressBar.attributes('value')).to.equal(critter.currentHealth.toString());
     expect(progressBar.attributes('max')).to.equal(maxHealth.toString());

@@ -1,15 +1,10 @@
-import {createLocalVue, shallowMount, mount} from "@vue/test-utils";
-import BootstrapVue from "bootstrap-vue";
-import Vuex from "vuex";
-import BreedingMound from '../../src/components/BreedingMound';
+import {shallowMount, mount} from "@vue/test-utils";
+import {createStore} from "vuex";
+import BreedingMound from '../../src/components/BreedingMound.vue';
 import chai, { expect } from "chai";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 chai.use(sinonChai);
-
-const localVue = createLocalVue();
-localVue.use(BootstrapVue);
-localVue.use(Vuex);
 
 
 
@@ -25,7 +20,7 @@ describe("The breeding mound view", () => {
   let store;
 
   beforeEach(() => {
-    store = new Vuex.Store({
+    store = createStore({
       getters: {
         mound: () => {
           return () => mound
@@ -38,13 +33,23 @@ describe("The breeding mound view", () => {
 
   it('should render correct name', () => {
     const name = 'Queen';
-    const breedingMoundWrapper = shallowMount(BreedingMound, {propsData, store, localVue});
+    const breedingMoundWrapper = shallowMount(BreedingMound, {
+      props: propsData,
+      global: {
+        plugins: [store]
+      }
+    });
     const title = breedingMoundWrapper.find('h3');
     expect(title.text()).to.equal(name)
   });
 
   it('should have buttons to boost and upgrade', () => {
-    const breedingMoundWrapper = shallowMount(BreedingMound, {propsData, store, localVue});
+    const breedingMoundWrapper = shallowMount(BreedingMound, {
+      props: propsData,
+      global: {
+        plugins: [store]
+      }
+    });
     const boostButton = breedingMoundWrapper.find(`#button-boost-${location}-${type}`);
     const upgradeButton = breedingMoundWrapper.find(`#button-upgrade-${location}-${type}`);
 
@@ -58,7 +63,13 @@ describe("The breeding mound view", () => {
       'critter': true
     };
     sinon.stub(store, 'dispatch');
-    const breedingMoundWrapper = mount(BreedingMound, {propsData, store, localVue, stubs});
+    const breedingMoundWrapper = mount(BreedingMound, {
+      props: propsData,
+      global: {
+        plugins: [store],
+        stubs
+      }
+    });
     const boostButton = breedingMoundWrapper.find(`#button-boost-${location}-${type}`);
 
     boostButton.trigger('click');
@@ -71,7 +82,13 @@ describe("The breeding mound view", () => {
       'critter': true
     };
     sinon.stub(store, 'dispatch');
-    const breedingMoundWrapper = mount(BreedingMound, {propsData, store, localVue, stubs});
+    const breedingMoundWrapper = mount(BreedingMound, {
+      props: propsData,
+      global: {
+        plugins: [store],
+        stubs
+      }
+    });
     const upgradeButton = breedingMoundWrapper.find(`#button-upgrade-${location}-${type}`);
 
     upgradeButton.trigger('click');
@@ -80,7 +97,12 @@ describe("The breeding mound view", () => {
 
   it('should render critter details', () => {
     const bgColor = '#f2dede';
-    const breedingMoundWrapper = shallowMount(BreedingMound, {propsData, store, localVue});
+    const breedingMoundWrapper = shallowMount(BreedingMound, {
+      props: propsData,
+      global: {
+        plugins: [store]
+      }
+    });
     const headerWrapper = breedingMoundWrapper.find(`#critter-header-${critter.id}`);
     const critterWrapper = breedingMoundWrapper.find(`#critter-${critter.id}`);
 
@@ -94,7 +116,12 @@ describe("The breeding mound view", () => {
     critter.gender = 'male';
     const name = 'King';
     const bgColor = '#d9edf7';
-    const breedingMoundWrapper = shallowMount(BreedingMound, {propsData, store, localVue});
+    const breedingMoundWrapper = shallowMount(BreedingMound, {
+      props: propsData,
+      global: {
+        plugins: [store]
+      }
+    });
     const headerWrapper = breedingMoundWrapper.find(`#critter-header-${critter.id}`);
     const title = breedingMoundWrapper.find('h3');
 
