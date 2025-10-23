@@ -96,9 +96,9 @@ describe('The vuex store', () => {
     });
 
     
-    it.skip('should return all critters', (done) => {
-      const queen = {};
-      const worker = {};
+    it('should return all critters', (done) => {
+      const queen = { id: 'queen' };
+      const worker = { id: 'worker' };
       mockedState.royalHatchery.mother.critters.push(queen);
       mockedState.worker.mine.critters.push(worker);
 
@@ -107,15 +107,15 @@ describe('The vuex store', () => {
         const allCritters = store.getters.allCritters;
 
         expect(allCritters.length).to.equal(2);
-        expect(allCritters).to.include(queen);
-        expect(allCritters).to.include(worker);
+        expect(allCritters).to.deep.include(queen);
+        expect(allCritters).to.deep.include(worker);
         done();
       }, true);
     });
 
-    it.skip('should return all workers', (done) => {
-      const queen = {};
-      const worker = {};
+    it('should return all workers', (done) => {
+      const queen = { id: 'queen' };
+      const worker = { id: 'worker' };
       mockedState.royalHatchery.mother.critters.push(queen);
       mockedState.worker.mine.critters.push(worker);
 
@@ -124,8 +124,8 @@ describe('The vuex store', () => {
         const allCritters = store.getters.allWorkers;
 
         expect(allCritters.length).to.equal(1);
-        expect(allCritters).to.include(worker);
-        expect(allCritters).not.to.include(queen);
+        expect(allCritters).to.deep.include(worker);
+        expect(allCritters).not.to.deep.include(queen);
         done();
       }, true);
     });
