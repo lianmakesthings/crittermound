@@ -2,14 +2,15 @@
   "name": "crittermound",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "a complete rework of crittermound with vuejs",
   "author": "lianmakesthings",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test": "./node_modules/mocha/bin/mocha -r esm ./tests/lib/*.spec.js && vue-cli-service test:unit",
+    "test": "mocha ./tests/lib/*.spec.js && vue-cli-service test:unit",
     "test:components": "vue-cli-service test:unit",
-    "test:lib": "./node_modules/mocha/bin/mocha -r esm ./tests/lib/*.spec.js"
+    "test:lib": "mocha ./tests/lib/*.spec.js"
   },
   "dependencies": {
     "bootstrap": "^5.3.0",
