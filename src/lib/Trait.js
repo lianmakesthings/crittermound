@@ -1,5 +1,5 @@
-import {SmartRound} from './Helpers';
-import Gene from './Gene';
+import {SmartRound} from './Helpers.js';
+import Gene from './Gene.js';
 
 class Trait {
   constructor(id, baseValue) {

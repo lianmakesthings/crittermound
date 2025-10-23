@@ -1,6 +1,6 @@
-import Tile from './Tile';
-import {CoinFlip, RandomInRange} from "./Helpers";
-import Treasure from "./Treasure";
+import Tile from './Tile.js';
+import {CoinFlip, RandomInRange} from "./Helpers.js";
+import Treasure from "./Treasure.js";
 
 class Map {
   constructor(width, height) {

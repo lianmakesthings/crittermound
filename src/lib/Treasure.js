@@ -1,4 +1,4 @@
-import War from "./War";
+import War from "./War.js";
 
 class Treasure {
   static getAll = () => {

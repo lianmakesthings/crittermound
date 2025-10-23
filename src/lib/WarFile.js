@@ -1,4 +1,4 @@
-import {RandomInRange, CoinFlip} from './Helpers'
+import {RandomInRange, CoinFlip} from './Helpers.js'
 
 class Map {
   constructor(width, height) {

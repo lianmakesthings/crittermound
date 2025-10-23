@@ -1,5 +1,5 @@
-import achievements from './achievements.json';
-import Trait from './Trait';
+import achievements from './achievements.json' with { type: 'json' };
+import Trait from './Trait.js';
 
 class Achievement {
   static check(state, changes) {
