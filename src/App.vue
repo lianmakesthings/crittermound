@@ -3,26 +3,26 @@
     <h1>Critter Mound v2.0</h1>
     <div class="appHeader">
         <div class="totalSod">Sod {{ totalSod }}</div>
-        <b-button v-on:click="save">Save</b-button>
+        <BButton @click="save">Save</BButton>
         <div v-show="stateSaved" class="alert alert-info">State saved</div>
     </div>
-    <b-tabs>
-      <b-tab :title="'Royal Hatchery '+royalHatchery.current+' / '+royalHatchery.max" active>
+    <BTabs>
+      <BTab :title="'Royal Hatchery '+royalHatchery.current+' / '+royalHatchery.max" active>
         <royal-hatchery></royal-hatchery>
-      </b-tab>
-      <b-tab :title="'Worker '+worker.current+' / '+worker.max">
+      </BTab>
+      <BTab :title="'Worker '+worker.current+' / '+worker.max">
         <worker></worker>
-      </b-tab>
-      <b-tab :title="'Soldiers '+army.current+' / '+army.max">
+      </BTab>
+      <BTab :title="'Soldiers '+army.current+' / '+army.max">
         <soldiers></soldiers>
-      </b-tab>
-      <b-tab :title="'Achievements '+achievement.current+' / '+achievement.max">
+      </BTab>
+      <BTab :title="'Achievements '+achievement.current+' / '+achievement.max">
         <achievement></achievement>
-      </b-tab>
-      <b-tab title="How To Play">
+      </BTab>
+      <BTab title="How To Play">
         <how-to></how-to>
-      </b-tab>
-    </b-tabs>
+      </BTab>
+    </BTabs>
   </div>
 </template>
 
