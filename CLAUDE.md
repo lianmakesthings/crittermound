@@ -125,12 +125,12 @@ Farm ────────────┘
 - ✅ ES modules migration complete (all `.js` extensions added)
 - ✅ All 143 tests passing
 - ✅ Store converted to Vuex 4 API
-- 🔄 Bootstrap-Vue → Bootstrap-Vue-Next component migration (App.vue done)
+- ✅ Bootstrap-Vue → Bootstrap-Vue-Next component migration complete
 
 **Remaining work:**
-- Convert remaining Bootstrap-Vue components to Bootstrap-Vue-Next
 - Update Worker.js to ES module format (currently uses non-standard imports)
 - Update component tests for Vue 3 APIs
+- Manual browser testing to verify app runs correctly
 
 **Bootstrap-Vue-Next component mapping:**
 - `<b-button>` → `<BButton>`
