@@ -118,19 +118,22 @@ Farm ────────────┘
 - Buffer levels (`dirtStored`, `grassStored`, `factoryDirtStored`, `factoryGrassStored`)
 - Carry capacity (if buffers are full, carriers are the bottleneck)
 
-## Migration to Vue 3 (In Progress)
+## Migration to Vue 3 (Nearly Complete!)
 
 **Current status:** On branch `vue3-migration`
 - ✅ Vue 3.4.0 + Vuex 4.1.0 installed
-- ✅ ES modules migration complete (all `.js` extensions added)
-- ✅ All 143 tests passing
+- ✅ ES modules migration complete (all `.js` and `.vue` extensions added)
+- ✅ All 143 library tests passing
 - ✅ Store converted to Vuex 4 API
 - ✅ Bootstrap-Vue → Bootstrap-Vue-Next component migration complete
+- ✅ Worker.js converted to ES module format (`self.onmessage`/`self.postMessage`)
+- ✅ Component tests updated to Vue 3 Test Utils API
+- ✅ babel.config.js converted to ES module format
 
 **Remaining work:**
-- Update Worker.js to ES module format (currently uses non-standard imports)
-- Update component tests for Vue 3 APIs
+- Fix component test webpack configuration (tests updated but not running due to Vue CLI config issues)
 - Manual browser testing to verify app runs correctly
+- Performance testing of Web Worker with ES modules
 
 **Bootstrap-Vue-Next component mapping:**
 - `<b-button>` → `<BButton>`
