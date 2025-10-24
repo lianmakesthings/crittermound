@@ -82,7 +82,7 @@ describe("The critter view", () => {
 
   it('should show the popovers on hover', () => {
     const triggers = 'hover focus';
-    const tagName = 'B-POPOVER-STUB';
+    const tagName = 'BPOPOVER';
     const baseScore = '7';
     const bonusScore = '8';
     const mutations = '9';
