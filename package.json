@@ -8,8 +8,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test": "mocha ./tests/lib/*.spec.js && vue-cli-service test:unit",
-    "test:components": "vue-cli-service test:unit",
+    "test": "npm run test:lib && npm run test:components",
+    "test:components": "vitest run",
     "test:lib": "mocha ./tests/lib/*.spec.js"
   },
   "dependencies": {
@@ -21,16 +21,17 @@
     "vuex": "^4.1.0"
   },
   "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vitest/ui": "^4.0.2",
     "@vue/cli-plugin-babel": "^5.0.8",
-    "@vue/cli-plugin-unit-mocha": "^5.0.8",
     "@vue/cli-plugin-vuex": "^5.0.8",
     "@vue/cli-service": "^5.0.8",
-    "@vue/test-utils": "^2.4.3",
     "@vue/compiler-sfc": "^3.4.0",
+    "@vue/test-utils": "^2.4.3",
     "chai": "^4.4.0",
     "esm": "^3.2.25",
+    "jsdom": "^27.0.1",
     "mocha": "^10.2.0",
-    "sinon": "^17.0.1",
-    "sinon-chai": "^3.7.0"
+    "vitest": "^4.0.2"
   }
 }

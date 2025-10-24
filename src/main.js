@@ -20,6 +20,11 @@ getStore((store) => {
     { type: 'module' }
   );
 
+  // Helper to serialize state for worker (convert class instances to plain objects)
+  const serializeState = (state) => {
+    return JSON.parse(JSON.stringify(state));
+  };
+
   worker.onmessage = (msg) => {
     const changes = msg.data;
 
@@ -28,8 +33,8 @@ getStore((store) => {
     });
 
     store.dispatch('updateData', changes);
-    worker.postMessage(store.getters.entireState);
+    worker.postMessage(serializeState(store.getters.entireState));
   };
 
-  worker.postMessage(store.getters.entireState);
+  worker.postMessage(serializeState(store.getters.entireState));
 });

@@ -1,6 +1,6 @@
 import {shallowMount} from "@vue/test-utils";
 import RoyalHatchery from '../../src/components/RoyalHatchery.vue';
-import { expect } from "chai";
+import { expect } from "vitest";
 
 describe('The Royal Hatchery View', () => {
   it('should show breeding and hatchery mounds for males and females', () => {
@@ -13,17 +13,17 @@ describe('The Royal Hatchery View', () => {
     const femaleHatcheryWrapper = royalHatcheryWrapper.find(`#female-hatchery-mound`);
     const maleHatcheryWrapper = royalHatcheryWrapper.find(`#male-hatchery-mound`);
 
-    expect(femaleBreedingWrapper.element.tagName).to.equal(breedingStubName);
-    expect(femaleBreedingWrapper.attributes('location')).to.equal(location);
-    expect(femaleBreedingWrapper.attributes('type')).to.equal('mother');
-    expect(maleBreedingWrapper.element.tagName).to.equal(breedingStubName);
-    expect(maleBreedingWrapper.attributes('location')).to.equal(location);
-    expect(maleBreedingWrapper.attributes('type')).to.equal('father');
-    expect(femaleHatcheryWrapper.element.tagName).to.equal(hatcheryStubName);
-    expect(femaleHatcheryWrapper.attributes('location')).to.equal(location);
-    expect(femaleHatcheryWrapper.attributes('type')).to.equal('female');
-    expect(maleHatcheryWrapper.element.tagName).to.equal(hatcheryStubName);
-    expect(maleHatcheryWrapper.attributes('location')).to.equal(location);
-    expect(maleHatcheryWrapper.attributes('type')).to.equal('male');
+    expect(femaleBreedingWrapper.element.tagName).toBe(breedingStubName);
+    expect(femaleBreedingWrapper.attributes('location')).toBe(location);
+    expect(femaleBreedingWrapper.attributes('type')).toBe('mother');
+    expect(maleBreedingWrapper.element.tagName).toBe(breedingStubName);
+    expect(maleBreedingWrapper.attributes('location')).toBe(location);
+    expect(maleBreedingWrapper.attributes('type')).toBe('father');
+    expect(femaleHatcheryWrapper.element.tagName).toBe(hatcheryStubName);
+    expect(femaleHatcheryWrapper.attributes('location')).toBe(location);
+    expect(femaleHatcheryWrapper.attributes('type')).toBe('female');
+    expect(maleHatcheryWrapper.element.tagName).toBe(hatcheryStubName);
+    expect(maleHatcheryWrapper.attributes('location')).toBe(location);
+    expect(maleHatcheryWrapper.attributes('type')).toBe('male');
   })
 });

@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import CritterHeader from '../../src/components/CritterHeader.vue';
-import { expect } from "chai";
+import { expect } from "vitest";
 
 describe('The critterHeader view', () => {
   it('should set the correct background color', () => {
@@ -15,7 +15,7 @@ describe('The critterHeader view', () => {
       }
     });
 
-    expect(wrapperPink.element.style.background).to.equal('rgb(242, 222, 222)');
-    expect(wrapperBlue.element.style.background).to.equal('rgb(217, 237, 247)');
+    expect(wrapperPink.element.style.background).toBe('rgb(242, 222, 222)');
+    expect(wrapperBlue.element.style.background).toBe('rgb(217, 237, 247)');
   });
 });

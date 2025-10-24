@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BProgress :id="'progressBar-'+critter.id" v-if="showProgressBar" :value="health" :max="maxHealth" animated></BProgress>
+    <BProgress :id="'progressBar-'+critter.id" v-if="showProgressBar" :value="health" :max="maxHealth" show-progress animated striped style="height: 20px; margin-bottom: 10px;"></BProgress>
     <div class="d-flex justify-content-around">
       <div id="totalDetails">
         <div :id="'totalDetails-'+critter.id">{{ critter.score }}</div>
@@ -82,10 +82,10 @@
         return this.$store.getters.findCritter(this.critterId);
       },
       health() {
-        return this.critter.currentHealth
+        return this.critter.currentHealth;
       },
       maxHealth() {
-        return this.critter.maxHealth
+        return this.critter.maxHealth;
       }
     },
   }

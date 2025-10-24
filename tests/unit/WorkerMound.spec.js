@@ -1,10 +1,7 @@
 import {shallowMount, mount} from "@vue/test-utils";
 import {createStore} from "vuex";
 import WorkerMound from '../../src/components/WorkerMound.vue';
-import chai, { expect } from "chai";
-import sinon from "sinon";
-import sinonChai from "sinon-chai";
-chai.use(sinonChai);
+import { expect, vi } from "vitest";
 
 describe('The Worker Mound view', () => {
   const location = 'worker';
@@ -37,7 +34,7 @@ describe('The Worker Mound view', () => {
     });
     const title = workerMoundWrapper.find('h3');
 
-    expect(title.text()).to.equal(`${type} ${critters.length} / ${mound.size}`)
+    expect(title.text()).toBe(`${type} ${critters.length} / ${mound.size}`)
   });
 
   it('should show critter details', () => {
@@ -50,36 +47,51 @@ describe('The Worker Mound view', () => {
     const headerWrapper = workerMoundWrapper.find(`#critter-header-${location}-${type}`);
     const critterWrapper = workerMoundWrapper.find(`#critter-${critter.id}`);
 
-    expect(headerWrapper.attributes('bgcolor')).to.equal('#56ab60');
-    expect(critterWrapper.attributes('critterid')).to.equal(critter.id.toString());
-    expect(critterWrapper.attributes('showprogressbar')).to.equal('true');
+    expect(headerWrapper.attributes('bgcolor')).toBe('#56ab60');
+    expect(critterWrapper.attributes('critterid')).toBe(critter.id.toString());
+    expect(critterWrapper.attributes('showprogressbar')).toBe('true');
   });
 
   it('should show a different bgcolor for mine', () => {
     const otherType = 'mine';
     const props = JSON.parse(JSON.stringify(propsData));
     props.type = otherType;
-    const workerMoundWrapper = shallowMount(WorkerMound, {propsData: props, store, localVue});
+    const workerMoundWrapper = shallowMount(WorkerMound, {
+      props: props,
+      global: {
+        plugins: [store]
+      }
+    });
     const headerWrapper = workerMoundWrapper.find(`#critter-header-${location}-${otherType}`);
-    expect(headerWrapper.attributes('bgcolor')).to.equal('#ffd143');
+    expect(headerWrapper.attributes('bgcolor')).toBe('#ffd143');
   });
 
   it('should show a different bgcolor for carry', () => {
     const otherType = 'carry';
     const props = JSON.parse(JSON.stringify(propsData));
     props.type = otherType;
-    const workerMoundWrapper = shallowMount(WorkerMound, {propsData: props, store, localVue});
+    const workerMoundWrapper = shallowMount(WorkerMound, {
+      props: props,
+      global: {
+        plugins: [store]
+      }
+    });
     const headerWrapper = workerMoundWrapper.find(`#critter-header-${location}-${otherType}`);
-    expect(headerWrapper.attributes('bgcolor')).to.equal('#b87900');
+    expect(headerWrapper.attributes('bgcolor')).toBe('#b87900');
   });
 
   it('should show a different bgcolor for factory', () => {
     const otherType = 'factory';
     const props = JSON.parse(JSON.stringify(propsData));
     props.type = otherType;
-    const workerMoundWrapper = shallowMount(WorkerMound, {propsData: props, store, localVue});
+    const workerMoundWrapper = shallowMount(WorkerMound, {
+      props: props,
+      global: {
+        plugins: [store]
+      }
+    });
     const headerWrapper = workerMoundWrapper.find(`#critter-header-${location}-${otherType}`);
-    expect(headerWrapper.attributes('bgcolor')).to.equal('#65749f');
+    expect(headerWrapper.attributes('bgcolor')).toBe('#65749f');
   });
 
   it('should show buttons to use critters', () => {
@@ -91,8 +103,8 @@ describe('The Worker Mound view', () => {
     });
     const button = workerMoundWrapper.find(`#upgrade-${location}-${type}`);
 
-    expect(button.attributes('type')).to.equal('button');
-    expect(button.text()).to.equal(`Upgrade ${mound.upgradeCost} Sod`);
+    expect(button.attributes('type')).toBe('button');
+    expect(button.text()).toBe(`Upgrade ${mound.upgradeCost} Sod`);
   });
 
   it('should upgrade mound', () => {
@@ -100,7 +112,7 @@ describe('The Worker Mound view', () => {
       'critter-header': true,
       'critter': true,
     };
-    sinon.stub(store, 'dispatch');
+    vi.spyOn(store, 'dispatch');
     const workerMoundWrapper = mount(WorkerMound, {
       props: propsData,
       global: {
@@ -111,6 +123,6 @@ describe('The Worker Mound view', () => {
     const button = workerMoundWrapper.find(`#upgrade-${location}-${type}`);
 
     button.trigger('click');
-    expect(store.dispatch).to.have.been.calledWith('upgradeMound', {location, type});
+    expect(store.dispatch).toHaveBeenCalledWith('upgradeMound', {location, type});
   })
 });

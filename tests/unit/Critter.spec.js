@@ -3,10 +3,7 @@ import {createStore} from "vuex";
 import Critter from "../../src/components/Critter.vue";
 import CritterFactory from "../../src/lib/CritterFactory.js";
 import Trait from "../../src/lib/Trait.js";
-import chai, { expect } from "chai";
-import sinon from "sinon";
-import sinonChai from "sinon-chai";
-chai.use(sinonChai);
+import { expect, vi } from "vitest";
 
 describe("The critter view", () => {
   let critter;
@@ -20,12 +17,12 @@ describe("The critter view", () => {
   let propsData;
   beforeEach(() => {
     critter = CritterFactory.default(12, 1, 'female');
-    sinon.stub(critter, 'score').get(() => score);
-    sinon.stub(critter.traits[Trait.ID_VITALITY], 'value').get(() => vitality);
-    sinon.stub(critter.traits[Trait.ID_STRENGTH], 'value').get(() => strength);
-    sinon.stub(critter.traits[Trait.ID_AGILITY], 'value').get(() => agility);
-    sinon.stub(critter.traits[Trait.ID_BITE], 'value').get(() => bite);
-    sinon.stub(critter.traits[Trait.ID_STING], 'value').get(() => sting);
+    vi.spyOn(critter, 'score', 'get').mockReturnValue(score);
+    vi.spyOn(critter.traits[Trait.ID_VITALITY], 'value', 'get').mockReturnValue(vitality);
+    vi.spyOn(critter.traits[Trait.ID_STRENGTH], 'value', 'get').mockReturnValue(strength);
+    vi.spyOn(critter.traits[Trait.ID_AGILITY], 'value', 'get').mockReturnValue(agility);
+    vi.spyOn(critter.traits[Trait.ID_BITE], 'value', 'get').mockReturnValue(bite);
+    vi.spyOn(critter.traits[Trait.ID_STING], 'value', 'get').mockReturnValue(sting);
     propsData = {
       critterId: critter.id,
       showProgressBar: false
@@ -49,39 +46,38 @@ describe("The critter view", () => {
     });
 
     const detailsId = `totalDetails-${critter.id}`;
-    const totalDetails = critterWrapper.find('#totalDetails').element.children;
-    expect(totalDetails[0].id).to.equal(detailsId);
-    expect(totalDetails[0].innerHTML).to.equal(score);
+    const totalDetailsDiv = critterWrapper.find(`#${detailsId}`);
+    expect(totalDetailsDiv.text()).toBe(score);
 
     const vitalityId = `vitalityDetails-${critter.id}`;
-    const vitalityDetails = critterWrapper.find('#vitalityDetails').element.children;
-    expect(vitalityDetails[0].id).to.equal(vitalityId);
-    expect(vitalityDetails[0].innerHTML).to.equal(vitality);
-    expect(vitalityDetails[1].getAttribute('target')).to.equal(vitalityId);
+    const vitalityDiv = critterWrapper.find(`#${vitalityId}`);
+    expect(vitalityDiv.text()).toBe(vitality);
+    const vitalityPopover = critterWrapper.find('#vitalityDetails').element.children[1];
+    expect(vitalityPopover.getAttribute('target')).toBe(vitalityId);
 
     const strengthId = `strengthDetails-${critter.id}`;
-    const strengthDetails = critterWrapper.find('#strengthDetails').element.children;
-    expect(strengthDetails[0].id).to.equal(strengthId);
-    expect(strengthDetails[0].innerHTML).to.equal(strength);
-    expect(strengthDetails[1].getAttribute('target')).to.equal(strengthId);
+    const strengthDiv = critterWrapper.find(`#${strengthId}`);
+    expect(strengthDiv.text()).toBe(strength);
+    const strengthPopover = critterWrapper.find('#strengthDetails').element.children[1];
+    expect(strengthPopover.getAttribute('target')).toBe(strengthId);
 
     const agilityId = `agilityDetails-${critter.id}`;
-    const agilityDetails = critterWrapper.find('#agilityDetails').element.children;
-    expect(agilityDetails[0].id).to.equal(agilityId);
-    expect(agilityDetails[0].innerHTML).to.equal(agility);
-    expect(agilityDetails[1].getAttribute('target')).to.equal(agilityId);
+    const agilityDiv = critterWrapper.find(`#${agilityId}`);
+    expect(agilityDiv.text()).toBe(agility);
+    const agilityPopover = critterWrapper.find('#agilityDetails').element.children[1];
+    expect(agilityPopover.getAttribute('target')).toBe(agilityId);
 
     const biteId = `biteDetails-${critter.id}`;
-    const biteDetails = critterWrapper.find('#biteDetails').element.children;
-    expect(biteDetails[0].id).to.equal(biteId);
-    expect(biteDetails[0].innerHTML).to.equal(bite);
-    expect(biteDetails[1].getAttribute('target')).to.equal(biteId);
+    const biteDiv = critterWrapper.find(`#${biteId}`);
+    expect(biteDiv.text()).toBe(bite);
+    const bitePopover = critterWrapper.find('#biteDetails').element.children[1];
+    expect(bitePopover.getAttribute('target')).toBe(biteId);
 
     const stingId = `stingDetails-${critter.id}`;
-    const stingDetails = critterWrapper.find('#stingDetails').element.children;
-    expect(stingDetails[0].id).to.equal(stingId);
-    expect(stingDetails[0].innerHTML).to.equal(sting);
-    expect(stingDetails[1].getAttribute('target')).to.equal(stingId);
+    const stingDiv = critterWrapper.find(`#${stingId}`);
+    expect(stingDiv.text()).toBe(sting);
+    const stingPopover = critterWrapper.find('#stingDetails').element.children[1];
+    expect(stingPopover.getAttribute('target')).toBe(stingId);
   });
 
   it('should show the popovers on hover', () => {
@@ -100,27 +96,27 @@ describe("The critter view", () => {
     const agilityBonus = '17';
     const dirtPerSecond = '18';
 
-    sinon.stub(critter, 'baseScore').get(() => baseScore);
-    sinon.stub(critter, 'bonusScore').get(() => bonusScore);
-    sinon.stub(critter, 'mutations').get(() => mutations);
-    sinon.stub(critter, 'maxHealth').get(() => maxHealth);
-    sinon.stub(critter, 'sodPerSecond').get(() => sodPerSecond);
-    sinon.stub(critter, 'carryPerSecond').get(() => carryPerSecond);
-    sinon.stub(critter, 'actionTimeSeconds').get(() => actionTimeSeconds);
-    sinon.stub(critter, 'strengthBonus').get(() => strengthBonus);
-    sinon.stub(critter, 'grassPerSecond').get(() => grassPerSecond);
-    sinon.stub(critter, 'agilityBonus').get(() => agilityBonus);
-    sinon.stub(critter, 'dirtPerSecond').get(() => dirtPerSecond);
-    sinon.stub(critter.traits[Trait.ID_VITALITY], 'bonus').get(() => bonusScore);
-    sinon.stub(critter.traits[Trait.ID_VITALITY], 'getTrueValue').returns(trueValue);
-    sinon.stub(critter.traits[Trait.ID_STRENGTH], 'bonus').get(() => bonusScore);
-    sinon.stub(critter.traits[Trait.ID_STRENGTH], 'getTrueValue').returns(trueValue);
-    sinon.stub(critter.traits[Trait.ID_AGILITY], 'bonus').get(() => bonusScore);
-    sinon.stub(critter.traits[Trait.ID_AGILITY], 'getTrueValue').returns(trueValue);
-    sinon.stub(critter.traits[Trait.ID_BITE], 'bonus').get(() => bonusScore);
-    sinon.stub(critter.traits[Trait.ID_BITE], 'getTrueValue').returns(trueValue);
-    sinon.stub(critter.traits[Trait.ID_STING], 'bonus').get(() => bonusScore);
-    sinon.stub(critter.traits[Trait.ID_STING], 'getTrueValue').returns(trueValue);
+    vi.spyOn(critter, 'baseScore', 'get').mockReturnValue(baseScore);
+    vi.spyOn(critter, 'bonusScore', 'get').mockReturnValue(bonusScore);
+    vi.spyOn(critter, 'mutations', 'get').mockReturnValue(mutations);
+    vi.spyOn(critter, 'maxHealth', 'get').mockReturnValue(maxHealth);
+    vi.spyOn(critter, 'sodPerSecond', 'get').mockReturnValue(sodPerSecond);
+    vi.spyOn(critter, 'carryPerSecond', 'get').mockReturnValue(carryPerSecond);
+    vi.spyOn(critter, 'actionTimeSeconds', 'get').mockReturnValue(actionTimeSeconds);
+    vi.spyOn(critter, 'strengthBonus', 'get').mockReturnValue(strengthBonus);
+    vi.spyOn(critter, 'grassPerSecond', 'get').mockReturnValue(grassPerSecond);
+    vi.spyOn(critter, 'agilityBonus', 'get').mockReturnValue(agilityBonus);
+    vi.spyOn(critter, 'dirtPerSecond', 'get').mockReturnValue(dirtPerSecond);
+    vi.spyOn(critter.traits[Trait.ID_VITALITY], 'bonus', 'get').mockReturnValue(bonusScore);
+    vi.spyOn(critter.traits[Trait.ID_VITALITY], 'getTrueValue').mockReturnValue(trueValue);
+    vi.spyOn(critter.traits[Trait.ID_STRENGTH], 'bonus', 'get').mockReturnValue(bonusScore);
+    vi.spyOn(critter.traits[Trait.ID_STRENGTH], 'getTrueValue').mockReturnValue(trueValue);
+    vi.spyOn(critter.traits[Trait.ID_AGILITY], 'bonus', 'get').mockReturnValue(bonusScore);
+    vi.spyOn(critter.traits[Trait.ID_AGILITY], 'getTrueValue').mockReturnValue(trueValue);
+    vi.spyOn(critter.traits[Trait.ID_BITE], 'bonus', 'get').mockReturnValue(bonusScore);
+    vi.spyOn(critter.traits[Trait.ID_BITE], 'getTrueValue').mockReturnValue(trueValue);
+    vi.spyOn(critter.traits[Trait.ID_STING], 'bonus', 'get').mockReturnValue(bonusScore);
+    vi.spyOn(critter.traits[Trait.ID_STING], 'getTrueValue').mockReturnValue(trueValue);
 
     const critterWrapper = shallowMount(Critter, {
       props: propsData,
@@ -131,75 +127,75 @@ describe("The critter view", () => {
 
     const detailsId = `totalDetails-${critter.id}`;
     const totalDetails = critterWrapper.find('#totalDetails').element.children;
-    expect(totalDetails[1].tagName).to.equal(tagName);
-    expect(totalDetails[1].getAttribute('target')).to.equal(detailsId);
-    expect(totalDetails[1].getAttribute('triggers')).to.equal(triggers);
-    expect(totalDetails[1].children[0].innerHTML).to.equal(`Generation: ${critter.generation}`);
-    expect(totalDetails[1].children[1].innerHTML).to.equal(`Birth Order: ${critter.id}`);
-    expect(totalDetails[1].children[2].innerHTML).to.equal(`Total Score: ${score}`);
-    expect(totalDetails[1].children[3].innerHTML).to.equal(`Total Base: ${baseScore}`);
-    expect(totalDetails[1].children[4].innerHTML).to.equal(`Total Bonus: ${bonusScore}`);
-    expect(totalDetails[1].children[5].innerHTML).to.equal(`Mutations: ${mutations}`);
+    expect(totalDetails[1].tagName).toBe(tagName);
+    expect(totalDetails[1].getAttribute('target')).toBe(detailsId);
+    expect(totalDetails[1].getAttribute('triggers')).toBe(triggers);
+    expect(totalDetails[1].children[0].innerHTML).toBe(`Generation: ${critter.generation}`);
+    expect(totalDetails[1].children[1].innerHTML).toBe(`Birth Order: ${critter.id}`);
+    expect(totalDetails[1].children[2].innerHTML).toBe(`Total Score: ${score}`);
+    expect(totalDetails[1].children[3].innerHTML).toBe(`Total Base: ${baseScore}`);
+    expect(totalDetails[1].children[4].innerHTML).toBe(`Total Bonus: ${bonusScore}`);
+    expect(totalDetails[1].children[5].innerHTML).toBe(`Mutations: ${mutations}`);
 
     const vitalityId = `vitalityDetails-${critter.id}`;
     const vitalityDetails = critterWrapper.find('#vitalityDetails').element.children;
-    expect(vitalityDetails[1].tagName).to.equal(tagName);
-    expect(vitalityDetails[1].getAttribute('target')).to.equal(vitalityId);
-    expect(vitalityDetails[1].getAttribute('triggers')).to.equal(triggers);
-    expect(vitalityDetails[1].children[0].innerHTML).to.equal(`Base: ${vitality}`);
-    expect(vitalityDetails[1].children[1].innerHTML).to.equal(`Bonus: ${bonusScore}`);
-    expect(vitalityDetails[1].children[2].innerHTML).to.equal(`Value: ${trueValue}`);
-    expect(vitalityDetails[1].children[3].innerHTML).to.equal(`Health: ${maxHealth}`);
-    expect(vitalityDetails[1].children[4].innerHTML).to.equal(`Sod Production: ${sodPerSecond} per sec.`);
+    expect(vitalityDetails[1].tagName).toBe(tagName);
+    expect(vitalityDetails[1].getAttribute('target')).toBe(vitalityId);
+    expect(vitalityDetails[1].getAttribute('triggers')).toBe(triggers);
+    expect(vitalityDetails[1].children[0].innerHTML).toBe(`Base: ${vitality}`);
+    expect(vitalityDetails[1].children[1].innerHTML).toBe(`Bonus: ${bonusScore}`);
+    expect(vitalityDetails[1].children[2].innerHTML).toBe(`Value: ${trueValue}`);
+    expect(vitalityDetails[1].children[3].innerHTML).toBe(`Health: ${maxHealth}`);
+    expect(vitalityDetails[1].children[4].innerHTML).toBe(`Sod Production: ${sodPerSecond} per sec.`);
 
     const strengthId = `strengthDetails-${critter.id}`;
     const strengthDetails = critterWrapper.find('#strengthDetails').element.children;
-    expect(strengthDetails[1].tagName).to.equal(tagName);
-    expect(strengthDetails[1].getAttribute('target')).to.equal(strengthId);
-    expect(strengthDetails[1].getAttribute('triggers')).to.equal(triggers);
-    expect(strengthDetails[1].children[0].innerHTML).to.equal(`Base: ${strength}`);
-    expect(strengthDetails[1].children[1].innerHTML).to.equal(`Bonus: ${bonusScore}`);
-    expect(strengthDetails[1].children[2].innerHTML).to.equal(`Value: ${trueValue}`);
-    expect(strengthDetails[1].children[3].innerHTML).to.equal(`Carrying Capacity: ${carryPerSecond} per sec.`);
+    expect(strengthDetails[1].tagName).toBe(tagName);
+    expect(strengthDetails[1].getAttribute('target')).toBe(strengthId);
+    expect(strengthDetails[1].getAttribute('triggers')).toBe(triggers);
+    expect(strengthDetails[1].children[0].innerHTML).toBe(`Base: ${strength}`);
+    expect(strengthDetails[1].children[1].innerHTML).toBe(`Bonus: ${bonusScore}`);
+    expect(strengthDetails[1].children[2].innerHTML).toBe(`Value: ${trueValue}`);
+    expect(strengthDetails[1].children[3].innerHTML).toBe(`Carrying Capacity: ${carryPerSecond} per sec.`);
 
     const agilityId = `agilityDetails-${critter.id}`;
     const agilityDetails = critterWrapper.find('#agilityDetails').element.children;
-    expect(agilityDetails[1].tagName).to.equal(tagName);
-    expect(agilityDetails[1].getAttribute('target')).to.equal(agilityId);
-    expect(agilityDetails[1].getAttribute('triggers')).to.equal(triggers);
-    expect(agilityDetails[1].children[0].innerHTML).to.equal(`Base: ${agility}`);
-    expect(agilityDetails[1].children[1].innerHTML).to.equal(`Bonus: ${bonusScore}`);
-    expect(agilityDetails[1].children[2].innerHTML).to.equal(`Value: ${trueValue}`);
-    expect(agilityDetails[1].children[3].innerHTML).to.equal(`Speed: ${actionTimeSeconds} seconds`);
+    expect(agilityDetails[1].tagName).toBe(tagName);
+    expect(agilityDetails[1].getAttribute('target')).toBe(agilityId);
+    expect(agilityDetails[1].getAttribute('triggers')).toBe(triggers);
+    expect(agilityDetails[1].children[0].innerHTML).toBe(`Base: ${agility}`);
+    expect(agilityDetails[1].children[1].innerHTML).toBe(`Bonus: ${bonusScore}`);
+    expect(agilityDetails[1].children[2].innerHTML).toBe(`Value: ${trueValue}`);
+    expect(agilityDetails[1].children[3].innerHTML).toBe(`Speed: ${actionTimeSeconds} seconds`);
 
     const biteId = `biteDetails-${critter.id}`;
     const biteDetails = critterWrapper.find('#biteDetails').element.children;
-    expect(biteDetails[1].tagName).to.equal(tagName);
-    expect(biteDetails[1].getAttribute('target')).to.equal(biteId);
-    expect(biteDetails[1].getAttribute('triggers')).to.equal(triggers);
-    expect(biteDetails[1].children[0].innerHTML).to.equal(`Base: ${bite}`);
-    expect(biteDetails[1].children[1].innerHTML).to.equal(`Bonus: ${bonusScore}`);
-    expect(biteDetails[1].children[2].innerHTML).to.equal(`Value: ${trueValue}`);
-    expect(biteDetails[1].children[3].innerHTML).to.equal(`Strength Bonus: ${strengthBonus}`);
-    expect(biteDetails[1].children[4].innerHTML).to.equal(`Farm Production: ${grassPerSecond} per sec.`);
+    expect(biteDetails[1].tagName).toBe(tagName);
+    expect(biteDetails[1].getAttribute('target')).toBe(biteId);
+    expect(biteDetails[1].getAttribute('triggers')).toBe(triggers);
+    expect(biteDetails[1].children[0].innerHTML).toBe(`Base: ${bite}`);
+    expect(biteDetails[1].children[1].innerHTML).toBe(`Bonus: ${bonusScore}`);
+    expect(biteDetails[1].children[2].innerHTML).toBe(`Value: ${trueValue}`);
+    expect(biteDetails[1].children[3].innerHTML).toBe(`Strength Bonus: ${strengthBonus}`);
+    expect(biteDetails[1].children[4].innerHTML).toBe(`Farm Production: ${grassPerSecond} per sec.`);
 
     const stingId = `stingDetails-${critter.id}`;
     const stingDetails = critterWrapper.find('#stingDetails').element.children;
-    expect(stingDetails[1].tagName).to.equal(tagName);
-    expect(stingDetails[1].getAttribute('target')).to.equal(stingId);
-    expect(stingDetails[1].getAttribute('triggers')).to.equal(triggers);
-    expect(stingDetails[1].children[0].innerHTML).to.equal(`Base: ${sting}`);
-    expect(stingDetails[1].children[1].innerHTML).to.equal(`Bonus: ${bonusScore}`);
-    expect(stingDetails[1].children[2].innerHTML).to.equal(`Value: ${trueValue}`);
-    expect(stingDetails[1].children[3].innerHTML).to.equal(`Agility Bonus: ${agilityBonus}`);
-    expect(stingDetails[1].children[4].innerHTML).to.equal(`Mine Production: ${dirtPerSecond} per sec.`);
+    expect(stingDetails[1].tagName).toBe(tagName);
+    expect(stingDetails[1].getAttribute('target')).toBe(stingId);
+    expect(stingDetails[1].getAttribute('triggers')).toBe(triggers);
+    expect(stingDetails[1].children[0].innerHTML).toBe(`Base: ${sting}`);
+    expect(stingDetails[1].children[1].innerHTML).toBe(`Bonus: ${bonusScore}`);
+    expect(stingDetails[1].children[2].innerHTML).toBe(`Value: ${trueValue}`);
+    expect(stingDetails[1].children[3].innerHTML).toBe(`Agility Bonus: ${agilityBonus}`);
+    expect(stingDetails[1].children[4].innerHTML).toBe(`Mine Production: ${dirtPerSecond} per sec.`);
   });
 
   it('should show progress bar', () => {
     propsData.showProgressBar = true;
     critter.currentHealth = 15;
     const maxHealth = 40;
-    sinon.stub(critter, 'maxHealth').get(() => maxHealth);
+    vi.spyOn(critter, 'maxHealth', 'get').mockReturnValue(maxHealth);
     const critterWrapper = shallowMount(Critter, {
       props: propsData,
       global: {
@@ -207,8 +203,8 @@ describe("The critter view", () => {
       }
     });
     const progressBar = critterWrapper.find(`#progressBar-${critter.id}`);
-    expect(progressBar.attributes('value')).to.equal(critter.currentHealth.toString());
-    expect(progressBar.attributes('max')).to.equal(maxHealth.toString());
+    expect(progressBar.attributes('model-value')).toBe(critter.currentHealth.toString());
+    expect(progressBar.attributes('max')).toBe(maxHealth.toString());
   });
 });
 
