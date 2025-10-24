@@ -203,7 +203,7 @@ describe("The critter view", () => {
       }
     });
     const progressBar = critterWrapper.find(`#progressBar-${critter.id}`);
-    expect(progressBar.attributes('model-value')).toBe(critter.currentHealth.toString());
+    expect(progressBar.attributes('value')).toBe(critter.currentHealth.toString());
     expect(progressBar.attributes('max')).toBe(maxHealth.toString());
   });
 });
