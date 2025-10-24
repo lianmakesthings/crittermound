@@ -48,10 +48,10 @@ describe('The Nations View', () => {
     const cricketNationWrapper = nationsViewWrapper.find(`#nation-${cricketNation.id}`);
     const beeNationWrapper = nationsViewWrapper.find(`#nation-${beeNation.id}`);
 
-    expect(cricketNationWrapper.attributes('bgvariant')).toBe('secondary');
-    expect(cricketNationWrapper.attributes('textvariant')).toBe('white');
-    expect(beeNationWrapper.attributes('bgvariant')).toBe('light');
-    expect(beeNationWrapper.attributes('textvariant')).toBe('black');
+    expect(cricketNationWrapper.attributes('bg-variant')).toBe('secondary');
+    expect(cricketNationWrapper.attributes('text-variant')).toBe('white');
+    expect(beeNationWrapper.attributes('bg-variant')).toBe('light');
+    expect(beeNationWrapper.attributes('text-variant')).toBe('black');
   });
 
   it('should start war', () => {
