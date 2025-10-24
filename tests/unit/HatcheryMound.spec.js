@@ -51,7 +51,7 @@ describe('The Hatchery Mound View', () => {
 
     expect(headerWrapper.attributes('bgcolor')).toBe('#f2dede');
     expect(critterWrapper.attributes('critterid')).toBe(critter.id.toString());
-    expect(critterWrapper.attributes('showprogressbar')).toBeUndefined();
+    expect(critterWrapper.attributes('showprogressbar')).toBe('false');
   });
 
   it('should show a different bgcolor for other type', () => {
