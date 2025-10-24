@@ -79,11 +79,11 @@ describe('The Hatchery Mound View', () => {
     const addWorkerButton = hatcheryMoundWrapper.find(`#add-worker-${location}-${type}`);
     const addSoldierButton = hatcheryMoundWrapper.find(`#add-soldier-${location}-${type}`);
 
-    expect(replaceParentButton.attributes('type')).toBe('button');
+    expect(replaceParentButton.element.tagName).toBe('BBUTTON');
     expect(replaceParentButton.text()).toBe('Queen');
-    expect(addWorkerButton.attributes('type')).toBe('button');
+    expect(addWorkerButton.element.tagName).toBe('BBUTTON');
     expect(addWorkerButton.text()).toBe('Worker');
-    expect(addSoldierButton.attributes('type')).toBe('button');
+    expect(addSoldierButton.element.tagName).toBe('BBUTTON');
     expect(addSoldierButton.text()).toBe('Army');
   });
 

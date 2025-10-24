@@ -103,7 +103,7 @@ describe('The Worker Mound view', () => {
     });
     const button = workerMoundWrapper.find(`#upgrade-${location}-${type}`);
 
-    expect(button.attributes('type')).toBe('button');
+    expect(button.element.tagName).toBe('BBUTTON');
     expect(button.text()).toBe(`Upgrade ${mound.upgradeCost} Sod`);
   });
 
