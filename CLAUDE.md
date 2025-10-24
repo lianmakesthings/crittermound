@@ -146,10 +146,19 @@ Farm ────────────┘
 
 **Test status:**
 - Library tests: 143/143 passing ✅
-- Component tests: 29/34 passing (5 failures are minor attribute checks in stubs)
+- Component tests: 24/34 passing (10 failures, WIP)
+
+**Component test configuration (WIP):**
+- Created `tests/setup.js` to register Bootstrap-Vue-Next globally
+- Configured `vitest.config.js` to use setup file with `setupFiles: ['./tests/setup.js']`
+- Bootstrap components now render instead of being stubbed (was `B-BUTTON-STUB`, now renders as `BUTTON`)
+- Current approach: Map all Bootstrap component names to actual components in `config.global.stubs`
 
 **Known issues:**
-- 5 component tests have minor failures related to Bootstrap-Vue-Next stub attributes
+- Bootstrap components render as native HTML (`BUTTON`) but tests expect custom element names (`BBUTTON`)
+- Vue `<transition>` components still being stubbed, causing `BAlert` to render as `<transition-stub>`
+- Popover target elements not found in some tests (Critter.spec.js)
+- Need to either: (a) configure transitions to render, or (b) update test assertions to expect native HTML tags
 - HTML validation warnings in HowTo.vue (harmless)
 
 **Bootstrap-Vue-Next component mapping:**
