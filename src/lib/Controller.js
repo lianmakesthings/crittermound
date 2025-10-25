@@ -1,6 +1,6 @@
-import { ticksPerSecond } from './Helpers';
-import Achievement from './Achievement';
-import CritterFactory from '../lib/CritterFactory';
+import { ticksPerSecond } from './Helpers.js';
+import Achievement from './Achievement.js';
+import CritterFactory from '../lib/CritterFactory.js';
 
 class Controller {
   constructor() {

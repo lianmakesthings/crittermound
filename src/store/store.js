@@ -1,16 +1,14 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import CritterFactory from '../lib/CritterFactory';
-import Critter from '../lib/Critter';
-import Sorter from '../lib/Sorter';
-import SodProduction from '../lib/SodProduction';
-import Achievement from '../lib/Achievement';
-import Nation from '../lib/Nation';
-import War from '../lib/War';
+import { createStore } from 'vuex';
+import CritterFactory from '../lib/CritterFactory.js';
+import Critter from '../lib/Critter.js';
+import Sorter from '../lib/Sorter.js';
+import SodProduction from '../lib/SodProduction.js';
+import Achievement from '../lib/Achievement.js';
+import Nation from '../lib/Nation.js';
+import War from '../lib/War.js';
 import localforage from 'localforage';
-import state from './state.json';
+import state from './state.json' with { type: 'json' };
 
-Vue.use(Vuex);
 let store;
 
 const initializeStore = async () => {
@@ -78,7 +76,7 @@ const initializeStore = async () => {
     initialState.soldiers.unlockedNations.push(Nation.CRICKETS);
   }
 
-  store = new Vuex.Store({
+  store = createStore({
     state: initialState,
     getters: {
       entireState: state => state,
@@ -364,6 +362,8 @@ export default (cb, reinitialize = false) => {
   if (store && !reinitialize) {
     cb(store);
   } else {
-    initializeStore().then(cb)
+    initializeStore().then(cb).catch(err => {
+      console.error('initializeStore failed:', err);
+    })
   }
 }

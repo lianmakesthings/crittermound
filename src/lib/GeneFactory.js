@@ -1,6 +1,6 @@
-import genes from './genes.json';
-import Gene from './Gene';
-import {Shuffle} from './Helpers';
+import genes from './genes.json' with { type: 'json' };
+import Gene from './Gene.js';
+import {Shuffle} from './Helpers.js';
 
 class GeneFactory {
   static getGene(id) {

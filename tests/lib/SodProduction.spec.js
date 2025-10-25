@@ -1,15 +1,12 @@
-import SodProduction from '../../src/lib/SodProduction';
-import Trait from '../../src/lib/Trait';
-import CritterFactory from '../../src/lib/CritterFactory';
-import Critter from '../../src/lib/Critter';
-
-import chai from 'chai';
-import sinon from 'sinon';
+import { expect, use } from 'chai';
 import sinonChai from 'sinon-chai';
+import sinon from 'sinon';
+use(sinonChai);
 
-chai.use(sinonChai);
-
-const expect = chai.expect;
+import SodProduction from '../../src/lib/SodProduction.js';
+import Trait from '../../src/lib/Trait.js';
+import CritterFactory from '../../src/lib/CritterFactory.js';
+import Critter from '../../src/lib/Critter.js';
 
 let sodProduction;
 const type = SodProduction.TYPE_MINE;

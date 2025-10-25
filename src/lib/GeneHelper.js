@@ -1,5 +1,5 @@
-import {CoinFlip, RandomInRange, StatVariance} from "./Helpers";
-import Gene from "./Gene";
+import {CoinFlip, RandomInRange, StatVariance} from "./Helpers.js";
+import Gene from "./Gene.js";
 
 class GeneHelper {
     static calculateExpression(bequeatherExpression, otherParentExpression = 0) {

@@ -1,18 +1,16 @@
-import getStore from '../../src/store/store';
-import chai from 'chai';
-import sinon from 'sinon';
+import { expect, use } from 'chai';
 import sinonChai from 'sinon-chai';
+import sinon from 'sinon';
+use(sinonChai);
+
+import getStore from '../../src/store/store.js';
 import localforage from 'localforage';
-import state from '../../src/store/state';
-import CritterFactory from "../../src/lib/CritterFactory";
-import Critter from "../../src/lib/Critter";
-import Nation from "../../src/lib/Nation";
-import War from "../../src/lib/War";
-import SodProduction from "../../src/lib/SodProduction";
-
-chai.use(sinonChai);
-const expect = chai.expect;
-
+import state from '../../src/store/state.json' with { type: 'json' };
+import CritterFactory from '../../src/lib/CritterFactory.js';
+import Critter from '../../src/lib/Critter.js';
+import Nation from '../../src/lib/Nation.js';
+import War from '../../src/lib/War.js';
+import SodProduction from '../../src/lib/SodProduction.js';
 
 describe('The vuex store', () => {
   describe('loading the state', () => {
@@ -69,20 +67,36 @@ describe('The vuex store', () => {
     let mockedState;
     beforeEach(() => {
       mockedState = JSON.parse(JSON.stringify(state));
+      if (!localforage.config.restore) {
+        sinon.stub(localforage, "config");
+      }
+      if (!localforage.getItem.restore) {
+        sinon.stub(localforage, "getItem").returns(Promise.resolve(null));
+      }
+    });
+
+    afterEach(() => {
+      if (localforage.config.restore) {
+        localforage.config.restore();
+      }
+      if (localforage.getItem.restore) {
+        localforage.getItem.restore();
+      }
     });
 
     it('should return the entire state', (done) => {
       getStore((store) => {
         store.replaceState(mockedState);
 
-        expect(store.getters.entireState).to.equal(mockedState);
+        expect(store.getters.entireState).to.deep.equal(mockedState);
         done();
       }, true)
     });
 
+    
     it('should return all critters', (done) => {
-      const queen = {};
-      const worker = {};
+      const queen = { id: 'queen' };
+      const worker = { id: 'worker' };
       mockedState.royalHatchery.mother.critters.push(queen);
       mockedState.worker.mine.critters.push(worker);
 
@@ -91,15 +105,15 @@ describe('The vuex store', () => {
         const allCritters = store.getters.allCritters;
 
         expect(allCritters.length).to.equal(2);
-        expect(allCritters).to.include(queen);
-        expect(allCritters).to.include(worker);
+        expect(allCritters).to.deep.include(queen);
+        expect(allCritters).to.deep.include(worker);
         done();
       }, true);
     });
 
     it('should return all workers', (done) => {
-      const queen = {};
-      const worker = {};
+      const queen = { id: 'queen' };
+      const worker = { id: 'worker' };
       mockedState.royalHatchery.mother.critters.push(queen);
       mockedState.worker.mine.critters.push(worker);
 
@@ -108,8 +122,8 @@ describe('The vuex store', () => {
         const allCritters = store.getters.allWorkers;
 
         expect(allCritters.length).to.equal(1);
-        expect(allCritters).to.include(worker);
-        expect(allCritters).not.to.include(queen);
+        expect(allCritters).to.deep.include(worker);
+        expect(allCritters).not.to.deep.include(queen);
         done();
       }, true);
     });
@@ -149,7 +163,7 @@ describe('The vuex store', () => {
       getStore((store) => {
         store.replaceState(mockedState);
 
-        expect(store.getters.sodProduction).to.equal(sodProduction);
+        expect(store.getters.sodProduction).to.deep.equal(sodProduction);
         done();
       }, true);
     });
@@ -175,7 +189,7 @@ describe('The vuex store', () => {
       getStore((store) => {
         store.replaceState(mockedState);
 
-        expect(store.getters.mound(location, type)).to.equal(expectedMound);
+        expect(store.getters.mound(location, type)).to.deep.equal(expectedMound);
         done();
       })
     });
@@ -191,7 +205,7 @@ describe('The vuex store', () => {
       getStore((store) => {
         store.replaceState(mockedState);
 
-        expect(store.getters.findCritter(critterId)).to.equal(expectedCritter);
+        expect(store.getters.findCritter(critterId)).to.deep.equal(expectedCritter);
         done();
       })
     });
@@ -292,7 +306,7 @@ describe('The vuex store', () => {
       getStore((store) => {
         store.replaceState(mockedState);
 
-        expect(store.getters.unlockedAchievements).to.equal(unlockedAchievements);
+        expect(store.getters.unlockedAchievements).to.deep.equal(unlockedAchievements);
         done();
       })
     });
@@ -340,7 +354,7 @@ describe('The vuex store', () => {
       getStore((store) => {
         store.replaceState(mockedState);
 
-        expect(store.getters.currentMap).to.equal(war.map);
+        expect(store.getters.currentMap).to.deep.equal(war.map);
         done();
       })
     });

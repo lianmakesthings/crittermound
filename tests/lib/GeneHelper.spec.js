@@ -1,14 +1,10 @@
-import GeneHelper from '../../src/lib/GeneHelper';
-import Gene from '../../src/lib/Gene';
-import {StatVariance} from "../../src/lib/Helpers";
-
-import chai from 'chai';
-import sinon from 'sinon';
+import { expect, use } from 'chai';
 import sinonChai from 'sinon-chai';
+use(sinonChai);
 
-chai.use(sinonChai);
-
-const expect = chai.expect;
+import GeneHelper from '../../src/lib/GeneHelper.js';
+import Gene from '../../src/lib/Gene.js';
+import {StatVariance} from '../../src/lib/Helpers.js';
 
 describe('A Gene helper', () => {
     describe('calculating expressions', () => {

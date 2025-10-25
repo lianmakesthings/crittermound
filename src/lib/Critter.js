@@ -1,5 +1,5 @@
-import { ticksPerSecond, SmartRound } from './Helpers';
-import Trait from './Trait';
+import { ticksPerSecond, SmartRound } from './Helpers.js';
+import Trait from './Trait.js';
 
 class Critter {
   constructor(id, generation, gender) {

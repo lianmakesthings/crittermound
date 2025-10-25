@@ -1,6 +1,6 @@
-import Map from './Map';
-import {RandomInRange, CoinFlip} from "./Helpers";
-import Treasure from "./Treasure";
+import Map from './Map.js';
+import {RandomInRange, CoinFlip} from "./Helpers.js";
+import Treasure from "./Treasure.js";
 
 class War {
   static MAP_WIDTH = 20;

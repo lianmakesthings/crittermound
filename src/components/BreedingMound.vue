@@ -1,8 +1,8 @@
 <template>
   <div class="breeding-mound">
     <h3>{{ name }}</h3>
-    <b-button :id="'button-boost-'+location+'-'+type" v-on:click="boost">Boost: {{ boosts }}/{{ maxBoosts }}</b-button>
-    <b-button :id="'button-upgrade-'+location+'-'+type" v-on:click="upgrade">Upgrade {{ upgradeCost }} Sod</b-button>
+    <BButton :id="'button-boost-'+location+'-'+type" @click="boost">Boost: {{ boosts }}/{{ maxBoosts }}</BButton>
+    <BButton :id="'button-upgrade-'+location+'-'+type" @click="upgrade">Upgrade {{ upgradeCost }} Sod</BButton>
     <critter-header :id="'critter-header-'+critter.id" :bgColor="bgColor"></critter-header>
     <critter :id="'critter-'+critter.id" :critterId="critter.id" :showProgressBar="true"></critter>
   </div>

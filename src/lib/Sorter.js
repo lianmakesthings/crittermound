@@ -1,4 +1,4 @@
-import Trait from '../lib/Trait';
+import Trait from '../lib/Trait.js';
 
 class Sorter {
   static callback(name) {

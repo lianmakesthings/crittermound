@@ -1,10 +1,10 @@
 <template>
   <div id="achievements">
     <div v-for="achievement in allAchievements">
-      <b-alert show :variant="achievement.unlocked ? 'info' : 'light'">
+      <BAlert show :variant="achievement.unlocked ? 'info' : 'light'">
         <strong>{{ achievement.name }}</strong>
         <span>{{ achievement.description }}</span>
-      </b-alert>
+      </BAlert>
     </div>
   </div>
 </template>

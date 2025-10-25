@@ -1,12 +1,9 @@
-import genes from '../../src/lib/genes.json';
-import Gene from "../../src/lib/Gene";
-import chai from 'chai';
-import sinon from 'sinon';
+import { expect, use } from 'chai';
 import sinonChai from 'sinon-chai';
+use(sinonChai);
 
-chai.use(sinonChai);
-
-const expect = chai.expect;
+import genes from '../../src/lib/genes.json' with { type: 'json' };
+import Gene from '../../src/lib/Gene.js';
 
 describe('A gene', () => {
     const someGeneData = genes[0];

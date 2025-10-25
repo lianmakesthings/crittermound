@@ -11,4 +11,4 @@ Gene.EXPRESSION_DOMINANT = 2;
 Gene.EXPRESSION_RECESSIVE = 1;
 Gene.EXPRESSION_NONE = 0;
 
-module.exports = Gene;
+export default Gene;

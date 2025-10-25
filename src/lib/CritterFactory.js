@@ -1,9 +1,9 @@
-import {CoinFlip, RandomInRange, StatVariance} from "./Helpers";
-import Critter from "./Critter";
-import Trait from "./Trait";
-import GeneFactory from "./GeneFactory";
-import GeneHelper from "./GeneHelper";
-import Gene from './Gene';
+import {CoinFlip, RandomInRange, StatVariance} from "./Helpers.js";
+import Critter from "./Critter.js";
+import Trait from "./Trait.js";
+import GeneFactory from "./GeneFactory.js";
+import GeneHelper from "./GeneHelper.js";
+import Gene from './Gene.js';
 
 class CritterFactory {
     static GeneHelper = GeneHelper;

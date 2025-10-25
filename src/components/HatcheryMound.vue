@@ -2,15 +2,15 @@
   <div class="hatchery-mound">
     <h4>Hatchery {{critters.length}} / {{mound.size}}</h4>
     <div>
-      <b-button :id="'replace-parent-'+location+'-'+type" v-on:click="replaceParent">{{ parent }}</b-button>
-      <b-button :id="'add-worker-'+location+'-'+type" v-on:click="addWorker">Worker</b-button>
-      <b-button :id="'add-soldier-'+location+'-'+type" v-on:click="addSoldier">Army</b-button>
+      <BButton :id="'replace-parent-'+location+'-'+type" @click="replaceParent">{{ parent }}</BButton>
+      <BButton :id="'add-worker-'+location+'-'+type" @click="addWorker">Worker</BButton>
+      <BButton :id="'add-soldier-'+location+'-'+type" @click="addSoldier">Army</BButton>
 
-      <b-dropdown :id="'sort-dropdown-'+location+'-'+type">
+      <BDropdown :id="'sort-dropdown-'+location+'-'+type">
         <div v-for="sort in sortNames">
-          <b-dropdown-item-button v-on:click="sortMound(sort)">{{sort}}</b-dropdown-item-button>
+          <BDropdownItemButton @click="sortMound(sort)">{{sort}}</BDropdownItemButton>
         </div>
-      </b-dropdown>
+      </BDropdown>
     </div>
     <critter-header :id="'critter-header-'+location+'-'+type" :bgColor="bgColor"></critter-header>
     <div v-for="critter in critters">
