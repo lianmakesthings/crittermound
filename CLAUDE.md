@@ -125,7 +125,7 @@ Farm ────────────┘
 
 ## Migration to Vue 3 (COMPLETE! ✅)
 
-**Status:** Successfully migrated on branch `vue3-migration`
+**Status:** Successfully migrated and merged to `main` (tracked in issue #85)
 
 **Completed work:**
 - ✅ Vue 3.4.0 + Vuex 4.1.0 installed and configured
@@ -146,19 +146,25 @@ Farm ────────────┘
 - ✅ Updated all library tests to use Chai 5 named exports
 - ✅ Component tests use shallowMount auto-stubbing (no explicit stub configuration needed)
 - ✅ **App compiles, runs, and all tests pass!**
+- ✅ **Merged to main via multiple PRs**
 
 **Test status:**
 - Library tests: 143/143 passing ✅
 - Component tests: 34/34 passing ✅
+- Total: 177/177 tests passing ✅
 
-**Known issues (non-blocking):**
-- ⚠️ Component tests show "Failed to resolve component" warnings for Bootstrap components (see issue #97)
+**Follow-up issues (non-blocking quality improvements):**
+- Issue #97: Component tests show "Failed to resolve component" warnings for Bootstrap components
   - Tests pass despite warnings
   - Warnings are harmless but clutter test output
-- ⚠️ HTML validation warnings in HowTo.vue during build (see issue #98)
+- Issue #98: HTML validation warnings in HowTo.vue during build
   - Invalid `<ol>` nested in `<p>` tag
   - Missing `<tbody>` in tables
   - App runs correctly despite warnings
+- Issue #102: Critter stat color indicators not working in Royal Hatchery
+  - Green/red indicators for better/worse stats not displaying
+  - Needs tests to prevent regression
+  - Pre-existing bug, not caused by migration
 
 **Bootstrap-Vue-Next component mapping:**
 - `<b-button>` → `<BButton>`
