@@ -1,15 +1,12 @@
+import { expect, use } from 'chai';
+import sinonChai from 'sinon-chai';
+import sinon from 'sinon';
+use(sinonChai);
+
 import SodProduction from '../../src/lib/SodProduction.js';
 import Trait from '../../src/lib/Trait.js';
 import CritterFactory from '../../src/lib/CritterFactory.js';
 import Critter from '../../src/lib/Critter.js';
-
-import chai from 'chai';
-import sinon from 'sinon';
-import sinonChai from 'sinon-chai';
-
-chai.use(sinonChai);
-
-const expect = chai.expect;
 
 let sodProduction;
 const type = SodProduction.TYPE_MINE;

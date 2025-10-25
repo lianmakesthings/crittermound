@@ -1,11 +1,8 @@
-import chai from 'chai';
-import sinon from 'sinon';
+import { expect, use } from 'chai';
 import sinonChai from 'sinon-chai';
+use(sinonChai);
+
 import Tile from '../../src/lib/Tile.js';
-
-chai.use(sinonChai);
-
-const expect = chai.expect;
 
 describe('A tile', () => {
   const x = 3;

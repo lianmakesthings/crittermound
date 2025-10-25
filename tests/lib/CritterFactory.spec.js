@@ -1,17 +1,14 @@
+import { expect, use } from 'chai';
+import sinonChai from 'sinon-chai';
+import sinon from 'sinon';
+use(sinonChai);
+
 import Critter from '../../src/lib/Critter.js';
 import { RandomInRange, StatVariance } from '../../src/lib/Helpers.js';
 import CritterFactory from '../../src/lib/CritterFactory.js';
 import GeneFactory from '../../src/lib/GeneFactory.js';
 import Gene from '../../src/lib/Gene.js';
 import GeneHelper from '../../src/lib/GeneHelper.js';
-
-import chai from 'chai';
-import sinon from 'sinon';
-import sinonChai from 'sinon-chai';
-
-chai.use(sinonChai);
-
-const expect = chai.expect;
 
 describe('CritterFactory', () => {
     const someId = 3;

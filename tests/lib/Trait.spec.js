@@ -1,14 +1,10 @@
+import { expect, use } from 'chai';
+import sinonChai from 'sinon-chai';
+use(sinonChai);
+
 import Trait from '../../src/lib/Trait.js';
 import Gene from '../../src/lib/Gene.js';
 import GeneFactory from '../../src/lib/GeneFactory.js';
-
-import chai from 'chai';
-import sinon from 'sinon';
-import sinonChai from 'sinon-chai';
-
-chai.use(sinonChai);
-
-const expect = chai.expect;
 
 describe('A trait', () => {
     const someId = Trait.ID_STING;

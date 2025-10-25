@@ -1,12 +1,9 @@
-import chai from 'chai';
-import sinon from 'sinon';
+import { expect, use } from 'chai';
 import sinonChai from 'sinon-chai';
+import sinon from 'sinon';
+use(sinonChai);
+
 import War from '../../src/lib/War.js';
-import Treasure from '../../src/lib/Treasure.js';
-
-chai.use(sinonChai);
-
-const expect = chai.expect;
 
 describe('A war', () => {
   const nation = {id: 12};

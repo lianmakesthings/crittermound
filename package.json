@@ -28,10 +28,12 @@
     "@vue/cli-service": "^5.0.8",
     "@vue/compiler-sfc": "^3.4.0",
     "@vue/test-utils": "^2.4.3",
-    "chai": "^4.4.0",
+    "chai": "^5.3.3",
     "esm": "^3.2.25",
     "jsdom": "^27.0.1",
     "mocha": "^10.2.0",
+    "sinon": "^21.0.0",
+    "sinon-chai": "^4.0.1",
     "vitest": "^4.0.2"
   }
 }

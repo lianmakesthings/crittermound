@@ -1,14 +1,10 @@
+import { expect, use } from 'chai';
+import sinonChai from 'sinon-chai';
+use(sinonChai);
+
 import GeneFactory from '../../src/lib/GeneFactory.js';
 import Gene from '../../src/lib/Gene.js';
 import genes from '../../src/lib/genes.json' with { type: 'json' }
-
-import chai from 'chai';
-import sinon from 'sinon';
-import sinonChai from 'sinon-chai';
-
-chai.use(sinonChai);
-
-const expect = chai.expect;
 
 describe('A gene factory', () => {
     const someGeneId = 3;

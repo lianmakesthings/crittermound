@@ -1,7 +1,9 @@
-import getStore from '../../src/store/store.js';
-import chai from 'chai';
-import sinon from 'sinon';
+import { expect, use } from 'chai';
 import sinonChai from 'sinon-chai';
+import sinon from 'sinon';
+use(sinonChai);
+
+import getStore from '../../src/store/store.js';
 import localforage from 'localforage';
 import state from '../../src/store/state.json' with { type: 'json' };
 import CritterFactory from '../../src/lib/CritterFactory.js';
@@ -9,10 +11,6 @@ import Critter from '../../src/lib/Critter.js';
 import Nation from '../../src/lib/Nation.js';
 import War from '../../src/lib/War.js';
 import SodProduction from '../../src/lib/SodProduction.js';
-
-chai.use(sinonChai);
-const expect = chai.expect;
-
 
 describe('The vuex store', () => {
   describe('loading the state', () => {

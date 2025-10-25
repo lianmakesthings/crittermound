@@ -1,13 +1,13 @@
-import chai from 'chai';
+import { expect, use } from 'chai';
 import sinonChai from 'sinon-chai';
 import sinon from 'sinon';
 const sandbox = sinon.createSandbox();
-chai.use(sinonChai);
-const expect = chai.expect;
+use(sinonChai);
 
 import Achievement from '../../src/lib/Achievement.js';
 import Critter from '../../src/lib/Critter.js';
 import CritterFactory from '../../src/lib/CritterFactory.js';
+
 describe('Achievement', () => {
   describe('getting all achievements', () => {
     it('should return in one flattened array', () => {

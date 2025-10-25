@@ -1,11 +1,9 @@
-import chai from 'chai';
+import { expect, use } from 'chai';
 import sinonChai from 'sinon-chai';
+use(sinonChai);
+
 import Treasure from '../../src/lib/Treasure.js';
 import War from '../../src/lib/War.js';
-
-chai.use(sinonChai);
-
-const expect = chai.expect;
 
 describe('The treasure class', () => {
   it('should get a list of all treasures', () => {

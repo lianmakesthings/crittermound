@@ -1,14 +1,12 @@
-import Map from '../../src/lib/Map.js';
-import chai from 'chai';
-import sinon from 'sinon';
+import { expect, use } from 'chai';
 import sinonChai from 'sinon-chai';
+import sinon from 'sinon';
+use(sinonChai);
+
+import Map from '../../src/lib/Map.js';
 import Tile from '../../src/lib/Tile.js';
 import War from '../../src/lib/War.js';
 import Treasure from '../../src/lib/Treasure.js';
-
-chai.use(sinonChai);
-
-const expect = chai.expect;
 
 describe('A map', () => {
   const width = 5;

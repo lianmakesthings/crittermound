@@ -1,12 +1,9 @@
+import { expect, use } from 'chai';
+import sinonChai from 'sinon-chai';
+use(sinonChai);
+
 import genes from '../../src/lib/genes.json' with { type: 'json' };
 import Gene from '../../src/lib/Gene.js';
-import chai from 'chai';
-import sinon from 'sinon';
-import sinonChai from 'sinon-chai';
-
-chai.use(sinonChai);
-
-const expect = chai.expect;
 
 describe('A gene', () => {
     const someGeneData = genes[0];
