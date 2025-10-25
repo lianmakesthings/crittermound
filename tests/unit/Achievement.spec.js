@@ -2,7 +2,7 @@ import { shallowMount } from '@vue/test-utils';
 import {createStore} from 'vuex';
 import Achievement from '../../src/components/Achievement.vue';
 import AchievementHandler from '../../src/lib/Achievement.js';
-import { expect } from "vitest";
+import { expect, describe, it } from "vitest";
 
 describe('The Achievement view', () => {
   it('should show all achievements', () => {

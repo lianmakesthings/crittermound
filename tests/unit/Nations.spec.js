@@ -1,6 +1,6 @@
 import {shallowMount, mount} from "@vue/test-utils";
 import {createStore} from "vuex";
-import { expect, vi } from "vitest";
+import { expect, describe, it } from "vitest";
 import Nation from '../../src/lib/Nation.js';
 import Nations from '../../src/components/Nations.vue';
 

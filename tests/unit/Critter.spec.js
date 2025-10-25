@@ -3,7 +3,7 @@ import {createStore} from "vuex";
 import Critter from "../../src/components/Critter.vue";
 import CritterFactory from "../../src/lib/CritterFactory.js";
 import Trait from "../../src/lib/Trait.js";
-import { expect, vi } from "vitest";
+import { expect, describe, it } from "vitest";
 
 describe("The critter view", () => {
   let critter;

@@ -1,7 +1,7 @@
 import {shallowMount, mount} from "@vue/test-utils";
 import {createStore} from "vuex";
 import WorkerMound from '../../src/components/WorkerMound.vue';
-import { expect, vi } from "vitest";
+import { expect, describe, it } from "vitest";
 
 describe('The Worker Mound view', () => {
   const location = 'worker';

@@ -1,6 +1,6 @@
 import {shallowMount} from "@vue/test-utils";
 import RoyalHatchery from '../../src/components/RoyalHatchery.vue';
-import { expect } from "vitest";
+import { expect, describe, it } from "vitest";
 
 describe('The Royal Hatchery View', () => {
   it('should show breeding and hatchery mounds for males and females', () => {

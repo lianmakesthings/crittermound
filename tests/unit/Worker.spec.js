@@ -1,7 +1,7 @@
 import {shallowMount} from "@vue/test-utils";
 import {createStore} from "vuex";
 import Worker from '../../src/components/Worker.vue';
-import { expect } from "vitest";
+import { expect, describe, it } from "vitest";
 
 describe('The Worker View', () => {
   let store;

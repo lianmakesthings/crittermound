@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import CritterHeader from '../../src/components/CritterHeader.vue';
-import { expect } from "vitest";
+import { expect, describe, it } from "vitest";
 
 describe('The critterHeader view', () => {
   it('should set the correct background color', () => {

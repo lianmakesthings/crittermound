@@ -1,7 +1,7 @@
 import {shallowMount, mount} from "@vue/test-utils";
 import {createStore} from "vuex";
 import HatcheryMound from '../../src/components/HatcheryMound.vue';
-import { expect, vi } from "vitest";
+import { expect, describe, it } from "vitest";
 
 describe('The Hatchery Mound View', () => {
   const location = 'royalHatchery';
