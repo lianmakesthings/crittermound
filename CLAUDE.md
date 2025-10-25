@@ -130,8 +130,8 @@ Farm ────────────┘
 **Completed work:**
 - ✅ Vue 3.4.0 + Vuex 4.1.0 installed and configured
 - ✅ ES modules migration complete (all `.js` and `.vue` extensions added throughout codebase)
-- ✅ All 143 library tests passing (Mocha)
-- ✅ 29/34 component tests passing (Vitest)
+- ✅ All 143 library tests passing (Mocha + Chai 5)
+- ✅ All 34 component tests passing (Vitest)
 - ✅ Store converted to Vuex 4 API (`createStore`, async initialization)
 - ✅ Bootstrap-Vue → Bootstrap-Vue-Next component migration complete (all 27 instances)
 - ✅ Worker.js converted to ES module format (`self.onmessage`/`self.postMessage`)
@@ -142,24 +142,23 @@ Farm ────────────┘
 - ✅ Progress bar fixed (`:value` → `:model-value`)
 - ✅ Removed mochapack dependencies (incompatible with Vue 3 + ES modules)
 - ✅ vitest.config.js created and configured
-- ✅ **App compiles, runs, and tests pass!**
+- ✅ Upgraded Chai from v4 to v5 and added sinon/sinon-chai dependencies
+- ✅ Updated all library tests to use Chai 5 named exports
+- ✅ Component tests use shallowMount auto-stubbing (no explicit stub configuration needed)
+- ✅ **App compiles, runs, and all tests pass!**
 
 **Test status:**
 - Library tests: 143/143 passing ✅
-- Component tests: 24/34 passing (10 failures, WIP)
+- Component tests: 34/34 passing ✅
 
-**Component test configuration (WIP):**
-- Created `tests/setup.js` to register Bootstrap-Vue-Next globally
-- Configured `vitest.config.js` to use setup file with `setupFiles: ['./tests/setup.js']`
-- Bootstrap components now render instead of being stubbed (was `B-BUTTON-STUB`, now renders as `BUTTON`)
-- Current approach: Map all Bootstrap component names to actual components in `config.global.stubs`
-
-**Known issues:**
-- Bootstrap components render as native HTML (`BUTTON`) but tests expect custom element names (`BBUTTON`)
-- Vue `<transition>` components still being stubbed, causing `BAlert` to render as `<transition-stub>`
-- Popover target elements not found in some tests (Critter.spec.js)
-- Need to either: (a) configure transitions to render, or (b) update test assertions to expect native HTML tags
-- HTML validation warnings in HowTo.vue (harmless)
+**Known issues (non-blocking):**
+- ⚠️ Component tests show "Failed to resolve component" warnings for Bootstrap components (see issue #97)
+  - Tests pass despite warnings
+  - Warnings are harmless but clutter test output
+- ⚠️ HTML validation warnings in HowTo.vue during build (see issue #98)
+  - Invalid `<ol>` nested in `<p>` tag
+  - Missing `<tbody>` in tables
+  - App runs correctly despite warnings
 
 **Bootstrap-Vue-Next component mapping:**
 - `<b-button>` → `<BButton>`
