@@ -2,7 +2,7 @@
 
 > A complete rework of http://crittermound.com with Vue.js
 
-Visit the game at: http://crittermound.net
+Visit the game at: [crittermound.lianmakesthings.dev](https://crittermound.lianmakesthings.dev/)
 
 ## About
 
