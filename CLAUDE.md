@@ -625,3 +625,4 @@ expect(store.getters.allCritters).to.include(queen);
 // DO: Deep equality works
 expect(store.getters.allCritters).to.deep.include(queen);
 ```
+- whenever you open a PR, make sure you've updated your internal memory and the change was committed to the current branch
