@@ -13,8 +13,7 @@
           Breed new critters, breed stronger critters, destroy your enimies.
         </p>
 
-        <p>
-          <strong>Quick Guide</strong><br />
+        <strong>Quick Guide</strong><br />
         <ol>
           <li>Wait for new critters in the hatchery</li>
           <li>If they are mostly green, use them as King and Queen</li>
@@ -23,7 +22,6 @@
           <li>Start a war</li>
           <li>Repeat 1 and 2 until you are strong enough to win the war</li>
         </ol>
-        </p>
 
         <p>
           <strong>Hatchery</strong><br />
@@ -70,18 +68,22 @@
 
         <strong>Mutation Expression</strong><br />
         <table class="critter">
-          <tr>
-            <th style="width: 25%">parents</th>
-            <th style="width: 25%">none</th>
-            <th style="width: 25%">recessive</th>
-            <th style="width: 25%">expressed</th>
-          </tr>
-          <tr><td>None / None</td><td>99%</td><td>1%</td><td>0%</td></tr>
-          <tr><td>None / Recessive</td><td>50%</td><td>50%</td><td>0%</td></tr>
-          <tr><td>None / Expressed</td><td>0%</td><td>100%</td><td>0%</td></tr>
-          <tr><td>Recessive / Recessive</td><td>25%</td><td>50%</td><td>25%</td></tr>
-          <tr><td>Recessive / Expressed</td><td>0%</td><td>50%</td><td>50%</td></tr>
-          <tr><td>Expressed / Expressed</td><td>0%</td><td>0%</td><td>100%</td></tr>
+          <thead>
+            <tr>
+              <th style="width: 25%">parents</th>
+              <th style="width: 25%">none</th>
+              <th style="width: 25%">recessive</th>
+              <th style="width: 25%">expressed</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>None / None</td><td>99%</td><td>1%</td><td>0%</td></tr>
+            <tr><td>None / Recessive</td><td>50%</td><td>50%</td><td>0%</td></tr>
+            <tr><td>None / Expressed</td><td>0%</td><td>100%</td><td>0%</td></tr>
+            <tr><td>Recessive / Recessive</td><td>25%</td><td>50%</td><td>25%</td></tr>
+            <tr><td>Recessive / Expressed</td><td>0%</td><td>50%</td><td>50%</td></tr>
+            <tr><td>Expressed / Expressed</td><td>0%</td><td>0%</td><td>100%</td></tr>
+          </tbody>
         </table>
 
         <p>
