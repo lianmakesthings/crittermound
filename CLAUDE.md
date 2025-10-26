@@ -123,6 +123,47 @@ Farm ────────────┘
 - Buffer levels (`dirtStored`, `grassStored`, `factoryDirtStored`, `factoryGrassStored`)
 - Carry capacity (if buffers are full, carriers are the bottleneck)
 
+### War Mechanic (INCOMPLETE! ⚠️)
+
+**Current implementation status:** Partially implemented map generation, no combat system
+
+**What happens when you click a nation:**
+1. `Nations.vue` calls `store.dispatch('startWar', nationId)`
+2. Store creates `new War(Nation.get(nationId))`
+3. War constructor creates 20x20 `Map` and generates special tiles
+4. War.vue displays the map grid (currently broken)
+
+**Map generation (src/lib/Map.js):**
+- Creates 20x20 grid of `Tile` objects
+- **Player base** and **enemy base** - Randomly placed at top/bottom (3 tiles from edge)
+- **8 treasure tiles** - mine, farm, carry, factory, gene, boost, fort, explore
+  - Positioned based on range constraints (see `Treasure.js`)
+- **4 artifact tiles** - Randomly placed across map
+
+**Tile system (src/lib/Tile.js):**
+- Each tile has: `x`, `y`, `bonus` (name of special tile)
+- `isBlocked()` returns true if tile has a bonus (used during generation)
+- Constants defined for special types but not used in current implementation
+
+**Known bugs:**
+- Store getter `currentMap` returns Map object instead of `map.tiles` array (War.vue:155)
+- War.vue template references `tile.danger` which doesn't exist on Tile
+- No visual differentiation between tile types (all show as empty)
+
+**NOT implemented (major features missing):**
+- ❌ Combat mechanics - No turn-based battle system
+- ❌ Critter deployment - Can't send army critters to battle
+- ❌ Movement system - No way to move across tiles
+- ❌ Damage/health calculations - No combat resolution
+- ❌ Victory/defeat conditions - No win/loss logic
+- ❌ Rewards - No gene unlocks or bonuses for winning
+- ❌ Tile ownership/control - No way to capture tiles
+- ❌ Enemy AI - No enemy critters or behavior
+- ❌ Visual tile indicators - Can't distinguish tile types
+
+**Related GitHub issues:**
+- See war mechanic milestone issues for implementation roadmap
+
 ## Migration to Vue 3 (COMPLETE! ✅)
 
 **Status:** Successfully migrated and merged to `main` (tracked in issue #85)
