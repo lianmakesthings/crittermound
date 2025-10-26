@@ -6,15 +6,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 When creating or updating issues, use these existing labels:
 - `bug` - Bug fixes
+- `critical` - Critical issues that block development
+- `dependencies` - Pull requests that update a dependency file
+- `duplicate` - Duplicate issues
 - `enhancement` - New features or improvements
+- `javascript` - Pull requests that update JavaScript code
 - `Testing` - Test-related work
-- `good first issue` - Good for newcomers
-- `help wanted` - Extra attention needed
-- `nice to have` - Low priority enhancements
-- `question` - Questions or discussions
-- `dependencies` - Dependency updates
-- `javascript` - JavaScript code changes
-- `duplicate`, `invalid`, `wontfix` - Issue management
+- `wontfix` - Issues that won't be fixed
 
 ## Commands
 
