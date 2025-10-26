@@ -193,82 +193,255 @@ Farm ────────────┘
 **Related GitHub issues:**
 - See war mechanic milestone issues for implementation roadmap
 
-### War Mechanic Implementation Roadmap
+## Project Milestones & Roadmap
 
-**Development approach:** Build incrementally in 7 phases, testing each phase before moving to the next.
+**Development strategy:** Strategic interleaving approach - complete quick wins, build war mechanic incrementally with strategic breaks, then tackle infrastructure updates.
 
-#### Phase 1: Critical Blocker (3-5 hours total) 🔴
-**Must complete first - blocks all other work**
+**Total timeline:** 86-113 hours (~9-12 weeks of focused work)
+
+### Milestone 1: Pre-War Quick Wins (5-7 hours) 🔴 CRITICAL
+**Priority:** DO FIRST - Clean slate before major feature work
+
+**Issues:**
+- #98: Fix HTML validation warnings in HowTo.vue (1h, easy)
+- #102: Fix critter stat colors bug in Royal Hatchery (4-6h, medium)
+
+**Reasoning:** Quick cleanup wins that improve UX and remove build noise. Fixing #102 adds test coverage that will be valuable during war development.
+
+**Success criteria:**
+- Zero HTML validation warnings in build
+- Critter stats show green/red color indicators correctly
+- Tests added to prevent regression
+
+---
+
+### Milestone 2: War Phase 1 - Critical Blocker (3-5 hours) 🔴 CRITICAL
+**Priority:** MUST COMPLETE FIRST - Blocks all other war work
+
+**Issues:**
 - #109: Fix store getter to return map.tiles array (1-2h, easy)
-  - Fix `currentMap` getter in store.js line 155
-  - Add unit tests for getter
 - #110: Add component tests for 20×20 grid rendering (2-3h, medium)
-  - Test War component renders proper grid structure
-  - Verify grid updates when map changes
 
-#### Phase 2: Foundation Properties (3 hours total, can parallelize) 🟡
-**Add basic properties to Tile class**
+**Reasoning:** Current bug renders 3×20 grid instead of 20×20. Cannot develop features on broken foundation.
+
+**Dependencies:** Pre-War Quick Wins
+**Blocks:** All other war phases
+
+**Success criteria:**
+- currentMap getter returns map.tiles array correctly
+- War.vue renders full 20×20 grid
+- Component tests verify grid structure
+
+---
+
+### Milestone 3: War Phase 2 - Foundation Properties (3 hours) 🟡 HIGH
+**Priority:** Foundation layer for all future systems
+
+**Issues (all parallelizable):**
 - #111: Add tile visibility properties (isVisible, isExplored) (1h, easy)
 - #115: Add danger property (1h, easy)
 - #119: Add tile state properties (isControlled, hasEnemies, explorable, attackable) (1h, easy)
 
-#### Phase 3: Core Systems (12-16 hours total, some parallelization) 🟡
-**Implement fundamental game logic**
+**Reasoning:** Establishes data model before complex logic. All three can be done in parallel.
+
+**Dependencies:** War Phase 1
+**Blocks:** War Phase 3
+
+**Success criteria:**
+- Tile has all required properties with sensible defaults
+- Unit tests added for new properties
+
+---
+
+### Milestone 4: War Phase 3 - Core Systems (12-16 hours) 🔴 CRITICAL
+**Priority:** Core game logic (adjacency, fog of war, danger, enemies)
+
+**Issues:**
 - #112: Implement getAdjacentTiles() with cardinal directions (2-3h, medium)
-  - Critical dependency for fog of war and tile interaction
+- #113: Implement updateVisibility() for fog of war (3-4h, medium) - depends on #112
 - #116: Implement danger calculation algorithm (3-4h, medium)
-  - Uses nation difficulty, distance, special bonuses
-- #113: Implement updateVisibility() for fog of war (3-4h, medium)
-  - **Depends on:** #112
-- #118: Implement generateEnemyArmy() method (4-5h, medium)
-  - Generate enemies based on nation difficulty
-  - Can be done in parallel with fog of war
+- #118: Implement generateEnemyArmy() method (4-5h, medium) - can parallelize with fog of war
 
-#### Phase 4: UI Layer (12-15 hours total) 🟢
-**Make systems visible to player**
-- #114: Add fog of war UI styling (3-4h, medium)
-  - **Depends on:** #113
-- #117: Add danger display and color coding (2-3h, easy)
-  - **Depends on:** #116
-- #120: Implement updateAvailableTiles() logic (3-4h, medium)
-  - **Depends on:** #112
-  - Determines explorable/attackable tiles
-- #121: Add tile interaction UI (click handlers, visual indicators) (3-4h, medium)
-  - **Depends on:** #120
+**Reasoning:** Establishes core game rules. Natural stopping point after this for strategic break.
 
-#### Phase 5: Combat System (17-21 hours total, sequential) 🔴
-**Most complex phase - build carefully**
+**Parallelization:** #118 can be done while working on fog of war (#112, #113)
+
+**Dependencies:** War Phase 2
+**Blocks:** War Phase 4
+
+**Success criteria:**
+- getAdjacentTiles() returns only cardinal neighbors (max 4)
+- Fog of war reveals tiles adjacent to controlled tiles
+- Danger values calculated correctly
+- Enemy armies generated with appropriate stats
+
+---
+
+### Milestone 5: Test Cleanup Break (2-4 hours) 🟢 MEDIUM
+**Priority:** Quality of life - Strategic break before UI-heavy work
+
+**Issues:**
+- #97: Fix component test Bootstrap-Vue warnings (2-4h, low-medium)
+
+**Reasoning:** Mental break after complex core systems. Clean test output before UI development where you'll run component tests frequently.
+
+**Dependencies:** War Phase 3
+**Optional:** Can skip if momentum is strong
+
+**Success criteria:**
+- Zero Bootstrap component resolution warnings
+- All 34 component tests still passing
+- Solution doesn't mask real component errors
+
+---
+
+### Milestone 6: War Phase 4 - UI Layer (12-15 hours) 🔴 CRITICAL
+**Priority:** Player interface for war systems
+
+**Issues:**
+- #114: Add fog of war UI styling (3-4h, medium) - depends on #113
+- #117: Add danger display and color coding (2-3h, easy) - depends on #116
+- #120: Implement updateAvailableTiles() logic (3-4h, medium) - depends on #112
+- #121: Add tile interaction UI (click handlers, visual indicators) (3-4h, medium) - depends on #120
+
+**Reasoning:** First playable version! Player can explore the map. #117 can parallelize with #120.
+
+**Dependencies:** War Phase 3
+**Suggested:** Test Cleanup Break (clean test output before UI work)
+**Blocks:** War Phase 5
+
+**Success criteria:**
+- Fog of war visually hides unexplored tiles
+- Danger values displayed with color coding
+- Explorable tiles highlighted for player
+- Click handlers work for tile exploration
+
+---
+
+### Milestone 7: War Phase 5 - Combat System (17-21 hours) 🔴 CRITICAL
+**Priority:** Core combat mechanics (HARDEST PHASE)
+
+**Issues (sequential):**
 - #122: Implement combat damage calculation (Bite vs Sting) (4-5h, medium)
-  - Core combat math with stat bonuses
-- #123: Implement combat round resolution (5-6h, hard)
-  - **Depends on:** #122
-  - Turn order, targeting, health tracking
-- #124: Integrate combat into Web Worker tick system (4-5h, hard)
-  - **Depends on:** #123
-  - Worker.js and Controller.js changes
-- #125: Add combat UI (health bars, combat log) (4-5h, medium)
-  - **Depends on:** #124
+- #123: Implement combat round resolution (5-6h, hard) - depends on #122
+- #124: Integrate combat into Web Worker tick system (4-5h, hard) - depends on #123
+- #125: Add combat UI (health bars, combat log) (4-5h, medium) - depends on #124
 
-#### Phase 6: Rewards System (6-8 hours total) 🟢
-**Tile bonuses and collection**
+**Reasoning:** Most technically challenging phase. Combat logic + threading complexity. After this, war is mostly playable.
+
+**Complexity factors:**
+- Combat logic is complex (turn order, targeting, stat bonuses)
+- Web Worker threading adds complexity
+- Must not block UI during long battles
+- Needs thorough testing for edge cases
+
+**Dependencies:** War Phase 4
+**Blocks:** War Phase 6
+
+**Success criteria:**
+- Damage calculated correctly
+- Combat rounds resolve properly
+- Combat runs in Web Worker without blocking UI
+- Health bars update in real-time
+- Comprehensive combat tests
+
+---
+
+### Milestone 8: War Phase 6 - Rewards System (6-8 hours) 🟢 HIGH
+**Priority:** Reward mechanics
+
+**Issues:**
 - #126: Implement collectTileBonus() for all special tiles (4-5h, medium)
-  - Production upgrades, genes, boosts, artifacts
-  - Single configurable method handles all types
-- #127: Add bonus collection UI notifications (2-3h, easy)
-  - **Depends on:** #126
+- #127: Add bonus collection UI notifications (2-3h, easy) - depends on #126
 
-#### Phase 7: End Game (11-13 hours total) 🟢
-**Victory, defeat, and war completion**
+**Reasoning:** Completes gameplay loop: explore → fight → collect → improve. Relatively straightforward after combat complexity.
+
+**Tile bonus types:** Mine/Farm/Carry/Factory boosts, Gene unlocks, Boosts, Fort bonuses, Explore reveals, Artifacts
+
+**Dependencies:** War Phase 5
+**Blocks:** War Phase 7
+
+**Success criteria:**
+- All special tile types grant correct bonuses
+- Bonuses applied to persistent state
+- UI notifications show what was collected
+
+---
+
+### Milestone 9: War Phase 7 - End Game (11-13 hours) 🔴 CRITICAL
+**Priority:** Complete the loop
+
+**Issues:**
 - #128: Implement victory/defeat/retreat detection (3-4h, medium)
-  - Check end conditions, calculate rewards
-- #129: Implement endWar store action (3-4h, medium)
-  - **Depends on:** #128
-  - Apply rewards, cleanup state, return survivors
-- #130: Add victory/defeat/retreat UI screens (4-5h, medium)
-  - **Depends on:** #129
-  - Modals for all end scenarios
+- #129: Implement endWar store action (3-4h, medium) - depends on #128
+- #130: Add victory/defeat/retreat UI screens (4-5h, medium) - depends on #129
 
-#### Parent Issues (tracking/organization)
+**Reasoning:** Completes war mechanic feature! Critical for game progression (survivors return to army).
+
+**End scenarios:**
+- Victory: Captured enemy base, full rewards
+- Defeat: All critters killed, minimal rewards
+- Retreat: Player exits early, partial rewards
+
+**Dependencies:** War Phase 6
+**Completes:** Entire war mechanic feature!
+
+**Success criteria:**
+- Victory/defeat/retreat detected correctly
+- Rewards calculated correctly for each scenario
+- Surviving critters returned to army
+- War state cleaned up properly
+
+---
+
+### Milestone 10: Infrastructure Updates (13-20 hours) 🟡 HIGH
+**Priority:** Technical foundation improvements
+
+**Issues:**
+- #106: Upgrade to Node.js 24 LTS (5-8h, medium)
+- #95: Migrate library tests from Mocha to Vitest (8-12h, medium-high)
+
+**Reasoning:** Don't change environment during complex feature development. War mechanic complete = natural time for infrastructure work. Can be done together as "infrastructure week."
+
+**Sequence:** #106 first (new environment), then #95 (consolidate testing)
+
+**Dependencies:** War Phase 7
+**Can parallelize:** Both issues can be done in same week
+
+**Success criteria:**
+- All tests pass on Node.js 24
+- All 177 tests migrated to Vitest
+- package.json cleaned up (Mocha dependencies removed)
+- Single test command: `npm test`
+- No deprecation warnings
+
+---
+
+### Milestone 11: Polish & Enhancement (6-8 hours) 🟢 LOW
+**Priority:** Quality of life (Victory lap!)
+
+**Issues:**
+- #96: Add dark mode / night mode support (6-8h, medium)
+
+**Reasoning:** Pure enhancement after major features. Reward project after completing heavy technical work. Fun, user-facing improvement.
+
+**Implementation approach:**
+- Bootstrap 5 / Bootstrap-Vue-Next dark mode utilities
+- localStorage persistence
+- Optional: System preference detection (`prefers-color-scheme`)
+- Toggle button in navbar
+
+**Dependencies:** Infrastructure Updates (or anytime after war)
+
+**Success criteria:**
+- Dark mode toggle works correctly
+- All components readable in dark mode
+- Preference persisted across sessions
+- Smooth transition between modes
+
+---
+
+### Parent Issues (Tracking/Organization)
 - #107: Fix map display bug (parent of #109, #110)
 - #108: Fog of war system (parent of #111, #112, #113, #114)
 - #34: Danger calculation (parent of #115, #116, #117)
@@ -278,21 +451,30 @@ Farm ────────────┘
 - #36: Collect special tiles (parent of #126, #127)
 - #37: End war scenarios (parent of #128, #129, #130)
 
-#### Total Effort Estimate
-- **Minimum:** 64 hours (optimistic, no blockers)
-- **Maximum:** 81 hours (realistic with debugging/iteration)
-- **Recommended:** Plan for ~10-12 working days (8h days) with buffer
+### Total Effort Summary
 
-#### Parallelization Opportunities
-**Phase 2:** All three issues can be done simultaneously
-**Phase 3:** #118 (enemy generation) can be done while working on fog of war (#112, #113, #114)
-**Phase 4:** #117 (danger UI) can be done in parallel with #120/#121 (tile interaction)
+| Milestone | Effort | Issues | Priority |
+|-----------|--------|--------|----------|
+| Pre-War Quick Wins | 5-7h | 2 | 🔴 Critical |
+| War Phase 1 | 3-5h | 2 | 🔴 Critical |
+| War Phase 2 | 3h | 3 | 🟡 High |
+| War Phase 3 | 12-16h | 4 | 🔴 Critical |
+| Test Cleanup Break | 2-4h | 1 | 🟢 Medium |
+| War Phase 4 | 12-15h | 4 | 🔴 Critical |
+| War Phase 5 | 17-21h | 4 | 🔴 Critical |
+| War Phase 6 | 6-8h | 2 | 🟢 High |
+| War Phase 7 | 11-13h | 3 | 🔴 Critical |
+| **War Total** | **67-85h** | **24** | |
+| Infrastructure Updates | 13-20h | 2 | 🟡 High |
+| Polish & Enhancement | 6-8h | 1 | 🟢 Low |
+| **Grand Total** | **86-113h** | **27** | |
 
-#### Critical Path (longest dependency chain)
+**Critical Path (longest dependency chain):**
 ```
-#109 → #110 → #112 → #113 → #114 → #120 → #121 → #122 → #123 → #124 → #125 → #128 → #129 → #130
+#98 → #102 → #109 → #110 → #112 → #113 → #114 → #120 → #121 → #122 → #123 → #124 → #125 → #128 → #129 → #130
 ```
-This chain represents ~50-60 hours of sequential work.
+
+This represents the sequential work that cannot be parallelized (~55-65 hours).
 
 ## Migration to Vue 3 (COMPLETE! ✅)
 
