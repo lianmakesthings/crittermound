@@ -18,17 +18,19 @@ Crittermound is an incremental/clicker game where you breed and evolve virtual i
 
 ## Tech Stack
 
-- **Vue.js 2.6** - Frontend framework
-- **Vuex 3.5** - State management
-- **Bootstrap-Vue 2.16** - UI components
+- **Vue.js 3.4** - Frontend framework
+- **Vuex 4.1** - State management
+- **Bootstrap-Vue-Next 0.15** - UI components (Bootstrap 5)
 - **Web Workers** - Background game processing
 - **LocalForage** - IndexedDB persistence
-- **Mocha + Chai** - Testing framework
-- **Vue CLI 4.4** - Build tooling
+- **Mocha + Chai 5** - Library testing framework
+- **Vitest** - Component testing framework
+- **Sinon + Sinon-Chai** - Test spies, stubs, and mocks
+- **Vue CLI 5.0** - Build tooling
 
 ## Prerequisites
 
-- **Node.js** (v12 or higher recommended)
+- **Node.js** (v20 or v21 required)
 - **npm** (comes with Node.js)
 
 ## Development Environment Setup
@@ -46,7 +48,7 @@ cd crittermound
 npm install
 ```
 
-This will install all required dependencies including Vue.js, Vuex, Bootstrap-Vue, and development tools.
+This will install all required dependencies including Vue.js 3, Vuex 4, Bootstrap-Vue-Next, and development tools.
 
 ### 3. Run the Development Server
 
@@ -115,7 +117,7 @@ crittermound/
 
 ## Running Tests
 
-Crittermound has comprehensive test coverage with 22 test files covering both game logic and UI components.
+Crittermound has comprehensive test coverage with 177 tests across 22 test files covering both game logic and UI components.
 
 ### Run All Tests
 
@@ -154,11 +156,16 @@ Tests Vue components in `/src/components/` including:
 
 ### Testing Technologies
 
-- **Mocha** - Test runner
-- **Chai** - Assertion library (expect, should, assert)
+**Library Tests (143 tests):**
+- **Mocha** - Test runner for library/game logic tests
+- **Chai 5** - Assertion library with named exports (`expect`, `use`)
 - **Sinon** - Test spies, stubs, and mocks
-- **@vue/test-utils** - Vue component testing utilities
-- **ESM** - ES6 module support in tests
+- **Sinon-Chai** - Chai assertions for Sinon
+
+**Component Tests (34 tests):**
+- **Vitest** - Fast test runner for Vue 3 components
+- **@vue/test-utils 2** - Vue 3 component testing utilities
+- **jsdom** - DOM implementation for Node.js
 
 ### Creating New Tests
 
@@ -168,19 +175,22 @@ Create a new file in `/tests/lib/` with the `.spec.js` extension:
 
 ```javascript
 // tests/lib/YourModule.spec.js
-import { expect } from 'chai'
-import YourModule from '../../src/lib/YourModule'
+import { expect, use } from 'chai';
+import sinonChai from 'sinon-chai';
+import YourModule from '../../src/lib/YourModule.js';
+
+use(sinonChai);
 
 describe('YourModule', () => {
   it('should do something', () => {
-    const result = YourModule.someFunction()
-    expect(result).to.equal(expectedValue)
-  })
+    const result = YourModule.someFunction();
+    expect(result).to.equal(expectedValue);
+  });
 
   it('should handle edge cases', () => {
     // Test edge cases
-  })
-})
+  });
+});
 ```
 
 #### Component Test Example
@@ -189,25 +199,25 @@ Create a new file in `/tests/unit/` with the `.spec.js` extension:
 
 ```javascript
 // tests/unit/YourComponent.spec.js
-import { expect } from 'chai'
-import { shallowMount } from '@vue/test-utils'
-import YourComponent from '@/components/YourComponent.vue'
+import { expect } from 'vitest';
+import { shallowMount } from '@vue/test-utils';
+import YourComponent from '../../src/components/YourComponent.vue';
 
 describe('YourComponent.vue', () => {
   it('renders props when passed', () => {
-    const msg = 'new message'
+    const msg = 'new message';
     const wrapper = shallowMount(YourComponent, {
-      propsData: { msg }
-    })
-    expect(wrapper.text()).to.include(msg)
-  })
+      props: { msg }  // Vue 3 uses 'props' instead of 'propsData'
+    });
+    expect(wrapper.text()).toContain(msg);
+  });
 
-  it('handles user interaction', () => {
-    const wrapper = shallowMount(YourComponent)
-    wrapper.find('button').trigger('click')
-    expect(wrapper.vm.someData).to.equal(expectedValue)
-  })
-})
+  it('handles user interaction', async () => {
+    const wrapper = shallowMount(YourComponent);
+    await wrapper.find('button').trigger('click');  // await async actions
+    expect(wrapper.vm.someData).toBe(expectedValue);
+  });
+});
 ```
 
 **Test Best Practices:**
@@ -335,7 +345,7 @@ npm run serve -- --port 3000
 2. Check Node.js version:
    ```bash
    node --version
-   # Should be v12 or higher
+   # Should be v20 or v21
    ```
 
 ### Tests Failing
@@ -368,5 +378,5 @@ This project is private and maintained by lianmakesthings.
 
 - **Author**: lianmakesthings
 - **Original Game**: http://crittermound.com
-- **Framework**: Vue.js
-- **UI Library**: Bootstrap-Vue
+- **Framework**: Vue.js 3
+- **UI Library**: Bootstrap-Vue-Next (Bootstrap 5)
