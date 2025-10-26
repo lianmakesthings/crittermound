@@ -195,7 +195,7 @@ Farm ────────────┘
 
 **Development strategy:** Strategic interleaving approach - complete quick wins, build war mechanic incrementally with strategic breaks, then tackle infrastructure updates.
 
-**Total timeline:** 88-117 hours (~9-12 weeks of focused work)
+**Total timeline:** 90-120 hours (~9-12 weeks of focused work)
 
 ### Milestone 1: Pre-War Quick Wins (7-11 hours) 🔴 CRITICAL
 **Priority:** DO FIRST - Clean slate before major feature work
@@ -418,19 +418,18 @@ Farm ────────────┘
 
 ---
 
-### Milestone 11: Polish & Enhancement (6-8 hours) 🟢 LOW
+### Milestone 11: Polish & Enhancement (8-11 hours) 🟢 LOW
 **Priority:** Quality of life (Victory lap!)
 
 **Issues:**
 - [#96](https://github.com/lianmakesthings/crittermound/issues/96): Add dark mode / night mode support (6-8h, medium)
+- [#136](https://github.com/lianmakesthings/crittermound/issues/136): Add generation counter to track breeding progress (2-3h, medium)
 
-**Reasoning:** Pure enhancement after major features. Reward project after completing heavy technical work. Fun, user-facing improvement.
+**Reasoning:** Pure enhancements after major features. Reward project after completing heavy technical work. Fun, user-facing improvements that add polish.
 
-**Implementation approach:**
-- Bootstrap 5 / Bootstrap-Vue-Next dark mode utilities
-- localStorage persistence
-- Optional: System preference detection (`prefers-color-scheme`)
-- Toggle button in navbar
+**Features:**
+- **Dark mode:** Bootstrap 5 / Bootstrap-Vue-Next dark mode utilities, localStorage persistence, optional system preference detection
+- **Generation counter:** Track breeding generations, display in Royal Hatchery, show progression
 
 **Dependencies:** Infrastructure Updates (or anytime after war)
 
@@ -439,6 +438,8 @@ Farm ────────────┘
 - All components readable in dark mode
 - Preference persisted across sessions
 - Smooth transition between modes
+- Generation counter displays and updates correctly
+- Generation persists across save/load
 
 ---
 
@@ -467,8 +468,8 @@ Farm ────────────┘
 | War Phase 7 | 11-13h | 3 | 🔴 Critical |
 | **War Total** | **67-85h** | **24** | |
 | Infrastructure Updates | 13-20h | 2 | 🟡 High |
-| Polish & Enhancement | 6-8h | 1 | 🟢 Low |
-| **Grand Total** | **88-117h** | **28** | |
+| Polish & Enhancement | 8-11h | 2 | 🟢 Low |
+| **Grand Total** | **90-120h** | **29** | |
 
 **Critical Path (longest dependency chain):**
 ```
