@@ -1,4 +1,4 @@
-# Crittermound v2.0 ![build status](https://api.travis-ci.com/lianmakesthings/crittermound.svg?branch=master)
+# Crittermound v2.0 [![CI](https://github.com/lianmakesthings/crittermound/actions/workflows/ci.yml/badge.svg)](https://github.com/lianmakesthings/crittermound/actions/workflows/ci.yml)
 
 > A complete rework of http://crittermound.com with Vue.js
 
