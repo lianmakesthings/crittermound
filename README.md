@@ -1,6 +1,6 @@
 # Crittermound v2.0 [![CI](https://github.com/lianmakesthings/crittermound/actions/workflows/ci.yml/badge.svg)](https://github.com/lianmakesthings/crittermound/actions/workflows/ci.yml)
 
-> A complete rework of http://crittermound.com with Vue.js
+> A complete rework of https://jayseesee.github.io/Crittermound-Fork/ with Vue.js
 
 Visit the game at: [crittermound.lianmakesthings.dev](https://crittermound.lianmakesthings.dev/)
 
@@ -377,6 +377,6 @@ This project is private and maintained by lianmakesthings.
 ## Credits
 
 - **Author**: lianmakesthings
-- **Original Game**: http://crittermound.com
+- **Original Game**: https://jayseesee.github.io/Crittermound-Fork/
 - **Framework**: Vue.js 3
 - **UI Library**: Bootstrap-Vue-Next (Bootstrap 5)
