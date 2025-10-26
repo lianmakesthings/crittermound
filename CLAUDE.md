@@ -2,6 +2,20 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## GitHub Labels
+
+When creating or updating issues, use these existing labels:
+- `bug` - Bug fixes
+- `enhancement` - New features or improvements
+- `Testing` - Test-related work
+- `good first issue` - Good for newcomers
+- `help wanted` - Extra attention needed
+- `nice to have` - Low priority enhancements
+- `question` - Questions or discussions
+- `dependencies` - Dependency updates
+- `javascript` - JavaScript code changes
+- `duplicate`, `invalid`, `wontfix` - Issue management
+
 ## Commands
 
 ### Development
@@ -178,6 +192,107 @@ Farm ────────────┘
 
 **Related GitHub issues:**
 - See war mechanic milestone issues for implementation roadmap
+
+### War Mechanic Implementation Roadmap
+
+**Development approach:** Build incrementally in 7 phases, testing each phase before moving to the next.
+
+#### Phase 1: Critical Blocker (3-5 hours total) 🔴
+**Must complete first - blocks all other work**
+- #109: Fix store getter to return map.tiles array (1-2h, easy)
+  - Fix `currentMap` getter in store.js line 155
+  - Add unit tests for getter
+- #110: Add component tests for 20×20 grid rendering (2-3h, medium)
+  - Test War component renders proper grid structure
+  - Verify grid updates when map changes
+
+#### Phase 2: Foundation Properties (3 hours total, can parallelize) 🟡
+**Add basic properties to Tile class**
+- #111: Add tile visibility properties (isVisible, isExplored) (1h, easy)
+- #115: Add danger property (1h, easy)
+- #119: Add tile state properties (isControlled, hasEnemies, explorable, attackable) (1h, easy)
+
+#### Phase 3: Core Systems (12-16 hours total, some parallelization) 🟡
+**Implement fundamental game logic**
+- #112: Implement getAdjacentTiles() with cardinal directions (2-3h, medium)
+  - Critical dependency for fog of war and tile interaction
+- #116: Implement danger calculation algorithm (3-4h, medium)
+  - Uses nation difficulty, distance, special bonuses
+- #113: Implement updateVisibility() for fog of war (3-4h, medium)
+  - **Depends on:** #112
+- #118: Implement generateEnemyArmy() method (4-5h, medium)
+  - Generate enemies based on nation difficulty
+  - Can be done in parallel with fog of war
+
+#### Phase 4: UI Layer (12-15 hours total) 🟢
+**Make systems visible to player**
+- #114: Add fog of war UI styling (3-4h, medium)
+  - **Depends on:** #113
+- #117: Add danger display and color coding (2-3h, easy)
+  - **Depends on:** #116
+- #120: Implement updateAvailableTiles() logic (3-4h, medium)
+  - **Depends on:** #112
+  - Determines explorable/attackable tiles
+- #121: Add tile interaction UI (click handlers, visual indicators) (3-4h, medium)
+  - **Depends on:** #120
+
+#### Phase 5: Combat System (17-21 hours total, sequential) 🔴
+**Most complex phase - build carefully**
+- #122: Implement combat damage calculation (Bite vs Sting) (4-5h, medium)
+  - Core combat math with stat bonuses
+- #123: Implement combat round resolution (5-6h, hard)
+  - **Depends on:** #122
+  - Turn order, targeting, health tracking
+- #124: Integrate combat into Web Worker tick system (4-5h, hard)
+  - **Depends on:** #123
+  - Worker.js and Controller.js changes
+- #125: Add combat UI (health bars, combat log) (4-5h, medium)
+  - **Depends on:** #124
+
+#### Phase 6: Rewards System (6-8 hours total) 🟢
+**Tile bonuses and collection**
+- #126: Implement collectTileBonus() for all special tiles (4-5h, medium)
+  - Production upgrades, genes, boosts, artifacts
+  - Single configurable method handles all types
+- #127: Add bonus collection UI notifications (2-3h, easy)
+  - **Depends on:** #126
+
+#### Phase 7: End Game (11-13 hours total) 🟢
+**Victory, defeat, and war completion**
+- #128: Implement victory/defeat/retreat detection (3-4h, medium)
+  - Check end conditions, calculate rewards
+- #129: Implement endWar store action (3-4h, medium)
+  - **Depends on:** #128
+  - Apply rewards, cleanup state, return survivors
+- #130: Add victory/defeat/retreat UI screens (4-5h, medium)
+  - **Depends on:** #129
+  - Modals for all end scenarios
+
+#### Parent Issues (tracking/organization)
+- #107: Fix map display bug (parent of #109, #110)
+- #108: Fog of war system (parent of #111, #112, #113, #114)
+- #34: Danger calculation (parent of #115, #116, #117)
+- #31: Enemy generation (parent of #118)
+- #35: Explorable/attackable tiles (parent of #119, #120, #121)
+- #32: Fighting system (parent of #122, #123, #124, #125)
+- #36: Collect special tiles (parent of #126, #127)
+- #37: End war scenarios (parent of #128, #129, #130)
+
+#### Total Effort Estimate
+- **Minimum:** 64 hours (optimistic, no blockers)
+- **Maximum:** 81 hours (realistic with debugging/iteration)
+- **Recommended:** Plan for ~10-12 working days (8h days) with buffer
+
+#### Parallelization Opportunities
+**Phase 2:** All three issues can be done simultaneously
+**Phase 3:** #118 (enemy generation) can be done while working on fog of war (#112, #113, #114)
+**Phase 4:** #117 (danger UI) can be done in parallel with #120/#121 (tile interaction)
+
+#### Critical Path (longest dependency chain)
+```
+#109 → #110 → #112 → #113 → #114 → #120 → #121 → #122 → #123 → #124 → #125 → #128 → #129 → #130
+```
+This chain represents ~50-60 hours of sequential work.
 
 ## Migration to Vue 3 (COMPLETE! ✅)
 
