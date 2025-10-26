@@ -197,21 +197,24 @@ Farm ────────────┘
 
 **Development strategy:** Strategic interleaving approach - complete quick wins, build war mechanic incrementally with strategic breaks, then tackle infrastructure updates.
 
-**Total timeline:** 86-113 hours (~9-12 weeks of focused work)
+**Total timeline:** 88-117 hours (~9-12 weeks of focused work)
 
-### Milestone 1: Pre-War Quick Wins (5-7 hours) 🔴 CRITICAL
+### Milestone 1: Pre-War Quick Wins (7-11 hours) 🔴 CRITICAL
 **Priority:** DO FIRST - Clean slate before major feature work
 
 **Issues:**
 - #98: Fix HTML validation warnings in HowTo.vue (1h, easy)
 - #102: Fix critter stat colors bug in Royal Hatchery (4-6h, medium)
+- #134: Set up GitHub Actions CI for automated testing (2-4h, medium)
 
-**Reasoning:** Quick cleanup wins that improve UX and remove build noise. Fixing #102 adds test coverage that will be valuable during war development.
+**Reasoning:** Quick cleanup wins that improve UX and remove build noise. Fixing #102 adds test coverage that will be valuable during war development. Setting up CI ensures all tests pass before merging, protecting main branch during complex feature development.
 
 **Success criteria:**
 - Zero HTML validation warnings in build
 - Critter stats show green/red color indicators correctly
 - Tests added to prevent regression
+- CI workflow runs on all pull requests
+- All 177 tests must pass before merging
 
 ---
 
@@ -455,7 +458,7 @@ Farm ────────────┘
 
 | Milestone | Effort | Issues | Priority |
 |-----------|--------|--------|----------|
-| Pre-War Quick Wins | 5-7h | 2 | 🔴 Critical |
+| Pre-War Quick Wins | 7-11h | 3 | 🔴 Critical |
 | War Phase 1 | 3-5h | 2 | 🔴 Critical |
 | War Phase 2 | 3h | 3 | 🟡 High |
 | War Phase 3 | 12-16h | 4 | 🔴 Critical |
@@ -467,14 +470,19 @@ Farm ────────────┘
 | **War Total** | **67-85h** | **24** | |
 | Infrastructure Updates | 13-20h | 2 | 🟡 High |
 | Polish & Enhancement | 6-8h | 1 | 🟢 Low |
-| **Grand Total** | **86-113h** | **27** | |
+| **Grand Total** | **88-117h** | **28** | |
 
 **Critical Path (longest dependency chain):**
 ```
-#98 → #102 → #109 → #110 → #112 → #113 → #114 → #120 → #121 → #122 → #123 → #124 → #125 → #128 → #129 → #130
+Pre-War Quick Wins (#98, #102, #134 - can parallelize) →
+#109 → #110 → #112 → #113 → #114 → #120 → #121 → #122 → #123 → #124 → #125 → #128 → #129 → #130
 ```
 
-This represents the sequential work that cannot be parallelized (~55-65 hours).
+**Notes:**
+- Pre-War Quick Wins issues (#98, #102, #134) can be done in parallel, but all must complete before War Phase 1
+- War Phase 1 depends on CI being set up (#134) to protect main branch during development
+- Sequential work (after Pre-War Quick Wins): ~50-60 hours
+- Total critical path: ~57-71 hours (including longest Pre-War issue)
 
 ## Migration to Vue 3 (COMPLETE! ✅)
 
