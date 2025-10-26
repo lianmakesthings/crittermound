@@ -131,7 +131,7 @@ Farm ────────────┘
 1. `Nations.vue` calls `store.dispatch('startWar', nationId)`
 2. Store creates `new War(Nation.get(nationId))`
 3. War constructor creates 20x20 `Map` and generates special tiles
-4. War.vue displays the map grid (currently broken)
+4. War.vue displays the map grid (currently shows 3×20 instead of 20×20)
 
 **Map generation (src/lib/Map.js):**
 - Creates 20x20 grid of `Tile` objects
@@ -145,15 +145,30 @@ Farm ────────────┘
 - `isBlocked()` returns true if tile has a bonus (used during generation)
 - Constants defined for special types but not used in current implementation
 
+**Adjacency rules (IMPORTANT):**
+- Tiles are adjacent only in **cardinal directions** (up, down, left, right)
+- Diagonal tiles are **NOT** considered adjacent
+- Each tile has max 4 adjacent tiles (2 for corners, 3 for edges, 4 for interior)
+
+**Fog of War mechanic:**
+- At war start: Only player base tile + adjacent tiles (4 cardinal) are visible
+- Special tiles (enemy base, treasures) are hidden until revealed
+- As player captures tiles: Adjacent tiles become visible
+- Players must explore to discover map features
+- **Unknown:** When/how danger values are shown to player (needs design decision)
+
 **Known bugs:**
-- Store getter `currentMap` returns Map object instead of `map.tiles` array (War.vue:155)
+- Store getter `currentMap` returns Map object instead of `map.tiles` array
+  - Causes War.vue to render 3×20 grid instead of 20×20
 - War.vue template references `tile.danger` which doesn't exist on Tile
-- No visual differentiation between tile types (all show as empty)
+- No visual differentiation between tile types
+- No fog of war implementation (all tiles shown or none shown)
 
 **NOT implemented (major features missing):**
+- ❌ Fog of war / tile visibility system
 - ❌ Combat mechanics - No turn-based battle system
 - ❌ Critter deployment - Can't send army critters to battle
-- ❌ Movement system - No way to move across tiles
+- ❌ Movement/exploration system - No way to move across tiles
 - ❌ Damage/health calculations - No combat resolution
 - ❌ Victory/defeat conditions - No win/loss logic
 - ❌ Rewards - No gene unlocks or bonuses for winning
