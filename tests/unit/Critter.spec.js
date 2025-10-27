@@ -333,6 +333,48 @@ describe("The critter view", () => {
       expect(agilityDetails.classes()).not.toContain(worseStatClass);
       expect(agilityDetails.classes()).not.toContain(betterStatClass);
     });
+
+    it('should show no color if no parent is given', () => {
+      store = createStore({
+        state: {},
+        getters: {
+          findCritter: () => {
+            return (id) => {
+              if (id === parentCritter.id) return null;
+              if (id === critter.id) return critter;
+            }
+          }
+        },
+        actions: {}
+      });
+
+      const critterWrapper = shallowMount(Critter, {
+        props: propsData,
+        global: {
+          plugins: [store]
+        }
+      });
+
+      const totalDetails = critterWrapper.find(`#totalDetails-${critter.id}`);
+      const vitalityDetails = critterWrapper.find(`#vitalityDetails-${critter.id}`);
+      const strengthDetails = critterWrapper.find(`#strengthDetails-${critter.id}`);
+      const biteDetails = critterWrapper.find(`#biteDetails-${critter.id}`);
+      const stingDetails = critterWrapper.find(`#stingDetails-${critter.id}`);
+      const agilityDetails = critterWrapper.find(`#agilityDetails-${critter.id}`);
+
+      expect(totalDetails.classes()).not.toContain(worseStatClass);
+      expect(totalDetails.classes()).not.toContain(betterStatClass);
+      expect(stingDetails.classes()).not.toContain(worseStatClass);
+      expect(stingDetails.classes()).not.toContain(betterStatClass);
+      expect(biteDetails.classes()).not.toContain(worseStatClass);
+      expect(biteDetails.classes()).not.toContain(betterStatClass);
+      expect(strengthDetails.classes()).not.toContain(worseStatClass);
+      expect(strengthDetails.classes()).not.toContain(betterStatClass);
+      expect(vitalityDetails.classes()).not.toContain(worseStatClass);
+      expect(vitalityDetails.classes()).not.toContain(betterStatClass);
+      expect(agilityDetails.classes()).not.toContain(worseStatClass);
+      expect(agilityDetails.classes()).not.toContain(betterStatClass);
+    })
   });
 });
 
