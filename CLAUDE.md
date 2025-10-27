@@ -193,23 +193,26 @@ Farm ────────────┘
 
 ## Project Milestones & Roadmap
 
-**Development strategy:** Strategic interleaving approach - complete quick wins, build war mechanic incrementally with strategic breaks, then tackle infrastructure updates.
+**Development strategy:** Strategic interleaving approach - complete quick wins, build war mechanic incrementally with strategic breaks, then tackle infrastructure updates and optional advanced features.
 
-**Total timeline:** 88-117 hours (~9-12 weeks of focused work)
+**Total timeline:** 107-143 hours (~11-14 weeks of focused work)
+**Core features only:** 90-120 hours (~9-12 weeks) - excludes Advanced Features milestone
 
-### Milestone 1: Pre-War Quick Wins (7-11 hours) 🔴 CRITICAL
+### Milestone 1: Pre-War Quick Wins (9-14 hours) 🔴 CRITICAL
 **Priority:** DO FIRST - Clean slate before major feature work
 
 **Issues:**
 - #98: Fix HTML validation warnings in HowTo.vue (1h, easy)
 - #102: Fix critter stat colors bug in Royal Hatchery (4-6h, medium)
 - #134: Set up GitHub Actions CI for automated testing (2-4h, medium)
+- #138: Arrows missing in sod production visualization (Workers tab) (2-3h, easy)
 
-**Reasoning:** Quick cleanup wins that improve UX and remove build noise. Fixing #102 adds test coverage that will be valuable during war development. Setting up CI ensures all tests pass before merging, protecting main branch during complex feature development.
+**Reasoning:** Quick cleanup wins that improve UX and remove build noise. Fixing #102 adds test coverage that will be valuable during war development. Setting up CI ensures all tests pass before merging, protecting main branch during complex feature development. Restoring production arrows (#138) improves visual clarity for understanding resource flow.
 
 **Success criteria:**
 - Zero HTML validation warnings in build
 - Critter stats show green/red color indicators correctly
+- Production arrows visible in Workers tab
 - Tests added to prevent regression
 - CI workflow runs on all pull requests
 - All 177 tests must pass before merging
@@ -442,6 +445,36 @@ Farm ────────────┘
 
 ---
 
+### Milestone 12: Advanced Features - Secondary Breeding Line (17-23 hours) 🟢 LOW
+**Priority:** Optional enhancement for genetic diversity
+
+**Issues:**
+- #139: Design secondary breeding line system (Princes/Princesses) (2-3h, easy)
+- #140: Add store support for secondary breeding pair (4-5h, medium)
+- #141: Add UI components for Princes/Princesses hatchery (5-7h, medium)
+- #142: Implement breeding logic for secondary breeding line (3-4h, medium)
+- #143: Integration and polish for secondary breeding line (3-4h, medium)
+
+**Reasoning:** Advanced feature that adds strategic depth by allowing players to maintain multiple breeding lines simultaneously. Princes/Princesses breed independently from King/Queen, enabling experimentation with different genetic strategies.
+
+**Benefits:**
+- Genetic diversity: Maintain separate breeding lines for different traits
+- Strategic options: Breed for combat in one line, production in another
+- Progression depth: Unlockable feature adds mid-game goals
+- Replayability: More ways to optimize breeding strategies
+
+**Dependencies:** Can be done anytime after core features complete (War Phase 7 recommended)
+
+**Success criteria:**
+- Secondary breeding pair (Prince/Princess) can be promoted
+- Secondary breeding produces offspring independently
+- Clear visual distinction between breeding lines
+- Stat colors compare to correct parent (prince vs king, princess vs queen)
+- Save/load compatibility maintained
+- Performance acceptable with dual breeding
+
+---
+
 ### Parent Issues (Tracking/Organization)
 - #107: Fix map display bug (parent of #109, #110)
 - #108: Fog of war system (parent of #111, #112, #113, #114)
@@ -456,7 +489,7 @@ Farm ────────────┘
 
 | Milestone | Effort | Issues | Priority |
 |-----------|--------|--------|----------|
-| Pre-War Quick Wins | 7-11h | 3 | 🔴 Critical |
+| Pre-War Quick Wins | 9-14h | 4 | 🔴 Critical |
 | War Phase 1 | 3-5h | 2 | 🔴 Critical |
 | War Phase 2 | 3h | 3 | 🟡 High |
 | War Phase 3 | 12-16h | 4 | 🔴 Critical |
@@ -468,16 +501,17 @@ Farm ────────────┘
 | **War Total** | **67-85h** | **24** | |
 | Infrastructure Updates | 13-20h | 2 | 🟡 High |
 | Polish & Enhancement | 6-8h | 1 | 🟢 Low |
-| **Grand Total** | **88-117h** | **28** | |
+| Advanced Features: Secondary Breeding | 17-23h | 5 | 🟢 Low |
+| **Grand Total** | **107-143h** | **34** | |
 
 **Critical Path (longest dependency chain):**
 ```
-Pre-War Quick Wins (#98, #102, #134 - can parallelize) →
+Pre-War Quick Wins (#98, #102, #134, #138 - can parallelize) →
 #109 → #110 → #112 → #113 → #114 → #120 → #121 → #122 → #123 → #124 → #125 → #128 → #129 → #130
 ```
 
 **Notes:**
-- Pre-War Quick Wins issues (#98, #102, #134) can be done in parallel, but all must complete before War Phase 1
+- Pre-War Quick Wins issues (#98, #102, #134, #138) can be done in parallel, but all must complete before War Phase 1
 - War Phase 1 depends on CI being set up (#134) to protect main branch during development
 - Sequential work (after Pre-War Quick Wins): ~50-60 hours
 - Total critical path: ~57-71 hours (including longest Pre-War issue)
@@ -516,13 +550,17 @@ Pre-War Quick Wins (#98, #102, #134 - can parallelize) →
 - Issue #97: Component tests show "Failed to resolve component" warnings for Bootstrap components
   - Tests pass despite warnings
   - Warnings are harmless but clutter test output
-- Issue #98: HTML validation warnings in HowTo.vue during build
+- Issue #98: HTML validation warnings in HowTo.vue during build (COMPLETED ✅)
   - Invalid `<ol>` nested in `<p>` tag
   - Missing `<tbody>` in tables
   - App runs correctly despite warnings
-- Issue #102: Critter stat color indicators not working in Royal Hatchery
+- Issue #102: Critter stat color indicators not working in Royal Hatchery (COMPLETED ✅)
   - Green/red indicators for better/worse stats not displaying
   - Needs tests to prevent regression
+  - Pre-existing bug, not caused by migration
+- Issue #138: Arrows missing in sod production visualization (Workers tab)
+  - Production flow arrows disappeared after Vue 3 migration
+  - Reduces visual clarity of resource pipeline
   - Pre-existing bug, not caused by migration
 
 **Bootstrap-Vue-Next component mapping:**
