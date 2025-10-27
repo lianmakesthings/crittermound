@@ -195,8 +195,8 @@ Farm ────────────┘
 
 **Development strategy:** Strategic interleaving approach - complete quick wins, build war mechanic incrementally with strategic breaks, then tackle infrastructure updates and optional advanced features.
 
-**Total timeline:** 110-147 hours (~11-14 weeks of focused work)
-**Core features only:** 93-124 hours (~9-12 weeks) - excludes Advanced Features milestone
+**Total timeline:** 120-162 hours (~12-16 weeks of focused work)
+**Core features only:** 103-139 hours (~10-14 weeks) - excludes Advanced Features milestone
 
 ### Milestone 1: Pre-War Quick Wins (12-18 hours) 🔴 CRITICAL
 **Priority:** DO FIRST - Clean slate before major feature work
@@ -423,19 +423,32 @@ Farm ────────────┘
 
 ---
 
-### Milestone 11: Polish & Enhancement (6-8 hours) 🟢 LOW
+### Milestone 11: Polish & Enhancement (16-23 hours) 🟢 LOW
 **Priority:** Quality of life (Victory lap!)
 
 **Issues:**
 - #96: Add dark mode / night mode support (6-8h, medium)
+- #145: Save export/import functionality (10-15h, medium-high) - **Parent issue**
+  - #146: Design save export/import system architecture (1-2h, easy)
+  - #147: Implement save export to JSON file (2-3h, medium)
+  - #148: Implement save import from JSON file with validation (3-4h, medium)
+  - #149: Add UI controls for export/import in settings (2-3h, medium)
+  - #150: Add comprehensive testing for save export/import (2-3h, medium)
 
-**Reasoning:** Pure enhancement after major features. Reward project after completing heavy technical work. Fun, user-facing improvement.
+**Reasoning:** Pure enhancement after major features. Reward project after completing heavy technical work. Fun, user-facing improvements that enhance quality of life.
 
-**Implementation approach:**
+**Dark Mode Implementation:**
 - Bootstrap 5 / Bootstrap-Vue-Next dark mode utilities
 - localStorage persistence
 - Optional: System preference detection (`prefers-color-scheme`)
 - Toggle button in navbar
+
+**Save Export/Import Features:**
+- Manual backup of game progress
+- Share saves between devices
+- Recover from browser data loss
+- Share interesting game states with community
+- JSON format for transparency and editability
 
 **Dependencies:** Infrastructure Updates (or anytime after war)
 
@@ -444,6 +457,9 @@ Farm ────────────┘
 - All components readable in dark mode
 - Preference persisted across sessions
 - Smooth transition between modes
+- Save export/import works reliably
+- Validation prevents corrupted saves
+- Clear user feedback for all operations
 
 ---
 
@@ -486,6 +502,7 @@ Farm ────────────┘
 - #32: Fighting system (parent of #122, #123, #124, #125)
 - #36: Collect special tiles (parent of #126, #127)
 - #37: End war scenarios (parent of #128, #129, #130)
+- #145: Save export/import functionality (parent of #146, #147, #148, #149, #150)
 
 ### Total Effort Summary
 
@@ -502,9 +519,9 @@ Farm ────────────┘
 | War Phase 7 | 11-13h | 3 | 🔴 Critical |
 | **War Total** | **67-85h** | **24** | |
 | Infrastructure Updates | 13-20h | 2 | 🟡 High |
-| Polish & Enhancement | 6-8h | 1 | 🟢 Low |
+| Polish & Enhancement | 16-23h | 6 | 🟢 Low |
 | Advanced Features: Secondary Breeding | 17-23h | 5 | 🟢 Low |
-| **Grand Total** | **110-147h** | **35** | |
+| **Grand Total** | **120-162h** | **41** | |
 
 **Critical Path (longest dependency chain):**
 ```
