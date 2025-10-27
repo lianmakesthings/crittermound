@@ -195,10 +195,10 @@ Farm ────────────┘
 
 **Development strategy:** Strategic interleaving approach - complete quick wins, build war mechanic incrementally with strategic breaks, then tackle infrastructure updates and optional advanced features.
 
-**Total timeline:** 107-143 hours (~11-14 weeks of focused work)
-**Core features only:** 90-120 hours (~9-12 weeks) - excludes Advanced Features milestone
+**Total timeline:** 110-147 hours (~11-14 weeks of focused work)
+**Core features only:** 93-124 hours (~9-12 weeks) - excludes Advanced Features milestone
 
-### Milestone 1: Pre-War Quick Wins (9-14 hours) 🔴 CRITICAL
+### Milestone 1: Pre-War Quick Wins (12-18 hours) 🔴 CRITICAL
 **Priority:** DO FIRST - Clean slate before major feature work
 
 **Issues:**
@@ -206,13 +206,15 @@ Farm ────────────┘
 - #102: Fix critter stat colors bug in Royal Hatchery (4-6h, medium)
 - #134: Set up GitHub Actions CI for automated testing (2-4h, medium)
 - #138: Arrows missing in sod production visualization (Workers tab) (2-3h, easy)
+- #144: Factory full: cannot assign better critters (should replace weakest) (3-4h, medium)
 
-**Reasoning:** Quick cleanup wins that improve UX and remove build noise. Fixing #102 adds test coverage that will be valuable during war development. Setting up CI ensures all tests pass before merging, protecting main branch during complex feature development. Restoring production arrows (#138) improves visual clarity for understanding resource flow.
+**Reasoning:** Quick cleanup wins that improve UX and remove build noise. Fixing #102 adds test coverage that will be valuable during war development. Setting up CI ensures all tests pass before merging, protecting main branch during complex feature development. Restoring production arrows (#138) improves visual clarity for understanding resource flow. Factory replacement bug (#144) fixes frustrating gameplay issue.
 
 **Success criteria:**
 - Zero HTML validation warnings in build
 - Critter stats show green/red color indicators correctly
 - Production arrows visible in Workers tab
+- Factory workers can be replaced with better critters
 - Tests added to prevent regression
 - CI workflow runs on all pull requests
 - All 177 tests must pass before merging
@@ -489,7 +491,7 @@ Farm ────────────┘
 
 | Milestone | Effort | Issues | Priority |
 |-----------|--------|--------|----------|
-| Pre-War Quick Wins | 9-14h | 4 | 🔴 Critical |
+| Pre-War Quick Wins | 12-18h | 5 | 🔴 Critical |
 | War Phase 1 | 3-5h | 2 | 🔴 Critical |
 | War Phase 2 | 3h | 3 | 🟡 High |
 | War Phase 3 | 12-16h | 4 | 🔴 Critical |
@@ -502,19 +504,19 @@ Farm ────────────┘
 | Infrastructure Updates | 13-20h | 2 | 🟡 High |
 | Polish & Enhancement | 6-8h | 1 | 🟢 Low |
 | Advanced Features: Secondary Breeding | 17-23h | 5 | 🟢 Low |
-| **Grand Total** | **107-143h** | **34** | |
+| **Grand Total** | **110-147h** | **35** | |
 
 **Critical Path (longest dependency chain):**
 ```
-Pre-War Quick Wins (#98, #102, #134, #138 - can parallelize) →
+Pre-War Quick Wins (#98, #102, #134, #138, #144 - can parallelize) →
 #109 → #110 → #112 → #113 → #114 → #120 → #121 → #122 → #123 → #124 → #125 → #128 → #129 → #130
 ```
 
 **Notes:**
-- Pre-War Quick Wins issues (#98, #102, #134, #138) can be done in parallel, but all must complete before War Phase 1
+- Pre-War Quick Wins issues (#98, #102, #134, #138, #144) can be done in parallel, but all must complete before War Phase 1
 - War Phase 1 depends on CI being set up (#134) to protect main branch during development
 - Sequential work (after Pre-War Quick Wins): ~50-60 hours
-- Total critical path: ~57-71 hours (including longest Pre-War issue)
+- Total critical path: ~60-74 hours (including longest Pre-War issue)
 
 ## Migration to Vue 3 (COMPLETE! ✅)
 
@@ -562,6 +564,10 @@ Pre-War Quick Wins (#98, #102, #134, #138 - can parallelize) →
   - Production flow arrows disappeared after Vue 3 migration
   - Reduces visual clarity of resource pipeline
   - Pre-existing bug, not caused by migration
+- Issue #144: Factory full: cannot assign better critters (should replace weakest)
+  - When factory is full, cannot replace workers with better critters
+  - Should automatically replace weakest worker to optimize production
+  - Frustrating gameplay issue requiring tedious micromanagement
 
 **Bootstrap-Vue-Next component mapping:**
 - `<b-button>` → `<BButton>`
