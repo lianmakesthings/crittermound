@@ -242,6 +242,7 @@ describe("The critter view", () => {
       vi.spyOn(critter.traits[Trait.ID_STRENGTH], 'value', 'get').mockReturnValue(HIGH_VALUE);
       vi.spyOn(critter.traits[Trait.ID_BITE], 'value', 'get').mockReturnValue(HIGH_VALUE);
       vi.spyOn(critter.traits[Trait.ID_STING], 'value', 'get').mockReturnValue(HIGH_VALUE);
+      vi.spyOn(critter.traits[Trait.ID_AGILITY], 'value', 'get').mockReturnValue(HIGH_VALUE);
 
       const critterWrapper = shallowMount(Critter, {
         props: propsData,
@@ -255,12 +256,14 @@ describe("The critter view", () => {
       const strengthDetails = critterWrapper.find(`#strengthDetails-${critter.id}`);
       const biteDetails = critterWrapper.find(`#biteDetails-${critter.id}`);
       const stingDetails = critterWrapper.find(`#stingDetails-${critter.id}`);
+      const agilityDetails = critterWrapper.find(`#agilityDetails-${critter.id}`);
 
       expect(totalDetails.classes()).toContain(betterStatClass);
       expect(stingDetails.classes()).toContain(betterStatClass);
       expect(biteDetails.classes()).toContain(betterStatClass);
       expect(strengthDetails.classes()).toContain(betterStatClass);
       expect(vitalityDetails.classes()).toContain(betterStatClass);
+      expect(agilityDetails.classes()).toContain(betterStatClass);
     });
 
     it('should show red color for worse values', () => {
@@ -270,6 +273,7 @@ describe("The critter view", () => {
       vi.spyOn(critter.traits[Trait.ID_STRENGTH], 'value', 'get').mockReturnValue(LOW_VALUE);
       vi.spyOn(critter.traits[Trait.ID_BITE], 'value', 'get').mockReturnValue(LOW_VALUE);
       vi.spyOn(critter.traits[Trait.ID_STING], 'value', 'get').mockReturnValue(LOW_VALUE);
+      vi.spyOn(critter.traits[Trait.ID_AGILITY], 'value', 'get').mockReturnValue(LOW_VALUE);
 
       const critterWrapper = shallowMount(Critter, {
         props: propsData,
@@ -283,12 +287,14 @@ describe("The critter view", () => {
       const strengthDetails = critterWrapper.find(`#strengthDetails-${critter.id}`);
       const biteDetails = critterWrapper.find(`#biteDetails-${critter.id}`);
       const stingDetails = critterWrapper.find(`#stingDetails-${critter.id}`);
+      const agilityDetails = critterWrapper.find(`#agilityDetails-${critter.id}`);
 
       expect(totalDetails.classes()).toContain(worseStatClass);
       expect(stingDetails.classes()).toContain(worseStatClass);
       expect(biteDetails.classes()).toContain(worseStatClass);
       expect(strengthDetails.classes()).toContain(worseStatClass);
       expect(vitalityDetails.classes()).toContain(worseStatClass);
+      expect(agilityDetails.classes()).toContain(worseStatClass);
     });
 
     it('should show no color for equal total score', () => {
@@ -298,6 +304,7 @@ describe("The critter view", () => {
       vi.spyOn(critter.traits[Trait.ID_STRENGTH], 'value', 'get').mockReturnValue(BASE_VALUE);
       vi.spyOn(critter.traits[Trait.ID_BITE], 'value', 'get').mockReturnValue(BASE_VALUE);
       vi.spyOn(critter.traits[Trait.ID_STING], 'value', 'get').mockReturnValue(BASE_VALUE);
+      vi.spyOn(critter.traits[Trait.ID_AGILITY], 'value', 'get').mockReturnValue(BASE_VALUE);
 
       const critterWrapper = shallowMount(Critter, {
         props: propsData,
@@ -311,6 +318,7 @@ describe("The critter view", () => {
       const strengthDetails = critterWrapper.find(`#strengthDetails-${critter.id}`);
       const biteDetails = critterWrapper.find(`#biteDetails-${critter.id}`);
       const stingDetails = critterWrapper.find(`#stingDetails-${critter.id}`);
+      const agilityDetails = critterWrapper.find(`#agilityDetails-${critter.id}`);
 
       expect(totalDetails.classes()).not.toContain(worseStatClass);
       expect(totalDetails.classes()).not.toContain(betterStatClass);
@@ -322,6 +330,8 @@ describe("The critter view", () => {
       expect(strengthDetails.classes()).not.toContain(betterStatClass);
       expect(vitalityDetails.classes()).not.toContain(worseStatClass);
       expect(vitalityDetails.classes()).not.toContain(betterStatClass);
+      expect(agilityDetails.classes()).not.toContain(worseStatClass);
+      expect(agilityDetails.classes()).not.toContain(betterStatClass);
     });
   });
 });
