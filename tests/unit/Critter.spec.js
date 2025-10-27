@@ -7,6 +7,7 @@ import { expect, describe, it } from "vitest";
 
 describe("The critter view", () => {
   let critter;
+  let parentCritter;
   const score = '1';
   const vitality = '2';
   const strength = '3';
@@ -16,7 +17,9 @@ describe("The critter view", () => {
   let store;
   let propsData;
   beforeEach(() => {
-    critter = CritterFactory.default(12, 1, 'female');
+    critter = CritterFactory.default(12, 1, 'male');
+    parentCritter = CritterFactory.default(1, 1, 'male');
+
     vi.spyOn(critter, 'score', 'get').mockReturnValue(score);
     vi.spyOn(critter.traits[Trait.ID_VITALITY], 'value', 'get').mockReturnValue(vitality);
     vi.spyOn(critter.traits[Trait.ID_STRENGTH], 'value', 'get').mockReturnValue(strength);
@@ -31,12 +34,17 @@ describe("The critter view", () => {
       state: {},
       getters: {
         findCritter: () => {
-          return () => critter
+          return (id) => {
+            if (id === parentCritter.id) return parentCritter;
+            if (id === critter.id) return critter;
+            return null;
+          }
         }
       },
       actions: {}
     });
   });
+
   it('should show critter properties', () => {
     const critterWrapper = shallowMount(Critter, {
       props: propsData,
@@ -205,6 +213,116 @@ describe("The critter view", () => {
     const progressBar = critterWrapper.find(`#progressBar-${critter.id}`);
     expect(progressBar.attributes('value')).toBe(critter.currentHealth.toString());
     expect(progressBar.attributes('max')).toBe(maxHealth.toString());
+  });
+
+  describe('stat color indicators in hatchery', () => {
+    const BASE_VALUE = 50;
+
+    const LOW_VALUE = 10;
+    const HIGH_VALUE = 150;
+    const betterStatClass = 'stat-better'
+    const worseStatClass = 'stat-worse'
+
+    beforeEach(() => {
+      vi.spyOn(parentCritter, 'score', 'get').mockReturnValue(BASE_VALUE);
+      vi.spyOn(parentCritter.traits[Trait.ID_VITALITY], 'value', 'get').mockReturnValue(BASE_VALUE);
+      vi.spyOn(parentCritter.traits[Trait.ID_STRENGTH], 'value', 'get').mockReturnValue(BASE_VALUE);
+      vi.spyOn(parentCritter.traits[Trait.ID_AGILITY], 'value', 'get').mockReturnValue(BASE_VALUE);
+      vi.spyOn(parentCritter.traits[Trait.ID_BITE], 'value', 'get').mockReturnValue(BASE_VALUE);
+      vi.spyOn(parentCritter.traits[Trait.ID_STING], 'value', 'get').mockReturnValue(BASE_VALUE);
+
+      // Add parentCritter to props
+      propsData.parentCritterId = parentCritter.id;
+    });
+
+    it('should show green color for better values', () => {
+      // Critter with better score than parent
+      vi.spyOn(critter, 'score', 'get').mockReturnValue(HIGH_VALUE);
+      vi.spyOn(critter.traits[Trait.ID_VITALITY], 'value', 'get').mockReturnValue(HIGH_VALUE);
+      vi.spyOn(critter.traits[Trait.ID_STRENGTH], 'value', 'get').mockReturnValue(HIGH_VALUE);
+      vi.spyOn(critter.traits[Trait.ID_BITE], 'value', 'get').mockReturnValue(HIGH_VALUE);
+      vi.spyOn(critter.traits[Trait.ID_STING], 'value', 'get').mockReturnValue(HIGH_VALUE);
+
+      const critterWrapper = shallowMount(Critter, {
+        props: propsData,
+        global: {
+          plugins: [store]
+        }
+      });
+
+      const totalDetails = critterWrapper.find(`#totalDetails-${critter.id}`);
+      const vitalityDetails = critterWrapper.find(`#vitalityDetails-${critter.id}`);
+      const strengthDetails = critterWrapper.find(`#strengthDetails-${critter.id}`);
+      const biteDetails = critterWrapper.find(`#biteDetails-${critter.id}`);
+      const stingDetails = critterWrapper.find(`#stingDetails-${critter.id}`);
+
+      expect(totalDetails.classes()).toContain(betterStatClass);
+      expect(stingDetails.classes()).toContain(betterStatClass);
+      expect(biteDetails.classes()).toContain(betterStatClass);
+      expect(strengthDetails.classes()).toContain(betterStatClass);
+      expect(vitalityDetails.classes()).toContain(betterStatClass);
+    });
+
+    it('should show red color for worse values', () => {
+      // Critter with worse score than parent
+      vi.spyOn(critter, 'score', 'get').mockReturnValue(LOW_VALUE);
+      vi.spyOn(critter.traits[Trait.ID_VITALITY], 'value', 'get').mockReturnValue(LOW_VALUE);
+      vi.spyOn(critter.traits[Trait.ID_STRENGTH], 'value', 'get').mockReturnValue(LOW_VALUE);
+      vi.spyOn(critter.traits[Trait.ID_BITE], 'value', 'get').mockReturnValue(LOW_VALUE);
+      vi.spyOn(critter.traits[Trait.ID_STING], 'value', 'get').mockReturnValue(LOW_VALUE);
+
+      const critterWrapper = shallowMount(Critter, {
+        props: propsData,
+        global: {
+          plugins: [store]
+        }
+      });
+
+      const totalDetails = critterWrapper.find(`#totalDetails-${critter.id}`);
+      const vitalityDetails = critterWrapper.find(`#vitalityDetails-${critter.id}`);
+      const strengthDetails = critterWrapper.find(`#strengthDetails-${critter.id}`);
+      const biteDetails = critterWrapper.find(`#biteDetails-${critter.id}`);
+      const stingDetails = critterWrapper.find(`#stingDetails-${critter.id}`);
+
+      expect(totalDetails.classes()).toContain(worseStatClass);
+      expect(stingDetails.classes()).toContain(worseStatClass);
+      expect(biteDetails.classes()).toContain(worseStatClass);
+      expect(strengthDetails.classes()).toContain(worseStatClass);
+      expect(vitalityDetails.classes()).toContain(worseStatClass);
+    });
+
+    it('should show no color for equal total score', () => {
+      // Critter with same score than parent
+      vi.spyOn(critter, 'score', 'get').mockReturnValue(BASE_VALUE);
+      vi.spyOn(critter.traits[Trait.ID_VITALITY], 'value', 'get').mockReturnValue(BASE_VALUE);
+      vi.spyOn(critter.traits[Trait.ID_STRENGTH], 'value', 'get').mockReturnValue(BASE_VALUE);
+      vi.spyOn(critter.traits[Trait.ID_BITE], 'value', 'get').mockReturnValue(BASE_VALUE);
+      vi.spyOn(critter.traits[Trait.ID_STING], 'value', 'get').mockReturnValue(BASE_VALUE);
+
+      const critterWrapper = shallowMount(Critter, {
+        props: propsData,
+        global: {
+          plugins: [store]
+        }
+      });
+
+      const totalDetails = critterWrapper.find(`#totalDetails-${critter.id}`);
+      const vitalityDetails = critterWrapper.find(`#vitalityDetails-${critter.id}`);
+      const strengthDetails = critterWrapper.find(`#strengthDetails-${critter.id}`);
+      const biteDetails = critterWrapper.find(`#biteDetails-${critter.id}`);
+      const stingDetails = critterWrapper.find(`#stingDetails-${critter.id}`);
+
+      expect(totalDetails.classes()).not.toContain(worseStatClass);
+      expect(totalDetails.classes()).not.toContain(betterStatClass);
+      expect(stingDetails.classes()).not.toContain(worseStatClass);
+      expect(stingDetails.classes()).not.toContain(betterStatClass);
+      expect(biteDetails.classes()).not.toContain(worseStatClass);
+      expect(biteDetails.classes()).not.toContain(betterStatClass);
+      expect(strengthDetails.classes()).not.toContain(worseStatClass);
+      expect(strengthDetails.classes()).not.toContain(betterStatClass);
+      expect(vitalityDetails.classes()).not.toContain(worseStatClass);
+      expect(vitalityDetails.classes()).not.toContain(betterStatClass);
+    });
   });
 });
 
