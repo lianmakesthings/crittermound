@@ -351,18 +351,3 @@
 | Polish & Enhancement | 16-23h | 6 | 🟢 Low | ❌ 0% |
 | Advanced Features: Secondary Breeding | 17-23h | 5 | 🟢 Low | ❌ 0% |
 | **Grand Total** | **127-173h** | **51** | | **~4%** |
-
----
-
-## Critical Path (longest dependency chain)
-
-```
-Pre-War Quick Wins ([#98](https://github.com/lianmakesthings/crittermound/issues/98), [#102](https://github.com/lianmakesthings/crittermound/issues/102), [#134](https://github.com/lianmakesthings/crittermound/issues/134), [#138](https://github.com/lianmakesthings/crittermound/issues/138), [#144](https://github.com/lianmakesthings/crittermound/issues/144), [#151](https://github.com/lianmakesthings/crittermound/issues/151) - can parallelize) →
-[#109](https://github.com/lianmakesthings/crittermound/issues/109) → [#110](https://github.com/lianmakesthings/crittermound/issues/110) → [#112](https://github.com/lianmakesthings/crittermound/issues/112) → [#113](https://github.com/lianmakesthings/crittermound/issues/113) → [#114](https://github.com/lianmakesthings/crittermound/issues/114) → [#120](https://github.com/lianmakesthings/crittermound/issues/120) → [#121](https://github.com/lianmakesthings/crittermound/issues/121) → [#122](https://github.com/lianmakesthings/crittermound/issues/122) → [#123](https://github.com/lianmakesthings/crittermound/issues/123) → [#124](https://github.com/lianmakesthings/crittermound/issues/124) → [#125](https://github.com/lianmakesthings/crittermound/issues/125) → [#128](https://github.com/lianmakesthings/crittermound/issues/128) → [#129](https://github.com/lianmakesthings/crittermound/issues/129) → [#130](https://github.com/lianmakesthings/crittermound/issues/130)
-```
-
-**Notes:**
-- Pre-War Quick Wins issues ([#98](https://github.com/lianmakesthings/crittermound/issues/98), [#102](https://github.com/lianmakesthings/crittermound/issues/102), [#134](https://github.com/lianmakesthings/crittermound/issues/134), [#138](https://github.com/lianmakesthings/crittermound/issues/138), [#144](https://github.com/lianmakesthings/crittermound/issues/144), [#151](https://github.com/lianmakesthings/crittermound/issues/151)) can be done in parallel, but all must complete before War Phase 1
-- War Phase 1 depends on CI being set up ([#134](https://github.com/lianmakesthings/crittermound/issues/134)) to protect main branch during development
-- Sequential work (after Pre-War Quick Wins): ~50-60 hours
-- Total critical path: ~64-78 hours (including longest Pre-War issue)
