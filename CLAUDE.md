@@ -158,8 +158,7 @@ See "Creating Sub-Issues" section above.
 When adding/modifying issues:
 1. Update [ROADMAP.md](ROADMAP.md) with issue links and effort estimates
 2. Update milestone totals
-3. Update critical path if dependencies change
-4. Commit with descriptive message
+3. Commit with descriptive message
 
 ### Updating Architecture Documentation
 When changing system design or adding new patterns:
@@ -243,3 +242,4 @@ When updating project documentation:
 - **CLAUDE.md** (this file) - Quick reference for Claude Code
 
 **Always commit documentation updates separately from code changes when possible.**
+- everytime you create an issue, consider approproate subissues and link them as subissues. See "Creating Sub-Issues" section above. It is appropriate to split out a subissue if it takes longer than 2h to complete.
