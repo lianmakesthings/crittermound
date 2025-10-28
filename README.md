@@ -14,7 +14,6 @@ Visit the game at: [crittermound.lianmakesthings.dev](https://crittermound.lianm
 - [Project Structure](#project-structure)
 - [Running Tests](#running-tests)
 - [Building for Production](#building-for-production)
-- [Game Architecture](#game-architecture)
 - [Customization](#customization)
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
