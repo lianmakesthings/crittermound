@@ -9,19 +9,19 @@
 **Priority:** DO FIRST - Clean slate before major feature work
 
 **Issues:**
-- #98: Fix HTML validation warnings in HowTo.vue (1h, easy)
-- #102: Fix critter stat colors bug in Royal Hatchery (4-6h, medium)
-- #134: Set up GitHub Actions CI for automated testing (2-4h, medium)
-- #138: Arrows missing in sod production visualization (Workers tab) (2-3h, easy)
-- #144: Factory full: cannot assign better critters (should replace weakest) (3-4h, medium)
-- #151: Add sacrifice button to remove critters from mounds (4-6h, medium) - **Parent issue**
-  - #152: Design sacrifice functionality specification (0.5-1h, easy)
-  - #153: Implement store action for sacrificing critters (1h, easy)
-  - #154: Add sacrifice UI button to mound components (1-1.5h, medium)
-  - #155: Add confirmation dialog for sacrifice action (0.5-1h, easy)
-  - #156: Add comprehensive testing for sacrifice functionality (1-1.5h, medium)
+- [#98](https://github.com/lianmakesthings/crittermound/issues/98): Fix HTML validation warnings in HowTo.vue (1h, easy)
+- [#102](https://github.com/lianmakesthings/crittermound/issues/102): Fix critter stat colors bug in Royal Hatchery (4-6h, medium)
+- [#134](https://github.com/lianmakesthings/crittermound/issues/134): Set up GitHub Actions CI for automated testing (2-4h, medium)
+- [#138](https://github.com/lianmakesthings/crittermound/issues/138): Arrows missing in sod production visualization (Workers tab) (2-3h, easy)
+- [#144](https://github.com/lianmakesthings/crittermound/issues/144): Factory full: cannot assign better critters (should replace weakest) (3-4h, medium)
+- [#151](https://github.com/lianmakesthings/crittermound/issues/151): Add sacrifice button to remove critters from mounds (4-6h, medium) - **Parent issue**
+  - [#152](https://github.com/lianmakesthings/crittermound/issues/152): Design sacrifice functionality specification (0.5-1h, easy)
+  - [#153](https://github.com/lianmakesthings/crittermound/issues/153): Implement store action for sacrificing critters (1h, easy)
+  - [#154](https://github.com/lianmakesthings/crittermound/issues/154): Add sacrifice UI button to mound components (1-1.5h, medium)
+  - [#155](https://github.com/lianmakesthings/crittermound/issues/155): Add confirmation dialog for sacrifice action (0.5-1h, easy)
+  - [#156](https://github.com/lianmakesthings/crittermound/issues/156): Add comprehensive testing for sacrifice functionality (1-1.5h, medium)
 
-**Reasoning:** Quick cleanup wins that improve UX and remove build noise. Fixing #102 adds test coverage that will be valuable during war development. Setting up CI ensures all tests pass before merging, protecting main branch during complex feature development. Restoring production arrows (#138) improves visual clarity for understanding resource flow. Factory replacement bug (#144) fixes frustrating gameplay issue. Sacrifice feature (#151) adds essential population management capability.
+**Reasoning:** Quick cleanup wins that improve UX and remove build noise. Fixing [#102](https://github.com/lianmakesthings/crittermound/issues/102) adds test coverage that will be valuable during war development. Setting up CI ensures all tests pass before merging, protecting main branch during complex feature development. Restoring production arrows ([#138](https://github.com/lianmakesthings/crittermound/issues/138)) improves visual clarity for understanding resource flow. Factory replacement bug ([#144](https://github.com/lianmakesthings/crittermound/issues/144)) fixes frustrating gameplay issue. Sacrifice feature ([#151](https://github.com/lianmakesthings/crittermound/issues/151)) adds essential population management capability.
 
 **Success criteria:**
 - Zero HTML validation warnings in build
@@ -40,8 +40,8 @@
 **Priority:** MUST COMPLETE FIRST - Blocks all other war work
 
 **Issues:**
-- #109: Fix store getter to return map.tiles array (1-2h, easy)
-- #110: Add component tests for 20×20 grid rendering (2-3h, medium)
+- [#109](https://github.com/lianmakesthings/crittermound/issues/109): Fix store getter to return map.tiles array (1-2h, easy)
+- [#110](https://github.com/lianmakesthings/crittermound/issues/110): Add component tests for 20×20 grid rendering (2-3h, medium)
 
 **Reasoning:** Current bug renders 3×20 grid instead of 20×20. Cannot develop features on broken foundation.
 
@@ -59,9 +59,9 @@
 **Priority:** Foundation layer for all future systems
 
 **Issues (all parallelizable):**
-- #111: Add tile visibility properties (isVisible, isExplored) (1h, easy)
-- #115: Add danger property (1h, easy)
-- #119: Add tile state properties (isControlled, hasEnemies, explorable, attackable) (1h, easy)
+- [#111](https://github.com/lianmakesthings/crittermound/issues/111): Add tile visibility properties (isVisible, isExplored) (1h, easy)
+- [#115](https://github.com/lianmakesthings/crittermound/issues/115): Add danger property (1h, easy)
+- [#119](https://github.com/lianmakesthings/crittermound/issues/119): Add tile state properties (isControlled, hasEnemies, explorable, attackable) (1h, easy)
 
 **Reasoning:** Establishes data model before complex logic. All three can be done in parallel.
 
@@ -79,12 +79,12 @@
 **Priority:** Fundamental game logic
 
 **Issues:**
-- #112: Implement getAdjacentTiles() with cardinal directions (2-3h, medium)
-- #116: Implement danger calculation algorithm (3-4h, medium)
-- #113: Implement updateVisibility() for fog of war (3-4h, medium) - depends on #112
-- #118: Implement generateEnemyArmy() method (4-5h, medium) - can parallelize with fog of war
+- [#112](https://github.com/lianmakesthings/crittermound/issues/112): Implement getAdjacentTiles() with cardinal directions (2-3h, medium)
+- [#116](https://github.com/lianmakesthings/crittermound/issues/116): Implement danger calculation algorithm (3-4h, medium)
+- [#113](https://github.com/lianmakesthings/crittermound/issues/113): Implement updateVisibility() for fog of war (3-4h, medium) - depends on [#112](https://github.com/lianmakesthings/crittermound/issues/112)
+- [#118](https://github.com/lianmakesthings/crittermound/issues/118): Implement generateEnemyArmy() method (4-5h, medium) - can parallelize with fog of war
 
-**Reasoning:** Core algorithms that everything else depends on. #118 can be done in parallel with fog of war work.
+**Reasoning:** Core algorithms that everything else depends on. [#118](https://github.com/lianmakesthings/crittermound/issues/118) can be done in parallel with fog of war work.
 
 **Dependencies:** War Phase 2
 **Blocks:** War Phase 4
@@ -101,7 +101,7 @@
 **Priority:** Maintenance checkpoint
 
 **Issues:**
-- #97: Fix Bootstrap component warnings in tests (2-4h, medium)
+- [#97](https://github.com/lianmakesthings/crittermound/issues/97): Fix Bootstrap component warnings in tests (2-4h, medium)
 
 **Reasoning:** Strategic break after complex fog of war / danger work. Clean up test noise before UI implementation phase. Prevents warning fatigue.
 
@@ -119,10 +119,10 @@
 **Priority:** Make systems visible to player
 
 **Issues:**
-- #114: Add fog of war UI styling (3-4h, medium) - depends on #113
-- #117: Add danger display and color coding (2-3h, easy) - depends on #116
-- #120: Implement updateAvailableTiles() logic (3-4h, medium) - depends on #112
-- #121: Add tile interaction UI (click handlers, visual indicators) (3-4h, medium) - depends on #120
+- [#114](https://github.com/lianmakesthings/crittermound/issues/114): Add fog of war UI styling (3-4h, medium) - depends on [#113](https://github.com/lianmakesthings/crittermound/issues/113)
+- [#117](https://github.com/lianmakesthings/crittermound/issues/117): Add danger display and color coding (2-3h, easy) - depends on [#116](https://github.com/lianmakesthings/crittermound/issues/116)
+- [#120](https://github.com/lianmakesthings/crittermound/issues/120): Implement updateAvailableTiles() logic (3-4h, medium) - depends on [#112](https://github.com/lianmakesthings/crittermound/issues/112)
+- [#121](https://github.com/lianmakesthings/crittermound/issues/121): Add tile interaction UI (click handlers, visual indicators) (3-4h, medium) - depends on [#120](https://github.com/lianmakesthings/crittermound/issues/120)
 
 **Reasoning:** Makes invisible systems visible. UI work is sequential as each builds on previous.
 
@@ -141,10 +141,10 @@
 **Priority:** Most complex phase - build carefully
 
 **Issues (sequential):**
-- #122: Implement combat damage calculation (Bite vs Sting) (4-5h, medium)
-- #123: Implement combat round resolution (5-6h, hard) - depends on #122
-- #124: Integrate combat into Web Worker tick system (4-5h, hard) - depends on #123
-- #125: Add combat UI (health bars, combat log) (4-5h, medium) - depends on #124
+- [#122](https://github.com/lianmakesthings/crittermound/issues/122): Implement combat damage calculation (Bite vs Sting) (4-5h, medium)
+- [#123](https://github.com/lianmakesthings/crittermound/issues/123): Implement combat round resolution (5-6h, hard) - depends on [#122](https://github.com/lianmakesthings/crittermound/issues/122)
+- [#124](https://github.com/lianmakesthings/crittermound/issues/124): Integrate combat into Web Worker tick system (4-5h, hard) - depends on [#123](https://github.com/lianmakesthings/crittermound/issues/123)
+- [#125](https://github.com/lianmakesthings/crittermound/issues/125): Add combat UI (health bars, combat log) (4-5h, medium) - depends on [#124](https://github.com/lianmakesthings/crittermound/issues/124)
 
 **Reasoning:** Combat is core gameplay. Must be built sequentially to ensure correctness.
 
@@ -163,8 +163,8 @@
 **Priority:** Reward mechanics
 
 **Issues:**
-- #126: Implement collectTileBonus() for all special tiles (4-5h, medium)
-- #127: Add bonus collection UI notifications (2-3h, easy) - depends on #126
+- [#126](https://github.com/lianmakesthings/crittermound/issues/126): Implement collectTileBonus() for all special tiles (4-5h, medium)
+- [#127](https://github.com/lianmakesthings/crittermound/issues/127): Add bonus collection UI notifications (2-3h, easy) - depends on [#126](https://github.com/lianmakesthings/crittermound/issues/126)
 
 **Reasoning:** Completes gameplay loop: explore → fight → collect → improve. Relatively straightforward after combat complexity.
 
@@ -184,9 +184,9 @@
 **Priority:** Complete the loop
 
 **Issues:**
-- #128: Implement victory/defeat/retreat detection (3-4h, medium)
-- #129: Implement endWar store action (3-4h, medium) - depends on #128
-- #130: Add victory/defeat/retreat UI screens (4-5h, medium) - depends on #129
+- [#128](https://github.com/lianmakesthings/crittermound/issues/128): Implement victory/defeat/retreat detection (3-4h, medium)
+- [#129](https://github.com/lianmakesthings/crittermound/issues/129): Implement endWar store action (3-4h, medium) - depends on [#128](https://github.com/lianmakesthings/crittermound/issues/128)
+- [#130](https://github.com/lianmakesthings/crittermound/issues/130): Add victory/defeat/retreat UI screens (4-5h, medium) - depends on [#129](https://github.com/lianmakesthings/crittermound/issues/129)
 
 **Reasoning:** Completes war mechanic feature! Critical for game progression (survivors return to army).
 
@@ -210,12 +210,12 @@
 **Priority:** Technical foundation improvements
 
 **Issues:**
-- #106: Upgrade to Node.js 24 LTS (5-8h, medium)
-- #95: Migrate library tests from Mocha to Vitest (8-12h, medium-high)
+- [#106](https://github.com/lianmakesthings/crittermound/issues/106): Upgrade to Node.js 24 LTS (5-8h, medium)
+- [#95](https://github.com/lianmakesthings/crittermound/issues/95): Migrate library tests from Mocha to Vitest (8-12h, medium-high)
 
 **Reasoning:** Don't change environment during complex feature development. War mechanic complete = natural time for infrastructure work. Can be done together as "infrastructure week."
 
-**Sequence:** #106 first (new environment), then #95 (consolidate testing)
+**Sequence:** [#106](https://github.com/lianmakesthings/crittermound/issues/106) first (new environment), then [#95](https://github.com/lianmakesthings/crittermound/issues/95) (consolidate testing)
 
 **Dependencies:** War Phase 7
 **Can parallelize:** Both issues can be done in same week
@@ -233,13 +233,13 @@
 **Priority:** Quality of life (Victory lap!)
 
 **Issues:**
-- #96: Add dark mode / night mode support (6-8h, medium)
-- #145: Save export/import functionality (10-15h, medium-high) - **Parent issue**
-  - #146: Design save export/import system architecture (1-2h, easy)
-  - #147: Implement save export to JSON file (2-3h, medium)
-  - #148: Implement save import from JSON file with validation (3-4h, medium)
-  - #149: Add UI controls for export/import in settings (2-3h, medium)
-  - #150: Add comprehensive testing for save export/import (2-3h, medium)
+- [#96](https://github.com/lianmakesthings/crittermound/issues/96): Add dark mode / night mode support (6-8h, medium)
+- [#145](https://github.com/lianmakesthings/crittermound/issues/145): Save export/import functionality (10-15h, medium-high) - **Parent issue**
+  - [#146](https://github.com/lianmakesthings/crittermound/issues/146): Design save export/import system architecture (1-2h, easy)
+  - [#147](https://github.com/lianmakesthings/crittermound/issues/147): Implement save export to JSON file (2-3h, medium)
+  - [#148](https://github.com/lianmakesthings/crittermound/issues/148): Implement save import from JSON file with validation (3-4h, medium)
+  - [#149](https://github.com/lianmakesthings/crittermound/issues/149): Add UI controls for export/import in settings (2-3h, medium)
+  - [#150](https://github.com/lianmakesthings/crittermound/issues/150): Add comprehensive testing for save export/import (2-3h, medium)
 
 **Reasoning:** Pure enhancement after major features. Reward project after completing heavy technical work. Fun, user-facing improvements that enhance quality of life.
 
@@ -273,11 +273,11 @@
 **Priority:** Optional enhancement for genetic diversity
 
 **Issues:**
-- #139: Design secondary breeding line system (Princes/Princesses) (2-3h, easy)
-- #140: Add store support for secondary breeding pair (4-5h, medium)
-- #141: Add UI components for Princes/Princesses hatchery (5-7h, medium)
-- #142: Implement breeding logic for secondary breeding line (3-4h, medium)
-- #143: Integration and polish for secondary breeding line (3-4h, medium)
+- [#139](https://github.com/lianmakesthings/crittermound/issues/139): Design secondary breeding line system (Princes/Princesses) (2-3h, easy)
+- [#140](https://github.com/lianmakesthings/crittermound/issues/140): Add store support for secondary breeding pair (4-5h, medium)
+- [#141](https://github.com/lianmakesthings/crittermound/issues/141): Add UI components for Princes/Princesses hatchery (5-7h, medium)
+- [#142](https://github.com/lianmakesthings/crittermound/issues/142): Implement breeding logic for secondary breeding line (3-4h, medium)
+- [#143](https://github.com/lianmakesthings/crittermound/issues/143): Integration and polish for secondary breeding line (3-4h, medium)
 
 **Reasoning:** Advanced feature that adds strategic depth by allowing players to maintain multiple breeding lines simultaneously. Princes/Princesses breed independently from King/Queen, enabling experimentation with different genetic strategies.
 
@@ -300,16 +300,16 @@
 ---
 
 ## Parent Issues (Tracking/Organization)
-- #107: Fix map display bug (parent of #109, #110)
-- #108: Fog of war system (parent of #111, #112, #113, #114)
-- #34: Danger calculation (parent of #115, #116, #117)
-- #31: Enemy generation (parent of #118)
-- #35: Explorable/attackable tiles (parent of #119, #120, #121)
-- #32: Fighting system (parent of #122, #123, #124, #125)
-- #36: Collect special tiles (parent of #126, #127)
-- #37: End war scenarios (parent of #128, #129, #130)
-- #145: Save export/import functionality (parent of #146, #147, #148, #149, #150)
-- #151: Add sacrifice button to remove critters (parent of #152, #153, #154, #155, #156)
+- [#107](https://github.com/lianmakesthings/crittermound/issues/107): Fix map display bug (parent of [#109](https://github.com/lianmakesthings/crittermound/issues/109), [#110](https://github.com/lianmakesthings/crittermound/issues/110))
+- [#108](https://github.com/lianmakesthings/crittermound/issues/108): Fog of war system (parent of [#111](https://github.com/lianmakesthings/crittermound/issues/111), [#112](https://github.com/lianmakesthings/crittermound/issues/112), [#113](https://github.com/lianmakesthings/crittermound/issues/113), [#114](https://github.com/lianmakesthings/crittermound/issues/114))
+- [#34](https://github.com/lianmakesthings/crittermound/issues/34): Danger calculation (parent of [#115](https://github.com/lianmakesthings/crittermound/issues/115), [#116](https://github.com/lianmakesthings/crittermound/issues/116), [#117](https://github.com/lianmakesthings/crittermound/issues/117))
+- [#31](https://github.com/lianmakesthings/crittermound/issues/31): Enemy generation (parent of [#118](https://github.com/lianmakesthings/crittermound/issues/118))
+- [#35](https://github.com/lianmakesthings/crittermound/issues/35): Explorable/attackable tiles (parent of [#119](https://github.com/lianmakesthings/crittermound/issues/119), [#120](https://github.com/lianmakesthings/crittermound/issues/120), [#121](https://github.com/lianmakesthings/crittermound/issues/121))
+- [#32](https://github.com/lianmakesthings/crittermound/issues/32): Fighting system (parent of [#122](https://github.com/lianmakesthings/crittermound/issues/122), [#123](https://github.com/lianmakesthings/crittermound/issues/123), [#124](https://github.com/lianmakesthings/crittermound/issues/124), [#125](https://github.com/lianmakesthings/crittermound/issues/125))
+- [#36](https://github.com/lianmakesthings/crittermound/issues/36): Collect special tiles (parent of [#126](https://github.com/lianmakesthings/crittermound/issues/126), [#127](https://github.com/lianmakesthings/crittermound/issues/127))
+- [#37](https://github.com/lianmakesthings/crittermound/issues/37): End war scenarios (parent of [#128](https://github.com/lianmakesthings/crittermound/issues/128), [#129](https://github.com/lianmakesthings/crittermound/issues/129), [#130](https://github.com/lianmakesthings/crittermound/issues/130))
+- [#145](https://github.com/lianmakesthings/crittermound/issues/145): Save export/import functionality (parent of [#146](https://github.com/lianmakesthings/crittermound/issues/146), [#147](https://github.com/lianmakesthings/crittermound/issues/147), [#148](https://github.com/lianmakesthings/crittermound/issues/148), [#149](https://github.com/lianmakesthings/crittermound/issues/149), [#150](https://github.com/lianmakesthings/crittermound/issues/150))
+- [#151](https://github.com/lianmakesthings/crittermound/issues/151): Add sacrifice button to remove critters (parent of [#152](https://github.com/lianmakesthings/crittermound/issues/152), [#153](https://github.com/lianmakesthings/crittermound/issues/153), [#154](https://github.com/lianmakesthings/crittermound/issues/154), [#155](https://github.com/lianmakesthings/crittermound/issues/155), [#156](https://github.com/lianmakesthings/crittermound/issues/156))
 
 ---
 
@@ -337,12 +337,12 @@
 ## Critical Path (longest dependency chain)
 
 ```
-Pre-War Quick Wins (#98, #102, #134, #138, #144, #151 - can parallelize) →
-#109 → #110 → #112 → #113 → #114 → #120 → #121 → #122 → #123 → #124 → #125 → #128 → #129 → #130
+Pre-War Quick Wins ([#98](https://github.com/lianmakesthings/crittermound/issues/98), [#102](https://github.com/lianmakesthings/crittermound/issues/102), [#134](https://github.com/lianmakesthings/crittermound/issues/134), [#138](https://github.com/lianmakesthings/crittermound/issues/138), [#144](https://github.com/lianmakesthings/crittermound/issues/144), [#151](https://github.com/lianmakesthings/crittermound/issues/151) - can parallelize) →
+[#109](https://github.com/lianmakesthings/crittermound/issues/109) → [#110](https://github.com/lianmakesthings/crittermound/issues/110) → [#112](https://github.com/lianmakesthings/crittermound/issues/112) → [#113](https://github.com/lianmakesthings/crittermound/issues/113) → [#114](https://github.com/lianmakesthings/crittermound/issues/114) → [#120](https://github.com/lianmakesthings/crittermound/issues/120) → [#121](https://github.com/lianmakesthings/crittermound/issues/121) → [#122](https://github.com/lianmakesthings/crittermound/issues/122) → [#123](https://github.com/lianmakesthings/crittermound/issues/123) → [#124](https://github.com/lianmakesthings/crittermound/issues/124) → [#125](https://github.com/lianmakesthings/crittermound/issues/125) → [#128](https://github.com/lianmakesthings/crittermound/issues/128) → [#129](https://github.com/lianmakesthings/crittermound/issues/129) → [#130](https://github.com/lianmakesthings/crittermound/issues/130)
 ```
 
 **Notes:**
-- Pre-War Quick Wins issues (#98, #102, #134, #138, #144, #151) can be done in parallel, but all must complete before War Phase 1
-- War Phase 1 depends on CI being set up (#134) to protect main branch during development
+- Pre-War Quick Wins issues ([#98](https://github.com/lianmakesthings/crittermound/issues/98), [#102](https://github.com/lianmakesthings/crittermound/issues/102), [#134](https://github.com/lianmakesthings/crittermound/issues/134), [#138](https://github.com/lianmakesthings/crittermound/issues/138), [#144](https://github.com/lianmakesthings/crittermound/issues/144), [#151](https://github.com/lianmakesthings/crittermound/issues/151)) can be done in parallel, but all must complete before War Phase 1
+- War Phase 1 depends on CI being set up ([#134](https://github.com/lianmakesthings/crittermound/issues/134)) to protect main branch during development
 - Sequential work (after Pre-War Quick Wins): ~50-60 hours
 - Total critical path: ~64-78 hours (including longest Pre-War issue)

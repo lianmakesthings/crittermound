@@ -16,17 +16,43 @@ Crittermound is an incremental/clicker game where you breed and evolve virtual i
 - Persistent game state using IndexedDB
 - Web Worker-powered game loop for smooth performance
 
+## Documentation
+
+For detailed information about the project:
+
+- **[ROADMAP.md](ROADMAP.md)** - Complete development roadmap with all milestones, issues, and effort estimates (124-168 hours across 12 milestones)
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Technical architecture documentation covering:
+  - Dual-threaded architecture (Main thread + Web Worker)
+  - Vuex store patterns and state management
+  - Genetic system and breeding mechanics
+  - Resource production pipeline
+  - War mechanic implementation status
+  - Testing patterns and common code examples
+- **[CLAUDE.md](CLAUDE.md)** - Quick reference guide for Claude Code AI assistant
+
 ## Tech Stack
 
-- **Vue.js 3.4** - Frontend framework
-- **Vuex 4.1** - State management
+### Frontend
+- **Vue.js 3.4** - Progressive JavaScript framework
+- **Vuex 4.1** - Centralized state management
 - **Bootstrap-Vue-Next 0.15** - UI components (Bootstrap 5)
-- **Web Workers** - Background game processing
-- **LocalForage** - IndexedDB persistence
-- **Mocha + Chai 5** - Library testing framework
-- **Vitest** - Component testing framework
+- **Vue CLI 5.0** - Build tooling and development server
+
+### Game Engine
+- **Web Workers** - Multi-threaded game loop (20 ticks/second)
+- **LocalForage** - IndexedDB persistence layer
+
+### Testing
+- **Mocha + Chai 5** - Library/logic testing (143 tests)
+- **Vitest** - Component testing (34 tests)
 - **Sinon + Sinon-Chai** - Test spies, stubs, and mocks
-- **Vue CLI 5.0** - Build tooling
+- **@vue/test-utils 2** - Vue 3 component testing utilities
+- **GitHub Actions** - Continuous Integration (CI/CD)
+
+### Development
+- **ES Modules** - Modern JavaScript module system
+- **Babel** - JavaScript transpilation
+- **ESLint** (optional) - Code linting
 
 ## Prerequisites
 
@@ -289,16 +315,85 @@ The game uses Vuex for centralized state management:
 - **Actions** - Asynchronous operations (breed critter, upgrade mound, save to storage)
 - **Getters** - Computed state (find critter, mound allocations, production rates)
 
-### Web Worker Architecture
+**Key Pattern:** Store is initialized asynchronously to load from IndexedDB:
+```javascript
+import { getStore } from './store/store.js';
 
-The game runs a background worker (`/src/Worker.js`) that:
-1. Receives game state from main thread
-2. Runs game tick logic (20 times per second)
-3. Calculates health regeneration, breeding, production
-4. Sends changes back to main thread
-5. Main thread updates Vuex store, triggers UI re-render
+getStore((store) => {
+  // Store is ready with persisted data
+  createApp(App).use(store).mount('#app');
+});
+```
 
-This keeps the UI responsive even during intensive calculations.
+### Dual-Threaded Architecture
+
+**Main Thread** (UI):
+- Vue.js components render UI
+- Vuex store manages state
+- User interactions dispatch actions
+- Receives game state updates from Worker
+
+**Worker Thread** (Game Logic):
+- Runs game loop at 20 ticks/second
+- Processes breeding, health regen, production
+- Calculates complex game mechanics
+- Sends only state deltas back to main thread
+
+**Data Flow:**
+```
+Main Thread → postMessage(state) → Worker
+Worker → checkTick() → calculates changes
+Worker → postMessage(delta) → Main Thread
+Main Thread → updateData(delta) → UI updates
+```
+
+This architecture keeps the UI responsive even during intensive breeding calculations or combat processing.
+
+### Mound-Based Organization
+
+All critters exist within "mounds" addressed by `{location, type}`:
+
+**Royal Hatchery:**
+- `{location: 'royalHatchery', type: 'mother'}` - Queen's breeding mound
+- `{location: 'royalHatchery', type: 'father'}` - King's breeding mound
+- `{location: 'royalHatchery', type: 'female'}` - Female offspring hatchery
+- `{location: 'royalHatchery', type: 'male'}` - Male offspring hatchery
+
+**Workers:**
+- `{location: 'worker', type: 'mine'}` - Mining critters
+- `{location: 'worker', type: 'farm'}` - Farming critters
+- `{location: 'worker', type: 'carry'}` - Carrier critters
+- `{location: 'worker', type: 'factory'}` - Factory workers
+
+**Army:**
+- `{location: 'soldiers', type: 'army'}` - Combat critters
+
+### Genetic System
+
+**Three-Layer Trait System:**
+1. **Base Value** - Inherited from parents with variance
+2. **Genes** - Mutations that add bonuses
+3. **Final Value** = `base + sum(gene.value for each gene)`
+
+**Gene Expression Types:**
+- `EXPRESSION_NONE (0)` - Gene not present
+- `EXPRESSION_RECESSIVE (1)` - Present but inactive (value = 0)
+- `EXPRESSION_DOMINANT (2)` - Active with non-zero value
+
+**Inheritance (Mendelian genetics):**
+- Two recessive parents → 25% dominant offspring
+- One recessive + one dominant → 50% dominant offspring
+- Two dominant parents → 100% dominant offspring
+
+### Resource Production Pipeline
+
+```
+Mine → Dirt Storage → Carry → Factory ← Carry ← Grass Storage ← Farm
+                                  ↓
+                                 Sod
+```
+
+Production is optimized by `SodProduction.js` which allocates workers to minimize bottlenecks.
 
 ### Data Persistence
 
