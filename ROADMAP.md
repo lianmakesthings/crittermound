@@ -2,11 +2,11 @@
 
 **Development strategy:** Strategic interleaving approach - complete quick wins, build war mechanic incrementally with strategic breaks, then tackle infrastructure updates and optional advanced features.
 
-**Total timeline:** 124-168 hours (~12-17 weeks of focused work)
-**Core features only:** 107-145 hours (~11-15 weeks) - excludes Advanced Features milestone
+**Total timeline:** 127-173 hours (~13-17 weeks of focused work)
+**Core features only:** 110-150 hours (~11-15 weeks) - excludes Advanced Features milestone
 
-## Milestone 1: Pre-War Quick Wins (16-24 hours) 🔴 CRITICAL ⏳ 50%
-**Status:** 3/6 parent issues complete
+## Milestone 1: Pre-War Quick Wins (19-29 hours) 🔴 CRITICAL ⏳ 43%
+**Status:** 3/7 parent issues complete
 **Priority:** DO FIRST - Clean slate before major feature work
 
 **Issues:**
@@ -15,6 +15,11 @@
 - ✅ [#134](https://github.com/lianmakesthings/crittermound/issues/134): Set up GitHub Actions CI for automated testing (2-4h, medium)
 - ⏳ [#138](https://github.com/lianmakesthings/crittermound/issues/138): Arrows missing in sod production visualization (Workers tab) (2-3h, easy)
 - ⏳ [#144](https://github.com/lianmakesthings/crittermound/issues/144): Factory full: cannot assign better critters (should replace weakest) (3-4h, medium)
+- ❌ [#162](https://github.com/lianmakesthings/crittermound/issues/162): Color code sod production chain to show bottlenecks (3-5h, medium) - **Parent issue** 0%
+  - [#163](https://github.com/lianmakesthings/crittermound/issues/163): Design color coding logic for production bottlenecks (0.5-1h, easy)
+  - [#164](https://github.com/lianmakesthings/crittermound/issues/164): Implement bottleneck detection logic for production chain (1-1.5h, medium)
+  - [#165](https://github.com/lianmakesthings/crittermound/issues/165): Apply color coding to Worker.vue production visualization (1-1.5h, medium)
+  - [#166](https://github.com/lianmakesthings/crittermound/issues/166): Add tests for production chain color coding (0.5-1h, easy)
 - ⏳ [#151](https://github.com/lianmakesthings/crittermound/issues/151): Add sacrifice button to remove critters from mounds (4-6h, medium) - **Parent issue** 0%
   - [#152](https://github.com/lianmakesthings/crittermound/issues/152): Design sacrifice functionality specification (0.5-1h, easy)
   - [#153](https://github.com/lianmakesthings/crittermound/issues/153): Implement store action for sacrificing critters (1h, easy)
@@ -22,18 +27,20 @@
   - [#155](https://github.com/lianmakesthings/crittermound/issues/155): Add confirmation dialog for sacrifice action (0.5-1h, easy)
   - [#156](https://github.com/lianmakesthings/crittermound/issues/156): Add comprehensive testing for sacrifice functionality (1-1.5h, medium)
 
-**Reasoning:** Quick cleanup wins that improve UX and remove build noise. Fixing [#102](https://github.com/lianmakesthings/crittermound/issues/102) adds test coverage that will be valuable during war development. Setting up CI ensures all tests pass before merging, protecting main branch during complex feature development. Restoring production arrows ([#138](https://github.com/lianmakesthings/crittermound/issues/138)) improves visual clarity for understanding resource flow. Factory replacement bug ([#144](https://github.com/lianmakesthings/crittermound/issues/144)) fixes frustrating gameplay issue. Sacrifice feature ([#151](https://github.com/lianmakesthings/crittermound/issues/151)) adds essential population management capability.
+**Reasoning:** Quick cleanup wins that improve UX and remove build noise. Fixing [#102](https://github.com/lianmakesthings/crittermound/issues/102) adds test coverage that will be valuable during war development. Setting up CI ensures all tests pass before merging, protecting main branch during complex feature development. Restoring production arrows ([#138](https://github.com/lianmakesthings/crittermound/issues/138)) improves visual clarity for understanding resource flow. Factory replacement bug ([#144](https://github.com/lianmakesthings/crittermound/issues/144)) fixes frustrating gameplay issue. Production color coding ([#162](https://github.com/lianmakesthings/crittermound/issues/162)) provides visual feedback on bottlenecks, matching Royal Hatchery patterns. Sacrifice feature ([#151](https://github.com/lianmakesthings/crittermound/issues/151)) adds essential population management capability.
 
 **Success criteria:**
 - Zero HTML validation warnings in build
 - Critter stats show green/red color indicators correctly
 - Production arrows visible in Workers tab
 - Factory workers can be replaced with better critters
+- Production bottlenecks shown with color indicators (green/red)
+- Color coding updates dynamically with production changes
 - Sacrifice button allows removing unwanted critters
 - King and Queen cannot be sacrificed
 - Tests added to prevent regression
 - CI workflow runs on all pull requests
-- All 177 tests must pass before merging
+- All 177+ tests must pass before merging
 
 ---
 
@@ -322,6 +329,7 @@
 - ❌ [#37](https://github.com/lianmakesthings/crittermound/issues/37): End war scenarios (parent of [#128](https://github.com/lianmakesthings/crittermound/issues/128), [#129](https://github.com/lianmakesthings/crittermound/issues/129), [#130](https://github.com/lianmakesthings/crittermound/issues/130)) - 0%
 - ❌ [#145](https://github.com/lianmakesthings/crittermound/issues/145): Save export/import functionality (parent of [#146](https://github.com/lianmakesthings/crittermound/issues/146), [#147](https://github.com/lianmakesthings/crittermound/issues/147), [#148](https://github.com/lianmakesthings/crittermound/issues/148), [#149](https://github.com/lianmakesthings/crittermound/issues/149), [#150](https://github.com/lianmakesthings/crittermound/issues/150)) - 0%
 - ⏳ [#151](https://github.com/lianmakesthings/crittermound/issues/151): Add sacrifice button to remove critters (parent of [#152](https://github.com/lianmakesthings/crittermound/issues/152), [#153](https://github.com/lianmakesthings/crittermound/issues/153), [#154](https://github.com/lianmakesthings/crittermound/issues/154), [#155](https://github.com/lianmakesthings/crittermound/issues/155), [#156](https://github.com/lianmakesthings/crittermound/issues/156)) - 0%
+- ❌ [#162](https://github.com/lianmakesthings/crittermound/issues/162): Color code sod production chain to show bottlenecks (parent of [#163](https://github.com/lianmakesthings/crittermound/issues/163), [#164](https://github.com/lianmakesthings/crittermound/issues/164), [#165](https://github.com/lianmakesthings/crittermound/issues/165), [#166](https://github.com/lianmakesthings/crittermound/issues/166)) - 0%
 
 ---
 
@@ -329,7 +337,7 @@
 
 | Milestone | Effort | Issues | Priority | Status |
 |-----------|--------|--------|----------|--------|
-| Pre-War Quick Wins | 16-24h | 6 | 🔴 Critical | ⏳ 50% |
+| Pre-War Quick Wins | 19-29h | 7 | 🔴 Critical | ⏳ 43% |
 | War Phase 1 | 3-5h | 2 | 🔴 Critical | ❌ 0% |
 | War Phase 2 | 3h | 3 | 🟡 High | ❌ 0% |
 | War Phase 3 | 12-16h | 4 | 🔴 Critical | ❌ 0% |
@@ -342,7 +350,7 @@
 | Infrastructure Updates | 13-20h | 2 | 🟡 High | ❌ 0% |
 | Polish & Enhancement | 16-23h | 6 | 🟢 Low | ❌ 0% |
 | Advanced Features: Secondary Breeding | 17-23h | 5 | 🟢 Low | ❌ 0% |
-| **Grand Total** | **124-168h** | **47** | | **~4%** |
+| **Grand Total** | **127-173h** | **51** | | **~4%** |
 
 ---
 
