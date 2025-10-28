@@ -158,8 +158,7 @@ See "Creating Sub-Issues" section above.
 When adding/modifying issues:
 1. Update [ROADMAP.md](ROADMAP.md) with issue links and effort estimates
 2. Update milestone totals
-3. Update critical path if dependencies change
-4. Commit with descriptive message
+3. Commit with descriptive message
 
 ### Updating Architecture Documentation
 When changing system design or adding new patterns:
