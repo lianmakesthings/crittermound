@@ -198,6 +198,13 @@ const initializeStore = async () => {
           targetMound.critters.sort((a, b) => b[targetMound.sortBy] - a[targetMound.sortBy])
         }
       },
+      removeCritter(state, {location, type, critterId}) {
+        const critters = state[location][type].critters;
+        let i = critters.findIndex((critter) => critter.id == critterId)
+        if (i >= 0) {
+          state[location][type].critters.splice(i ,1)
+        }
+      },
       updateProductionRaw(state) {
         for (let type in state.worker) {
           if (state.worker.hasOwnProperty(type) && isNaN(state.worker[type])) {

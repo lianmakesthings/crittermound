@@ -457,6 +457,42 @@ describe('The vuex store', () => {
       })
     });
 
+    it('should remove critter from mound', (done) => {
+      const location = 'worker';
+      const type = 'factory';
+      const critterToRemove = CritterFactory.default(1, 1, Critter.GENDER_MALE);
+      const critterToKeep = CritterFactory.default(2, 1, Critter.GENDER_FEMALE);
+      mockedState[location][type].critters.push(critterToRemove);
+      mockedState[location][type].critters.push(critterToKeep);
+
+      getStore((store) => {
+        store.replaceState(mockedState);
+
+        store.commit('removeCritter', {location, type, critterId: critterToRemove.id});
+        expect(mockedState[location][type].critters.length).to.equal(1);
+        expect(mockedState[location][type].critters).to.include(critterToKeep);
+        expect(mockedState[location][type].critters).not.to.include(critterToRemove);
+        done();
+      })
+    });
+
+    it('should not error when removing non-existent critter', (done) => {
+      const location = 'worker';
+      const type = 'mine';
+      const existingCritter = CritterFactory.default(1, 1, Critter.GENDER_MALE);
+      mockedState[location][type].critters.push(existingCritter);
+
+      getStore((store) => {
+        store.replaceState(mockedState);
+
+        // Try to remove critter that doesn't exist
+        store.commit('removeCritter', {location, type, critterId: 999});
+        expect(mockedState[location][type].critters).to.include(existingCritter);
+        expect(mockedState[location][type].critters.length).to.equal(1);
+        done();
+      })
+    });
+
     it('should update raw production values', (done) => {
       const rawMineValue = mockedState.worker.mine.productionPerSecondRaw;
       const dirtPerSecond = rawMineValue + 5;
@@ -615,7 +651,8 @@ describe('The vuex store', () => {
         expect(mockedState.soldiers.currentWar).to.equal(war)
         done();
       })
-    })
+    });
+
   });
 
   describe("actions", () => {
