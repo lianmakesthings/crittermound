@@ -20,9 +20,9 @@
   - [#164](https://github.com/lianmakesthings/crittermound/issues/164): Implement bottleneck detection logic for production chain (1-1.5h, medium)
   - [#165](https://github.com/lianmakesthings/crittermound/issues/165): Apply color coding to Worker.vue production visualization (1-1.5h, medium)
   - [#166](https://github.com/lianmakesthings/crittermound/issues/166): Add tests for production chain color coding (0.5-1h, easy)
-- ⏳ [#151](https://github.com/lianmakesthings/crittermound/issues/151): Add sacrifice button to remove critters from mounds (4-6h, medium) - **Parent issue** 0%
+- ⏳ [#151](https://github.com/lianmakesthings/crittermound/issues/151): Add sacrifice button to remove critters from mounds (4-6h, medium) - **Parent issue** 20%
   - [#152](https://github.com/lianmakesthings/crittermound/issues/152): Design sacrifice functionality specification (0.5-1h, easy)
-  - [#153](https://github.com/lianmakesthings/crittermound/issues/153): Implement store action for sacrificing critters (1h, easy)
+  - ✅ [#153](https://github.com/lianmakesthings/crittermound/issues/153): Implement store action for sacrificing critters (1h, easy) - [PR #167](https://github.com/lianmakesthings/crittermound/pull/167)
   - [#154](https://github.com/lianmakesthings/crittermound/issues/154): Add sacrifice UI button to mound components (1-1.5h, medium)
   - [#155](https://github.com/lianmakesthings/crittermound/issues/155): Add confirmation dialog for sacrifice action (0.5-1h, easy)
   - [#156](https://github.com/lianmakesthings/crittermound/issues/156): Add comprehensive testing for sacrifice functionality (1-1.5h, medium)
@@ -328,7 +328,7 @@
 - ❌ [#36](https://github.com/lianmakesthings/crittermound/issues/36): Collect special tiles (parent of [#126](https://github.com/lianmakesthings/crittermound/issues/126), [#127](https://github.com/lianmakesthings/crittermound/issues/127)) - 0%
 - ❌ [#37](https://github.com/lianmakesthings/crittermound/issues/37): End war scenarios (parent of [#128](https://github.com/lianmakesthings/crittermound/issues/128), [#129](https://github.com/lianmakesthings/crittermound/issues/129), [#130](https://github.com/lianmakesthings/crittermound/issues/130)) - 0%
 - ❌ [#145](https://github.com/lianmakesthings/crittermound/issues/145): Save export/import functionality (parent of [#146](https://github.com/lianmakesthings/crittermound/issues/146), [#147](https://github.com/lianmakesthings/crittermound/issues/147), [#148](https://github.com/lianmakesthings/crittermound/issues/148), [#149](https://github.com/lianmakesthings/crittermound/issues/149), [#150](https://github.com/lianmakesthings/crittermound/issues/150)) - 0%
-- ⏳ [#151](https://github.com/lianmakesthings/crittermound/issues/151): Add sacrifice button to remove critters (parent of [#152](https://github.com/lianmakesthings/crittermound/issues/152), [#153](https://github.com/lianmakesthings/crittermound/issues/153), [#154](https://github.com/lianmakesthings/crittermound/issues/154), [#155](https://github.com/lianmakesthings/crittermound/issues/155), [#156](https://github.com/lianmakesthings/crittermound/issues/156)) - 0%
+- ⏳ [#151](https://github.com/lianmakesthings/crittermound/issues/151): Add sacrifice button to remove critters (parent of [#152](https://github.com/lianmakesthings/crittermound/issues/152), [#153](https://github.com/lianmakesthings/crittermound/issues/153), [#154](https://github.com/lianmakesthings/crittermound/issues/154), [#155](https://github.com/lianmakesthings/crittermound/issues/155), [#156](https://github.com/lianmakesthings/crittermound/issues/156)) - 20%
 - ❌ [#162](https://github.com/lianmakesthings/crittermound/issues/162): Color code sod production chain to show bottlenecks (parent of [#163](https://github.com/lianmakesthings/crittermound/issues/163), [#164](https://github.com/lianmakesthings/crittermound/issues/164), [#165](https://github.com/lianmakesthings/crittermound/issues/165), [#166](https://github.com/lianmakesthings/crittermound/issues/166)) - 0%
 
 ---
