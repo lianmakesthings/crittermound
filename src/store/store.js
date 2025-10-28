@@ -200,9 +200,9 @@ const initializeStore = async () => {
       },
       removeCritter(state, {location, type, critterId}) {
         const critters = state[location][type].critters;
-        let i = critters.findIndex((critter) => critter.id == critterId)
-        if (i >= 0) {
-          state[location][type].critters.splice(i ,1)
+        let i = critters.findIndex((critter) => critter.id == critterId);
+        if (i >= 0 && type != 'father') {
+          state[location][type].critters.splice(i, 1)
         }
       },
       updateProductionRaw(state) {

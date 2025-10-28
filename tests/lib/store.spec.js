@@ -457,40 +457,75 @@ describe('The vuex store', () => {
       })
     });
 
-    it('should remove critter from mound', (done) => {
-      const location = 'worker';
-      const type = 'factory';
-      const critterToRemove = CritterFactory.default(1, 1, Critter.GENDER_MALE);
-      const critterToKeep = CritterFactory.default(2, 1, Critter.GENDER_FEMALE);
-      mockedState[location][type].critters.push(critterToRemove);
-      mockedState[location][type].critters.push(critterToKeep);
+    describe('removing critters', () => {
+      const critterId = 1;
+      it('should remove from mound', (done) => {
+        const location = 'worker';
+        const type = 'factory';
+        const critterToRemove = CritterFactory.default(critterId, 1, Critter.GENDER_MALE);
+        const critterToKeep = CritterFactory.default(critterId+1, 1, Critter.GENDER_FEMALE);
+        mockedState[location][type].critters.push(critterToRemove);
+        mockedState[location][type].critters.push(critterToKeep);
 
-      getStore((store) => {
-        store.replaceState(mockedState);
+        getStore((store) => {
+          store.replaceState(mockedState);
 
-        store.commit('removeCritter', {location, type, critterId: critterToRemove.id});
-        expect(mockedState[location][type].critters.length).to.equal(1);
-        expect(mockedState[location][type].critters).to.include(critterToKeep);
-        expect(mockedState[location][type].critters).not.to.include(critterToRemove);
-        done();
-      })
-    });
+          store.commit('removeCritter', {location, type, critterId: critterToRemove.id});
+          expect(mockedState[location][type].critters.length).to.equal(1);
+          expect(mockedState[location][type].critters).to.include(critterToKeep);
+          expect(mockedState[location][type].critters).not.to.include(critterToRemove);
+          done();
+        })
+      });
 
-    it('should not error when removing non-existent critter', (done) => {
-      const location = 'worker';
-      const type = 'mine';
-      const existingCritter = CritterFactory.default(1, 1, Critter.GENDER_MALE);
-      mockedState[location][type].critters.push(existingCritter);
+      it('should not error when removing non-existent critter', (done) => {
+        const location = 'worker';
+        const type = 'mine';
+        let nonExistentCritterId = 999;
 
-      getStore((store) => {
-        store.replaceState(mockedState);
+        getStore((store) => {
+          store.replaceState(mockedState);
 
-        // Try to remove critter that doesn't exist
-        store.commit('removeCritter', {location, type, critterId: 999});
-        expect(mockedState[location][type].critters).to.include(existingCritter);
-        expect(mockedState[location][type].critters.length).to.equal(1);
-        done();
-      })
+          // Try to remove critter that doesn't exist
+          store.commit('removeCritter', {location, type, nonExistentCritterId});
+          done();
+        })
+      });
+
+      it('should not remove the king', (done) => {
+        const location = 'royalHatchery';
+        const type = 'father';
+        const kingCritter = CritterFactory.default(critterId, 1, Critter.GENDER_MALE);
+        mockedState[location][type].critters.push(kingCritter);
+
+        getStore((store) => {
+          store.replaceState(mockedState);
+
+          store.commit('removeCritter', {location, type, critterId});
+          console.log('test', mockedState[location][type].critters)
+          expect(mockedState[location][type].critters.length).to.equal(1);
+          expect(mockedState[location][type].critters).to.include(kingCritter);
+          done();
+        })
+      });
+
+      it('should not remove the queen', (done) => {
+        const location = 'royalHatchery';
+        const type = 'father';
+        const critterId = 1;
+        const queenCritter = CritterFactory.default(critterId, 1, Critter.GENDER_FEMALE);
+        mockedState[location][type].critters.push(queenCritter);
+
+        getStore((store) => {
+          store.replaceState(mockedState);
+
+          store.commit('removeCritter', {location, type, critterId});
+          console.log('test', mockedState[location][type].critters)
+          expect(mockedState[location][type].critters.length).to.equal(1);
+          expect(mockedState[location][type].critters).to.include(queenCritter);
+          done();
+        })
+      });
     });
 
     it('should update raw production values', (done) => {
