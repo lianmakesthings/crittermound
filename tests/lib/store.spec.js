@@ -816,6 +816,30 @@ describe('The vuex store', () => {
       }, true)
     });
 
+    it('should remove critter if critter cannot be added', (done) => {
+      const location = 'royalHatchery';
+      const type = Critter.GENDER_FEMALE;
+      const critterId = 1;
+      const critter = {id: critterId};
+      const destination = {location: 'worker', type: 'farm'};
+      //cannot add worker
+      const sodProductionStub = {allocateWorker: () => null};
+      const from = {location, type};
+      mockedState[location][type].critters.push(critter);
+
+      getStore((store) => {
+        store.replaceState(mockedState);
+        const context = store._modules.root.context;
+
+        sinon.stub(SodProduction, 'instance').returns(sodProductionStub);
+        sinon.stub(context, 'commit');
+
+        store.dispatch('addWorker', {location, type});
+        expect(context.commit).to.have.been.calledWith('removeCritter', {location, type, critterId});
+        done();
+      }, true)
+    });
+
     it('should add soldier', (done) => {
       const from = {location: 'royalHatchery', type: Critter.GENDER_FEMALE};
       const to = {location: 'soldiers', type: 'army'};

@@ -295,6 +295,9 @@ const initializeStore = async () => {
               to: destination
             });
             context.commit('updateProductionRaw')
+          } else {
+            const critterId = critter.id;
+            context.commit('removeCritter', {location, type, critterId})
           }
         }
       },
