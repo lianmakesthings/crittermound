@@ -14,7 +14,7 @@
     </div>
     <critter-header :id="'critter-header-'+location+'-'+type" :bgColor="bgColor"></critter-header>
     <div v-for="critter in critters">
-      <critter :id="'critter-'+critter.id" :critterId="critter.id" :showProgressBar="false"></critter>
+      <critter :id="'critter-'+critter.id" :critterId="critter.id" :showProgressBar="false" :parentCritterId="parentCritterId"></critter>
     </div>
   </div>
 </template>
@@ -72,6 +72,10 @@
       },
       parent() {
         return (this.type === 'female') ? 'Queen' : 'King'
+      },
+      parentCritterId() {
+        parent = (this.type === 'female') ? 'mother' : 'father'
+        return this.$store.getters.critters('royalHatchery', parent)[0].id
       },
       headerStyle() {
         return {

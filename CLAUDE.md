@@ -11,15 +11,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## GitHub Labels
 
 When creating or updating issues, use these existing labels:
-- `bug` - Bug fixes
+- `bug` - Something isn't working
 - `critical` - Critical issues that block development
 - `dependencies` - Pull requests that update a dependency file
-- `duplicate` - Duplicate issues
+- `duplicate` - This issue or pull request already exists
 - `enhancement` - New features or improvements
 - `javascript` - Pull requests that update JavaScript code
+- `nice to have` - Low priority enhancements
 - `Testing` - Test-related work
-- `ui` - User interface changes
-- `wontfix` - Issues that won't be fixed
+- `ui` - User interface and visual changes
+- `wontfix` - This will not be worked on
 
 ## Development Commands
 
