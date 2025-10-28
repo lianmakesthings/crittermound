@@ -816,7 +816,7 @@ describe('The vuex store', () => {
       }, true)
     });
 
-    it('should remove critter if critter cannot be added', (done) => {
+    it('should remove critter if no location to add to', (done) => {
       const location = 'royalHatchery';
       const type = Critter.GENDER_FEMALE;
       const critterId = 1;
