@@ -4,6 +4,23 @@
 
 Visit the game at: [crittermound.lianmakesthings.dev](https://crittermound.lianmakesthings.dev/)
 
+## Table of Contents
+
+- [About](#about)
+- [Documentation](#documentation)
+- [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Development Environment Setup](#development-environment-setup)
+- [Project Structure](#project-structure)
+- [Running Tests](#running-tests)
+- [Building for Production](#building-for-production)
+- [Game Architecture](#game-architecture)
+- [Customization](#customization)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
+- [Credits](#credits)
+
 ## About
 
 Crittermound is an incremental/clicker game where you breed and evolve virtual insects called "critters" to mine resources and build an insect empire. Through genetic breeding, you'll improve your critters' traits, unlock new mutations, and eventually wage war against other insect nations.
