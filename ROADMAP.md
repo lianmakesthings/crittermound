@@ -5,8 +5,8 @@
 **Total timeline:** 128-175 hours (~13-18 weeks of focused work)
 **Core features only:** 111-152 hours (~11-15 weeks) - excludes Advanced Features milestone
 
-## Milestone 1: Pre-War Quick Wins (20-31 hours) 🔴 CRITICAL ⏳ 38%
-**Status:** 3/8 parent issues complete
+## Milestone 1: Pre-War Quick Wins (20-31 hours) 🔴 CRITICAL ⏳ 50%
+**Status:** 4/8 parent issues complete
 **Priority:** DO FIRST - Clean slate before major feature work
 
 **Issues:**
@@ -14,7 +14,7 @@
 - ✅ [#102](https://github.com/lianmakesthings/crittermound/issues/102): Fix critter stat colors bug in Royal Hatchery (4-6h, medium)
 - ✅ [#134](https://github.com/lianmakesthings/crittermound/issues/134): Set up GitHub Actions CI for automated testing (2-4h, medium)
 - ⏳ [#138](https://github.com/lianmakesthings/crittermound/issues/138): Arrows missing in sod production visualization (Workers tab) (2-3h, easy)
-- ⏳ [#144](https://github.com/lianmakesthings/crittermound/issues/144): Factory full: cannot assign better critters (should replace weakest) (3-4h, medium)
+- ✅ [#144](https://github.com/lianmakesthings/crittermound/issues/144): Factory full: cannot assign better critters (should replace weakest) (3-4h, medium)
 - ❌ [#162](https://github.com/lianmakesthings/crittermound/issues/162): Color code sod production chain to show bottlenecks (3-5h, medium) - **Parent issue** 0%
   - [#163](https://github.com/lianmakesthings/crittermound/issues/163): Design color coding logic for production bottlenecks (0.5-1h, easy)
   - [#164](https://github.com/lianmakesthings/crittermound/issues/164): Implement bottleneck detection logic for production chain (1-1.5h, medium)
@@ -339,7 +339,7 @@
 
 | Milestone | Effort | Issues | Priority | Status |
 |-----------|--------|--------|----------|--------|
-| Pre-War Quick Wins | 20-31h | 8 | 🔴 Critical | ⏳ 38% |
+| Pre-War Quick Wins | 20-31h | 8 | 🔴 Critical | ⏳ 50% |
 | War Phase 1 | 3-5h | 2 | 🔴 Critical | ❌ 0% |
 | War Phase 2 | 3h | 3 | 🟡 High | ❌ 0% |
 | War Phase 3 | 12-16h | 4 | 🔴 Critical | ❌ 0% |
