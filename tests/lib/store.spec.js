@@ -502,7 +502,6 @@ describe('The vuex store', () => {
           store.replaceState(mockedState);
 
           store.commit('removeCritter', {location, type, critterId});
-          console.log('test', mockedState[location][type].critters)
           expect(mockedState[location][type].critters.length).to.equal(1);
           expect(mockedState[location][type].critters).to.include(kingCritter);
           done();
@@ -770,74 +769,71 @@ describe('The vuex store', () => {
       }, true)
     });
 
-    it('should add worker', (done) => {
-      const location = 'royalHatchery';
-      const type = Critter.GENDER_FEMALE;
-      const critter = {some: 'value'};
-      const destination = {location: 'worker', type: 'farm'};
-      const sodProductionStub = {allocateWorker: () => destination};
-      const from = {location, type};
-      mockedState[location][type].critters.push(critter);
+    describe("adding workers", () => {
+      const origin = { location: 'royalHatchery', type: Critter.GENDER_FEMALE };
+      const destination = { location: 'worker', type: 'farm' };
+      let critter;
 
-      getStore((store) => {
-        store.replaceState(mockedState);
-        const context = store._modules.root.context;
+      beforeEach(() => {
+        critter = CritterFactory.default(1, 1, origin.type);
+      });
+      
+      it('should move critter from origin to destination', (done) => {
+        const sodProductionStub = { allocateWorker: () => destination };
+        mockedState[origin.location][origin.type].critters.push(critter);
 
-        sinon.stub(SodProduction, 'instance').returns(sodProductionStub);
-        sinon.stub(context, 'commit');
+        getStore((store) => {
+          store.replaceState(mockedState);
+          const context = store._modules.root.context;
 
-        store.dispatch('addWorker', {location, type});
-        expect(context.commit).to.have.been.calledWith('moveCritter', {from, to: destination});
-        expect(context.commit).to.have.been.calledWith('updateProductionRaw');
+          sinon.stub(SodProduction, 'instance').returns(sodProductionStub);
+          sinon.stub(context, 'commit');
 
-        SodProduction.instance.restore();
-        done();
-      }, true)
-    });
+          store.dispatch('addWorker', origin);
+          expect(context.commit).to.have.been.calledWith('moveCritter', {from: origin, to: destination});
+          expect(context.commit).to.have.been.calledWith('updateProductionRaw');
 
-    it('should not add worker if original location has no critters', (done) => {
-      const location = 'royalHatchery';
-      const type = Critter.GENDER_FEMALE;
-      const sodProductionStub = {allocateWorker: () => null};
+          SodProduction.instance.restore();
+          done();
+        }, true)
+      });
 
-      getStore((store) => {
-        store.replaceState(mockedState);
-        const context = store._modules.root.context;
+      it('should not add worker if original location has no critters', (done) => {
+        const sodProductionStub = { allocateWorker: () => null };
 
-        sinon.stub(SodProduction, 'instance').returns(sodProductionStub);
-        sinon.stub(context, 'commit');
+        getStore((store) => {
+          store.replaceState(mockedState);
+          const context = store._modules.root.context;
 
-        store.dispatch('addWorker', {location, type});
-        expect(context.commit).not.to.have.been.called;
-        expect(context.commit).not.to.have.been.called;
+          sinon.stub(SodProduction, 'instance').returns(sodProductionStub);
+          sinon.stub(context, 'commit');
 
-        SodProduction.instance.restore();
-        done();
-      }, true)
-    });
+          store.dispatch('addWorker', origin);
+          expect(context.commit).not.to.have.been.calledWith('moveCritter', {from: origin, to: destination});
 
-    it('should remove critter if no location to add to', (done) => {
-      const location = 'royalHatchery';
-      const type = Critter.GENDER_FEMALE;
-      const critterId = 1;
-      const critter = {id: critterId};
-      const destination = {location: 'worker', type: 'farm'};
-      //cannot add worker
-      const sodProductionStub = {allocateWorker: () => null};
-      const from = {location, type};
-      mockedState[location][type].critters.push(critter);
+          SodProduction.instance.restore();
+          done();
+        }, true)
+      });
 
-      getStore((store) => {
-        store.replaceState(mockedState);
-        const context = store._modules.root.context;
+      it('should remove critter if no location to add to', (done) => {
+        const sodProductionStub = { allocateWorker: () => null };
+        mockedState[origin.location][origin.type].critters.push(critter);
 
-        sinon.stub(SodProduction, 'instance').returns(sodProductionStub);
-        sinon.stub(context, 'commit');
+        getStore((store) => {
+          store.replaceState(mockedState);
+          const context = store._modules.root.context;
 
-        store.dispatch('addWorker', {location, type});
-        expect(context.commit).to.have.been.calledWith('removeCritter', {location, type, critterId});
-        done();
-      }, true)
+          sinon.stub(SodProduction, 'instance').returns(sodProductionStub);
+          sinon.stub(context, 'commit');
+
+          store.dispatch('addWorker', origin);
+          expect(context.commit).to.have.been.calledWith('removeCritter', {location: origin.location, type: origin.type, critterId: critter.id});
+
+          SodProduction.instance.restore();
+          done();
+        }, true)
+      });
     });
 
     it('should add soldier', (done) => {
