@@ -2,6 +2,7 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+
 ## Quick Reference
 
 - **📋 Project Roadmap:** See [ROADMAP.md](ROADMAP.md) for complete development plan, milestones, and issue tracking
@@ -242,4 +243,3 @@ When updating project documentation:
 - **CLAUDE.md** (this file) - Quick reference for Claude Code
 
 **Always commit documentation updates separately from code changes when possible.**
-- everytime you create an issue, consider approproate subissues and link them as subissues. See "Creating Sub-Issues" section above. It is appropriate to split out a subissue if it takes longer than 2h to complete.
