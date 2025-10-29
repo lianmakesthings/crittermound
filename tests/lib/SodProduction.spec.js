@@ -54,37 +54,41 @@ describe('Sod production', () => {
     });
 
     describe('checking whether critter can be added to production type', () => {
-        it('should return true if critter is better than worst production critter', () => {
-            const lowCritter = CritterFactory.default(1, 1, Critter.GENDER_MALE);
-            const highCritter = CritterFactory.default(2, 1, Critter.GENDER_MALE);
-            highCritter.traits[Trait.ID_STING].base = 15;
-            const newCritter = CritterFactory.default(3, 1, Critter.GENDER_FEMALE);
-            newCritter.traits[Trait.ID_STING].base = 10;
-            sodProduction.state.worker[type].critters = [lowCritter, highCritter];
-            expect(sodProduction.canAdd(newCritter, type)).to.be.true;
+        const HIGH_VALUE = 15;
+        const LOW_VALUE = 5;
+        let lowCritter;
+        let highCritter;
+        let newCritter;
+        beforeEach(() => {
+            lowCritter = CritterFactory.default(2, 1, Critter.GENDER_MALE);
+            lowCritter.traits[Trait.ID_STING].base = LOW_VALUE;
+            highCritter = CritterFactory.default(1, 1, Critter.GENDER_MALE);
+            highCritter.traits[Trait.ID_STING].base = HIGH_VALUE;
+
+            newCritter = CritterFactory.default(3, 1, Critter.GENDER_FEMALE);
         });
 
         it('should return true if production has no critters', () => {
-            const newCritter = CritterFactory.default(4, 1, Critter.GENDER_FEMALE);
-            expect(sodProduction.canAdd(newCritter, type)).to.be.true;
+            expect(sodProduction.canAdd(lowCritter, type)).to.be.true;
         });
 
         it('should return true if mound has empty spaces', () => {
-            const highCritter = CritterFactory.default(2, 1, Critter.GENDER_MALE);
-            highCritter.traits[Trait.ID_STING].base = 15;
             sodProduction.state.worker[type].critters = [highCritter];
             sodProduction.state.worker[type].size = 2;
-            const newCritter = CritterFactory.default(3, 1, Critter.GENDER_FEMALE);
+            expect(sodProduction.canAdd(lowCritter, type)).to.be.true;
+        });
+
+        it('should return true if mound is full and current critter is bettern than worst worker', () => {
+            sodProduction.state.worker[type].critters = [lowCritter, highCritter];
+            newCritter.traits[Trait.ID_STING].base = HIGH_VALUE;
             expect(sodProduction.canAdd(newCritter, type)).to.be.true;
         });
 
         it('should return false if mound is full and current critter is worse than worst worker', () => {
-            const highCritter = CritterFactory.default(2, 1, Critter.GENDER_MALE);
-            highCritter.traits[Trait.ID_STING].base = 15;
-            sodProduction.state.worker[type].critters = [highCritter];
-            const newCritter = CritterFactory.default(3, 1, Critter.GENDER_FEMALE);
+            sodProduction.state.worker[type].critters = [highCritter, highCritter];
+            newCritter.traits[Trait.ID_STING].base = LOW_VALUE;
             expect(sodProduction.canAdd(newCritter, type)).to.be.false;
-        })
+        });
     });
 
     describe('allocating worker', () => {
