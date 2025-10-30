@@ -9,19 +9,19 @@
 
 | Milestone | Effort | Issues | Priority | Status |
 |-----------|--------|--------|----------|--------|
-| [Pre-War Quick Wins](#milestone-1-pre-war-quick-wins-20-31-hours--critical--63) | 20-31h | 8 | 🔴 Critical | ⏳ 63% |
-| [War Phase 1](#milestone-2-war-phase-1---critical-blocker-3-5-hours--critical--0) | 3-5h | 2 | 🔴 Critical | ❌ 0% |
-| [War Phase 2](#milestone-3-war-phase-2---foundation-properties-3-hours--high--0) | 3h | 3 | 🟡 High | ❌ 0% |
-| [War Phase 3](#milestone-4-war-phase-3---core-systems-12-16-hours--critical--0) | 12-16h | 4 | 🔴 Critical | ❌ 0% |
-| [Test Cleanup Break](#milestone-5-test-cleanup-break-2-4-hours--medium--0) | 2-4h | 1 | 🟢 Medium | ❌ 0% |
-| [War Phase 4](#milestone-6-war-phase-4---ui-layer-12-15-hours--critical--0) | 12-15h | 4 | 🔴 Critical | ❌ 0% |
-| [War Phase 5](#milestone-7-war-phase-5---combat-system-17-21-hours--critical--0) | 17-21h | 4 | 🔴 Critical | ❌ 0% |
-| [War Phase 6](#milestone-8-war-phase-6---rewards-system-6-8-hours--high--0) | 6-8h | 2 | 🟢 High | ❌ 0% |
-| [War Phase 7](#milestone-9-war-phase-7---end-game-11-13-hours--critical--0) | 11-13h | 3 | 🔴 Critical | ❌ 0% |
+| [Milestone 1: Pre-War Quick Wins](#milestone-1-pre-war-quick-wins-20-31-hours--critical--63) | 20-31h | 8 | 🔴 Critical | ⏳ 63% |
+| [Milestone 2: War Phase 1](#milestone-2-war-phase-1---critical-blocker-3-5-hours--critical--0) | 3-5h | 2 | 🔴 Critical | ❌ 0% |
+| [Milestone 3: War Phase 2](#milestone-3-war-phase-2---foundation-properties-3-hours--high--0) | 3h | 3 | 🟡 High | ❌ 0% |
+| [Milestone 4: War Phase 3](#milestone-4-war-phase-3---core-systems-12-16-hours--critical--0) | 12-16h | 4 | 🔴 Critical | ❌ 0% |
+| [Milestone 5: Test Cleanup Break](#milestone-5-test-cleanup-break-2-4-hours--medium--0) | 2-4h | 1 | 🟢 Medium | ❌ 0% |
+| [Milestone 6: War Phase 4](#milestone-6-war-phase-4---ui-layer-12-15-hours--critical--0) | 12-15h | 4 | 🔴 Critical | ❌ 0% |
+| [Milestone 7: War Phase 5](#milestone-7-war-phase-5---combat-system-17-21-hours--critical--0) | 17-21h | 4 | 🔴 Critical | ❌ 0% |
+| [Milestone 8: War Phase 6](#milestone-8-war-phase-6---rewards-system-6-8-hours--high--0) | 6-8h | 2 | 🟢 High | ❌ 0% |
+| [Milestone 9: War Phase 7](#milestone-9-war-phase-7---end-game-11-13-hours--critical--0) | 11-13h | 3 | 🔴 Critical | ❌ 0% |
 | **War Total** | **67-85h** | **24** | | **0%** |
-| Infrastructure Updates | 13-20h | 2 | 🟡 High | ❌ 0% |
-| Polish & Enhancement | 16-23h | 6 | 🟢 Low | ❌ 0% |
-| Advanced Features: Secondary Breeding | 17-23h | 5 | 🟢 Low | ❌ 0% |
+| [Milestone 10: Infrastructure Updates](#milestone-10-infrastructure-updates-13-20-hours--high--0) | 13-20h | 2 | 🟡 High | ❌ 0% |
+| [Milestone 11: Polish & Enhancement](#milestone-11-polish--enhancement-16-23-hours--low--0) | 16-23h | 6 | 🟢 Low | ❌ 0% |
+| [Milestone 12: Advanced Features: Secondary Breeding](#milestone-12-advanced-features---secondary-breeding-line-17-23-hours--low--0) | 17-23h | 5 | 🟢 Low | ❌ 0% |
 | **Grand Total** | **128-175h** | **52** | | **~4%** |
 
 ---
