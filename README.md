@@ -320,6 +320,61 @@ The `/dist` folder contains everything needed to deploy. You can:
    - Upload to S3/storage bucket
    - Configure CDN with SPA routing support
 
+## Game Architecture
+
+### State Management (Vuex)
+
+The game uses Vuex for centralized state management:
+
+- **State** (`/src/store/state.json`) - Initial game state including critters, resources, achievements
+- **Mutations** - Synchronous state changes (add critter, update health, move between mounds)
+- **Actions** - Asynchronous operations (breed critter, upgrade mound, save to storage)
+- **Getters** - Computed state (find critter, mound allocations, production rates)
+
+### Web Worker Architecture
+
+The game runs a background worker (`/src/Worker.js`) that:
+1. Receives game state from main thread
+2. Runs game tick logic (20 times per second)
+3. Calculates health regeneration, breeding, production
+4. Sends changes back to main thread
+5. Main thread updates Vuex store, triggers UI re-render
+
+This keeps the UI responsive even during intensive calculations.
+
+### Resource Production Pipeline
+
+The game features a four-stage production chain:
+
+```
+Mine → Carry → Factory → Sod (currency)
+ ↑              ↑
+Farm ────────────┘
+```
+
+**Production Flow:**
+1. **Miners** produce dirt → stored in buffers
+2. **Farmers** produce grass → stored in buffers
+3. **Carriers** transport resources → factory buffers (limited by carry capacity)
+4. **Factory** consumes equal amounts of dirt + grass → produces Sod
+
+**Bottleneck Detection:**
+
+A bottleneck occurs when output exceeds input capacity. The game uses color coding to help identify production bottlenecks:
+
+- **Red (bottleneck):** Output > Input - The downstream process is starved because upstream can't keep up
+- **Green (no bottleneck):** Input > Output - The upstream process is producing more than downstream can consume
+- **Neutral:** Input = Output - Production is balanced
+
+**Examples:**
+- If farm production (input) < carry capacity (output) → Farm shows red (bottleneck)
+- If mine production (input) > carry capacity (output) → Mine shows green (excess capacity)
+- If factory consumption rate = resource delivery rate → Factory shows neutral
+
+### Data Persistence
+
+Game state is automatically saved to IndexedDB using LocalForage. Your progress persists across browser sessions.
+
 ## Customization
 
 ### Vue CLI Configuration

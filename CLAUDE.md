@@ -170,22 +170,57 @@ When changing system design or adding new patterns:
 
 ## Migration Notes (Vue 3) ✅
 
-**Status:** Successfully migrated and merged to `main` (tracked in [#85](https://github.com/lianmakesthings/crittermound/issues/85))
+**Production flow (Controller.produceSod):**
+1. Miners/farmers produce dirt/grass → stored in buffers
+2. Carriers transport resources → factory buffers (limited by carry capacity)
+3. Factory consumes equal amounts of dirt+grass → produces Sod
+4. Bottleneck: Whichever resource is lower limits factory output
 
-**Key Changes:**
-- Vue 3.4.0 + Vuex 4.1.0
-- Bootstrap-Vue → Bootstrap-Vue-Next
-- ES modules throughout (all `.js` and `.vue` extensions required)
-- Component tests migrated to Vitest
-- Chai upgraded to v5 with named exports
+**Why this matters:** When debugging production issues, check:
+- Raw production rates (`productionPerSecondRaw`)
+- Buffer levels (`dirtStored`, `grassStored`, `factoryDirtStored`, `factoryGrassStored`)
+- Carry capacity (if buffers are full, carriers are the bottleneck)
 
-**Component API Changes:**
-- `<b-button>` → `<BButton>`
-- `<b-progress :value="x">` → `<BProgress :model-value="x">`
-- `propsData` → `props` in tests
-- Removed `createLocalVue`, use `global.plugins` instead
+**Bottleneck detection and color coding:**
 
-**Test Status:**
+A bottleneck occurs when output exceeds input capacity. For example, if carry capacity per second is higher than farm production per second, carriers are idle waiting for resources (farm is the bottleneck).
+
+Color coding rules:
+- **Red (bottleneck):** Output > Input - The downstream process is starved because upstream can't keep up
+- **Green (no bottleneck):** Input > Output - The upstream process is producing more than downstream can consume
+- **Neutral:** Input = Output - Production is balanced
+
+Examples:
+- If farm production (input) < carry capacity (output) → Farm shows red (bottleneck)
+- If mine production (input) > carry capacity (output) → Mine shows green (excess capacity)
+- If factory consumption rate = resource delivery rate → Factory shows neutral
+
+## Migration to Vue 3 (COMPLETE! ✅)
+
+**Status:** Successfully migrated and merged to `main` (tracked in issue #85)
+
+**Completed work:**
+- ✅ Vue 3.4.0 + Vuex 4.1.0 installed and configured
+- ✅ ES modules migration complete (all `.js` and `.vue` extensions added throughout codebase)
+- ✅ All 143 library tests passing (Mocha + Chai 5)
+- ✅ All 34 component tests passing (Vitest)
+- ✅ Store converted to Vuex 4 API (`createStore`, async initialization)
+- ✅ Bootstrap-Vue → Bootstrap-Vue-Next component migration complete (all 27 instances)
+- ✅ Worker.js converted to ES module format (`self.onmessage`/`self.postMessage`)
+- ✅ Component tests migrated from Mocha to Vitest
+- ✅ Component tests updated to Vue 3 Test Utils API (remove `createLocalVue`, use `global.plugins`)
+- ✅ babel.config.js converted to ES module format (`export default`)
+- ✅ main.js fixed to use correct Bootstrap-Vue-Next import
+- ✅ Progress bar fixed (`:value` → `:model-value`)
+- ✅ Removed mochapack dependencies (incompatible with Vue 3 + ES modules)
+- ✅ vitest.config.js created and configured
+- ✅ Upgraded Chai from v4 to v5 and added sinon/sinon-chai dependencies
+- ✅ Updated all library tests to use Chai 5 named exports
+- ✅ Component tests use shallowMount auto-stubbing (no explicit stub configuration needed)
+- ✅ **App compiles, runs, and all tests pass!**
+- ✅ **Merged to main via multiple PRs**
+
+**Test status:**
 - Library tests: 143/143 passing ✅
 - Component tests: 34/34 passing ✅
 - Total: 177/177 tests passing ✅
