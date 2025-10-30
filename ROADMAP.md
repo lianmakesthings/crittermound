@@ -5,8 +5,29 @@
 **Total timeline:** 128-175 hours (~13-18 weeks of focused work)
 **Core features only:** 111-152 hours (~11-15 weeks) - excludes Advanced Features milestone
 
-## Milestone 1: Pre-War Quick Wins (20-31 hours) 🔴 CRITICAL ⏳ 50%
-**Status:** 4/8 parent issues complete
+## Total Effort Summary
+
+| Milestone | Effort | Issues | Priority | Status |
+|-----------|--------|--------|----------|--------|
+| [Pre-War Quick Wins](#milestone-1-pre-war-quick-wins-20-31-hours--critical--63) | 20-31h | 8 | 🔴 Critical | ⏳ 63% |
+| [War Phase 1](#milestone-2-war-phase-1---critical-blocker-3-5-hours--critical--0) | 3-5h | 2 | 🔴 Critical | ❌ 0% |
+| [War Phase 2](#milestone-3-war-phase-2---foundation-properties-3-hours--high--0) | 3h | 3 | 🟡 High | ❌ 0% |
+| [War Phase 3](#milestone-4-war-phase-3---core-systems-12-16-hours--critical--0) | 12-16h | 4 | 🔴 Critical | ❌ 0% |
+| [Test Cleanup Break](#milestone-5-test-cleanup-break-2-4-hours--medium--0) | 2-4h | 1 | 🟢 Medium | ❌ 0% |
+| [War Phase 4](#milestone-6-war-phase-4---ui-layer-12-15-hours--critical--0) | 12-15h | 4 | 🔴 Critical | ❌ 0% |
+| [War Phase 5](#milestone-7-war-phase-5---combat-system-17-21-hours--critical--0) | 17-21h | 4 | 🔴 Critical | ❌ 0% |
+| [War Phase 6](#milestone-8-war-phase-6---rewards-system-6-8-hours--high--0) | 6-8h | 2 | 🟢 High | ❌ 0% |
+| [War Phase 7](#milestone-9-war-phase-7---end-game-11-13-hours--critical--0) | 11-13h | 3 | 🔴 Critical | ❌ 0% |
+| **War Total** | **67-85h** | **24** | | **0%** |
+| Infrastructure Updates | 13-20h | 2 | 🟡 High | ❌ 0% |
+| Polish & Enhancement | 16-23h | 6 | 🟢 Low | ❌ 0% |
+| Advanced Features: Secondary Breeding | 17-23h | 5 | 🟢 Low | ❌ 0% |
+| **Grand Total** | **128-175h** | **52** | | **~4%** |
+
+---
+
+## Milestone 1: Pre-War Quick Wins (20-31 hours) 🔴 CRITICAL ⏳ 63%
+**Status:** 5/8 parent issues complete, 1 partial (2/5 sub-issues)
 **Priority:** DO FIRST - Clean slate before major feature work
 
 **Issues:**
@@ -14,14 +35,15 @@
 - ✅ [#102](https://github.com/lianmakesthings/crittermound/issues/102): Fix critter stat colors bug in Royal Hatchery (4-6h, medium) - **COMPLETE**
 - ✅ [#134](https://github.com/lianmakesthings/crittermound/issues/134): Set up GitHub Actions CI for automated testing (2-4h, medium) - **COMPLETE**
 - ✅ [#138](https://github.com/lianmakesthings/crittermound/issues/138): Arrows missing in sod production visualization (Workers tab) (2-3h, easy) - **COMPLETE**
-- [#144](https://github.com/lianmakesthings/crittermound/issues/144): Factory full: cannot assign better critters (should replace weakest) (3-4h, medium)
-- [#151](https://github.com/lianmakesthings/crittermound/issues/151): Add sacrifice button to remove critters from mounds (4-6h, medium) - **Parent issue**
-  - [#152](https://github.com/lianmakesthings/crittermound/issues/152): Design sacrifice functionality specification (0.5-1h, easy)
-  - ✅ [#153](https://github.com/lianmakesthings/crittermound/issues/153): Implement store action for sacrificing critters (1h, easy) - [PR #167](https://github.com/lianmakesthings/crittermound/pull/167)
+- ✅ [#144](https://github.com/lianmakesthings/crittermound/issues/144): Factory full: cannot assign better critters (should replace weakest) (3-4h, medium) - **COMPLETE** - [PR #169](https://github.com/lianmakesthings/crittermound/pull/169)
+- 🔄 [#151](https://github.com/lianmakesthings/crittermound/issues/151): Add sacrifice button to remove critters from mounds (4-6h, medium) - **Parent issue** (2/5 sub-issues complete)
+  - ✅ [#152](https://github.com/lianmakesthings/crittermound/issues/152): Design sacrifice functionality specification (0.5-1h, easy) - **COMPLETE**
+  - ✅ [#153](https://github.com/lianmakesthings/crittermound/issues/153): Implement store action for sacrificing critters (1h, easy) - **COMPLETE** - [PR #167](https://github.com/lianmakesthings/crittermound/pull/167)
   - [#154](https://github.com/lianmakesthings/crittermound/issues/154): Add sacrifice UI button to mound components (1-1.5h, medium)
   - [#155](https://github.com/lianmakesthings/crittermound/issues/155): Add confirmation dialog for sacrifice action (0.5-1h, easy)
   - [#156](https://github.com/lianmakesthings/crittermound/issues/156): Add comprehensive testing for sacrifice functionality (1-1.5h, medium)
-- ❌ [#170](https://github.com/lianmakesthings/crittermound/issues/170): Display total sod production in workers tab (1-2h, easy)
+- [#162](https://github.com/lianmakesthings/crittermound/issues/162): Color code sod production chain to show bottlenecks (2-4h, medium)
+- [#170](https://github.com/lianmakesthings/crittermound/issues/170): Display total sod production in workers tab (1-2h, easy)
 
 **Reasoning:** Quick cleanup wins that improve UX and remove build noise. Fixing [#102](https://github.com/lianmakesthings/crittermound/issues/102) adds test coverage that will be valuable during war development. Setting up CI ensures all tests pass before merging, protecting main branch during complex feature development. Restoring production arrows ([#138](https://github.com/lianmakesthings/crittermound/issues/138)) improves visual clarity for understanding resource flow. Factory replacement bug ([#144](https://github.com/lianmakesthings/crittermound/issues/144)) fixes frustrating gameplay issue. Production color coding ([#162](https://github.com/lianmakesthings/crittermound/issues/162)) provides visual feedback on bottlenecks, matching Royal Hatchery patterns. Sacrifice feature ([#151](https://github.com/lianmakesthings/crittermound/issues/151)) adds essential population management capability. Total production display ([#170](https://github.com/lianmakesthings/crittermound/issues/170)) gives players quick production overview.
 
@@ -31,7 +53,7 @@
 - ✅ Production arrows visible in Workers tab
 - ✅ CI workflow runs on all pull requests
 - ✅ All 177 tests must pass before merging
-- Factory workers can be replaced with better critters
+- ✅ Factory workers can be replaced with better critters
 - Production bottlenecks shown with color indicators (green/red)
 - Color coding updates dynamically with production changes
 - Sacrifice button allows removing unwanted critters
@@ -329,22 +351,3 @@
 - ❌ [#162](https://github.com/lianmakesthings/crittermound/issues/162): Color code sod production chain to show bottlenecks (parent of [#163](https://github.com/lianmakesthings/crittermound/issues/163), [#164](https://github.com/lianmakesthings/crittermound/issues/164), [#165](https://github.com/lianmakesthings/crittermound/issues/165), [#166](https://github.com/lianmakesthings/crittermound/issues/166)) - 0%
 
 ---
-
-## Total Effort Summary
-
-| Milestone | Effort | Issues | Priority | Status |
-|-----------|--------|--------|----------|--------|
-| Pre-War Quick Wins | 20-31h | 8 | 🔴 Critical | ⏳ 50% |
-| War Phase 1 | 3-5h | 2 | 🔴 Critical | ❌ 0% |
-| War Phase 2 | 3h | 3 | 🟡 High | ❌ 0% |
-| War Phase 3 | 12-16h | 4 | 🔴 Critical | ❌ 0% |
-| Test Cleanup Break | 2-4h | 1 | 🟢 Medium | ❌ 0% |
-| War Phase 4 | 12-15h | 4 | 🔴 Critical | ❌ 0% |
-| War Phase 5 | 17-21h | 4 | 🔴 Critical | ❌ 0% |
-| War Phase 6 | 6-8h | 2 | 🟢 High | ❌ 0% |
-| War Phase 7 | 11-13h | 3 | 🔴 Critical | ❌ 0% |
-| **War Total** | **67-85h** | **24** | | **0%** |
-| Infrastructure Updates | 13-20h | 2 | 🟡 High | ❌ 0% |
-| Polish & Enhancement | 16-23h | 6 | 🟢 Low | ❌ 0% |
-| Advanced Features: Secondary Breeding | 17-23h | 5 | 🟢 Low | ❌ 0% |
-| **Grand Total** | **128-175h** | **52** | | **~4%** |
