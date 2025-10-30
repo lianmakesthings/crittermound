@@ -73,10 +73,10 @@ npx vitest run tests/unit/Critter.spec.js
 
 ## Current Status
 
-**Current Milestone:** Pre-War Quick Wins (63% complete - 5/8 complete, 1 partial, 2 remaining)
+**Current Milestone:** Pre-War Quick Wins (56% complete - 5/9 complete, 1 partial, 3 remaining)
 **Completed:** ✅ #98, #102, #134, #138, #144
 **In Progress:** #151 (Sacrifice button - 2/5 sub-issues complete: #152, #153)
-**Remaining:** #162 (Production color coding), #170 (Total production display)
+**Remaining:** #162 (Production color coding), #170 (Total production display), #177 (Boost button bug)
 **Test Status:** All 177 tests passing ✅ (143 library + 34 component)
 
 For complete milestone breakdown, issue status, and effort estimates, see **[ROADMAP.md](ROADMAP.md)**.
