@@ -198,76 +198,10 @@ Tests Vue components in `/src/components/` including:
 
 ### Testing Technologies
 
-**Library Tests (143 tests):**
-- **Mocha** - Test runner for library/game logic tests
-- **Chai 5** - Assertion library with named exports (`expect`, `use`)
-- **Sinon** - Test spies, stubs, and mocks
-- **Sinon-Chai** - Chai assertions for Sinon
+**Library Tests (143 tests):** Mocha + Chai 5 + Sinon
+**Component Tests (34 tests):** Vitest + Vue Test Utils 2
 
-**Component Tests (34 tests):**
-- **Vitest** - Fast test runner for Vue 3 components
-- **@vue/test-utils 2** - Vue 3 component testing utilities
-- **jsdom** - DOM implementation for Node.js
-
-### Creating New Tests
-
-#### Library Test Example
-
-Create a new file in `/tests/lib/` with the `.spec.js` extension:
-
-```javascript
-// tests/lib/YourModule.spec.js
-import { expect, use } from 'chai';
-import sinonChai from 'sinon-chai';
-import YourModule from '../../src/lib/YourModule.js';
-
-use(sinonChai);
-
-describe('YourModule', () => {
-  it('should do something', () => {
-    const result = YourModule.someFunction();
-    expect(result).to.equal(expectedValue);
-  });
-
-  it('should handle edge cases', () => {
-    // Test edge cases
-  });
-});
-```
-
-#### Component Test Example
-
-Create a new file in `/tests/unit/` with the `.spec.js` extension:
-
-```javascript
-// tests/unit/YourComponent.spec.js
-import { expect } from 'vitest';
-import { shallowMount } from '@vue/test-utils';
-import YourComponent from '../../src/components/YourComponent.vue';
-
-describe('YourComponent.vue', () => {
-  it('renders props when passed', () => {
-    const msg = 'new message';
-    const wrapper = shallowMount(YourComponent, {
-      props: { msg }  // Vue 3 uses 'props' instead of 'propsData'
-    });
-    expect(wrapper.text()).toContain(msg);
-  });
-
-  it('handles user interaction', async () => {
-    const wrapper = shallowMount(YourComponent);
-    await wrapper.find('button').trigger('click');  // await async actions
-    expect(wrapper.vm.someData).toBe(expectedValue);
-  });
-});
-```
-
-**Test Best Practices:**
-- Keep tests focused and isolated
-- Use descriptive test names
-- Test both success and failure cases
-- Mock external dependencies
-- Use `shallowMount` for component tests to avoid rendering child components
+For detailed testing patterns, advanced examples, and common gotchas, see **[ARCHITECTURE.md - Testing Patterns](ARCHITECTURE.md#testing-patterns)**.
 
 ## Building for Production
 
@@ -322,58 +256,36 @@ The `/dist` folder contains everything needed to deploy. You can:
 
 ## Game Architecture
 
-### State Management (Vuex)
+Crittermound uses a sophisticated architecture to handle real-time breeding simulations and resource management. For complete technical details, see **[ARCHITECTURE.md](ARCHITECTURE.md)**.
 
-The game uses Vuex for centralized state management:
+### Key Concepts
 
-- **State** (`/src/store/state.json`) - Initial game state including critters, resources, achievements
-- **Mutations** - Synchronous state changes (add critter, update health, move between mounds)
-- **Actions** - Asynchronous operations (breed critter, upgrade mound, save to storage)
-- **Getters** - Computed state (find critter, mound allocations, production rates)
+**Dual-Threaded Design:**
+- Main thread handles Vue.js UI and user interactions
+- Web Worker thread runs game loop at 20 ticks/second
+- Architecture keeps UI responsive during complex calculations
 
-### Web Worker Architecture
+**State Management:**
+- Vuex store manages centralized game state
+- Asynchronously loads from IndexedDB on startup
+- Automatic persistence of game progress
 
-The game runs a background worker (`/src/Worker.js`) that:
-1. Receives game state from main thread
-2. Runs game tick logic (20 times per second)
-3. Calculates health regeneration, breeding, production
-4. Sends changes back to main thread
-5. Main thread updates Vuex store, triggers UI re-render
+**Mound-Based Organization:**
+- All critters live in "mounds" (breeding, workers, army)
+- Addressed by `{location, type}` system
+- Examples: `{location: 'royalHatchery', type: 'mother'}` for Queen
 
-This keeps the UI responsive even during intensive calculations.
+**Genetic System:**
+- Three-layer trait system: base value + genes = final value
+- Mendelian genetics for inheritance
+- Random mutations unlock new genes
 
-### Resource Production Pipeline
+**Resource Production:**
+- Four worker types: mine, farm, carry, factory
+- Pipeline produces "sod" currency
+- Smart allocation optimizes production
 
-The game features a four-stage production chain:
-
-```
-Mine → Carry → Factory → Sod (currency)
- ↑              ↑
-Farm ────────────┘
-```
-
-**Production Flow:**
-1. **Miners** produce dirt → stored in buffers
-2. **Farmers** produce grass → stored in buffers
-3. **Carriers** transport resources → factory buffers (limited by carry capacity)
-4. **Factory** consumes equal amounts of dirt + grass → produces Sod
-
-**Bottleneck Detection:**
-
-A bottleneck occurs when output exceeds input capacity. The game uses color coding to help identify production bottlenecks:
-
-- **Red (bottleneck):** Output > Input - The downstream process is starved because upstream can't keep up
-- **Green (no bottleneck):** Input > Output - The upstream process is producing more than downstream can consume
-- **Neutral:** Input = Output - Production is balanced
-
-**Examples:**
-- If farm production (input) < carry capacity (output) → Farm shows red (bottleneck)
-- If mine production (input) > carry capacity (output) → Mine shows green (excess capacity)
-- If factory consumption rate = resource delivery rate → Factory shows neutral
-
-### Data Persistence
-
-Game state is automatically saved to IndexedDB using LocalForage. Your progress persists across browser sessions.
+For detailed implementation information including code examples, design patterns, and common gotchas, see **[ARCHITECTURE.md](ARCHITECTURE.md)**.
 
 ## Customization
 
