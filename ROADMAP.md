@@ -10,17 +10,12 @@
 **Priority:** DO FIRST - Clean slate before major feature work
 
 **Issues:**
-- ✅ [#98](https://github.com/lianmakesthings/crittermound/issues/98): Fix HTML validation warnings in HowTo.vue (1h, easy)
-- ✅ [#102](https://github.com/lianmakesthings/crittermound/issues/102): Fix critter stat colors bug in Royal Hatchery (4-6h, medium)
-- ✅ [#134](https://github.com/lianmakesthings/crittermound/issues/134): Set up GitHub Actions CI for automated testing (2-4h, medium)
-- ⏳ [#138](https://github.com/lianmakesthings/crittermound/issues/138): Arrows missing in sod production visualization (Workers tab) (2-3h, easy)
-- ✅ [#144](https://github.com/lianmakesthings/crittermound/issues/144): Factory full: cannot assign better critters (should replace weakest) (3-4h, medium)
-- ❌ [#162](https://github.com/lianmakesthings/crittermound/issues/162): Color code sod production chain to show bottlenecks (3-5h, medium) - **Parent issue** 0%
-  - [#163](https://github.com/lianmakesthings/crittermound/issues/163): Design color coding logic for production bottlenecks (0.5-1h, easy)
-  - [#164](https://github.com/lianmakesthings/crittermound/issues/164): Implement bottleneck detection logic for production chain (1-1.5h, medium)
-  - [#165](https://github.com/lianmakesthings/crittermound/issues/165): Apply color coding to Worker.vue production visualization (1-1.5h, medium)
-  - [#166](https://github.com/lianmakesthings/crittermound/issues/166): Add tests for production chain color coding (0.5-1h, easy)
-- ⏳ [#151](https://github.com/lianmakesthings/crittermound/issues/151): Add sacrifice button to remove critters from mounds (4-6h, medium) - **Parent issue** 20%
+- ✅ [#98](https://github.com/lianmakesthings/crittermound/issues/98): Fix HTML validation warnings in HowTo.vue (1h, easy) - **COMPLETE**
+- ✅ [#102](https://github.com/lianmakesthings/crittermound/issues/102): Fix critter stat colors bug in Royal Hatchery (4-6h, medium) - **COMPLETE**
+- ✅ [#134](https://github.com/lianmakesthings/crittermound/issues/134): Set up GitHub Actions CI for automated testing (2-4h, medium) - **COMPLETE**
+- ✅ [#138](https://github.com/lianmakesthings/crittermound/issues/138): Arrows missing in sod production visualization (Workers tab) (2-3h, easy) - **COMPLETE**
+- [#144](https://github.com/lianmakesthings/crittermound/issues/144): Factory full: cannot assign better critters (should replace weakest) (3-4h, medium)
+- [#151](https://github.com/lianmakesthings/crittermound/issues/151): Add sacrifice button to remove critters from mounds (4-6h, medium) - **Parent issue**
   - [#152](https://github.com/lianmakesthings/crittermound/issues/152): Design sacrifice functionality specification (0.5-1h, easy)
   - ✅ [#153](https://github.com/lianmakesthings/crittermound/issues/153): Implement store action for sacrificing critters (1h, easy) - [PR #167](https://github.com/lianmakesthings/crittermound/pull/167)
   - [#154](https://github.com/lianmakesthings/crittermound/issues/154): Add sacrifice UI button to mound components (1-1.5h, medium)
@@ -31,9 +26,11 @@
 **Reasoning:** Quick cleanup wins that improve UX and remove build noise. Fixing [#102](https://github.com/lianmakesthings/crittermound/issues/102) adds test coverage that will be valuable during war development. Setting up CI ensures all tests pass before merging, protecting main branch during complex feature development. Restoring production arrows ([#138](https://github.com/lianmakesthings/crittermound/issues/138)) improves visual clarity for understanding resource flow. Factory replacement bug ([#144](https://github.com/lianmakesthings/crittermound/issues/144)) fixes frustrating gameplay issue. Production color coding ([#162](https://github.com/lianmakesthings/crittermound/issues/162)) provides visual feedback on bottlenecks, matching Royal Hatchery patterns. Sacrifice feature ([#151](https://github.com/lianmakesthings/crittermound/issues/151)) adds essential population management capability. Total production display ([#170](https://github.com/lianmakesthings/crittermound/issues/170)) gives players quick production overview.
 
 **Success criteria:**
-- Zero HTML validation warnings in build
-- Critter stats show green/red color indicators correctly
-- Production arrows visible in Workers tab
+- ✅ Zero HTML validation warnings in build
+- ✅ Critter stats show green/red color indicators correctly
+- ✅ Production arrows visible in Workers tab
+- ✅ CI workflow runs on all pull requests
+- ✅ All 177 tests must pass before merging
 - Factory workers can be replaced with better critters
 - Production bottlenecks shown with color indicators (green/red)
 - Color coding updates dynamically with production changes
@@ -41,8 +38,6 @@
 - King and Queen cannot be sacrificed
 - Total sod production displayed prominently in workers tab
 - Tests added to prevent regression
-- CI workflow runs on all pull requests
-- All 177+ tests must pass before merging
 
 ---
 
