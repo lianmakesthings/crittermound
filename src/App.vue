@@ -10,7 +10,7 @@
       <BTab :title="'Royal Hatchery '+royalHatchery.current+' / '+royalHatchery.max" active>
         <royal-hatchery></royal-hatchery>
       </BTab>
-      <BTab :title="'Worker '+worker.current+' / '+worker.max">
+      <BTab :title="'Worker ('+sodPerSecond+'/s)'">
         <worker></worker>
       </BTab>
       <BTab :title="'Soldiers '+army.current+' / '+army.max">
@@ -62,6 +62,9 @@
       },
       stateSaved() {
         return this.$store.getters.showStateSaved
+      },
+      sodPerSecond() {
+        return this.$store.getters.sodProduction.sodPerSecond
       }
     },
     methods: {
