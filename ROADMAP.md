@@ -2,14 +2,14 @@
 
 **Development strategy:** Strategic interleaving approach - complete quick wins, build war mechanic incrementally with strategic breaks, then tackle infrastructure updates and optional advanced features.
 
-**Total timeline:** 128-175 hours (~13-18 weeks of focused work)
-**Core features only:** 111-152 hours (~11-15 weeks) - excludes Advanced Features milestone
+**Total timeline:** 130-179 hours (~13-18 weeks of focused work)
+**Core features only:** 113-156 hours (~11-16 weeks) - excludes Advanced Features milestone
 
 ## Total Effort Summary
 
 | Milestone | Effort | Issues | Priority | Status |
 |-----------|--------|--------|----------|--------|
-| [Milestone 1: Pre-War Quick Wins](#milestone-1-pre-war-quick-wins-20-31-hours--critical--63) | 20-31h | 8 | 🔴 Critical | ⏳ 63% |
+| [Milestone 1: Pre-War Quick Wins](#milestone-1-pre-war-quick-wins-22-35-hours--critical--56) | 22-35h | 9 | 🔴 Critical | ⏳ 56% |
 | [Milestone 2: War Phase 1](#milestone-2-war-phase-1---critical-blocker-3-5-hours--critical--0) | 3-5h | 2 | 🔴 Critical | ❌ 0% |
 | [Milestone 3: War Phase 2](#milestone-3-war-phase-2---foundation-properties-3-hours--high--0) | 3h | 3 | 🟡 High | ❌ 0% |
 | [Milestone 4: War Phase 3](#milestone-4-war-phase-3---core-systems-12-16-hours--critical--0) | 12-16h | 4 | 🔴 Critical | ❌ 0% |
@@ -22,12 +22,12 @@
 | [Milestone 10: Infrastructure Updates](#milestone-10-infrastructure-updates-13-20-hours--high--0) | 13-20h | 2 | 🟡 High | ❌ 0% |
 | [Milestone 11: Polish & Enhancement](#milestone-11-polish--enhancement-16-23-hours--low--0) | 16-23h | 6 | 🟢 Low | ❌ 0% |
 | [Milestone 12: Advanced Features: Secondary Breeding](#milestone-12-advanced-features---secondary-breeding-line-17-23-hours--low--0) | 17-23h | 5 | 🟢 Low | ❌ 0% |
-| **Grand Total** | **128-175h** | **52** | | **~4%** |
+| **Grand Total** | **130-179h** | **53** | | **~4%** |
 
 ---
 
-## Milestone 1: Pre-War Quick Wins (20-31 hours) 🔴 CRITICAL ⏳ 63%
-**Status:** 5/8 parent issues complete, 1 partial (2/5 sub-issues)
+## Milestone 1: Pre-War Quick Wins (22-35 hours) 🔴 CRITICAL ⏳ 56%
+**Status:** 5/9 parent issues complete, 1 partial (2/5 sub-issues)
 **Priority:** DO FIRST - Clean slate before major feature work
 
 **Issues:**
@@ -44,8 +44,9 @@
   - [#156](https://github.com/lianmakesthings/crittermound/issues/156): Add comprehensive testing for sacrifice functionality (1-1.5h, medium)
 - [#162](https://github.com/lianmakesthings/crittermound/issues/162): Color code sod production chain to show bottlenecks (2-4h, medium)
 - [#170](https://github.com/lianmakesthings/crittermound/issues/170): Display total sod production in workers tab (1-2h, easy)
+- [#177](https://github.com/lianmakesthings/crittermound/issues/177): Boost button only breeds female critters (should breed both) (2-4h, medium)
 
-**Reasoning:** Quick cleanup wins that improve UX and remove build noise. Fixing [#102](https://github.com/lianmakesthings/crittermound/issues/102) adds test coverage that will be valuable during war development. Setting up CI ensures all tests pass before merging, protecting main branch during complex feature development. Restoring production arrows ([#138](https://github.com/lianmakesthings/crittermound/issues/138)) improves visual clarity for understanding resource flow. Factory replacement bug ([#144](https://github.com/lianmakesthings/crittermound/issues/144)) fixes frustrating gameplay issue. Production color coding ([#162](https://github.com/lianmakesthings/crittermound/issues/162)) provides visual feedback on bottlenecks, matching Royal Hatchery patterns. Sacrifice feature ([#151](https://github.com/lianmakesthings/crittermound/issues/151)) adds essential population management capability. Total production display ([#170](https://github.com/lianmakesthings/crittermound/issues/170)) gives players quick production overview.
+**Reasoning:** Quick cleanup wins that improve UX and remove build noise. Fixing [#102](https://github.com/lianmakesthings/crittermound/issues/102) adds test coverage that will be valuable during war development. Setting up CI ensures all tests pass before merging, protecting main branch during complex feature development. Restoring production arrows ([#138](https://github.com/lianmakesthings/crittermound/issues/138)) improves visual clarity for understanding resource flow. Factory replacement bug ([#144](https://github.com/lianmakesthings/crittermound/issues/144)) fixes frustrating gameplay issue. Production color coding ([#162](https://github.com/lianmakesthings/crittermound/issues/162)) provides visual feedback on bottlenecks, matching Royal Hatchery patterns. Sacrifice feature ([#151](https://github.com/lianmakesthings/crittermound/issues/151)) adds essential population management capability. Total production display ([#170](https://github.com/lianmakesthings/crittermound/issues/170)) gives players quick production overview. Boost button bug ([#177](https://github.com/lianmakesthings/crittermound/issues/177)) affects core breeding mechanics and player progression.
 
 **Success criteria:**
 - ✅ Zero HTML validation warnings in build
@@ -59,6 +60,7 @@
 - Sacrifice button allows removing unwanted critters
 - King and Queen cannot be sacrificed
 - Total sod production displayed prominently in workers tab
+- Boost button breeds both male and female critters correctly
 - Tests added to prevent regression
 
 ---
