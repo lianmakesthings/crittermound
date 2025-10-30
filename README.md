@@ -300,6 +300,35 @@ The game runs a background worker (`/src/Worker.js`) that:
 
 This keeps the UI responsive even during intensive calculations.
 
+### Resource Production Pipeline
+
+The game features a four-stage production chain:
+
+```
+Mine → Carry → Factory → Sod (currency)
+ ↑              ↑
+Farm ────────────┘
+```
+
+**Production Flow:**
+1. **Miners** produce dirt → stored in buffers
+2. **Farmers** produce grass → stored in buffers
+3. **Carriers** transport resources → factory buffers (limited by carry capacity)
+4. **Factory** consumes equal amounts of dirt + grass → produces Sod
+
+**Bottleneck Detection:**
+
+A bottleneck occurs when output exceeds input capacity. The game uses color coding to help identify production bottlenecks:
+
+- **Red (bottleneck):** Output > Input - The downstream process is starved because upstream can't keep up
+- **Green (no bottleneck):** Input > Output - The upstream process is producing more than downstream can consume
+- **Neutral:** Input = Output - Production is balanced
+
+**Examples:**
+- If farm production (input) < carry capacity (output) → Farm shows red (bottleneck)
+- If mine production (input) > carry capacity (output) → Mine shows green (excess capacity)
+- If factory consumption rate = resource delivery rate → Factory shows neutral
+
 ### Data Persistence
 
 Game state is automatically saved to IndexedDB using LocalForage. Your progress persists across browser sessions.

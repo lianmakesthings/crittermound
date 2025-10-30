@@ -123,6 +123,20 @@ Farm ────────────┘
 - Buffer levels (`dirtStored`, `grassStored`, `factoryDirtStored`, `factoryGrassStored`)
 - Carry capacity (if buffers are full, carriers are the bottleneck)
 
+**Bottleneck detection and color coding:**
+
+A bottleneck occurs when output exceeds input capacity. For example, if carry capacity per second is higher than farm production per second, carriers are idle waiting for resources (farm is the bottleneck).
+
+Color coding rules:
+- **Red (bottleneck):** Output > Input - The downstream process is starved because upstream can't keep up
+- **Green (no bottleneck):** Input > Output - The upstream process is producing more than downstream can consume
+- **Neutral:** Input = Output - Production is balanced
+
+Examples:
+- If farm production (input) < carry capacity (output) → Farm shows red (bottleneck)
+- If mine production (input) > carry capacity (output) → Mine shows green (excess capacity)
+- If factory consumption rate = resource delivery rate → Factory shows neutral
+
 ## Migration to Vue 3 (COMPLETE! ✅)
 
 **Status:** Successfully migrated and merged to `main` (tracked in issue #85)
