@@ -8,6 +8,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **🏗️ Architecture:** See [ARCHITECTURE.md](ARCHITECTURE.md) for technical details, design patterns, and system architecture
 - **📖 Setup & Usage:** See [README.md](README.md) for installation, development commands, and contribution guidelines
 
+## Documentation Strategy
+
+This project maintains four core documentation files, each with a specific purpose:
+
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Technical implementation details, design patterns, system architecture
+- **[CLAUDE.md](CLAUDE.md)** (this file) - Quick reference guide for Claude Code AI assistant
+- **[ROADMAP.md](ROADMAP.md)** - Development milestones, issue tracking, effort estimates, dependencies
+- **[README.md](README.md)** - User-facing setup, usage instructions, contribution guidelines
+
+### Documentation Principles
+
+1. **Cross-Reference, Don't Duplicate** - When information exists in another file, link to it rather than copying it
+2. **Single Source of Truth** - Each piece of information should have one canonical location
+3. **Easy Access** - Include links liberally to help readers navigate between related topics
+4. **Stay DRY** - If you're about to copy content, ask if a link would serve better
+
+### When to Update Which File
+
+- **Architecture changes** → Update [ARCHITECTURE.md](ARCHITECTURE.md), reference from [CLAUDE.md](CLAUDE.md)
+- **New milestones/issues** → Update [ROADMAP.md](ROADMAP.md), reference from [CLAUDE.md](CLAUDE.md)
+- **User-facing changes** → Update [README.md](README.md), reference from [CLAUDE.md](CLAUDE.md) if needed
+- **Claude workflow tips** → Update [CLAUDE.md](CLAUDE.md), link to details in other files
+
 ## GitHub Labels
 
 When creating or updating issues, use these existing labels:
