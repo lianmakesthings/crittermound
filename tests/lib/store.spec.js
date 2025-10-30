@@ -457,6 +457,76 @@ describe('The vuex store', () => {
       })
     });
 
+    describe('removing critters', () => {
+      const critterId = 1;
+      it('should remove from mound', (done) => {
+        const location = 'worker';
+        const type = 'factory';
+        const critterToRemove = CritterFactory.default(critterId, 1, Critter.GENDER_MALE);
+        const critterToKeep = CritterFactory.default(critterId+1, 1, Critter.GENDER_FEMALE);
+        mockedState[location][type].critters.push(critterToRemove);
+        mockedState[location][type].critters.push(critterToKeep);
+
+        getStore((store) => {
+          store.replaceState(mockedState);
+
+          store.commit('removeCritter', {location, type, critterId: critterToRemove.id});
+          expect(mockedState[location][type].critters.length).to.equal(1);
+          expect(mockedState[location][type].critters).to.include(critterToKeep);
+          expect(mockedState[location][type].critters).not.to.include(critterToRemove);
+          done();
+        })
+      });
+
+      it('should not error when removing non-existent critter', (done) => {
+        const location = 'worker';
+        const type = 'mine';
+        let nonExistentCritterId = 999;
+
+        getStore((store) => {
+          store.replaceState(mockedState);
+
+          // Try to remove critter that doesn't exist
+          store.commit('removeCritter', {location, type, nonExistentCritterId});
+          done();
+        })
+      });
+
+      it('should not remove the king', (done) => {
+        const location = 'royalHatchery';
+        const type = 'father';
+        const kingCritter = CritterFactory.default(critterId, 1, Critter.GENDER_MALE);
+        mockedState[location][type].critters.push(kingCritter);
+
+        getStore((store) => {
+          store.replaceState(mockedState);
+
+          store.commit('removeCritter', {location, type, critterId});
+          expect(mockedState[location][type].critters.length).to.equal(1);
+          expect(mockedState[location][type].critters).to.include(kingCritter);
+          done();
+        })
+      });
+
+      it('should not remove the queen', (done) => {
+        const location = 'royalHatchery';
+        const type = 'father';
+        const critterId = 1;
+        const queenCritter = CritterFactory.default(critterId, 1, Critter.GENDER_FEMALE);
+        mockedState[location][type].critters.push(queenCritter);
+
+        getStore((store) => {
+          store.replaceState(mockedState);
+
+          store.commit('removeCritter', {location, type, critterId});
+          console.log('test', mockedState[location][type].critters)
+          expect(mockedState[location][type].critters.length).to.equal(1);
+          expect(mockedState[location][type].critters).to.include(queenCritter);
+          done();
+        })
+      });
+    });
+
     it('should update raw production values', (done) => {
       const rawMineValue = mockedState.worker.mine.productionPerSecondRaw;
       const dirtPerSecond = rawMineValue + 5;
@@ -615,7 +685,8 @@ describe('The vuex store', () => {
         expect(mockedState.soldiers.currentWar).to.equal(war)
         done();
       })
-    })
+    });
+
   });
 
   describe("actions", () => {
@@ -698,50 +769,71 @@ describe('The vuex store', () => {
       }, true)
     });
 
-    it('should add worker', (done) => {
-      const location = 'royalHatchery';
-      const type = Critter.GENDER_FEMALE;
-      const critter = {some: 'value'};
-      const destination = {location: 'worker', type: 'farm'};
-      const sodProductionStub = {allocateWorker: () => destination};
-      const from = {location, type};
-      mockedState[location][type].critters.push(critter);
+    describe("adding workers", () => {
+      const origin = { location: 'royalHatchery', type: Critter.GENDER_FEMALE };
+      const destination = { location: 'worker', type: 'farm' };
+      let critter;
 
-      getStore((store) => {
-        store.replaceState(mockedState);
-        const context = store._modules.root.context;
+      beforeEach(() => {
+        critter = CritterFactory.default(1, 1, origin.type);
+      });
+      
+      it('should move critter from origin to destination', (done) => {
+        const sodProductionStub = { allocateWorker: () => destination };
+        mockedState[origin.location][origin.type].critters.push(critter);
 
-        sinon.stub(SodProduction, 'instance').returns(sodProductionStub);
-        sinon.stub(context, 'commit');
+        getStore((store) => {
+          store.replaceState(mockedState);
+          const context = store._modules.root.context;
 
-        store.dispatch('addWorker', {location, type});
-        expect(context.commit).to.have.been.calledWith('moveCritter', {from, to: destination});
-        expect(context.commit).to.have.been.calledWith('updateProductionRaw');
+          sinon.stub(SodProduction, 'instance').returns(sodProductionStub);
+          sinon.stub(context, 'commit');
 
-        SodProduction.instance.restore();
-        done();
-      }, true)
-    });
+          store.dispatch('addWorker', origin);
+          expect(context.commit).to.have.been.calledWith('moveCritter', {from: origin, to: destination});
+          expect(context.commit).to.have.been.calledWith('updateProductionRaw');
 
-    it('should not add worker if original location has no critters', (done) => {
-      const location = 'royalHatchery';
-      const type = Critter.GENDER_FEMALE;
-      const sodProductionStub = {allocateWorker: () => null};
+          SodProduction.instance.restore();
+          done();
+        }, true)
+      });
 
-      getStore((store) => {
-        store.replaceState(mockedState);
-        const context = store._modules.root.context;
+      it('should not add worker if original location has no critters', (done) => {
+        const sodProductionStub = { allocateWorker: () => null };
 
-        sinon.stub(SodProduction, 'instance').returns(sodProductionStub);
-        sinon.stub(context, 'commit');
+        getStore((store) => {
+          store.replaceState(mockedState);
+          const context = store._modules.root.context;
 
-        store.dispatch('addWorker', {location, type});
-        expect(context.commit).not.to.have.been.called;
-        expect(context.commit).not.to.have.been.called;
+          sinon.stub(SodProduction, 'instance').returns(sodProductionStub);
+          sinon.stub(context, 'commit');
 
-        SodProduction.instance.restore();
-        done();
-      }, true)
+          store.dispatch('addWorker', origin);
+          expect(context.commit).not.to.have.been.calledWith('moveCritter', {from: origin, to: destination});
+
+          SodProduction.instance.restore();
+          done();
+        }, true)
+      });
+
+      it('should remove critter if no location to add to', (done) => {
+        const sodProductionStub = { allocateWorker: () => null };
+        mockedState[origin.location][origin.type].critters.push(critter);
+
+        getStore((store) => {
+          store.replaceState(mockedState);
+          const context = store._modules.root.context;
+
+          sinon.stub(SodProduction, 'instance').returns(sodProductionStub);
+          sinon.stub(context, 'commit');
+
+          store.dispatch('addWorker', origin);
+          expect(context.commit).to.have.been.calledWith('removeCritter', {location: origin.location, type: origin.type, critterId: critter.id});
+
+          SodProduction.instance.restore();
+          done();
+        }, true)
+      });
     });
 
     it('should add soldier', (done) => {
