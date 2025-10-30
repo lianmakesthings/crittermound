@@ -1,8 +1,24 @@
-# Crittermound v2.0 ![build status](https://api.travis-ci.com/lianmakesthings/crittermound.svg?branch=master)
+# Crittermound v2.0 [![CI](https://github.com/lianmakesthings/crittermound/actions/workflows/ci.yml/badge.svg)](https://github.com/lianmakesthings/crittermound/actions/workflows/ci.yml)
 
-> A complete rework of http://crittermound.com with Vue.js
+> A complete rework of https://jayseesee.github.io/Crittermound-Fork/ with Vue.js
 
 Visit the game at: [crittermound.lianmakesthings.dev](https://crittermound.lianmakesthings.dev/)
+
+## Table of Contents
+
+- [About](#about)
+- [Documentation](#documentation)
+- [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Development Environment Setup](#development-environment-setup)
+- [Project Structure](#project-structure)
+- [Running Tests](#running-tests)
+- [Building for Production](#building-for-production)
+- [Customization](#customization)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
+- [Credits](#credits)
 
 ## About
 
@@ -16,17 +32,43 @@ Crittermound is an incremental/clicker game where you breed and evolve virtual i
 - Persistent game state using IndexedDB
 - Web Worker-powered game loop for smooth performance
 
+## Documentation
+
+For detailed information about the project:
+
+- **[ROADMAP.md](ROADMAP.md)** - Complete development roadmap with all milestones, issues, and effort estimates (124-168 hours across 12 milestones)
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Technical architecture documentation covering:
+  - Dual-threaded architecture (Main thread + Web Worker)
+  - Vuex store patterns and state management
+  - Genetic system and breeding mechanics
+  - Resource production pipeline
+  - War mechanic implementation status
+  - Testing patterns and common code examples
+- **[CLAUDE.md](CLAUDE.md)** - Quick reference guide for Claude Code AI assistant
+
 ## Tech Stack
 
-- **Vue.js 3.4** - Frontend framework
-- **Vuex 4.1** - State management
+### Frontend
+- **Vue.js 3.4** - Progressive JavaScript framework
+- **Vuex 4.1** - Centralized state management
 - **Bootstrap-Vue-Next 0.15** - UI components (Bootstrap 5)
-- **Web Workers** - Background game processing
-- **LocalForage** - IndexedDB persistence
-- **Mocha + Chai 5** - Library testing framework
-- **Vitest** - Component testing framework
+- **Vue CLI 5.0** - Build tooling and development server
+
+### Game Engine
+- **Web Workers** - Multi-threaded game loop (20 ticks/second)
+- **LocalForage** - IndexedDB persistence layer
+
+### Testing
+- **Mocha + Chai 5** - Library/logic testing (143 tests)
+- **Vitest** - Component testing (34 tests)
 - **Sinon + Sinon-Chai** - Test spies, stubs, and mocks
-- **Vue CLI 5.0** - Build tooling
+- **@vue/test-utils 2** - Vue 3 component testing utilities
+- **GitHub Actions** - Continuous Integration (CI/CD)
+
+### Development
+- **ES Modules** - Modern JavaScript module system
+- **Babel** - JavaScript transpilation
+- **ESLint** (optional) - Code linting
 
 ## Prerequisites
 
@@ -406,6 +448,6 @@ This project is private and maintained by lianmakesthings.
 ## Credits
 
 - **Author**: lianmakesthings
-- **Original Game**: http://crittermound.com
+- **Original Game**: https://jayseesee.github.io/Crittermound-Fork/
 - **Framework**: Vue.js 3
 - **UI Library**: Bootstrap-Vue-Next (Bootstrap 5)
