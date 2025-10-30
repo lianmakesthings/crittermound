@@ -164,4 +164,63 @@ describe('The Hatchery Mound View', () => {
     const expectedText = `${sorts[0]}${sorts[1]}`;
     expect(sortDropdown.text()).toBe(expectedText);
   });
+
+  describe('stat color parent critter passing', () => {
+    const queenId = 100;
+    const kingId = 200;
+    let storeWithParents;
+
+    beforeEach(() => {
+      storeWithParents = createStore({
+        getters: {
+          critters: () => {
+            return (location, type) => {
+              // Return the Queen critter
+              if (location === 'royalHatchery' && type === 'mother') {
+                return [{ id: queenId }];
+              }
+              // Return the King critter
+              if (location === 'royalHatchery' && type === 'father') {
+                return [{ id: kingId }];
+              }
+              // Return the regular hatchery critter (ID 1) for female/male hatcheries
+              return [critter];
+            }
+          },
+          mound: () => {
+            return () => {
+              return mound;
+            }
+          },
+          sorts: () => sorts
+        }
+      });
+    });
+
+    it('should pass Queen ID to female hatchery critters as parentCritterId', () => {
+      const femaleProps = { location: 'royalHatchery', type: 'female' };
+      const hatcheryMoundWrapper = shallowMount(HatcheryMound, {
+        props: femaleProps,
+        global: {
+          plugins: [storeWithParents]
+        }
+      });
+
+      const critterWrapper = hatcheryMoundWrapper.find(`#critter-${critter.id}`);
+      expect(critterWrapper.attributes('parentcritterid')).toBe(queenId.toString());
+    });
+
+    it('should pass King ID to male hatchery critters as parentCritterId', () => {
+      const maleProps = { location: 'royalHatchery', type: 'male' };
+      const hatcheryMoundWrapper = shallowMount(HatcheryMound, {
+        props: maleProps,
+        global: {
+          plugins: [storeWithParents]
+        }
+      });
+
+      const critterWrapper = hatcheryMoundWrapper.find(`#critter-${critter.id}`);
+      expect(critterWrapper.attributes('parentcritterid')).toBe(kingId.toString());
+    });
+  });
 });

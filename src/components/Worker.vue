@@ -7,28 +7,28 @@
         <div>{{ sodProductionData.dirtStored }} {{ sodProductionData.dirtPerSecond }}</div>
       </div>
       <div id="carry-dirt">
-        <i class="fas fa-angle-double-down fa-3x" style="color:sandybrown"></i>
+        <i class="fa-solid fa-angles-down fa-3x" style="color:sandybrown"></i>
       </div>
       <div id="factory-dirt" class="alert alert-warning">
         <strong>Factory Dirt</strong>
         <div>{{ sodProductionData.factoryDirtStored }} {{ sodProductionData.dirtCarriedPerSecond }}</div>
       </div>
       <div id="use-dirt">
-        <i class="fas fa-angle-double-down fa-3x" style="color:sandybrown"></i>
+        <i class="fa-solid fa-angles-down fa-3x" style="color:sandybrown"></i>
       </div>
       <div id="produce-sod" class="alert alert-info">
         <strong>Produce Sod</strong>
         <div>{{ sodProductionData.totalSod }} {{ sodProductionData.sodPerSecond }}</div>
       </div>
       <div id="use-grass">
-        <i class="fas fa-angle-double-up fa-3x" style="color:darkgreen"></i>
+        <i class="fa-solid fa-angles-up fa-3x" style="color:darkgreen"></i>
       </div>
       <div id="factory-grass" class="alert alert-success">
         <strong>Factory Grass</strong>
         <div>{{ sodProductionData.factoryGrassStored }} {{ sodProductionData.grassCarriedPerSecond }}</div>
       </div>
       <div id="carry-grass">
-        <i class="fas fa-angle-double-up fa-3x" style="color:darkgreen"></i>
+        <i class="fa-solid fa-angles-up fa-3x" style="color:darkgreen"></i>
       </div>
       <div id="farm-grass" class="alert alert-success">
         <strong>Farmed Grass</strong>
